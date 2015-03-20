@@ -24,7 +24,7 @@
   "homepage": "http://sane.jp",
   "keywords": [],
   "license": "MIT",
-  "main": "lib/close-your-issues.js",
+  "main": "app/index.html",
   "repository": {
     "type": "git",
     "url": "https://github.com/sanemat/close-your-issues"
