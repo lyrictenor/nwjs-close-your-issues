@@ -1,6 +1,6 @@
 'use strict';
 
-var closeYourIssues = require('../');
+var closeYourIssues = require('../app/js/close-your-issues');
 var assert = require('should');
 
 describe('closeYourIssues', function () {
