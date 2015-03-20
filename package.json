@@ -2,32 +2,32 @@
   "name": "close-your-issues",
   "description": "The best module ever.",
   "version": "0.0.0",
-  "homepage": "http://sane.jp",
-  "bugs": "https://github.com/sanemat/close-your-issues/issues",
-  "license": "MIT",
-  "main": "lib/close-your-issues.js",
   "author": {
     "name": "sanemat",
     "email": "ogataken@gmail.com",
     "url": "http://sane.jp"
   },
+  "bugs": "https://github.com/sanemat/close-your-issues/issues",
+  "dependencies": {},
+  "devDependencies": {
+    "coveralls": "^2.11.1",
+    "gulp": "^3.8.8",
+    "gulp-istanbul": "^0.5.0",
+    "gulp-jscs": "^1.1.2",
+    "gulp-jshint": "^1.8.4",
+    "gulp-load-plugins": "^0.6.0",
+    "gulp-mocha": "^1.1.0",
+    "gulp-plumber": "^0.6.5",
+    "jshint-stylish": "^0.4.0",
+    "should": "^4.0.4"
+  },
+  "homepage": "http://sane.jp",
+  "keywords": [],
+  "license": "MIT",
+  "main": "lib/close-your-issues.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/sanemat/close-your-issues"
-  },
-  "keywords":[],
-  "dependencies": {},
-  "devDependencies": {
-    "gulp": "^3.8.8",
-    "gulp-jscs": "^1.1.2",
-    "gulp-jshint": "^1.8.4",
-    "gulp-mocha": "^1.1.0",
-    "gulp-istanbul": "^0.5.0",
-    "coveralls": "^2.11.1",
-    "should": "^4.0.4",
-    "jshint-stylish": "^0.4.0",
-    "gulp-load-plugins": "^0.6.0",
-    "gulp-plumber": "^0.6.5"
   },
   "scripts": {
     "coveralls": "gulp test && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
