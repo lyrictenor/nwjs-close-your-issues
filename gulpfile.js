@@ -4,8 +4,8 @@ var gulp   = require('gulp');
 var plugins = require('gulp-load-plugins')();
 
 var paths = {
-  lint: ['./gulpfile.js', './app/js/**/*.js'],
-  watch: ['./gulpfile.js', './app/js/**', './test/**/*.js', '!test/{temp,temp/**}'],
+  lint: ['./gulpfile.js', './app/**/*.js'],
+  watch: ['./gulpfile.js', './app/**', './test/**/*.js', '!test/{temp,temp/**}'],
   tests: ['./test/**/*.js', '!test/{temp,temp/**}'],
   source: ['./app/js/*.js']
 };
