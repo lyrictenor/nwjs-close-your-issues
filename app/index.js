@@ -1,6 +1,15 @@
 (function () {
   'use strict';
 
+  var gui = require('nw.gui');
+  if (process.platform === "darwin") {
+    var mb = new gui.Menu({type: 'menubar'});
+    mb.createMacBuiltin('CloseYourIssues', {
+      hideEdit: false
+    });
+    gui.Window.get().menu = mb;
+  }
+
   var idb = document.getElementById('idb');
 
   var db = new PouchDB('close-your-issues').info().then(function () {
