@@ -4,8 +4,7 @@ BUILD_APP_NAME="close-your-issues"
 TEST_PATH=$(pwd)
 CLEAN_PATH="${TEST_PATH}/../clean-env"
 
-#if [[ "${TRAVIS_TAG}" ]]; then
-if [[ true ]]; then
+if [[ "${TRAVIS_TAG}" ]]; then
   ./bin/git-new-workdir "${TEST_PATH}" "${CLEAN_PATH}"
   cd "${CLEAN_PATH}"
   npm install --production
