@@ -6,9 +6,7 @@ CLEAN_PATH="${TEST_PATH}/../clean-env"
 
 #if [[ "${TRAVIS_TAG}" ]]; then
 if [[ true ]]; then
-  which git
-  ls -al $(git --exec-path)
-  $(git --exec-path)/contrib/workdir/git-new-workdir "${TEST_PATH}" "${CLEAN_PATH}"
+  ./bin/git-new-workdir "${TEST_PATH}" "${CLEAN_PATH}"
   cd "${CLEAN_PATH}"
   npm install --production
   cd "${TEST_PATH}"
