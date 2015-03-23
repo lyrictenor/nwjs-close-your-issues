@@ -1,6 +1,10 @@
 language: node_js
+sudo: false
 env: CI=true
 node_js:
   - 'iojs'
 after_success:
   - bin/build.sh
+notifications:
+  email:
+    - ogataken@gmail.com
