@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ev
+set -euv
 BUILD_APP_NAME="close-your-issues"
 TEST_PATH=$(pwd)
 CLEAN_PATH="${TEST_PATH}/../clean-env"
