@@ -13,9 +13,12 @@
     "pouchdb-quick-search": "^1.1.0"
   },
   "devDependencies": {
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
     "jshint-stylish": "^0.4.0",
     "node-webkit-builder": "^1.0.11",
-    "should": "^4.0.4"
+    "should": "^4.0.4",
+    "watchify": "^2.6.2"
   },
   "homepage": "http://sane.jp",
   "keywords": [],
@@ -25,7 +28,20 @@
     "type": "git",
     "url": "https://github.com/sanemat/nwjs-close-your-issues"
   },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "experimental": true
+        }
+      ]
+    ]
+  },
   "scripts": {
+    "watch": "./node_modules/watchify/bin/cmd.js ./app/js/app.js -o app/build/bundle.js -v -d",
+    "start": "$NWJS_CMD . & npm run watch",
+    "build": "NODE_ENV=production browserify -d -e ./app/js/app.js -t [ babelify --experimental ] > ./app/build/bundle.js",
     "test": "exit 0"
   }
 }
