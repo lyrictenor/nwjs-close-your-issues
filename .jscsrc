@@ -16,5 +16,8 @@
   "validateJSDoc": {
     "checkParamNames": true,
     "requireParamTypes": true
-  }
+  },
+  "esnext": true,
+  "excludeFiles": ["node_modules/**", "app/build/**"],
+  "fileExtensions": [".js", ".jsx"]
 }
