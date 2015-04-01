@@ -17,12 +17,13 @@
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
     "espower-babel": "^1.4.1",
-    "istanbul": "^0.3.13",
     "jscs": "^1.12.0",
     "jshint": "^2.6.3",
     "jshint-stylish": "^0.4.0",
     "mocha": "^2.2.1",
+    "ncp": "^2.0.0",
     "node-webkit-builder": "^1.0.11",
+    "onchange": "^1.0.0",
     "power-assert": "^0.10.2",
     "watchify": "^2.6.2"
   },
@@ -46,9 +47,14 @@
   },
   "scripts": {
     "watch": "./node_modules/watchify/bin/cmd.js ./app/js/app.js -o app/build/bundle.js -v -d",
-    "start": "$NWJS_CMD . & npm run watch",
+    "start": "$NWJS_CMD . & npm run watch & npm run live_verify",
     "build": "NODE_ENV=production browserify -d -e ./app/js/app.js -t [ babelify --experimental ] > ./app/build/bundle.js",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
-    "verify": "npm test"
+    "verify": "npm run jscs && npm run jshint && npm test",
+    "jscs": "jscs app/**/*",
+    "jshint": "jshint --reporter node_modules/jshint-stylish/stylish.js --exclude app/build/* app/**/*.js",
+    "live_verify": "onchange 'app/**/*.js' '!app/build/**' 'test/**/*.js' -- npm run verify",
+    "copy": "ncp app dist",
+    "dist": "npm run build && npm run copy && $NWJS_CMD dist/"
   }
 }

@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euv
+# TODO: Fix this script with dist
 BUILD_APP_NAME="close-your-issues"
 TEST_PATH=$(pwd)
 CLEAN_PATH="${TEST_PATH}/../clean-env"

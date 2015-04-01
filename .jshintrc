@@ -20,5 +20,6 @@
     "afterEach"  : false,
     "window"     : false,
     "PouchDB"    : false
-  }
+  },
+  "esnext": true
 }
