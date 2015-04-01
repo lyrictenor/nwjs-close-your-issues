@@ -49,7 +49,7 @@
     "start": "$NWJS_CMD . & npm run watch",
     "build": "NODE_ENV=production browserify -d -e ./app/js/app.js -t [ babelify --experimental ] > ./app/build/bundle.js",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
-    "verify": "npm run jscs && npm test",
+    "verify": "npm run jscs && npm run jshint && npm test",
     "jscs": "jscs app/**/*",
     "jshint": "jshint --reporter node_modules/jshint-stylish/stylish.js --exclude app/build/* app/**/*.js"
   }
