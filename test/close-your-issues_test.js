@@ -1,12 +1,12 @@
 'use strict';
 
-var closeYourIssues = require('../app/js/close-your-issues');
-var assert = require('should');
+import closeYourIssues from '../app/js/close-your-issues';
+import assert from 'power-assert';
 
-describe('closeYourIssues', function () {
+describe('closeYourIssues', () => {
 
-  it('should be awesome', function () {
-    closeYourIssues().should.equal('awesome');
+  it('should be awesome', () => {
+    assert.equal(closeYourIssues(), 'awesome');
   });
 
 });
