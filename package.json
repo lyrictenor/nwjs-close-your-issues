@@ -7,6 +7,16 @@
     "email": "ogataken@gmail.com",
     "url": "http://sane.jp"
   },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "experimental": true
+        }
+      ]
+    ]
+  },
   "bugs": "https://github.com/sanemat/nwjs-close-your-issues/issues",
   "dependencies": {
     "pouchdb": "^3.3.1",
@@ -35,26 +45,16 @@
     "type": "git",
     "url": "https://github.com/sanemat/nwjs-close-your-issues"
   },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "experimental": true
-        }
-      ]
-    ]
-  },
   "scripts": {
-    "watch": "./node_modules/watchify/bin/cmd.js ./app/js/app.js -o app/build/bundle.js -v -d",
-    "start": "$NWJS_CMD . & npm run watch & npm run live_verify",
     "build": "NODE_ENV=production browserify -d -e ./app/js/app.js -t [ babelify --experimental ] > ./app/build/bundle.js",
-    "test": "mocha --compilers js:babel/register --require espower-babel/guess",
-    "verify": "npm run jscs && npm run jshint && npm test",
+    "copy": "ncp app dist",
+    "dist": "npm run build && npm run copy && $NWJS_CMD dist/",
     "jscs": "jscs app/**/*",
     "jshint": "jshint --reporter node_modules/jshint-stylish/stylish.js --exclude app/build/* app/**/*.js",
     "live_verify": "onchange 'app/**/*.js' '!app/build/**' 'test/**/*.js' -- npm run verify",
-    "copy": "ncp app dist",
-    "dist": "npm run build && npm run copy && $NWJS_CMD dist/"
+    "start": "$NWJS_CMD . & npm run watch & npm run live_verify",
+    "test": "mocha --compilers js:babel/register --require espower-babel/guess",
+    "verify": "npm run jscs && npm run jshint && npm test",
+    "watch": "./node_modules/watchify/bin/cmd.js ./app/js/app.js -o app/build/bundle.js -v -d"
   }
 }
