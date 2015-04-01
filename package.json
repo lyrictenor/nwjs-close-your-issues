@@ -48,6 +48,7 @@
     "watch": "./node_modules/watchify/bin/cmd.js ./app/js/app.js -o app/build/bundle.js -v -d",
     "start": "$NWJS_CMD . & npm run watch",
     "build": "NODE_ENV=production browserify -d -e ./app/js/app.js -t [ babelify --experimental ] > ./app/build/bundle.js",
-    "test": "mocha --compilers js:babel/register --require espower-babel/guess"
+    "test": "mocha --compilers js:babel/register --require espower-babel/guess",
+    "verify": "npm test"
   }
 }
