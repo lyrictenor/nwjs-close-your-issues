@@ -15,13 +15,15 @@
   "devDependencies": {
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
+    "espower-loader": "^0.10.0",
+    "intelli-espower-loader": "^0.6.0",
     "istanbul": "^0.3.13",
     "jscs": "^1.12.0",
     "jshint": "^2.6.3",
     "jshint-stylish": "^0.4.0",
     "mocha": "^2.2.1",
     "node-webkit-builder": "^1.0.11",
-    "should": "^4.0.4",
+    "power-assert": "^0.10.2",
     "watchify": "^2.6.2"
   },
   "homepage": "http://sane.jp",
@@ -46,6 +48,6 @@
     "watch": "./node_modules/watchify/bin/cmd.js ./app/js/app.js -o app/build/bundle.js -v -d",
     "start": "$NWJS_CMD . & npm run watch",
     "build": "NODE_ENV=production browserify -d -e ./app/js/app.js -t [ babelify --experimental ] > ./app/build/bundle.js",
-    "test": "mocha"
+    "test": "mocha --require intelli-espower-loader"
   }
 }

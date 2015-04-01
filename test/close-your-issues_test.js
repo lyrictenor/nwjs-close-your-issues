@@ -1,7 +1,7 @@
 'use strict';
 
 var closeYourIssues = require('../app/js/close-your-issues');
-var assert = require('assert');
+var assert = require('power-assert');
 
 describe('closeYourIssues', function () {
 
