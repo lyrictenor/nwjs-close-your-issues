@@ -54,7 +54,7 @@
     "dist": "npm run build && npm run copy",
     "jscs": "jscs app/**/*",
     "jshint": "jshint --reporter node_modules/jshint-stylish/stylish.js --exclude app/build/* app/**/*.js",
-    "live_verify": "onchange 'app/**/*.js' '!app/build/**' 'test/**/*.js' -- npm run verify",
+    "live_verify": "onchange 'app/**/*.js' 'app/**/*.jsx' '!app/build/**' 'test/**/*.js' -- npm run verify",
     "open_dist": "npm run dist && $NWJS_CMD dist/",
     "start": "$NWJS_CMD . & npm run watch & npm run live_verify",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
