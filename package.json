@@ -19,8 +19,6 @@
   },
   "bugs": "https://github.com/sanemat/nwjs-close-your-issues/issues",
   "dependencies": {
-    "pouchdb": "^3.3.1",
-    "pouchdb-quick-search": "^1.1.0"
   },
   "devDependencies": {
     "babel": "^4.7.16",

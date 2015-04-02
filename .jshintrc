@@ -18,8 +18,7 @@
     "beforeEach" : false,
     "after"      : false,
     "afterEach"  : false,
-    "window"     : false,
-    "PouchDB"    : false
+    "window"     : false
   },
   "esnext": true
 }
