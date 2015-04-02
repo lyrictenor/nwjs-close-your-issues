@@ -4,9 +4,11 @@ import Context from './Context';
 import App from './components/App.jsx';
 
 let context = new Context();
-let action = context.appAction;
+//let action = context.appAction;
+
+//action.getAllProducts();
 
 React.render(
   React.createElement(App, { context }),
-  document.getElementById('close-your-issues-app')
+  window.document.getElementById('close-your-issues-app')
 );
