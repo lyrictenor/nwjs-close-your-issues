@@ -27,6 +27,7 @@
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
     "espower-babel": "^1.4.1",
+    "esprima-fb": "^13001.1001.0-dev-harmony-fb",
     "jscs": "^1.12.0",
     "jshint": "^2.6.3",
     "jshint-stylish": "^0.4.0",
