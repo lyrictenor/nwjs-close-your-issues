@@ -46,13 +46,14 @@
   "scripts": {
     "build": "NODE_ENV=production browserify -d -e ./app/js/app.js -t [ babelify --experimental ] > ./app/build/bundle.js",
     "copy": "ncp app dist",
-    "dist": "npm run build && npm run copy && $NWJS_CMD dist/",
+    "build_dist": "npm run build && npm run copy",
     "jscs": "jscs app/**/*",
     "jshint": "jshint --reporter node_modules/jshint-stylish/stylish.js --exclude app/build/* app/**/*.js",
     "live_verify": "onchange 'app/**/*.js' '!app/build/**' 'test/**/*.js' -- npm run verify",
     "start": "$NWJS_CMD . & npm run watch & npm run live_verify",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
     "verify": "npm run jscs && npm run jshint && npm test",
-    "watch": "./node_modules/watchify/bin/cmd.js ./app/js/app.js -t [ babelify --experimental ] -o app/build/bundle.js -v -d"
+    "watch": "./node_modules/watchify/bin/cmd.js ./app/js/app.js -t [ babelify --experimental ] -o app/build/bundle.js -v -d",
+    "dist": "npm run build_dist && $NWJS_CMD dist/"
   }
 }
