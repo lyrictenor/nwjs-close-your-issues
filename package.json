@@ -33,6 +33,7 @@
     "node-webkit-builder": "^1.0.11",
     "onchange": "^1.0.0",
     "power-assert": "^0.10.2",
+    "rimraf": "^2.3.2",
     "watchify": "^2.6.2"
   },
   "homepage": "http://sane.jp",
@@ -44,8 +45,8 @@
     "url": "https://github.com/sanemat/nwjs-close-your-issues"
   },
   "scripts": {
-    "build": "mkdirp app/build && NODE_ENV=production browserify -d -e ./app/js/app.js -t [ babelify --experimental ] > ./app/build/bundle.js",
-    "copy": "ncp app dist",
+    "build": "rimraf app/build && mkdirp app/build && NODE_ENV=production browserify -d -e ./app/js/app.js -t [ babelify --experimental ] > ./app/build/bundle.js",
+    "copy": "rimraf dist && ncp app dist",
     "dist": "npm run build && npm run copy",
     "jscs": "jscs app/**/*",
     "jshint": "jshint --reporter node_modules/jshint-stylish/stylish.js --exclude app/build/* app/**/*.js",
@@ -54,6 +55,6 @@
     "start": "$NWJS_CMD . & npm run watch & npm run live_verify",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
     "verify": "npm run jscs && npm run jshint && npm test",
-    "watch": "mkdirp app/build && ./node_modules/watchify/bin/cmd.js ./app/js/app.js -t [ babelify --experimental ] -o app/build/bundle.js -v -d"
+    "watch": "rimraf app/build && mkdirp app/build && ./node_modules/watchify/bin/cmd.js ./app/js/app.js -t [ babelify --experimental ] -o app/build/bundle.js -v -d"
   }
 }
