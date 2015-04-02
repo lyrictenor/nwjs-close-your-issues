@@ -3,8 +3,7 @@ set -euv
 BUILD_APP_NAME="close-your-issues"
 TEST_PATH=$(pwd)
 
-#if [[ "${TRAVIS_TAG}" ]]; then
-if [[ true ]]; then
+if [[ "${TRAVIS_TAG}" ]]; then
   npm run dist
   $(npm bin)/nwbuild -p 'win32,win64,osx32,osx64,linux32,linux64' "${TEST_PATH}/dist" -o "${TEST_PATH}/build"
   BUILD_TARGETS=(osx32 osx64 win32 win64 linux32 linux64)
