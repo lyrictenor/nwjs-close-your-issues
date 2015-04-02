@@ -53,6 +53,6 @@
     "start": "$NWJS_CMD . & npm run watch & npm run live_verify",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
     "verify": "npm run jscs && npm run jshint && npm test",
-    "watch": "./node_modules/watchify/bin/cmd.js ./app/js/app.js -o app/build/bundle.js -v -d"
+    "watch": "./node_modules/watchify/bin/cmd.js ./app/js/app.js -t [ babelify --experimental ] -o app/build/bundle.js -v -d"
   }
 }
