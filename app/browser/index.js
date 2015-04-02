@@ -10,5 +10,5 @@
     gui.Window.get().menu = mb;
   }
 
-  var idb = window.document.getElementById('idb');
+  //var idb = window.document.getElementById('idb');
 })();
