@@ -1,17 +1,18 @@
+'use strict';
 import React from 'react';
 
-let App = React.createClass({
+let Issues = React.createClass({
 
   render() {
     let { context } = this.props;
 
     return (
       <div>
-        Hi close your issues App!
+        Issues here...
       </div>
     );
   }
 
 });
 
-export default App;
+export default Issues;
