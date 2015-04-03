@@ -10,13 +10,16 @@
   "browserify": {
     "transform": [
       [
-        "babelify"
+        "babelify",
+        "brfs"
       ]
     ]
   },
   "bugs": "https://github.com/sanemat/nwjs-close-your-issues/issues",
   "dependencies": {
+    "brfs": "^1.4.0",
     "material-flux": "^1.2.0",
+    "octonode": "^0.6.16",
     "react": "^0.13.1",
     "react-router": "^0.13.2"
   },
@@ -47,16 +50,16 @@
     "url": "https://github.com/sanemat/nwjs-close-your-issues"
   },
   "scripts": {
-    "build": "rimraf app/build && mkdirp app/build && NODE_ENV=production browserify -d -e ./app/js/app.jsx -t [ babelify ] > ./app/build/bundle.js",
+    "build": "rimraf app/build && mkdirp app/build && NODE_ENV=production browserify -d -e ./app/js/app.jsx -t babelify -t brfs > ./app/build/bundle.js",
     "copy": "rimraf dist && ncp app dist",
     "dist": "npm run build && npm run copy",
-    "jscs": "jscs app/**/*",
+    "jscs": "jscs app/**/*.js app/**/*.jsx",
     "jsxhint": "jsxhint --jsx-only --babel --reporter node_modules/jshint-stylish/stylish.js --exclude app/build/* app/**/*.js*",
     "live_verify": "onchange 'app/**/*.js' 'app/**/*.jsx' '!app/build/**' 'test/**/*.js' -- npm run verify",
     "open_dist": "npm run dist && $NWJS_CMD dist/",
     "start": "$NWJS_CMD . & npm run watch & npm run live_verify",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
     "verify": "npm run jscs && npm run jsxhint && npm test",
-    "watch": "rimraf app/build && mkdirp app/build && ./node_modules/watchify/bin/cmd.js ./app/js/app.jsx -t [ babelify ] -o app/build/bundle.js -v -d"
+    "watch": "rimraf app/build && mkdirp app/build && ./node_modules/watchify/bin/cmd.js ./app/js/app.jsx -t babelify -t brfs -o app/build/bundle.js -v -d"
   }
 }
