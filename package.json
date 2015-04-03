@@ -10,10 +10,7 @@
   "browserify": {
     "transform": [
       [
-        "babelify",
-        {
-          "experimental": true
-        }
+        "babelify"
       ]
     ]
   },
@@ -49,7 +46,7 @@
     "url": "https://github.com/sanemat/nwjs-close-your-issues"
   },
   "scripts": {
-    "build": "rimraf app/build && mkdirp app/build && NODE_ENV=production browserify -d -e ./app/js/app.js -t [ babelify --experimental ] > ./app/build/bundle.js",
+    "build": "rimraf app/build && mkdirp app/build && NODE_ENV=production browserify -d -e ./app/js/app.js -t [ babelify ] > ./app/build/bundle.js",
     "copy": "rimraf dist && ncp app dist",
     "dist": "npm run build && npm run copy",
     "jscs": "jscs app/**/*",
@@ -59,6 +56,6 @@
     "start": "$NWJS_CMD . & npm run watch & npm run live_verify",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
     "verify": "npm run jscs && npm run jshint && npm test",
-    "watch": "rimraf app/build && mkdirp app/build && ./node_modules/watchify/bin/cmd.js ./app/js/app.js -t [ babelify --experimental ] -o app/build/bundle.js -v -d"
+    "watch": "rimraf app/build && mkdirp app/build && ./node_modules/watchify/bin/cmd.js ./app/js/app.js -t [ babelify ] -o app/build/bundle.js -v -d"
   }
 }
