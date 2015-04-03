@@ -23,14 +23,14 @@
     "react": "^0.13.1"
   },
   "devDependencies": {
-    "babel": "^4.7.16",
-    "babelify": "^5.0.4",
+    "babel": "^5.0.4",
+    "babelify": "^6.0.1",
     "browserify": "^9.0.3",
     "espower-babel": "^1.4.1",
     "esprima-fb": "^13001.1001.0-dev-harmony-fb",
     "jscs": "^1.12.0",
     "jshint": "^2.6.3",
-    "jshint-stylish": "^0.4.0",
+    "jshint-stylish": "^1.0.1",
     "mkdirp": "^0.5.0",
     "mocha": "^2.2.1",
     "ncp": "^2.0.0",
@@ -38,7 +38,7 @@
     "onchange": "^1.0.0",
     "power-assert": "^0.10.2",
     "rimraf": "^2.3.2",
-    "watchify": "^2.6.2"
+    "watchify": "^3.1.0"
   },
   "homepage": "http://sane.jp",
   "keywords": [],
