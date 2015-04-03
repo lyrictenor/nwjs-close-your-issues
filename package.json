@@ -27,8 +27,8 @@
     "espower-babel": "^1.4.1",
     "esprima-fb": "^13001.1001.0-dev-harmony-fb",
     "jscs": "^1.12.0",
-    "jshint": "^2.6.3",
     "jshint-stylish": "^1.0.1",
+    "jsxhint": "^0.14.0",
     "mkdirp": "^0.5.0",
     "mocha": "^2.2.1",
     "ncp": "^2.0.0",
@@ -51,12 +51,12 @@
     "copy": "rimraf dist && ncp app dist",
     "dist": "npm run build && npm run copy",
     "jscs": "jscs app/**/*",
-    "jshint": "jshint --reporter node_modules/jshint-stylish/stylish.js --exclude app/build/* app/**/*.js",
+    "jsxhint": "jsxhint --jsx-only --babel --reporter node_modules/jshint-stylish/stylish.js --exclude app/build/* app/**/*.js*",
     "live_verify": "onchange 'app/**/*.js' 'app/**/*.jsx' '!app/build/**' 'test/**/*.js' -- npm run verify",
     "open_dist": "npm run dist && $NWJS_CMD dist/",
     "start": "$NWJS_CMD . & npm run watch & npm run live_verify",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
-    "verify": "npm run jscs && npm run jshint && npm test",
+    "verify": "npm run jscs && npm run jsxhint && npm test",
     "watch": "rimraf app/build && mkdirp app/build && ./node_modules/watchify/bin/cmd.js ./app/js/app.jsx -t [ babelify ] -o app/build/bundle.js -v -d"
   }
 }
