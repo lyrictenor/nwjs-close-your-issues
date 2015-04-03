@@ -17,7 +17,8 @@
   "bugs": "https://github.com/sanemat/nwjs-close-your-issues/issues",
   "dependencies": {
     "material-flux": "^1.2.0",
-    "react": "^0.13.1"
+    "react": "^0.13.1",
+    "react-router": "^0.13.2"
   },
   "devDependencies": {
     "babel": "^5.0.4",
