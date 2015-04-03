@@ -1,3 +1,4 @@
+'use strict';
 import { Context } from 'material-flux';
 import Actions from './actions/Actions';
 
