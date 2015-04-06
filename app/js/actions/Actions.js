@@ -2,7 +2,12 @@ import { Action } from 'material-flux';
 import Github from 'octonode';
 var fs = require('fs');
 
-export var keys = {
+const getAllIssues = 'getAllIssues';
+const receiveIssues = 'receiveIssues';
+
+export const keys = {
+  getAllIssues,
+  receiveIssues
 };
 
 function getCurrentIssues() {
@@ -27,6 +32,11 @@ export default class AppAction extends Action {
     //    body;
     //  });
     getCurrentIssues().then((issues) => {
+      this.dispatch(keys.getAllIssues, this.receiveIssues(issues));
     });
+  }
+
+  receiveIssues(issues) {
+    this.dispatch(keys.receiveIssues, issues);
   }
 }
