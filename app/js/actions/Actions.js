@@ -2,12 +2,9 @@ import { Action } from 'material-flux';
 import Github from 'octonode';
 var fs = require('fs');
 
-const getAllIssues = 'getAllIssues';
-const receiveIssues = 'receiveIssues';
-
 export const keys = {
-  getAllIssues,
-  receiveIssues
+  getAllIssues: Symbol('getAllIssues'),
+  receiveIssues: Symbol('receiveIssues')
 };
 
 function getCurrentIssues() {
