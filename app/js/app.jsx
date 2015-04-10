@@ -5,9 +5,9 @@ import routes from './routes.jsx';
 import Context from './Context';
 
 let context = new Context();
-//let action = context.appAction;
+let action = context.appAction;
 
-//action.getAllProducts();
+action.getIssues();
 
 Router.run(routes, (Handler) => {
   React.render(
