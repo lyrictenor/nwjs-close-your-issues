@@ -1,11 +1,7 @@
-import { Action } from 'material-flux';
+'use strict';
+import { Actions } from 'flummox';
 import Github from 'octonode';
 var fs = require('fs');
-
-export const keys = {
-  getAllIssues: Symbol('getAllIssues'),
-  receiveIssues: Symbol('receiveIssues')
-};
 
 function getCurrentIssues() {
   return new Promise((resolve, reject) => {
@@ -14,7 +10,7 @@ function getCurrentIssues() {
   });
 }
 
-export default class AppAction extends Action {
+export default class IssueActions extends Actions {
 
   getIssues() {
     //let client = Github.client();
@@ -29,11 +25,7 @@ export default class AppAction extends Action {
     //    body;
     //  });
     getCurrentIssues().then((issues) => {
-      this.dispatch(keys.getAllIssues, this.receiveIssues(issues));
+      return issues;
     });
-  }
-
-  receiveIssues(issues) {
-    this.dispatch(keys.receiveIssues, issues);
   }
 }
