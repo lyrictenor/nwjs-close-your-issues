@@ -5,7 +5,7 @@ import FluxComponent from 'flummox/component';
 import Flux from './Flux';
 import routes from './routes.jsx';
 import performRouteHandlerStaticMethod from './utils/performRouteHandlerStaticMethod';
-import url from 'url';
+//import url from 'url';
 
 // Initialize flux
 const flux = new Flux();
