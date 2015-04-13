@@ -1,18 +1,15 @@
 'use strict';
 import React from 'react';
 
-let Issues = React.createClass({
+class IssuesHandler extends React.Component {
 
   render() {
-    let { context } = this.props;
-
     return (
       <div>
         Issues here...
       </div>
     );
   }
+}
 
-});
-
-export default Issues;
+export default IssuesHandler;

@@ -2,11 +2,9 @@
 import React from 'react';
 import { RouteHandler, Link } from 'react-router';
 
-let App = React.createClass({
+class AppHandler extends React.Component {
 
   render() {
-    let { context } = this.props;
-
     return (
       <div>
         <header>
@@ -21,6 +19,6 @@ let App = React.createClass({
       </div>
     );
   }
-});
+}
 
-export default App;
+export default AppHandler;

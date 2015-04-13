@@ -1,18 +1,15 @@
 'use strict';
 import React from 'react';
 
-let Settings = React.createClass({
+class SettingsHandler extends React.Component {
 
   render() {
-    let { context } = this.props;
-
     return (
       <div>
         Settings here...
       </div>
     );
   }
+}
 
-});
-
-export default Settings;
+export default SettingsHandler;
