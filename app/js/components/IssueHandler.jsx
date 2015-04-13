@@ -1,15 +1,15 @@
 'use strict';
 import React from 'react';
 
-class SettingsHandler extends React.Component {
+class IssueHandler extends React.Component {
 
   render() {
     return (
       <div>
-        Settings here...
+        Issues here...
       </div>
     );
   }
 }
 
-export default SettingsHandler;
+export default IssueHandler;
