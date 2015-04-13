@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
 import Flux from 'flummox/component';
-import Issue from './Issue.jsx';
+import IssueList from './IssueList.jsx';
 
 class IssueHandler extends React.Component {
 
@@ -10,12 +10,12 @@ class IssueHandler extends React.Component {
       <div>
         <Flux
           connectToStores={{
-            issues: (store, props) => ({
-              issue: store.getIssues()
+            issues: store => ({
+              issues: store.getIssues()
             })
-          }}
-          render={({ issue }) => <Issue issue={issue} />}
-        />
+          }}>
+          <IssueList />
+        </Flux>
       </div>
     );
   }

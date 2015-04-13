@@ -22,6 +22,8 @@ export default class IssueStore extends Store {
     });
   }
   getIssues() {
-    return this.state;
+    return Object.keys(this.state.issues).map(
+        id => this.state.issues[id]
+    );
   }
 }

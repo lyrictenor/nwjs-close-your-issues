@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Issue extends React.Component {
+class IssueCard extends React.Component {
   render() {
     const { issue } = this.props;
 
@@ -8,10 +8,10 @@ class Issue extends React.Component {
 
     return (
       <div>
-        {issue}
+        {issue.title}, {issue.id}
       </div>
     );
   }
 }
 
-export default Issue;
+export default IssueCard;
