@@ -21,4 +21,7 @@ export default class IssueStore extends Store {
       issues: this.state.issues.merge(issues)
     });
   }
+  getIssues() {
+    return this.state;
+  }
 }
