@@ -21,9 +21,4 @@ export default class IssueStore extends Store {
       issues: this.state.issues.merge(issues)
     });
   }
-  getIssues() {
-    return Object.keys(this.state.issues).map(
-        id => this.state.issues[id]
-    );
-  }
 }

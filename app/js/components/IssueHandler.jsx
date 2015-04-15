@@ -11,7 +11,7 @@ class IssueHandler extends React.Component {
         <Flux
           connectToStores={{
             issues: store => ({
-              issues: store.getIssues()
+              issues: store.state.issues
             })
           }}>
           <IssueList />
