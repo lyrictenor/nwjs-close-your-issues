@@ -4,19 +4,14 @@ import Flux from 'flummox/component';
 import IssueList from './IssueList.jsx';
 
 class IssueHandler extends React.Component {
-
   render() {
     return (
-      <div>
-        <Flux
-          connectToStores={{
-            issues: store => ({
-              issues: store.state.issues
-            })
-          }}>
-          <IssueList />
-        </Flux>
-      </div>
+      <Flux
+        connectToStores="issues"
+        render={storeState => {
+          return <div {...storeState} />
+        }}
+      />
     );
   }
 }

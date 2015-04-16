@@ -7,7 +7,7 @@ export default class IssueList extends React.Component {
   render() {
     const issues = this.props.issues.map(issue => {
       return (
-        <IssueCard issue={issue} />
+      {issue}
       );
     });
     return (
