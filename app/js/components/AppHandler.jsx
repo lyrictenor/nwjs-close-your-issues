@@ -5,7 +5,7 @@ import FluxComponent from 'flummox/component';
 
 class AppHandler extends React.Component {
   componentDidMount() {
-    //fetch issues
+    this.props.flux.getActions('issues').getIssues();
   }
 
   render() {
