@@ -1,17 +1,16 @@
 'use strict';
 import React from 'react';
-import Flux from 'flummox/component';
 import IssueList from './IssueList.jsx';
 
 class IssueHandler extends React.Component {
   render() {
     return (
-      <Flux
-        connectToStores="issues"
-        render={storeState => {
-          return <div {...storeState} />
-        }}
-      />
+      <div>
+      {!this.props.issues && (<p>There is no issues</p>)}
+      {this.props.issues && this.props.issues.map((issue) =>
+        <span>{issue.id} {issue.title}</span>
+      ).toJS()}
+      </div>
     );
   }
 }
