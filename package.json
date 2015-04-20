@@ -1,66 +1,52 @@
 {
-  "name": "close-your-issues",
-  "description": "The best module ever.",
+  "name": "idiomatic-react",
   "version": "0.0.0",
-  "author": {
-    "name": "sanemat",
-    "email": "ogataken@gmail.com",
-    "url": "http://sane.jp"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        "brfs"
-      ]
-    ]
-  },
-  "bugs": "https://github.com/sanemat/nwjs-close-your-issues/issues",
+  "description": "",
+  "repository": "",
+  "private": true,
+  "src": "src",
+  "test": "test",
+  "dist": "dist",
+  "mainInput": "main",
+  "mainOutput": "main",
   "dependencies": {
-    "brfs": "^1.4.0",
-    "flummox": "^3.5.1",
-    "immutable": "^3.7.2",
-    "octonode": "^0.6.16",
-    "react": "^0.13.1",
-    "react-router": "^0.13.2"
+    "axios": "^0.5.2",
+    "babel-runtime": "^4.7.16",
+    "core-js": "^0.8.3",
+    "flummox": "2.13.2",
+    "immutable": "^3.6.4",
+    "react": "~0.12.2",
+    "react-router": "^0.11.6"
   },
   "devDependencies": {
-    "babel": "^5.0.4",
-    "babelify": "^6.0.1",
-    "browserify": "^9.0.3",
-    "espower-babel": "^1.4.1",
-    "esprima-fb": "^13001.1001.0-dev-harmony-fb",
-    "jscs": "^1.12.0",
-    "jshint-stylish": "^1.0.1",
-    "jsxhint": "^0.14.0",
-    "mkdirp": "^0.5.0",
-    "mocha": "^2.2.1",
-    "ncp": "^2.0.0",
-    "node-webkit-builder": "^1.0.11",
-    "onchange": "^1.0.0",
-    "power-assert": "^0.10.2",
-    "rimraf": "^2.3.2",
-    "watchify": "^3.1.0"
-  },
-  "homepage": "http://sane.jp",
-  "keywords": [],
-  "license": "MIT",
-  "main": "app/index.html",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sanemat/nwjs-close-your-issues"
-  },
-  "scripts": {
-    "build": "rimraf app/build && mkdirp app/build && NODE_ENV=production browserify -d -e ./app/js/app.jsx -t babelify -t brfs > ./app/build/bundle.js",
-    "copy": "rimraf dist && ncp app dist",
-    "dist": "npm run build && npm run copy",
-    "jscs": "jscs app/**/*.js app/**/*.jsx",
-    "live_verify": "onchange 'app/**/*.js' 'app/**/*.jsx' '!app/build/**' 'test/**/*.js' -- npm run verify",
-    "open_dist": "npm run dist && $NWJS_CMD dist/",
-    "start": "$NWJS_CMD . & npm run watch & npm run live_verify",
-    "start_dev": "npm run watch & npm run live_verify",
-    "test": "mocha --compilers js:babel/register --require espower-babel/guess",
-    "verify": "npm run jscs && npm test",
-    "watch": "rimraf app/build && mkdirp app/build && ./node_modules/watchify/bin/cmd.js ./app/js/app.jsx -t babelify -t brfs -o app/build/bundle.js -v -d -i nw.gui"
+    "babel-core": "^4.7.16",
+    "babel-eslint": "^2.0.2",
+    "babel-loader": "^4.2.0",
+    "css-loader": "~0.9.0",
+    "eslint": "^0.17.1",
+    "eslint-loader": "^0.7.0",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-connect": "~0.8.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-karma": "~0.8.3",
+    "grunt-open": "~0.2.3",
+    "grunt-webpack": "~1.0.8",
+    "karma": "~0.12.21",
+    "karma-chrome-launcher": "~0.1.4",
+    "karma-firefox-launcher": "~0.1.3",
+    "karma-jasmine": "~0.1.5",
+    "karma-phantomjs-launcher": "~0.1.3",
+    "karma-script-launcher": "~0.1.0",
+    "karma-webpack": "~1.2.2",
+    "load-grunt-tasks": "~0.6.0",
+    "node-sass": "1.2.2",
+    "react-hot-loader": "^1.0.7",
+    "sass-loader": "^0.3.1",
+    "style-loader": "~0.8.0",
+    "url-loader": "~0.5.5",
+    "webpack": "~1.4.3",
+    "webpack-dev-server": "~1.6.5"
   }
 }
