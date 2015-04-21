@@ -2,7 +2,7 @@
 
 import React from 'react/addons';
 
-let TodoForm = React.createClass({
+let IssueForm = React.createClass({
 
     getInitialState() { return { value: '' }; },
 
@@ -17,7 +17,7 @@ let TodoForm = React.createClass({
 
         return (
             <div>
-                <h2>Add a todo</h2>
+                <h2>Add a issue</h2>
                 <input type="text" value={this.state.value} onChange={handleChange} />
                 &nbsp;
                 <button className="btn btn-primary" onClick={handleAdd}>Add</button>
@@ -26,4 +26,4 @@ let TodoForm = React.createClass({
     }
 });
 
-module.exports = TodoForm;
+module.exports = IssueForm;

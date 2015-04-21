@@ -10,13 +10,13 @@ const RouteHandler = Router.RouteHandler;
 
 let App = React.createClass({
 
-    componentDidMount() { this.props.flux.getActions('todos').fetchTodos(); },
+    componentDidMount() { this.props.flux.getActions('issues').fetchIssues(); },
 
     render() {
 
         return (
             <div className='main container'>
-                <FluxComponent {...this.props} connectToStores={['todos']}>
+                <FluxComponent {...this.props} connectToStores={['issues']}>
                     <UINavbar />
                     <RouteHandler />
                 </FluxComponent>
