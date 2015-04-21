@@ -1,6 +1,6 @@
 {
-  "name": "idiomatic-react",
-  "version": "0.0.0",
+  "name": "close-your-issues",
+  "version": "0.0.1",
   "dependencies": {
     "axios": {
       "version": "0.5.4",
