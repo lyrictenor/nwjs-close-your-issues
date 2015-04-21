@@ -13,6 +13,7 @@ import InterfaceRest from './Interfaces/Rest';
 try {
 
     require('../../styles/main.sass');
+    require('bootstrap/dist/css/bootstrap.css');
     require('../browser/nwjs');
 
     const config = JSON.parse(window.unescape(document.getElementsByName('config/app')[0].content));
