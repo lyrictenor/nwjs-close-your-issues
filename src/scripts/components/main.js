@@ -14,6 +14,7 @@ try {
 
     require('../../styles/main.sass');
     require('bootstrap/dist/css/bootstrap.css');
+    require('font-awesome/css/font-awesome.css');
     require('../browser/nwjs');
 
     const config = JSON.parse(window.unescape(document.getElementsByName('config/app')[0].content));
