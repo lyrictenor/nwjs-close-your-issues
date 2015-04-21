@@ -32,6 +32,7 @@
     "grunt-contrib-copy": "^0.8.0",
     "grunt-open": "~0.2.3",
     "grunt-webpack": "~1.0.8",
+    "json-loader": "^0.5.1",
     "load-grunt-tasks": "^3.1.0",
     "node-sass": "^3.0.0-beta.5",
     "react-hot-loader": "^1.0.7",
