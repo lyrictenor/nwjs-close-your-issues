@@ -15,7 +15,7 @@ let UINavbar = React.createClass({
             <div className="navbar navbar-default navbar-fixed-top" role="navigation">
                 <div className="container">
                     <div className="navbar-header">
-                        <Link to="home" className="navbar-brand"><img src="/assets/netgusto.png" style={{height: '60px', position: 'absolute', top: '5px'}} /> <div style={{marginLeft: '80px', fontSize: '1.3em'}}>Idiomatic React</div></Link>
+                        <Link to="home" className="navbar-brand"><img src="images/netgusto.png" style={{height: '60px', position: 'absolute', top: '5px'}} /> <div style={{marginLeft: '80px', fontSize: '1.3em'}}>Idiomatic React</div></Link>
                     </div>
 
                     <ul className="nav navbar-nav">
