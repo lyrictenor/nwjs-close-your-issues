@@ -1,4 +1,4 @@
-# close-your-issues 
+# close-your-issues
 [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image] [![Coverage Status][coveralls-image]][coveralls-url]
 
 The best module ever.
@@ -7,7 +7,8 @@ The best module ever.
 ## Install
 
 ```bash
-$ npm install --save close-your-issues
+npm install
+grunt serve
 ```
 
 
@@ -32,7 +33,11 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 Copyright (c) 2015 sanemat. Licensed under the MIT license.
 
+#### [IdiomaticReact](https://github.com/netgusto/IdiomaticReact)
 
+Copyright (c) 2015 Jérôme Schneider. [Licensed under the MIT license](./IdiomaticReact/LICENSE).
+
+----
 
 [travis-url]: https://travis-ci.org/sanemat/nwjs-close-your-issues
 [travis-image]: https://travis-ci.org/sanemat/nwjs-close-your-issues.svg?branch=master

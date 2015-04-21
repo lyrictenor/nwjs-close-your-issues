@@ -1,66 +1,66 @@
 {
   "name": "close-your-issues",
-  "description": "The best module ever.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": {
     "name": "sanemat",
     "email": "ogataken@gmail.com",
     "url": "http://sane.jp"
   },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        "brfs"
-      ]
-    ]
-  },
   "bugs": "https://github.com/sanemat/nwjs-close-your-issues/issues",
   "dependencies": {
-    "brfs": "^1.4.0",
-    "flummox": "^3.5.1",
-    "immutable": "^3.7.2",
-    "octonode": "^0.6.16",
-    "react": "^0.13.1",
+    "axios": "^0.5.2",
+    "babel-runtime": "^5.1.11",
+    "core-js": "^0.8.3",
+    "flummox": "^3.5.2",
+    "immutable": "^3.6.4",
+    "react": "^0.13.2",
     "react-router": "^0.13.2"
   },
   "devDependencies": {
-    "babel": "^5.0.4",
-    "babelify": "^6.0.1",
-    "browserify": "^9.0.3",
-    "espower-babel": "^1.4.1",
-    "esprima-fb": "^13001.1001.0-dev-harmony-fb",
-    "jscs": "^1.12.0",
-    "jshint-stylish": "^1.0.1",
-    "jsxhint": "^0.14.0",
-    "mkdirp": "^0.5.0",
-    "mocha": "^2.2.1",
-    "ncp": "^2.0.0",
+    "babel": "^5.1.11",
+    "babel-core": "^5.1.11",
+    "babel-eslint": "^3.0.1",
+    "babel-loader": "^5.0.0",
+    "css-loader": "^0.10.1",
+    "eslint": "^0.19.0",
+    "eslint-loader": "^0.10.0",
+    "espower-babel": "^2.1.0",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-connect": "^0.10.1",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-open": "~0.2.3",
+    "grunt-webpack": "~1.0.8",
+    "json-loader": "^0.5.1",
+    "load-grunt-tasks": "^3.1.0",
+    "mocha": "^2.2.4",
+    "node-sass": "^3.0.0-beta.5",
     "node-webkit-builder": "^1.0.11",
-    "onchange": "^1.0.0",
-    "power-assert": "^0.10.2",
+    "power-assert": "^0.11.0",
+    "react-hot-loader": "^1.0.7",
     "rimraf": "^2.3.2",
-    "watchify": "^3.1.0"
+    "sass-loader": "^0.4.2",
+    "style-loader": "^0.10.2",
+    "url-loader": "~0.5.5",
+    "webpack": "^1.8.6",
+    "webpack-dev-server": "^1.8.0"
   },
+  "dist": "dist",
   "homepage": "http://sane.jp",
   "keywords": [],
   "license": "MIT",
-  "main": "app/index.html",
+  "mainInput": "main",
+  "mainOutput": "main",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/sanemat/nwjs-close-your-issues"
   },
   "scripts": {
-    "build": "rimraf app/build && mkdirp app/build && NODE_ENV=production browserify -d -e ./app/js/app.jsx -t babelify -t brfs > ./app/build/bundle.js",
-    "copy": "rimraf dist && ncp app dist",
-    "dist": "npm run build && npm run copy",
-    "jscs": "jscs app/**/*.js app/**/*.jsx",
-    "live_verify": "onchange 'app/**/*.js' 'app/**/*.jsx' '!app/build/**' 'test/**/*.js' -- npm run verify",
-    "open_dist": "npm run dist && $NWJS_CMD dist/",
-    "start": "$NWJS_CMD . & npm run watch & npm run live_verify",
-    "start_dev": "npm run watch & npm run live_verify",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
-    "verify": "npm run jscs && npm test",
-    "watch": "rimraf app/build && mkdirp app/build && ./node_modules/watchify/bin/cmd.js ./app/js/app.jsx -t babelify -t brfs -o app/build/bundle.js -v -d -i nw.gui"
-  }
+    "verify": "grunt build && npm test"
+  },
+  "src": "src",
+  "test": "test"
 }

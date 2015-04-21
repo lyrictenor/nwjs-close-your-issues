@@ -1,6 +1,6 @@
 'use strict';
 
-import closeYourIssues from '../app/js/close-your-issues';
+import closeYourIssues from '../src/scripts/example/close-your-issues';
 import assert from 'power-assert';
 
 describe('closeYourIssues', () => {
