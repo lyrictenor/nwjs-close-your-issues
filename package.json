@@ -2,13 +2,29 @@
   "name": "close-your-issues",
   "version": "0.0.1",
   "description": "",
-  "repository": "",
   "private": true,
   "src": "src",
   "test": "test",
   "dist": "dist",
   "mainInput": "main",
   "mainOutput": "main",
+  "author": {
+    "name": "sanemat",
+    "email": "ogataken@gmail.com",
+    "url": "http://sane.jp"
+  },
+  "bugs": "https://github.com/sanemat/nwjs-close-your-issues/issues",
+  "homepage": "http://sane.jp",
+  "keywords": [],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanemat/nwjs-close-your-issues"
+  },
+  "scripts": {
+    "verify": "grunt build && npm test",
+    "test": "exit 0"
+  },
   "dependencies": {
     "axios": "^0.5.2",
     "babel-runtime": "^5.1.11",
