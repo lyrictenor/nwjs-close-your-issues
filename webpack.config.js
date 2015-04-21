@@ -21,6 +21,7 @@ module.exports = {
       'webpack/hot/only-dev-server',
       './src/scripts/components/main.js'
   ],
+  target: 'node-webkit',
 
   stats: {
     colors: true,

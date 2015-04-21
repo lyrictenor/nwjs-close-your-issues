@@ -19,6 +19,7 @@ module.exports = {
   debug: false,
   devtool: false,
   entry: './src/scripts/components/main.js',
+  target: 'node-webkit',
 
   stats: {
     colors: true,
