@@ -3,8 +3,8 @@
 import { Flux } from 'flummox';
 import Immutable from 'immutable';
 
-import { TodoActions } from '../actions/TodoActions';
-import { TodoStore } from '../stores/TodoStore';
+import { IssueActions } from '../actions/IssueActions';
+import { IssueStore } from '../stores/IssueStore';
 
 export class AppFlux extends Flux {
 
@@ -14,8 +14,8 @@ export class AppFlux extends Flux {
         this.config = Immutable.fromJS(config);
 
          // The extra argument(s) are passed to the Action / Store constructors
-        this.createActions('todos', TodoActions, this.getApiendpoint());
-        this.createStore('todos', TodoStore, this);
+        this.createActions('issues', IssueActions, this.getApiendpoint());
+        this.createStore('issues', IssueStore, this);
     }
 
     getApiendpoint() { return this.config.get('apiendpoint'); }

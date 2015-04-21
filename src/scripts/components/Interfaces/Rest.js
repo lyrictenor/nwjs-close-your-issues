@@ -2,20 +2,20 @@
 
 import React from 'react/addons';
 import UIPageHeader from '../UI/PageHeader';
-import TodoList from '../Todo/TodoList';
-import TodoForm from '../Todo/TodoForm';
+import IssueList from '../Issue/IssueList';
+import IssueForm from '../Issue/IssueForm';
 
 let InterfaceRest = React.createClass({
     render() {
 
-        const handleAdd = (title) => { this.props.flux.getActions('todos').createTodo(title); };
+        const handleAdd = (title) => { this.props.flux.getActions('issues').createIssue(title); };
 
         return (
             <div>
-                <UIPageHeader icon="star" text='Todos' />
+                <UIPageHeader icon="star" text='Issues' />
 
-                <TodoList {...this.props} />
-                <TodoForm {...this.props} onAdd={handleAdd} />
+                <IssueList {...this.props} />
+                <IssueForm {...this.props} onAdd={handleAdd} />
             </div>
         );
     }

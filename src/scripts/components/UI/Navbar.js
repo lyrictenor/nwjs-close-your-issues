@@ -19,7 +19,7 @@ let UINavbar = React.createClass({
                     </div>
 
                     <ul className="nav navbar-nav">
-                        <li className={cx({active: this.isActive('rest')})}><Link to="rest">Rest Todos</Link></li>
+                        <li className={cx({active: this.isActive('rest')})}><Link to="rest">Rest Issues</Link></li>
                     </ul>
 
                     <ul className="nav navbar-nav pull-right">
