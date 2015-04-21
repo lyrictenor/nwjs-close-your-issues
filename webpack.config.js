@@ -21,7 +21,6 @@ module.exports = {
       'webpack/hot/only-dev-server',
       './src/scripts/components/main.js'
   ],
-  target: 'node-webkit',
 
   stats: {
     colors: true,
@@ -63,7 +62,8 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.IgnorePlugin(/vertx/)
+    new webpack.IgnorePlugin(/vertx/),
+    new webpack.ExternalsPlugin("commonjs", "nw.gui")
   ]
 
 };

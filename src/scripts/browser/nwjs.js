@@ -1,7 +1,7 @@
 /* eslint strict: 0 */
 (function () {
-  var gui = require('nw.gui');
-  if (process.platform === 'darwin') {
+  if (typeof process === 'object' && process.platform === 'darwin') {
+    var gui = require('nw.gui');
     var mb = new gui.Menu({type: 'menubar'});
     mb.createMacBuiltin('CloseYourIssues', {
       hideEdit: false
