@@ -3,16 +3,37 @@
 import { Store } from 'flummox';
 import { Map, Record } from 'immutable';
 
+/* eslint-disable camelcase */
+const IssueRecord = Record({
+  id: null,
+  url: null,
+  html_url: null,
+  number: 0,
+  title: "",
+  labels: [],
+  state: null,
+  locked: null,
+  assignee: null,
+  milestone: null,
+  comments: 0,
+  created_at: null,
+  updated_at: null,
+  closed_at: null,
+  body: "",
+  user: Record({
+    id: null,
+    login: null,
+    avatar_url: null
+  })
+});
+/* eslint-enable camelcase */
+
 export class IssueStore extends Store {
 
     constructor(flux) {
         super();
 
         this.state = { issues: Map() };
-
-        class IssueRecord extends Record({id: null, title: null}) {
-            label() { return this.get('title'); }
-        }
 
         /*
         Registering action handlers
