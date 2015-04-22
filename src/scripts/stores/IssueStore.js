@@ -3,16 +3,14 @@
 import { Store } from 'flummox';
 import { Map, Record } from 'immutable';
 
+const IssueRecord = Record({id: null, title: null, state: null, user: Record({id: null, login: null})});
+
 export class IssueStore extends Store {
 
     constructor(flux) {
         super();
 
         this.state = { issues: Map() };
-
-        class IssueRecord extends Record({id: null, title: null}) {
-            label() { return this.get('title'); }
-        }
 
         /*
         Registering action handlers
