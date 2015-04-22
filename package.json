@@ -8,7 +8,6 @@
   },
   "bugs": "https://github.com/sanemat/nwjs-close-your-issues/issues",
   "dependencies": {
-    "axios": "^0.5.2",
     "babel-runtime": "^5.1.11",
     "bootstrap": "^3.3.4",
     "core-js": "^0.8.3",
