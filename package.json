@@ -11,9 +11,11 @@
     "babel-runtime": "^5.1.11",
     "bootstrap": "^3.3.4",
     "core-js": "^0.8.3",
+    "dgram-browserify": "0.0.13",
     "flummox": "^3.5.2",
     "font-awesome": "^4.3.0",
     "immutable": "^3.6.4",
+    "octonode": "^0.6.17",
     "react": "^0.13.2",
     "react-router": "^0.13.2"
   },

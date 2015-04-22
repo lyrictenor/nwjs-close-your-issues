@@ -21,6 +21,12 @@ module.exports = {
       'webpack/hot/only-dev-server',
       './src/scripts/components/main.js'
   ],
+  externals: {
+    fs: '{}',
+    net: '{}',
+    tls: '{}',
+    dns: '{}'
+  },
 
   stats: {
     colors: true,
@@ -30,6 +36,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js'],
     alias: {
+      'dgram': 'dgram-browserify',
       'styles': '../../../src/styles',
       'components': '../../../src/scripts/components/'
     }

@@ -2,10 +2,22 @@
 
 import { Actions } from 'flummox';
 import uuid from '../utils/uuid';
+import Github from 'octonode';
 
 let serverFetchIssues = async function(apiendpoint) {
-    let issues = await require('../../issues.json');
-    return issues;
+  //let client = Github.client();
+  //client
+  //  .repo('sanemat/nwjs-close-your-issues')
+  //  .issues({
+  //    page: 1,
+  //    per_page: 100,
+  //    state: 'open'
+  //  },
+  //  (err, body, header) => {
+  //    body;
+  //  });
+  let issues = await require('../../issues.json');
+  return issues;
 };
 
 let serverCreateIssue = function(apiendpoint, issueContent) {
