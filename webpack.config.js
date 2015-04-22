@@ -21,12 +21,12 @@ module.exports = {
       'webpack/hot/only-dev-server',
       './src/scripts/components/main.js'
   ],
-  externals: {
-    fs: '{}',
-    net: '{}',
-    tls: '{}',
-    dns: '{}',
-    dgram: '{}'
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    dns: 'empty',
+    dgram: 'empty'
   },
 
   stats: {
