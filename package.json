@@ -60,6 +60,7 @@
     "url": "https://github.com/sanemat/nwjs-close-your-issues"
   },
   "scripts": {
+    "build": "grunt build",
     "start": "grunt serve",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
     "verify": "grunt build && npm test"
