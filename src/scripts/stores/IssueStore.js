@@ -1,16 +1,16 @@
 'use strict';
 
 import { Store } from 'flummox';
-import Immutable from 'immutable';
+import { Map, Record } from 'immutable';
 
 export class IssueStore extends Store {
 
     constructor(flux) {
         super();
 
-        this.state = { issues: Immutable.Map() };
+        this.state = { issues: Map() };
 
-        class IssueRecord extends Immutable.Record({id: null, title: null}) {
+        class IssueRecord extends Record({id: null, title: null}) {
             label() { return this.get('title'); }
         }
 
@@ -26,7 +26,7 @@ export class IssueStore extends Store {
         });
 
         this.register(issueActionIds.fetchIssues, (issues) => {
-            let issuesMap = Immutable.Map();
+            let issuesMap = Map();
             for(let issue of issues) {
                 issuesMap = issuesMap.set(issue.id, new IssueRecord(issue));
             }
