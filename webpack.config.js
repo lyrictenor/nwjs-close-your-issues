@@ -25,7 +25,8 @@ module.exports = {
     fs: '{}',
     net: '{}',
     tls: '{}',
-    dns: '{}'
+    dns: '{}',
+    dgram: '{}'
   },
 
   stats: {
@@ -36,7 +37,6 @@ module.exports = {
   resolve: {
     extensions: ['', '.js'],
     alias: {
-      'dgram': 'dgram-browserify',
       'styles': '../../../src/styles',
       'components': '../../../src/scripts/components/'
     }
