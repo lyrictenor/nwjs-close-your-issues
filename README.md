@@ -8,7 +8,7 @@ The best module ever.
 
 ```bash
 npm install
-grunt serve
+npm start
 ```
 
 

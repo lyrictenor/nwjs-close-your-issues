@@ -63,7 +63,7 @@
     "build": "grunt build",
     "start": "grunt serve",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
-    "verify": "grunt build && npm test"
+    "verify": "npm run build && npm test"
   },
   "src": "src",
   "test": "test"
