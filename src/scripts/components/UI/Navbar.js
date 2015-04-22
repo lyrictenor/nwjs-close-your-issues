@@ -3,6 +3,7 @@
 import React from 'react/addons';
 import {Link, State} from 'react-router';
 
+const repoUrl = require('../../../../package.json').repository.url;
 const cx = React.addons.classSet;
 
 let UINavbar = React.createClass({
@@ -23,7 +24,7 @@ let UINavbar = React.createClass({
                     </ul>
 
                     <ul className="nav navbar-nav pull-right">
-                        <li><a href="https://github.com/netgusto/IdiomaticReact">Browse the code on <i className="fa fa-github"></i> GitHub</a></li>
+                        <li><a href={repoUrl}>Browse the code on <i className="fa fa-github"></i> GitHub</a></li>
                     </ul>
                 </div>
             </div>
