@@ -3,7 +3,30 @@
 import { Store } from 'flummox';
 import { Map, Record } from 'immutable';
 
-const IssueRecord = Record({id: null, title: null, state: null, user: Record({id: null, login: null})});
+/* eslint-disable camelcase */
+const IssueRecord = Record({
+  id: null,
+  url: null,
+  html_url: null,
+  number: 0,
+  title: "",
+  labels: [],
+  state: null,
+  locked: null,
+  assignee: null,
+  milestone: null,
+  comments: 0,
+  created_at: null,
+  updated_at: null,
+  closed_at: null,
+  body: "",
+  user: Record({
+    id: null,
+    login: null,
+    avatar_url: null
+  })
+});
+/* eslint-enable camelcase */
 
 export class IssueStore extends Store {
 
