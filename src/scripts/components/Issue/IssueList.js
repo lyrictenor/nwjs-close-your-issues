@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react/addons';
+import GithubUrl from 'github-url-to-object';
 
 let IssueList = React.createClass({
 
@@ -9,6 +10,13 @@ let IssueList = React.createClass({
     componentWillUnmount() { this.props.flux.getStore('issues').removeListener('change', this.onIssueStoreChange); },
 
     onIssueStoreChange() { this.setState({ issues: this.props.flux.getStore('issues').getIssues() }); },
+    getSlug(repo) {
+      let GithubObject = GithubUrl(repo);
+      return `${GithubObject.user}/${GithubObject.repo}`;
+    },
+    trimWidth(string, length=10) {
+      return `${string}...`;
+    },
 
     render() {
       const onDelete = (issue) => this.props.flux.getActions('issues').deleteIssue(issue);
@@ -27,6 +35,12 @@ let IssueList = React.createClass({
                     #{issue.number}
                     opened {issue.created_at}
                     by <img src={issue.user.avatar_url} style={{width: '20px', height: '20px'}} /> {issue.user.login}
+                  </div>
+                </div>
+                <div className="row-fluid">
+                  <div className="col-xs-12">
+                    {this.getSlug(issue.html_url)}
+                    {this.trimWidth(issue.body)}
                   </div>
                 </div>
                 <div className="row-fluid">
