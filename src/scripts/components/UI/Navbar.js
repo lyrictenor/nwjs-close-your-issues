@@ -13,11 +13,11 @@ let UINavbar = React.createClass({
     const user = this.props.flux.getUser();
 
     return (
-      <div className="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div className="container">
+      <div className="navbar navbar-default navbar-top" role="navigation">
+        <div className="container-fluid">
           <div className="navbar-header">
             <Link to="home" className="navbar-brand">
-              <img src="assets/images/closed40.svg" style={{height: '40px'}} />
+              <img src="assets/images/closed40.svg" style={{width: '40px', height: '40px'}} />
             </Link>
           </div>
 
