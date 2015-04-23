@@ -10,10 +10,13 @@ let IssueList = React.createClass({
     componentWillUnmount() { this.props.flux.getStore('issues').removeListener('change', this.onIssueStoreChange); },
 
     onIssueStoreChange() { this.setState({ issues: this.props.flux.getStore('issues').getIssues() }); },
+
+    //TODO move this to business logic
     getSlug(repo) {
       let GithubObject = GithubUrl(repo);
       return `${GithubObject.user}/${GithubObject.repo}`;
     },
+    //TODO move this to business logic
     trimWidth(string, length=10) {
       return `${string}...`;
     },
