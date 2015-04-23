@@ -44,9 +44,18 @@ let IssueList = React.createClass({
                   </div>
                 </div>
                 <div className="row-fluid">
-                  <div className="col-xs-2">
+                  <div className="col-xs-12">
                     <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
-                      Done
+                      Delete Branch
+                    </button>
+                    <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
+                      Close Issue
+                    </button>
+                    <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
+                      Merge Pull Request
+                    </button>
+                    <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
+                      Snooze
                     </button>
                   </div>
                 </div>
