@@ -4,6 +4,9 @@ env: CI=true
 node_js:
 - iojs
 script: "npm run verify"
+cache:
+  directories:
+    - node_modules
 after_success:
 - bin/build.sh
 notifications:
