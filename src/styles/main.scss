@@ -4,3 +4,10 @@
 .navbar-brand {
   padding: 5px;
 }
+
+.row li:nth-child(even) {
+  background-color: #f8f8f8;
+}
+.row li:nth-child(odd) {
+  background-color: #e7e7e7;
+}

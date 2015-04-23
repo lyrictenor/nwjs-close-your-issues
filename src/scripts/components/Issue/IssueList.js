@@ -25,7 +25,7 @@ let IssueList = React.createClass({
         return (
             <div>
               {issues.size > 0 ?
-                <ul>{issues}</ul>
+                <ul className="row list-unstyled">{issues}</ul>
                 :
                 <h4>Nothing in the list ! Try adding some elements using the form below.</h4>
               }
