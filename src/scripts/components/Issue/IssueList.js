@@ -14,11 +14,30 @@ let IssueList = React.createClass({
       const onDelete = (issue) => this.props.flux.getActions('issues').deleteIssue(issue);
       const issues = this.props.issues.map(issue =>
           <li>
-            <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
-              Done
-            </button>
-            {issue.id} {issue.title} - {issue.state} {issue.user.login} {issue.user.avatar_url}
-            <span className="octicon octicon-microscope"></span>
+            <div className="row-fluid">
+              <div className="col-xs-12">
+                <div className="row-fluid">
+                  <div className="col-xs-12">
+                    <span className="octicon octicon-issue-opened"></span>
+                    {issue.title}
+                  </div>
+                </div>
+                <div className="row-fluid">
+                  <div className="col-xs-12">
+                    #{issue.number}
+                    opened {issue.created_at}
+                    by <img src={issue.user.avatar_url} style={{width: '20px', height: '20px'}} /> {issue.user.login}
+                  </div>
+                </div>
+                <div className="row-fluid">
+                  <div className="col-xs-2">
+                    <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
+                      Done
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </li>
       );
 
