@@ -13,7 +13,7 @@ let UINavbar = React.createClass({
     const user = this.props.flux.getUser();
 
     return (
-      <div className="navbar navbar-default navbar-top" role="navigation">
+      <div className="navbar navbar-default" role="navigation">
         <div className="container-fluid">
           <div className="navbar-header">
             <Link to="home" className="navbar-brand">
