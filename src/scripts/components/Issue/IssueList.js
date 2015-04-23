@@ -18,6 +18,7 @@ let IssueList = React.createClass({
               Done
             </button>
             {issue.id} {issue.title} - {issue.state} {issue.user.login} {issue.user.avatar_url}
+            <span className="octicon octicon-microscope"></span>
           </li>
       );
 

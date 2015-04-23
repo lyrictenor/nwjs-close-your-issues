@@ -78,6 +78,11 @@
       "from": "https://registry.npmjs.org/immutable/-/immutable-3.7.2.tgz",
       "resolved": "https://registry.npmjs.org/immutable/-/immutable-3.7.2.tgz"
     },
+    "octicons": {
+      "version": "2.2.0",
+      "from": "octicons@*",
+      "resolved": "https://registry.npmjs.org/octicons/-/octicons-2.2.0.tgz"
+    },
     "octonode": {
       "version": "0.6.17",
       "from": "https://registry.npmjs.org/octonode/-/octonode-0.6.17.tgz",
