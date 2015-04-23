@@ -15,7 +15,7 @@ let App = React.createClass({
     render() {
 
         return (
-            <div className='main container'>
+            <div className='main container-fluid'>
                 <FluxComponent {...this.props} connectToStores={['issues']}>
                     <UINavbar />
                     <RouteHandler />
