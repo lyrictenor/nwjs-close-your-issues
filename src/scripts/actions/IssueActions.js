@@ -2,22 +2,27 @@
 
 import { Actions } from 'flummox';
 import uuid from '../utils/uuid';
+import axios from 'axios';
 import Github from 'octonode';
 
-let serverFetchIssues = async function(slug) {
-  //let client = Github.client();
-  //client
-  //  .repo('sanemat/nwjs-close-your-issues')
-  //  .issues({
-  //    page: 1,
-  //    per_page: 100,
-  //    state: 'open'
-  //  },
-  //  (err, body, header) => {
-  //    body;
-  //  });
-  let issues = await require('../../issues.json');
-  return issues;
+let serverFetchIssues = async function(endpoint, slug) {
+  const headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  /* eslint-disable camelcase */
+  let config = {
+    headers: headers,
+    params: {
+      state: 'open',
+      page: 1,
+      per_page: 100
+    }
+  };
+  /* eslint-enable camelcase */
+
+  let url = `${endpoint}/repos/${slug}/issues`;
+  let issues = await axios.get(url, config);
+  return issues.data;
+  //let issues = await require('../../issues.json');
+  //return issues;
 };
 
 let serverCreateIssue = function(slug, issueContent) {
@@ -42,7 +47,7 @@ export class IssueActions extends Actions {
   }
 
   async fetchIssues() {
-    return await serverFetchIssues(this.slug);
+    return await serverFetchIssues(this.apiendpoint, this.slug);
   }
 
   createIssue(issueContent) {
