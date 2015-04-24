@@ -19,7 +19,7 @@ const IssueRecord = Record({
   created_at: null,
   updated_at: null,
   closed_at: null,
-  body: "",
+  body_text: "",
   user: Record({
     id: null,
     login: null,

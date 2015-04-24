@@ -5,7 +5,8 @@
     var mb = new gui.Menu({type: 'menubar'});
     mb.createMacBuiltin('CloseYourIssues');
     gui.Window.get().menu = mb;
+    window.gui = gui;
   }
 
   //var idb = window.document.getElementById('idb');
-})();
+})(window);

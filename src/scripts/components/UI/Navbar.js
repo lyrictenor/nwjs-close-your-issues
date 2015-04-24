@@ -2,6 +2,7 @@
 
 import React from 'react/addons';
 import {Link, State} from 'react-router';
+import onOpenExternals from '../../utils/openExternals';
 
 const repoUrl = require('../../../../package.json').repository.url;
 const cx = React.addons.classSet;
@@ -29,7 +30,9 @@ let UINavbar = React.createClass({
 
           <ul className="nav navbar-nav pull-right">
             <li>
-              <a href={repoUrl}>Browse the code on <i className="fa fa-github"></i> GitHub</a>
+              <a href={repoUrl} onClick={onOpenExternals.bind(this, repoUrl)}>
+                Browse the code on <i className="fa fa-github"></i> GitHub
+              </a>
             </li>
           </ul>
         </div>
