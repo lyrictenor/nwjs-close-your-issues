@@ -3,7 +3,6 @@
 import { Actions } from 'flummox';
 import uuid from '../utils/uuid';
 import axios from 'axios';
-import Github from 'octonode';
 
 let serverFetchIssues = async function(endpoint, slug) {
   const headers = { 'Accept': 'application/vnd.github.v3.text+json' };

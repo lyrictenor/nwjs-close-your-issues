@@ -21,13 +21,6 @@ module.exports = {
       'webpack/hot/only-dev-server',
       './src/scripts/components/main.js'
   ],
-  node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    dns: 'empty',
-    dgram: 'empty'
-  },
 
   stats: {
     colors: true,
