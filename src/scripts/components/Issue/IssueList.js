@@ -25,44 +25,34 @@ let IssueList = React.createClass({
       const onDelete = (issue) => this.props.flux.getActions('issues').deleteIssue(issue);
       const issues = this.props.issues.map(issue =>
           <li>
-            <div className="row-fluid">
-              <div className="col-xs-12">
-                <div className="row-fluid">
-                  <div className="col-xs-12">
-                    <span className="octicon octicon-issue-opened"></span>
-                    {issue.title}
-                  </div>
-                </div>
-                <div className="row-fluid">
-                  <div className="col-xs-12">
-                    #{issue.number}
-                    opened {issue.created_at}
-                    by <img src={issue.user.avatar_url} style={{width: '20px', height: '20px'}} /> {issue.user.login}
-                  </div>
-                </div>
-                <div className="row-fluid">
-                  <div className="col-xs-12">
-                    {this.getSlug(issue.html_url)}
-                    {this.trimWidth(issue.body_text)}
-                  </div>
-                </div>
-                <div className="row-fluid">
-                  <div className="col-xs-12">
-                    <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
-                      Delete Branch
-                    </button>
-                    <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
-                      Close Issue
-                    </button>
-                    <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
-                      Merge Pull Request
-                    </button>
-                    <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
-                      Snooze
-                    </button>
-                  </div>
-                </div>
-              </div>
+            <div>
+              <span className="octicon octicon-issue-opened"></span>
+              {issue.title}
+            </div>
+            <div>
+              #{issue.number}
+              opened {issue.created_at}
+              by <img src={issue.user.avatar_url} style={{width: '20px', height: '20px'}} /> {issue.user.login}
+            </div>
+            <div>
+              {this.getSlug(issue.html_url)}
+            </div>
+            <div>
+              {this.trimWidth(issue.body_text)}
+            </div>
+            <div>
+              <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
+                Delete Branch
+              </button>
+              <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
+                Close Issue
+              </button>
+              <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
+                Merge Pull Request
+              </button>
+              <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
+                Snooze
+              </button>
             </div>
           </li>
       );
