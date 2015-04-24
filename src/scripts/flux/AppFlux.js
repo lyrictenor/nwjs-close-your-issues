@@ -25,4 +25,8 @@ export class AppFlux extends Flux {
   getUser() {
     return this.config.get('user').toJS();
   }
+
+  getSlug() {
+    return this.config.get('slug');
+  }
 }
