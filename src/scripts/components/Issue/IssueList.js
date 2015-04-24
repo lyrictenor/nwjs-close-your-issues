@@ -23,11 +23,21 @@ let IssueList = React.createClass({
 
     render() {
       const onDelete = (issue) => this.props.flux.getActions('issues').deleteIssue(issue);
+      const onOpen = (url) => {
+        if(window.gui) {
+          window.gui.Shell.openExternal(url);
+        } else {
+          window.location.href = url;
+        }
+      };
+
       const issues = this.props.issues.map(issue =>
           <li>
             <div>
               <span className="octicon octicon-issue-opened"></span>
-              {issue.title}
+              <span onClick={onOpen.bind(this, issue.html_url)} style={{cursor: 'hand'}}>
+                {issue.title}
+              </span>
             </div>
             <div>
               #{issue.number}
