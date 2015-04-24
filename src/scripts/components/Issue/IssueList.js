@@ -17,8 +17,8 @@ let IssueList = React.createClass({
       return `${GithubObject.user}/${GithubObject.repo}`;
     },
     //TODO move this to business logic
-    trimWidth(string, length=10) {
-      return `${string}...`;
+    trimWidth(string, length=100) {
+      return `${string.slice(0, length)}...`;
     },
 
     render() {
@@ -43,7 +43,7 @@ let IssueList = React.createClass({
                 <div className="row-fluid">
                   <div className="col-xs-12">
                     {this.getSlug(issue.html_url)}
-                    {this.trimWidth(issue.body)}
+                    {this.trimWidth(issue.body_text)}
                   </div>
                 </div>
                 <div className="row-fluid">
