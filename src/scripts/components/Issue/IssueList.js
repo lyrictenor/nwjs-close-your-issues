@@ -2,6 +2,7 @@
 
 import React from 'react/addons';
 import GithubUrl from 'github-url-to-object';
+import onOpenExternals from '../../utils/openExternals';
 
 let IssueList = React.createClass({
 
@@ -23,21 +24,14 @@ let IssueList = React.createClass({
 
     render() {
       const onDelete = (issue) => this.props.flux.getActions('issues').deleteIssue(issue);
-      const onOpen = (url) => {
-        if(window.gui) {
-          window.gui.Shell.openExternal(url);
-        } else {
-          window.location.href = url;
-        }
-      };
 
       const issues = this.props.issues.map(issue =>
           <li>
             <div>
               <span className="octicon octicon-issue-opened"></span>
-              <span onClick={onOpen.bind(this, issue.html_url)} style={{cursor: 'hand'}}>
+              <a href={issue.html_url} onClick={onOpenExternals.bind(this, issue.html_url)}>
                 {issue.title}
-              </span>
+              </a>
             </div>
             <div>
               #{issue.number}
