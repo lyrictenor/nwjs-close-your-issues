@@ -8,18 +8,25 @@ import { IssueStore } from '../stores/IssueStore';
 
 export class AppFlux extends Flux {
 
-    constructor(config) {
-        super();
+  constructor(config) {
+    super();
 
-        this.config = Immutable.fromJS(config);
+    this.config = Immutable.fromJS(config);
 
-         // The extra argument(s) are passed to the Action / Store constructors
-        this.createActions('issues', IssueActions, this.getApiendpoint());
-        this.createStore('issues', IssueStore, this);
-    }
+    // The extra argument(s) are passed to the Action / Store constructors
+    this.createActions('issues', IssueActions, this);
+    this.createStore('issues', IssueStore, this);
+  }
 
-    getApiendpoint() { return this.config.get('apiendpoint'); }
+  getApiendpoint() {
+    return this.config.get('apiendpoint');
+  }
 
-    getUser() { return this.config.get('user').toJS(); }
+  getUser() {
+    return this.config.get('user').toJS();
+  }
 
+  getSlug() {
+    return this.config.get('slug');
+  }
 }

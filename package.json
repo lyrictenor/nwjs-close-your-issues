@@ -8,6 +8,7 @@
   },
   "bugs": "https://github.com/sanemat/nwjs-close-your-issues/issues",
   "dependencies": {
+    "axios": "^0.5.4",
     "babel-runtime": "^5.1.11",
     "bootstrap": "^3.3.4",
     "core-js": "^0.8.3",
@@ -16,7 +17,6 @@
     "github-url-to-object": "^1.5.2",
     "immutable": "^3.6.4",
     "octicons": "^2.2.0",
-    "octonode": "^0.6.17",
     "react": "^0.13.2",
     "react-router": "^0.13.2"
   },

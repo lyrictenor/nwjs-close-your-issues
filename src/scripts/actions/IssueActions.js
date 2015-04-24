@@ -2,49 +2,58 @@
 
 import { Actions } from 'flummox';
 import uuid from '../utils/uuid';
-import Github from 'octonode';
+import axios from 'axios';
 
-let serverFetchIssues = async function(apiendpoint) {
-  //let client = Github.client();
-  //client
-  //  .repo('sanemat/nwjs-close-your-issues')
-  //  .issues({
-  //    page: 1,
-  //    per_page: 100,
-  //    state: 'open'
-  //  },
-  //  (err, body, header) => {
-  //    body;
-  //  });
-  let issues = await require('../../issues.json');
-  return issues;
+let serverFetchIssues = async function(endpoint, slug) {
+  const headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  /* eslint-disable camelcase */
+  let config = {
+    headers: headers,
+    params: {
+      state: 'open',
+      page: 1,
+      per_page: 100
+    }
+  };
+  /* eslint-enable camelcase */
+
+  let url = `${endpoint}/repos/${slug}/issues`;
+  let issues = await axios.get(url, config);
+  return issues.data;
+  //let issues = await require('../../issues.json');
+  //return issues;
 };
 
-let serverCreateIssue = function(apiendpoint, issueContent) {
+let serverCreateIssue = function(slug, issueContent) {
 
-    const newIssue = { id: uuid(), title: issueContent };
-    //axios.post(apiendpoint + '/todos', newIssue);
+  const newIssue = { id: uuid(), title: issueContent };
+  //axios.post(apiendpoint + '/todos', newIssue);
 
-    return newIssue; // passed to the store without awaiting REST response for optimistic add
+  return newIssue; // passed to the store without awaiting REST response for optimistic add
 };
 
-let serverDeleteIssue = function(apiendpoint, issue) {
-    //axios.delete(apiendpoint + '/todos/' + issue.get('id'));
-    return issue; // passed to the store without awaiting REST response for optimistic delete
+let serverDeleteIssue = function(slug, issue) {
+  //axios.delete(apiendpoint + '/todos/' + issue.get('id'));
+  return issue; // passed to the store without awaiting REST response for optimistic delete
 };
 
 export class IssueActions extends Actions {
 
-    constructor(apiendpoint) {
-        super();
-        this.apiendpoint = apiendpoint;
-    }
+  constructor(flux) {
+    super();
+    this.apiendpoint = flux.getApiendpoint();
+    this.slug = flux.getSlug();
+  }
 
-    async fetchIssues() {
-        return await serverFetchIssues(this.apiendpoint);
-    }
+  async fetchIssues() {
+    return await serverFetchIssues(this.apiendpoint, this.slug);
+  }
 
-    createIssue(issueContent) { return serverCreateIssue(this.apiendpoint, issueContent); }
+  createIssue(issueContent) {
+    return serverCreateIssue(this.slug, issueContent);
+  }
 
-    deleteIssue(issue) { return serverDeleteIssue(this.apiendpoint, issue); }
+  deleteIssue(issue) {
+    return serverDeleteIssue(this.slug, issue);
+  }
 }
