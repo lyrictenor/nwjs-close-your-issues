@@ -35,9 +35,9 @@ let serverDeleteIssue = function(apiendpoint, issue) {
 
 export class IssueActions extends Actions {
 
-    constructor(apiendpoint) {
+    constructor(flux) {
         super();
-        this.apiendpoint = apiendpoint;
+        this.apiendpoint = flux.getApiendpoint();
     }
 
     async fetchIssues() {

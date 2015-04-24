@@ -14,7 +14,7 @@ export class AppFlux extends Flux {
         this.config = Immutable.fromJS(config);
 
          // The extra argument(s) are passed to the Action / Store constructors
-        this.createActions('issues', IssueActions, this.getApiendpoint());
+        this.createActions('issues', IssueActions, this);
         this.createStore('issues', IssueStore, this);
     }
 
