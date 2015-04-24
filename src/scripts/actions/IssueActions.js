@@ -22,29 +22,33 @@ let serverFetchIssues = async function(apiendpoint) {
 
 let serverCreateIssue = function(apiendpoint, issueContent) {
 
-    const newIssue = { id: uuid(), title: issueContent };
-    //axios.post(apiendpoint + '/todos', newIssue);
+  const newIssue = { id: uuid(), title: issueContent };
+  //axios.post(apiendpoint + '/todos', newIssue);
 
-    return newIssue; // passed to the store without awaiting REST response for optimistic add
+  return newIssue; // passed to the store without awaiting REST response for optimistic add
 };
 
 let serverDeleteIssue = function(apiendpoint, issue) {
-    //axios.delete(apiendpoint + '/todos/' + issue.get('id'));
-    return issue; // passed to the store without awaiting REST response for optimistic delete
+  //axios.delete(apiendpoint + '/todos/' + issue.get('id'));
+  return issue; // passed to the store without awaiting REST response for optimistic delete
 };
 
 export class IssueActions extends Actions {
 
-    constructor(flux) {
-        super();
-        this.apiendpoint = flux.getApiendpoint();
-    }
+  constructor(flux) {
+    super();
+    this.apiendpoint = flux.getApiendpoint();
+  }
 
-    async fetchIssues() {
-        return await serverFetchIssues(this.apiendpoint);
-    }
+  async fetchIssues() {
+    return await serverFetchIssues(this.apiendpoint);
+  }
 
-    createIssue(issueContent) { return serverCreateIssue(this.apiendpoint, issueContent); }
+  createIssue(issueContent) {
+    return serverCreateIssue(this.apiendpoint, issueContent);
+  }
 
-    deleteIssue(issue) { return serverDeleteIssue(this.apiendpoint, issue); }
+  deleteIssue(issue) {
+    return serverDeleteIssue(this.apiendpoint, issue);
+  }
 }
