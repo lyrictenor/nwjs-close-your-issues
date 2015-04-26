@@ -1,7 +1,7 @@
 'use strict';
-module.exports = (url, event) => {
+module.exports = (event) => {
   if(window.gui) {
     event.preventDefault();
-    window.gui.Shell.openExternal(url);
+    window.gui.Shell.openExternal(event.target.href);
   }
 };
