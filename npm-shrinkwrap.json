@@ -15,9 +15,9 @@
       }
     },
     "babel-runtime": {
-      "version": "5.1.11",
-      "from": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.1.11.tgz",
-      "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.1.11.tgz"
+      "version": "5.1.13",
+      "from": "babel-runtime@5.1.13",
+      "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.1.13.tgz"
     },
     "bootstrap": {
       "version": "3.3.4",
@@ -25,9 +25,9 @@
       "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.4.tgz"
     },
     "core-js": {
-      "version": "0.8.4",
-      "from": "https://registry.npmjs.org/core-js/-/core-js-0.8.4.tgz",
-      "resolved": "https://registry.npmjs.org/core-js/-/core-js-0.8.4.tgz"
+      "version": "0.9.3",
+      "from": "core-js@0.9.3",
+      "resolved": "https://registry.npmjs.org/core-js/-/core-js-0.9.3.tgz"
     },
     "file-loader": {
       "version": "0.8.1",
