@@ -10,10 +10,11 @@ export class AppFlux extends Flux {
 
   constructor() {
     super();
-    this.createStore('config', ConfigStore, this);
 
     // The extra argument(s) are passed to the Action / Store constructors
     this.createActions('issues', IssueActions, this);
+
     this.createStore('issues', IssueStore, this);
+    this.createStore('config', ConfigStore, this);
   }
 }
