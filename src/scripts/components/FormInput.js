@@ -28,7 +28,6 @@ let FormInput = React.createClass({
     return (
       <div className={className}>
         <input
-          /* https://github.com/christianalfoni/formsy-react/issues/109 */
           type={this.props.type || 'text'}
           name={this.props.name}
           onChange={this.changeValue}
