@@ -12,7 +12,7 @@ import InterfaceRest from './Interfaces/Rest';
 
 try {
 
-    require('../../styles/main.scss');
+    require('../../styles/main.less');
     require('bootstrap/dist/css/bootstrap.css');
     require('font-awesome/css/font-awesome.css');
     require('octicons/octicons/octicons.css');
