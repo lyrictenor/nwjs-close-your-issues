@@ -11,7 +11,7 @@ let UINavbar = React.createClass({
   mixins: [State],
   render() {
 
-    const user = this.props.flux.getUser();
+    //const user = this.props.flux.getUser();
 
     return (
       <div className="navbar navbar-default" role="navigation">

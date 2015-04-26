@@ -41,19 +41,28 @@ export class IssueActions extends Actions {
 
   constructor(flux) {
     super();
-    this.apiendpoint = flux.getApiendpoint();
-    this.slug = flux.getSlug();
+    this.flux = flux;
+  }
+
+  fetchConfig() {
+    const config = this.flux.getStore('config');
+
+    this.apiendpoint = config.getDefaultApiendpoint();
+    this.slug = config.getDefaultSlug();
   }
 
   async fetchIssues() {
+    this.fetchConfig();
     return await serverFetchIssues(this.apiendpoint, this.slug);
   }
 
   createIssue(issueContent) {
+    this.fetchConfig();
     return serverCreateIssue(this.slug, issueContent);
   }
 
   deleteIssue(issue) {
+    this.fetchConfig();
     return serverDeleteIssue(this.slug, issue);
   }
 }
