@@ -24,14 +24,23 @@ let UINavbar = React.createClass({
 
           <ul className="nav navbar-nav">
             <li className={cx({active: this.isActive('rest')})}>
-              <Link to="rest">Issues</Link>
+              <Link to="rest">
+                <i className="octicon octicon-issue-opened"></i> Issues
+              </Link>
+            </li>
+          </ul>
+          <ul className="nav navbar-nav">
+            <li className={cx({active: this.isActive('config')})}>
+              <Link to="config">
+                <i className="octicon octicon-gear"></i> Config
+              </Link>
             </li>
           </ul>
 
           <ul className="nav navbar-nav pull-right">
             <li>
               <a href={repoUrl} onClick={onOpenExternals.bind(this)}>
-                Browse the code on <i className="fa fa-github"></i> GitHub
+                <i className="octicon octicon-mark-github"></i> nwjs-close-your-issues
               </a>
             </li>
           </ul>

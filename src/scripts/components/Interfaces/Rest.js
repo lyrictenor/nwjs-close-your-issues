@@ -12,7 +12,7 @@ let InterfaceRest = React.createClass({
 
         return (
             <div>
-                <UIPageHeader icon="star" text='Issues' />
+                <UIPageHeader icon="gear" text='Issues' />
 
                 <IssueList {...this.props} />
                 <IssueForm {...this.props} onAdd={handleAdd} />

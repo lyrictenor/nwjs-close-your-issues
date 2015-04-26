@@ -10,7 +10,7 @@ let InterfaceHome = React.createClass({
 
         return (
             <div>
-                <UIPageHeader icon="star" text={'you, welcome !'} />
+                <UIPageHeader icon="gear" text={'you, welcome !'} />
                 <p><strong>Idiomatic React</strong> aims to be the simplest API-centric Flux app one could build using React.</p>
                 <p>Currently, it uses :</p>
                 <ul>
