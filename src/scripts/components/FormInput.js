@@ -1,5 +1,6 @@
 'use strict';
 
+import React from 'react/addons';
 import Formsy from 'formsy-react';
 let FormInput = React.createClass({
 
@@ -18,7 +19,7 @@ let FormInput = React.createClass({
     // when the value is empty and the required prop is
     // passed to the input. showError() is true when the
     // value typed is invalid
-    let className = this.showRequired() ? 'required' : this.showError() ? 'error' : null;
+    let className = this.props.className + ' ' + (this.showRequired() ? 'required' : this.showError() ? 'error' : null);
 
     // An error message is returned ONLY if the component is invalid
     // or the server has returned an error message
@@ -28,7 +29,8 @@ let FormInput = React.createClass({
       <div className={className}>
         <input
           /* https://github.com/christianalfoni/formsy-react/issues/109 */
-          type={this.props.type ? this.props.type : 'text'}
+          type={this.props.type || 'text'}
+          name={this.props.name}
           onChange={this.changeValue}
           value={this.getValue()} />
         <span>{errorMessage}</span>
