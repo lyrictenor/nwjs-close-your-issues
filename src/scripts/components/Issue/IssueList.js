@@ -29,7 +29,7 @@ let IssueList = React.createClass({
           <li>
             <div>
               <span className="octicon octicon-issue-opened"></span>
-              <a href={issue.html_url} onClick={onOpenExternals.bind(this, issue.html_url)}>
+              <a href={issue.html_url} onClick={onOpenExternals.bind(this)}>
                 {issue.title}
               </a>
             </div>

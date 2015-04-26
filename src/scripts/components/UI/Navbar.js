@@ -30,7 +30,7 @@ let UINavbar = React.createClass({
 
           <ul className="nav navbar-nav pull-right">
             <li>
-              <a href={repoUrl} onClick={onOpenExternals.bind(this, repoUrl)}>
+              <a href={repoUrl} onClick={onOpenExternals.bind(this)}>
                 Browse the code on <i className="fa fa-github"></i> GitHub
               </a>
             </li>
