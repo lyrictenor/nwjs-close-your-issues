@@ -41,8 +41,12 @@ export class IssueActions extends Actions {
 
   constructor(flux) {
     super();
-    this.apiendpoint = flux.getApiendpoint();
-    this.slug = flux.getSlug();
+    this.flux = flux;
+
+    const config = flux.getStore('config');
+
+    this.apiendpoint = config.getDefaultApiendpoint();
+    this.slug = config.getDefaultSlug();
   }
 
   async fetchIssues() {

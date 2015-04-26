@@ -1,32 +1,19 @@
 'use strict';
 
 import { Flux } from 'flummox';
-import Immutable from 'immutable';
 
 import { IssueActions } from '../actions/IssueActions';
 import { IssueStore } from '../stores/IssueStore';
+import { ConfigStore } from '../stores/ConfigStore';
 
 export class AppFlux extends Flux {
 
-  constructor(config) {
+  constructor() {
     super();
-
-    this.config = Immutable.fromJS(config);
+    this.createStore('config', ConfigStore, this);
 
     // The extra argument(s) are passed to the Action / Store constructors
     this.createActions('issues', IssueActions, this);
     this.createStore('issues', IssueStore, this);
-  }
-
-  getApiendpoint() {
-    return this.config.get('apiendpoint');
-  }
-
-  getUser() {
-    return this.config.get('user').toJS();
-  }
-
-  getSlug() {
-    return this.config.get('slug');
   }
 }

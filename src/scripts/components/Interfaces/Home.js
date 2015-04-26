@@ -6,11 +6,11 @@ import UIPageHeader from '../UI/PageHeader';
 let InterfaceHome = React.createClass({
     render() {
 
-        const user = this.props.flux.getUser();
+        //const user = this.props.flux.getUser();
 
         return (
             <div>
-                <UIPageHeader icon="star" text={user.firstname + ' ' + user.lastname + ', welcome !'} />
+                <UIPageHeader icon="star" text={'you, welcome !'} />
                 <p><strong>Idiomatic React</strong> aims to be the simplest API-centric Flux app one could build using React.</p>
                 <p>Currently, it uses :</p>
                 <ul>

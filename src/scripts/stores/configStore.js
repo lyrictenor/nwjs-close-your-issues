@@ -3,24 +3,31 @@
 import { Store } from 'flummox';
 import { Map } from 'immutable';
 
+const defaultValues = {
+  apiendpoint: 'https://api.github.com',
+  token: '',
+  slug: 'rails/rails',
+  user: {
+    firstname: 'Dear',
+    lastname: 'User'
+  }
+};
+
 export class ConfigStore extends Store {
-  const defaultValues = {
-    apiendpoint: 'https://api.github.com',
-    token: '',
-    slug: 'rails/rails',
-  };
   constructor(flux) {
     super();
-
-    this.state = Map(this.defaultValues);
+    this.state = Map(defaultValues);
   }
   getDefaultApiendpoint() {
-    return this.defaultValues.apiendpoint;
+    return defaultValues.apiendpoint;
   }
   getDefaultToken() {
-    return this.defaultValues.token;
+    return defaultValues.token;
   }
   getDefaultSlug() {
-    return this.defaultValues.slug;
+    return defaultValues.slug;
+  }
+  getDefaultUser() {
+    return defaultValues.user;
   }
 }
