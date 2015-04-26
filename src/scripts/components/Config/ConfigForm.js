@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react/addons';
-import FormInput from '../FormInput';
+import FormInput from '../UI/FormInput';
 import Formsy from 'formsy-react';
 
 let ConfigForm = React.createClass({
@@ -32,9 +32,18 @@ let ConfigForm = React.createClass({
         onValid={this.enableButton}
         onInvalid={this.disableButton}>
         <FormInput
-          name="email"
-          validations="isEmail"
-          validationError="This is not a valid email"
+          name="apiEndpoint"
+          placeholder="placeholder"
+          validationError="Api Endpoint is required"
+          required />
+        <FormInput
+          name="accessToken"
+          validates="isLength:40:40"
+          validationError="This is not a valid access token" />
+        <FormInput
+          name="slug"
+          placeholder="placeholder"
+          validationError="Slug is required"
           required />
         <button
           className={buttonClass}

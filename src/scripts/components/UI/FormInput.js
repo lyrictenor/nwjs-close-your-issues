@@ -31,6 +31,7 @@ let FormInput = React.createClass({
           type={this.props.type || 'text'}
           name={this.props.name}
           onChange={this.changeValue}
+          placeholder={this.props.placeholder}
           value={this.getValue()} />
         <span>{errorMessage}</span>
       </div>
