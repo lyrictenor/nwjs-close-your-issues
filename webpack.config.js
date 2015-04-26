@@ -48,8 +48,8 @@ module.exports = {
       test: /\.json$/,
       loader: 'json'
     }, {
-      test: /\.scss/,
-      loader: 'style!css!sass?outputStyle=expanded'
+      test: /\.less$/,
+      loader: 'style!css!less'
     }, {
       test: /\.css$/,
       loader: 'style-loader!css-loader'

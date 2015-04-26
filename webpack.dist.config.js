@@ -60,8 +60,8 @@ module.exports = {
       test: /\.css$/,
       loader: 'style-loader!css-loader'
     }, {
-      test: /\.scss/,
-      loader: 'style!css!sass?outputStyle=expanded'
+      test: /\.less$/,
+      loader: 'style!css!less'
     }, {
       test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'url-loader?limit=8192'
