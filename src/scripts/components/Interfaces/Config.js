@@ -4,7 +4,7 @@ import React from 'react/addons';
 import UIPageHeader from '../UI/PageHeader';
 import ConfigForm from '../Config/ConfigForm';
 
-let InterfaceConfig = React.createClass({
+class InterfaceConfig extends React.Component {
   render() {
     return (
       <div>
@@ -13,6 +13,6 @@ let InterfaceConfig = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = InterfaceConfig;
+export default InterfaceConfig;
