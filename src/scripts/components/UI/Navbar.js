@@ -1,14 +1,13 @@
 'use strict';
 
 import React from 'react/addons';
-import {Link, State} from 'react-router';
+import { Link } from 'react-router';
 import onOpenExternals from '../../utils/openExternals';
 import cx from 'classnames';
 
 const repoUrl = require('../../../../package.json').repository.url;
 
-let UINavbar = React.createClass({
-  mixins: [State],
+class UINavbar extends React.Component {
   render() {
 
     //const user = this.props.flux.getUser();
@@ -23,14 +22,14 @@ let UINavbar = React.createClass({
           </div>
 
           <ul className="nav navbar-nav">
-            <li className={cx({active: this.isActive('rest')})}>
+            <li className={cx({active: this.context.router.isActive('rest')})}>
               <Link to="rest">
                 <i className="octicon octicon-issue-opened"></i> Issues
               </Link>
             </li>
           </ul>
           <ul className="nav navbar-nav">
-            <li className={cx({active: this.isActive('config')})}>
+            <li className={cx({active: this.context.router.isActive('config')})}>
               <Link to="config">
                 <i className="octicon octicon-gear"></i> Config
               </Link>
@@ -48,6 +47,10 @@ let UINavbar = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = UINavbar;
+UINavbar.contextTypes = {
+  router: React.PropTypes.func.isRequired
+};
+
+export default UINavbar;
