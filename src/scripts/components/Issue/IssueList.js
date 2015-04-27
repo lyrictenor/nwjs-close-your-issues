@@ -4,32 +4,21 @@ import React from 'react/addons';
 import GithubUrl from 'github-url-to-object';
 import onOpenExternals from '../../utils/openExternals';
 
-let IssueList = React.createClass({
-
-  componentWillMount() {
-    this.props.flux.getStore('issues').addListener('change', this.onIssueStoreChange);
-  },
-
-  componentWillUnmount() {
-    this.props.flux.getStore('issues').removeListener('change', this.onIssueStoreChange);
-  },
-
-  onIssueStoreChange() {
-    this.setState({ issues: this.props.flux.getStore('issues').getIssues() });
-  },
-
+class IssueList extends React.Component {
   //TODO move this to business logic
   getSlug(repo) {
     let GithubObject = GithubUrl(repo);
     return `${GithubObject.user}/${GithubObject.repo}`;
-  },
+  }
   //TODO move this to business logic
   trimWidth(string, length=100) {
     return `${string.slice(0, length)}...`;
-  },
+  }
 
   render() {
-    const onDelete = (issue) => this.props.flux.getActions('issues').deleteIssue(issue);
+    const onDelete = (issue) => {
+      this.props.flux.getActions('issues').deleteIssue(issue);
+    };
 
     const issues = this.props.issues.map(issue =>
         <li>
@@ -78,6 +67,6 @@ let IssueList = React.createClass({
     );
   }
 
-});
+}
 
-module.exports = IssueList;
+export default IssueList;
