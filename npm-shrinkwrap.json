@@ -24,6 +24,11 @@
       "from": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.4.tgz",
       "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.4.tgz"
     },
+    "classnames": {
+      "version": "1.2.1",
+      "from": "classnames@*",
+      "resolved": "https://registry.npmjs.org/classnames/-/classnames-1.2.1.tgz"
+    },
     "core-js": {
       "version": "0.9.3",
       "from": "core-js@0.9.3",
