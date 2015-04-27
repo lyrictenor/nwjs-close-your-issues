@@ -5,7 +5,7 @@ import Formsy from 'formsy-react';
 
 // github.com/christianalfoni/formsy-react/issues/113
 Formsy.addValidationRule('equalLengthOrEmpty', function (values, value, length) {
-  return !value || (value && value.length && value.length === length);
+  return !value || (value && value.length > 0 && value.length === length);
 });
 
 let FormInput = React.createClass({
