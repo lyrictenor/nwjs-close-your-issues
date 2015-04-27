@@ -3,6 +3,7 @@
 import React from 'react/addons';
 import FormInput from '../UI/FormInput';
 import Formsy from 'formsy-react';
+import Classnames from 'classnames';
 
 let ConfigForm = React.createClass({
   getInitialState() {
@@ -24,7 +25,12 @@ let ConfigForm = React.createClass({
   },
   render() {
     let submitText = (this.state.canSubmit) ? 'Save' : 'Invalid';
-    let buttonClass = `btn btn-default btn-block ${(this.state.canSubmit) ? 'btn-success' : ''}`;
+    let buttonClass = Classnames(
+      'btn',
+      'btn-default',
+      'btn-block',
+      {'btn-success': this.state.canSubmit},
+    );
 
     return (
       <Formsy.Form

@@ -2,6 +2,7 @@
 
 import React from 'react/addons';
 import Formsy from 'formsy-react';
+import Classnames from 'classnames';
 
 // github.com/christianalfoni/formsy-react/issues/113
 Formsy.addValidationRule('equalLengthOrEmpty', function (values, value, length) {
@@ -25,9 +26,17 @@ let FormInput = React.createClass({
     // when the value is empty and the required prop is
     // passed to the input. showError() is true when the
     // value typed is invalid
-    let outerClassName = `${this.props.className} form-group has-feedback ${this.isValid() ? 'has-success' : 'has-error'}`;
+    let outerClassName = Classnames(
+      this.props.className,
+      'form-group',
+      'has-feedback',
+      { 'has-success': this.isValid(), 'has-error': !this.isValid() },
+    );
     let labelClassName = "control-label";
-    let inputClassName = `form-control ${this.showRequired() ? 'required' : null}`;
+    let inputClassName = Classnames(
+      'form-control',
+      { 'required': this.showRequired() },
+    );
 
     // An error message is returned ONLY if the component is invalid
     // or the server has returned an error message
