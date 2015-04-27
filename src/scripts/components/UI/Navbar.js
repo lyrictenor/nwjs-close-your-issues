@@ -3,9 +3,9 @@
 import React from 'react/addons';
 import {Link, State} from 'react-router';
 import onOpenExternals from '../../utils/openExternals';
+import cx from 'classnames';
 
 const repoUrl = require('../../../../package.json').repository.url;
-const cx = React.addons.classSet;
 
 let UINavbar = React.createClass({
   mixins: [State],

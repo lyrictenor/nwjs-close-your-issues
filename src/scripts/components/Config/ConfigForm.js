@@ -3,7 +3,7 @@
 import React from 'react/addons';
 import FormInput from '../UI/FormInput';
 import Formsy from 'formsy-react';
-import Classnames from 'classnames';
+import cx from 'classnames';
 
 let ConfigForm = React.createClass({
   getInitialState() {
@@ -25,7 +25,7 @@ let ConfigForm = React.createClass({
   },
   render() {
     let submitText = (this.state.canSubmit) ? 'Save' : 'Invalid';
-    let buttonClass = Classnames(
+    let buttonClass = cx(
       'btn',
       'btn-default',
       'btn-block',
