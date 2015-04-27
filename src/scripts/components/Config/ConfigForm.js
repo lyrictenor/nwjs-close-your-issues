@@ -5,24 +5,25 @@ import FormInput from '../UI/FormInput';
 import Formsy from 'formsy-react';
 import cx from 'classnames';
 
-let ConfigForm = React.createClass({
-  getInitialState() {
-    return { canSubmit: false };
-  },
+class ConfigForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { canSubmit: false };
+  }
   enableButton() {
     this.setState({
       canSubmit: true
     });
-  },
+  }
   disableButton() {
     this.setState({
       canSubmit: false
     });
-  },
+  }
   submit(model) {
     console.log(model);
     //someDep.saveEmail(model.email);
-  },
+  }
   render() {
     let submitText = (this.state.canSubmit) ? 'Save' : 'Invalid';
     let buttonClass = cx(
@@ -34,9 +35,9 @@ let ConfigForm = React.createClass({
 
     return (
       <Formsy.Form
-        onValidSubmit={this.submit}
-        onValid={this.enableButton}
-        onInvalid={this.disableButton}>
+        onValidSubmit={this.submit.bind(this)}
+        onValid={this.enableButton.bind(this)}
+        onInvalid={this.disableButton.bind(this)}>
         <FormInput
           name="apiEndpoint"
           placeholder="placeholder"
@@ -61,6 +62,6 @@ let ConfigForm = React.createClass({
       </Formsy.Form>
     );
   }
-});
+}
 
-module.exports = ConfigForm;
+export default ConfigForm;
