@@ -6,19 +6,21 @@ import IssueList from '../Issue/IssueList';
 import IssueForm from '../Issue/IssueForm';
 
 class InterfaceRest extends React.Component {
-    render() {
+  render() {
 
-        const handleAdd = (title) => { this.props.flux.getActions('issues').createIssue(title); };
+    const handleAdd = (title) => {
+      this.props.flux.getActions('issues').createIssue(title);
+    };
 
-        return (
-            <div>
-                <UIPageHeader icon="gear" text='Issues' />
+    return (
+      <div>
+        <UIPageHeader icon="gear" text='Issues' />
 
-                <IssueList {...this.props} />
-                <IssueForm {...this.props} onAdd={handleAdd} />
-            </div>
-        );
-    }
+        <IssueList {...this.props} />
+        <IssueForm {...this.props} onAdd={handleAdd} />
+      </div>
+    );
+  }
 }
 
 export default InterfaceRest;
