@@ -2,7 +2,7 @@
 
 import React from 'react/addons';
 
-let UIPageHeader = React.createClass({
+class UIPageHeader extends React.Component {
   render() {
     return (
       <div>
@@ -11,6 +11,6 @@ let UIPageHeader = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = UIPageHeader;
+export default UIPageHeader;

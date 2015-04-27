@@ -8,21 +8,23 @@ import UINavbar from './UI/Navbar';
 
 const RouteHandler = Router.RouteHandler;
 
-let App = React.createClass({
+class App extends React.Component {
 
-    componentDidMount() { this.props.flux.getActions('issues').fetchIssues(); },
+  componentDidMount() {
+    this.props.flux.getActions('issues').fetchIssues();
+  }
 
-    render() {
+  render() {
 
-        return (
-            <div className='main container-fluid'>
-                <FluxComponent {...this.props} connectToStores={['issues']}>
-                    <UINavbar />
-                    <RouteHandler />
-                </FluxComponent>
-            </div>
-        );
-    }
-});
+    return (
+      <div className='main container-fluid'>
+        <FluxComponent {...this.props} connectToStores={['issues']}>
+          <UINavbar />
+          <RouteHandler />
+        </FluxComponent>
+      </div>
+    );
+  }
+}
 
-module.exports = App;
+export default App;
