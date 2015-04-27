@@ -3,7 +3,7 @@
 import React from 'react/addons';
 import UIPageHeader from '../UI/PageHeader';
 
-let InterfaceRouteEvaluations = React.createClass({
+class InterfaceRouteEvaluations extends React.Component {
     render() {
         return (
             <div>
@@ -11,6 +11,6 @@ let InterfaceRouteEvaluations = React.createClass({
             </div>
         );
     }
-});
+}
 
-module.exports = InterfaceRouteEvaluations;
+export default InterfaceRouteEvaluations;

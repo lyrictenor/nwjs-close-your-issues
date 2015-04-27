@@ -5,7 +5,7 @@ import UIPageHeader from '../UI/PageHeader';
 import IssueList from '../Issue/IssueList';
 import IssueForm from '../Issue/IssueForm';
 
-let InterfaceRest = React.createClass({
+class InterfaceRest extends React.Component {
     render() {
 
         const handleAdd = (title) => { this.props.flux.getActions('issues').createIssue(title); };
@@ -19,6 +19,6 @@ let InterfaceRest = React.createClass({
             </div>
         );
     }
-});
+}
 
-module.exports = InterfaceRest;
+export default InterfaceRest;

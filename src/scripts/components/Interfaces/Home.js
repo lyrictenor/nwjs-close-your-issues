@@ -3,7 +3,7 @@
 import React from 'react/addons';
 import UIPageHeader from '../UI/PageHeader';
 
-let InterfaceHome = React.createClass({
+class InterfaceHome extends React.Component {
     render() {
 
         //const user = this.props.flux.getUser();
@@ -24,6 +24,6 @@ let InterfaceHome = React.createClass({
             </div>
         );
     }
-});
+}
 
-module.exports = InterfaceHome;
+export default InterfaceHome;
