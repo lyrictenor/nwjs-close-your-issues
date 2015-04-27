@@ -40,7 +40,8 @@ let FormInput = React.createClass({
 
     // An error message is returned ONLY if the component is invalid
     // or the server has returned an error message
-    let errorMessage = this.getErrorMessage();
+    let errorMessage = (this.getErrorMessage()) ? <span>{this.getErrorMessage()}</span> : null;
+    let helpBlock = (this.props.helpBlock) ? <span className="help-block">{this.props.helpBlock}</span> : null;
 
     return (
       <div
@@ -50,6 +51,7 @@ let FormInput = React.createClass({
           htmlFor={this.props.name}>
             {this.props.name}
         </label>
+        {errorMessage}
         <input
           type={this.props.type || 'text'}
           name={this.props.name}
@@ -57,7 +59,7 @@ let FormInput = React.createClass({
           onChange={this.changeValue}
           placeholder={this.props.placeholder}
           value={this.getValue()} />
-        <span>{errorMessage}</span>
+        {helpBlock}
       </div>
     );
   }

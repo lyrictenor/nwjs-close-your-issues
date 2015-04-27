@@ -45,7 +45,7 @@ let ConfigForm = React.createClass({
         <FormInput
           name="accessToken"
           validations="equalLengthOrEmpty:40"
-          validationError="Blank OR Just 40 characters" />
+          helpBlock="Blank OR Just 40 characters" />
         <FormInput
           name="slug"
           placeholder="placeholder"
