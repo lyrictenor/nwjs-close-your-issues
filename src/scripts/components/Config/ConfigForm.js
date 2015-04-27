@@ -38,8 +38,8 @@ let ConfigForm = React.createClass({
           required />
         <FormInput
           name="accessToken"
-          validates="isLength:40:40"
-          validationError="This is not a valid access token" />
+          validations="equalLengthOrEmpty:40"
+          validationError="Blank OR Just 40 characters" />
         <FormInput
           name="slug"
           placeholder="placeholder"
