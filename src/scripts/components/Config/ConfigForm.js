@@ -44,6 +44,7 @@ let ConfigForm = React.createClass({
           required />
         <FormInput
           name="accessToken"
+          type="password"
           validations="equalLengthOrEmpty:40"
           helpBlock="Blank OR Just 40 characters" />
         <FormInput
