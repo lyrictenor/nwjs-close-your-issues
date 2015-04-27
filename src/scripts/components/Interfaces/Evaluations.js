@@ -7,7 +7,7 @@ let InterfaceRouteEvaluations = React.createClass({
     render() {
         return (
             <div>
-                <UIPageHeader icon="star" text='Évaluations' />
+                <UIPageHeader icon="gear" text='Évaluations' />
             </div>
         );
     }

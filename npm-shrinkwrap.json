@@ -24,6 +24,11 @@
       "from": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.4.tgz",
       "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.4.tgz"
     },
+    "classnames": {
+      "version": "1.2.1",
+      "from": "classnames@*",
+      "resolved": "https://registry.npmjs.org/classnames/-/classnames-1.2.1.tgz"
+    },
     "core-js": {
       "version": "0.9.3",
       "from": "core-js@0.9.3",
@@ -84,6 +89,11 @@
       "version": "4.3.0",
       "from": "https://registry.npmjs.org/font-awesome/-/font-awesome-4.3.0.tgz",
       "resolved": "https://registry.npmjs.org/font-awesome/-/font-awesome-4.3.0.tgz"
+    },
+    "formsy-react": {
+      "version": "0.13.0",
+      "from": "formsy-react@*",
+      "resolved": "https://registry.npmjs.org/formsy-react/-/formsy-react-0.13.0.tgz"
     },
     "github-url-to-object": {
       "version": "1.5.2",
