@@ -44,21 +44,23 @@ export class IssueActions extends Actions {
     this.flux = flux;
   }
 
-  async fetchIssues() {
+  fetchSettings() {
     const config = this.flux.getStore('config');
     this.settings = config.getSettings();
+  }
+
+  async fetchIssues() {
+    this.fetchSettings();
     return await serverFetchIssues(this.settings);
   }
 
   createIssue(issueContent) {
-    const config = this.flux.getStore('config');
-    this.settings = config.getSettings();
+    this.fetchSettings();
     return serverCreateIssue(this.settings, issueContent);
   }
 
   deleteIssue(issue) {
-    const config = this.flux.getStore('config');
-    this.settings = config.getSettings();
+    this.fetchSettings();
     return serverDeleteIssue(this.settings, issue);
   }
 }
