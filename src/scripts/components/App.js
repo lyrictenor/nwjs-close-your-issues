@@ -18,7 +18,7 @@ class App extends React.Component {
 
     return (
       <div className='main container-fluid'>
-        <FluxComponent {...this.props} connectToStores={['issues']}>
+        <FluxComponent {...this.props} connectToStores={['issues', 'config']}>
           <UINavbar />
           <RouteHandler />
         </FluxComponent>
