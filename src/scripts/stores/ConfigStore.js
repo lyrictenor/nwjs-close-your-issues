@@ -9,6 +9,22 @@ export class ConfigStore extends Store {
   constructor(flux) {
     super();
     this.state = { settings: Immutable.fromJS(defaultValues)};
+
+    /*
+     Registering action handlers
+     */
+
+    const configActionIds = flux.getActionIds('config');
+
+    this.register(configActionIds.saveSettings, (settings) => {
+      const params = {
+        apiendpoint: settings.apiEndpoint,
+        token: settings.accessToken,
+        slug: settings.slug
+      };
+      this.setState({ settings: Immutable.fromJS(params) });
+    });
+
   }
   getSettings() {
     return this.state.settings.toJS();

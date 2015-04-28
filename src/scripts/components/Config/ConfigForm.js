@@ -22,8 +22,7 @@ class ConfigForm extends React.Component {
     });
   }
   submit(model) {
-    console.log(model);
-    //someDep.saveEmail(model.email);
+    this.props.flux.getActions('config').saveSettings(model);
   }
   render() {
     let submitText = (this.state.canSubmit) ? 'Save' : 'Invalid';
