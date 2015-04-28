@@ -3,15 +3,7 @@
 import { Store } from 'flummox';
 import Immutable from 'immutable';
 
-export const defaultValues = {
-  apiendpoint: 'https://api.github.com',
-  token: '',
-  slug: 'rails/rails',
-  user: {
-    firstname: 'Dear',
-    lastname: 'User'
-  }
-};
+const defaultValues = require('../../config_settings.json');
 
 export class ConfigStore extends Store {
   constructor(flux) {
