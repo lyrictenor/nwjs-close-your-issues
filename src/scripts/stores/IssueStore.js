@@ -31,7 +31,7 @@ const IssueRecord = Record({
 export class IssueStore extends Store {
 
     constructor(flux) {
-        super();
+        super(flux);
 
         this.state = { issues: Map() };
 

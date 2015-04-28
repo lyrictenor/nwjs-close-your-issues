@@ -4,7 +4,7 @@ import { Actions } from 'flummox';
 import uuid from '../utils/uuid';
 import axios from 'axios';
 
-let serverFetchIssues = async function(endpoint, slug) {
+let serverFetchIssues = async function(settings) {
   const headers = { 'Accept': 'application/vnd.github.v3.text+json' };
   /* eslint-disable camelcase */
   let config = {
@@ -17,14 +17,14 @@ let serverFetchIssues = async function(endpoint, slug) {
   };
   /* eslint-enable camelcase */
 
-  let url = `${endpoint}/repos/${slug}/issues`;
+  let url = `${settings.apiendpoint}/repos/${settings.slug}/issues`;
   let issues = await axios.get(url, config);
   return issues.data;
   //let issues = await require('../../issues.json');
   //return issues;
 };
 
-let serverCreateIssue = function(slug, issueContent) {
+let serverCreateIssue = function(settings, issueContent) {
 
   const newIssue = { id: uuid(), title: issueContent };
   //axios.post(apiendpoint + '/todos', newIssue);
@@ -32,7 +32,7 @@ let serverCreateIssue = function(slug, issueContent) {
   return newIssue; // passed to the store without awaiting REST response for optimistic add
 };
 
-let serverDeleteIssue = function(slug, issue) {
+let serverDeleteIssue = function(settings, issue) {
   //axios.delete(apiendpoint + '/todos/' + issue.get('id'));
   return issue; // passed to the store without awaiting REST response for optimistic delete
 };
@@ -44,25 +44,21 @@ export class IssueActions extends Actions {
     this.flux = flux;
   }
 
-  fetchConfig() {
-    const config = this.flux.getStore('config');
-
-    this.apiendpoint = config.getDefaultApiendpoint();
-    this.slug = config.getDefaultSlug();
-  }
-
   async fetchIssues() {
-    this.fetchConfig();
-    return await serverFetchIssues(this.apiendpoint, this.slug);
+    const config = this.flux.getStore('config');
+    this.settings = config.getSettings();
+    return await serverFetchIssues(this.settings);
   }
 
   createIssue(issueContent) {
-    this.fetchConfig();
-    return serverCreateIssue(this.slug, issueContent);
+    const config = this.flux.getStore('config');
+    this.settings = config.getSettings();
+    return serverCreateIssue(this.settings, issueContent);
   }
 
   deleteIssue(issue) {
-    this.fetchConfig();
-    return serverDeleteIssue(this.slug, issue);
+    const config = this.flux.getStore('config');
+    this.settings = config.getSettings();
+    return serverDeleteIssue(this.settings, issue);
   }
 }

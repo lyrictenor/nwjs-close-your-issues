@@ -1,9 +1,9 @@
 'use strict';
 
 import { Store } from 'flummox';
-import { Map } from 'immutable';
+import Immutable from 'immutable';
 
-const defaultValues = {
+export const defaultValues = {
   apiendpoint: 'https://api.github.com',
   token: '',
   slug: 'rails/rails',
@@ -15,19 +15,10 @@ const defaultValues = {
 
 export class ConfigStore extends Store {
   constructor(flux) {
-    super();
-    this.state = Map(defaultValues);
+    super(flux);
+    this.state = { settings: Immutable.fromJS(defaultValues)};
   }
-  getDefaultApiendpoint() {
-    return defaultValues.apiendpoint;
-  }
-  getDefaultToken() {
-    return defaultValues.token;
-  }
-  getDefaultSlug() {
-    return defaultValues.slug;
-  }
-  getDefaultUser() {
-    return defaultValues.user;
+  getSettings() {
+    return this.state.settings.toJS();
   }
 }
