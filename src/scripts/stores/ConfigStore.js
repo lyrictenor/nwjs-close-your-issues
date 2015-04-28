@@ -7,7 +7,7 @@ const defaultValues = require('../../config_settings.json');
 
 export class ConfigStore extends Store {
   constructor(flux) {
-    super(flux);
+    super();
     this.state = { settings: Immutable.fromJS(defaultValues)};
   }
   getSettings() {
