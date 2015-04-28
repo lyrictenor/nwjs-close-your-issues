@@ -38,7 +38,7 @@ class UINavbar extends React.Component {
 
           <ul className="nav navbar-nav pull-right">
             <li>
-              <a href={repoUrl} onClick={onOpenExternals.bind(this)}>
+              <a href={repoUrl} onClick={onOpenExternals.bind(this, repoUrl)}>
                 <i className="octicon octicon-mark-github"></i> nwjs-close-your-issues
               </a>
             </li>
