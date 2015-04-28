@@ -33,6 +33,7 @@ class ConfigForm extends React.Component {
       'btn-block',
       {'btn-success': this.state.canSubmit},
     );
+    let settings = this.props.settings.toJS();
 
     return (
       <Formsy.Form
@@ -43,16 +44,19 @@ class ConfigForm extends React.Component {
           name="apiEndpoint"
           placeholder={defaultValues.apiendpoint}
           validationError="Api Endpoint is required"
+          value={settings.apiendpoint}
           required />
         <FormInput
           name="accessToken"
           type="password"
           validations="equalLengthOrEmpty:40"
+          value={settings.token}
           helpBlock="Blank OR Just 40 characters" />
         <FormInput
           name="slug"
           placeholder={defaultValues.slug}
           validationError="Slug is required"
+          value={settings.slug}
           required />
         <button
           className={buttonClass}
