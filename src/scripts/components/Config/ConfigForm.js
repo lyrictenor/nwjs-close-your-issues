@@ -4,6 +4,7 @@ import React from 'react/addons';
 import FormInput from '../UI/FormInput';
 import Formsy from 'formsy-react';
 import cx from 'classnames';
+const defaultValues = require('../../../config_settings.json');
 
 class ConfigForm extends React.Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class ConfigForm extends React.Component {
         onInvalid={this.disableButton.bind(this)}>
         <FormInput
           name="apiEndpoint"
-          placeholder="placeholder"
+          placeholder={defaultValues.apiendpoint}
           validationError="Api Endpoint is required"
           required />
         <FormInput
@@ -50,7 +51,7 @@ class ConfigForm extends React.Component {
           helpBlock="Blank OR Just 40 characters" />
         <FormInput
           name="slug"
-          placeholder="placeholder"
+          placeholder={defaultValues.slug}
           validationError="Slug is required"
           required />
         <button
