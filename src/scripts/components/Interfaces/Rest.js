@@ -6,9 +6,19 @@ import IssueList from '../Issue/IssueList';
 
 class InterfaceRest extends React.Component {
   render() {
+    const onFetch = () => {
+      this.props.flux.getActions('issues').fetchIssues();
+    };
+
     return (
       <div>
         <UIPageHeader icon="gear" text='Issues' />
+        <button
+          className="btn btn-default"
+          type="submit"
+          onClick={onFetch.bind(this)} >
+          Fetch Issues
+        </button>
 
         <IssueList {...this.props} />
       </div>
