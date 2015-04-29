@@ -19,6 +19,7 @@ export class ConfigStore extends Store {
     this.register(configActionIds.saveSettings, (settings) => {
       const params = {
         apiendpoint: settings.apiEndpoint,
+        webendpoint: settings.webEndpoint,
         token: settings.accessToken,
         slug: settings.slug
       };
