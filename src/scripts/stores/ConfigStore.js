@@ -18,10 +18,10 @@ export class ConfigStore extends Store {
 
     this.register(configActionIds.saveSettings, (settings) => {
       const params = {
-        apiendpoint: settings.apiEndpoint,
-        webendpoint: settings.webEndpoint,
+        apiendpoint: this.remoteTrailingSlash(settings.apiEndpoint),
+        webendpoint: this.remoteTrailingSlash(settings.webEndpoint),
         token: settings.accessToken,
-        slug: settings.slug
+        slug: this.remoteTrailingSlash(settings.slug)
       };
       this.setState({ settings: Immutable.fromJS(params) });
     });
@@ -29,5 +29,11 @@ export class ConfigStore extends Store {
   }
   getSettings() {
     return this.state.settings.toJS();
+  }
+  remoteTrailingSlash(string) {
+    if(typeof string !== 'string') {
+      return string;
+    }
+    return string.replace(/\/+$/, '');
   }
 }
