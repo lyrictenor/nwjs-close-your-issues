@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
-name: github
-version: 6
+name: close_your_issues
+version: 1
 table:
   Issues:
     column:
