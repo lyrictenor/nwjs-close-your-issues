@@ -55,6 +55,10 @@ export class IssueStore extends Store {
       this.setState({ issues: this.state.issues.merge(issuesMap) });
     });
 
+    this.register(issueActionIds.clearIssues, () => {
+      this.setState({ issues: this.state.issues.clear() });
+    });
+
     this.register(issueActionIds.deleteIssue, (issue) => {
       let issues = this.state.issues.delete(issue.get('id'));
       if(issues !== this.state.issues) { this.setState({ issues: issues }); }

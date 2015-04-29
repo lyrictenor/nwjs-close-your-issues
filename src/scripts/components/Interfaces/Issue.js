@@ -8,6 +8,9 @@ class InterfaceIssue extends React.Component {
   onFetch() {
     this.props.flux.getActions('issues').fetchIssues();
   }
+  onClear() {
+    this.props.flux.getActions('issues').clearIssues();
+  }
   render() {
     return (
       <div>
@@ -17,6 +20,13 @@ class InterfaceIssue extends React.Component {
           type="submit"
           onClick={this.onFetch.bind(this)} >
           Fetch Issues
+        </button>
+
+        <button
+          className="btn btn-default"
+          type="submit"
+          onClick={this.onClear.bind(this)} >
+          Clear Issues
         </button>
 
         <IssueList {...this.props} />
