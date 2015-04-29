@@ -7,7 +7,7 @@ import Immutable from 'immutable';
 import { AppFlux } from '../flux/AppFlux';
 
 import App from './App';
-import InterfaceHome from './Interfaces/Home';
+import InterfaceAbout from './Interfaces/About';
 import InterfaceIssue from './Interfaces/Issue';
 import InterfaceConfig from './Interfaces/Config';
 
@@ -25,8 +25,8 @@ try {
         DefaultRoute = Router.DefaultRoute;
 
     var Interfaces = (
-      <Route name="home" path="/" handler={App}>
-        <DefaultRoute handler={InterfaceHome} />
+      <Route name="about" path="/" handler={App}>
+        <DefaultRoute handler={InterfaceAbout} />
         <Route name="issue" path="/issue" handler={InterfaceIssue} />
         <Route name="config" path="/config" handler={InterfaceConfig} />
       </Route>

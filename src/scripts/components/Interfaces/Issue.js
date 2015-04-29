@@ -4,7 +4,7 @@ import React from 'react/addons';
 import UIPageHeader from '../UI/PageHeader';
 import IssueList from '../Issue/IssueList';
 
-class InterfaceRest extends React.Component {
+class InterfaceIssue extends React.Component {
   render() {
     const onFetch = () => {
       this.props.flux.getActions('issues').fetchIssues();
@@ -26,4 +26,4 @@ class InterfaceRest extends React.Component {
   }
 }
 
-export default InterfaceRest;
+export default InterfaceIssue;

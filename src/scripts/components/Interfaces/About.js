@@ -3,7 +3,7 @@
 import React from 'react/addons';
 import UIPageHeader from '../UI/PageHeader';
 
-class InterfaceHome extends React.Component {
+class InterfaceAbout extends React.Component {
     render() {
 
         //const user = this.props.flux.getUser();
@@ -26,4 +26,4 @@ class InterfaceHome extends React.Component {
     }
 }
 
-export default InterfaceHome;
+export default InterfaceAbout;

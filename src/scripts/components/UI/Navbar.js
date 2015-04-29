@@ -16,7 +16,7 @@ class UINavbar extends React.Component {
       <div className="navbar navbar-default" role="navigation">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link to="home" className="navbar-brand">
+            <Link to="about" className="navbar-brand">
               <img src="assets/images/closed40.svg" style={{width: '40px', height: '40px'}} />
             </Link>
           </div>
