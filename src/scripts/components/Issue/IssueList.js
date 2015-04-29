@@ -2,7 +2,7 @@
 
 import React from 'react/addons';
 import GithubUrl from 'github-url-to-object';
-import onOpenExternals from '../../utils/openExternals';
+import onOpenExternals from 'myUtils/openExternals';
 
 class IssueList extends React.Component {
   //TODO move this to business logic

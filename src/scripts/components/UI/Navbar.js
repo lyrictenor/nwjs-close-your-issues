@@ -2,7 +2,7 @@
 
 import React from 'react/addons';
 import { Link } from 'react-router';
-import onOpenExternals from '../../utils/openExternals';
+import onOpenExternals from 'myUtils/openExternals';
 import cx from 'classnames';
 
 const repoUrl = require('../../../../package.json').repository.url;

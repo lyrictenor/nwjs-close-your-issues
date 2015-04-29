@@ -6,14 +6,14 @@ import Immutable from 'immutable';
 
 import { AppFlux } from '../flux/AppFlux';
 
-import App from './App';
-import InterfaceAbout from './Interfaces/About';
-import InterfaceIssue from './Interfaces/Issue';
-import InterfaceConfig from './Interfaces/Config';
+import App from 'components/App';
+import InterfaceAbout from 'components/Interfaces/About';
+import InterfaceIssue from 'components/Interfaces/Issue';
+import InterfaceConfig from 'components/Interfaces/Config';
 
 try {
 
-    require('../../styles/main.less');
+    require('styles/main.less');
     require('bootstrap/dist/css/bootstrap.css');
     require('font-awesome/css/font-awesome.css');
     require('octicons/octicons/octicons.css');

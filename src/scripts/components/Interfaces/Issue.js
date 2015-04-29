@@ -1,8 +1,8 @@
 'use strict';
 
 import React from 'react/addons';
-import UIPageHeader from '../UI/PageHeader';
-import IssueList from '../Issue/IssueList';
+import UIPageHeader from 'components/UI/PageHeader';
+import IssueList from 'components/Issue/IssueList';
 
 class InterfaceIssue extends React.Component {
   onFetch() {
