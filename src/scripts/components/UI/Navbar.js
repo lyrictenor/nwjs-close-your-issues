@@ -16,14 +16,14 @@ class UINavbar extends React.Component {
       <div className="navbar navbar-default" role="navigation">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link to="home" className="navbar-brand">
+            <Link to="issue" className="navbar-brand">
               <img src="assets/images/closed40.svg" style={{width: '40px', height: '40px'}} />
             </Link>
           </div>
 
           <ul className="nav navbar-nav">
-            <li className={cx({active: this.context.router.isActive('rest')})}>
-              <Link to="rest">
+            <li className={cx({active: this.context.router.isActive('/')})}>
+              <Link to="issue">
                 <i className="octicon octicon-issue-opened"></i> Issues
               </Link>
             </li>
@@ -32,6 +32,13 @@ class UINavbar extends React.Component {
             <li className={cx({active: this.context.router.isActive('config')})}>
               <Link to="config">
                 <i className="octicon octicon-gear"></i> Config
+              </Link>
+            </li>
+          </ul>
+          <ul className="nav navbar-nav">
+            <li className={cx({active: this.context.router.isActive('about')})}>
+              <Link to="about">
+                <i className="octicon octicon-beer"></i> About
               </Link>
             </li>
           </ul>
