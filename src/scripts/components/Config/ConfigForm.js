@@ -1,9 +1,9 @@
 'use strict';
 
 import React from 'react/addons';
-import FormInput from '../UI/FormInput';
+import FormInput from 'components/UI/FormInput';
 import Formsy from 'formsy-react';
-import onOpenExternals from '../../utils/openExternals';
+import onOpenExternals from 'myUtils/openExternals';
 import cx from 'classnames';
 const defaultValues = require('../../../config_settings.json');
 

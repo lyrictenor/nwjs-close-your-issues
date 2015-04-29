@@ -1,7 +1,7 @@
 'use strict';
 
 import { Actions } from 'flummox';
-import uuid from '../utils/uuid';
+import uuid from 'myUtils/uuid';
 import axios from 'axios';
 
 let serverFetchIssues = async function(settings) {

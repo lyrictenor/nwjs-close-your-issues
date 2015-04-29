@@ -1,8 +1,8 @@
 'use strict';
 
 import React from 'react/addons';
-import UIPageHeader from '../UI/PageHeader';
-import ConfigForm from '../Config/ConfigForm';
+import UIPageHeader from 'components/UI/PageHeader';
+import ConfigForm from 'components/Config/ConfigForm';
 
 class InterfaceConfig extends React.Component {
   render() {
