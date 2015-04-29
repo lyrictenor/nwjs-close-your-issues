@@ -22,8 +22,8 @@ class UINavbar extends React.Component {
           </div>
 
           <ul className="nav navbar-nav">
-            <li className={cx({active: this.context.router.isActive('rest')})}>
-              <Link to="rest">
+            <li className={cx({active: this.context.router.isActive('issue')})}>
+              <Link to="issue">
                 <i className="octicon octicon-issue-opened"></i> Issues
               </Link>
             </li>

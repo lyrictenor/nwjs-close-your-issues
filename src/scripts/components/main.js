@@ -8,7 +8,7 @@ import { AppFlux } from '../flux/AppFlux';
 
 import App from './App';
 import InterfaceHome from './Interfaces/Home';
-import InterfaceRest from './Interfaces/Rest';
+import InterfaceIssue from './Interfaces/Issue';
 import InterfaceConfig from './Interfaces/Config';
 
 try {
@@ -27,7 +27,7 @@ try {
     var Interfaces = (
       <Route name="home" path="/" handler={App}>
         <DefaultRoute handler={InterfaceHome} />
-        <Route name="rest" path="/rest" handler={InterfaceRest} />
+        <Route name="issue" path="/issue" handler={InterfaceIssue} />
         <Route name="config" path="/config" handler={InterfaceConfig} />
       </Route>
     );
