@@ -5,19 +5,28 @@ import UIPageHeader from '../UI/PageHeader';
 import IssueList from '../Issue/IssueList';
 
 class InterfaceIssue extends React.Component {
+  onFetch() {
+    this.props.flux.getActions('issues').fetchIssues();
+  }
+  onClear() {
+    this.props.flux.getActions('issues').clearIssues();
+  }
   render() {
-    const onFetch = () => {
-      this.props.flux.getActions('issues').fetchIssues();
-    };
-
     return (
       <div>
         <UIPageHeader icon="gear" text='Issues' />
         <button
           className="btn btn-default"
           type="submit"
-          onClick={onFetch.bind(this)} >
+          onClick={this.onFetch.bind(this)} >
           Fetch Issues
+        </button>
+
+        <button
+          className="btn btn-default"
+          type="submit"
+          onClick={this.onClear.bind(this)} >
+          Clear Issues
         </button>
 
         <IssueList {...this.props} />

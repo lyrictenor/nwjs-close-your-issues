@@ -54,6 +54,11 @@ export class IssueActions extends Actions {
     return await serverFetchIssues(this.settings);
   }
 
+  clearIssues() {
+    this.fetchSettings();
+    return true;
+  }
+
   createIssue(issueContent) {
     this.fetchSettings();
     return serverCreateIssue(this.settings, issueContent);
