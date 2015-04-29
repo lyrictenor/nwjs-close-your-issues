@@ -8,7 +8,7 @@ const defaultValues = require('../../config_settings.json');
 export class ConfigStore extends Store {
   constructor(flux) {
     super();
-    this.state = { settings: Immutable.fromJS(defaultValues)};
+    this.state = { settings: Immutable.fromJS(this.setUpDefault(defaultValues))};
 
     /*
      Registering action handlers
@@ -23,7 +23,7 @@ export class ConfigStore extends Store {
         token: settings.accessToken,
         slug: this.remoteTrailingSlash(settings.slug)
       };
-      this.setState({ settings: Immutable.fromJS(params) });
+      this.setState({ settings: Immutable.fromJS(this.setUpDefault(params)) });
     });
 
   }
@@ -35,5 +35,9 @@ export class ConfigStore extends Store {
       return string;
     }
     return string.replace(/\/+$/, '');
+  }
+  setUpDefault(json) {
+    json.tokenurl = `${json.webendpoint}/settings/tokens/new`;
+    return json;
   }
 }
