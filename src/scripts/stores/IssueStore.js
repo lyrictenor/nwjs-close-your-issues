@@ -30,36 +30,36 @@ const IssueRecord = Record({
 
 export class IssueStore extends Store {
 
-    constructor(flux) {
-        super();
+  constructor(flux) {
+    super();
 
-        this.state = { issues: Map() };
+    this.state = { issues: Map() };
 
-        /*
-        Registering action handlers
-        */
+    /*
+     Registering action handlers
+     */
 
-        const issueActionIds = flux.getActionIds('issues');
+    const issueActionIds = flux.getActionIds('issues');
 
-        this.register(issueActionIds.createIssue, (data) => {
-            const newMap = this.state.issues.set(data.id, new IssueRecord(data));
-            this.setState({ issues: newMap });
-        });
+    this.register(issueActionIds.createIssue, (data) => {
+      const newMap = this.state.issues.set(data.id, new IssueRecord(data));
+      this.setState({ issues: newMap });
+    });
 
-        this.register(issueActionIds.fetchIssues, (issues) => {
-            let issuesMap = Map();
-            for(let issue of issues) {
-                issuesMap = issuesMap.set(issue.id, new IssueRecord(issue));
-            }
+    this.register(issueActionIds.fetchIssues, (issues) => {
+      let issuesMap = Map();
+      for(let issue of issues) {
+        issuesMap = issuesMap.set(issue.id, new IssueRecord(issue));
+      }
 
-            this.setState({ issues: this.state.issues.merge(issuesMap) });
-        });
+      this.setState({ issues: this.state.issues.merge(issuesMap) });
+    });
 
-        this.register(issueActionIds.deleteIssue, (issue) => {
-            let issues = this.state.issues.delete(issue.get('id'));
-            if(issues !== this.state.issues) { this.setState({ issues: issues }); }
-        });
-    }
+    this.register(issueActionIds.deleteIssue, (issue) => {
+      let issues = this.state.issues.delete(issue.get('id'));
+      if(issues !== this.state.issues) { this.setState({ issues: issues }); }
+    });
+  }
 
-    getIssues() { return this.state.issues; }
+  getIssues() { return this.state.issues; }
 }
