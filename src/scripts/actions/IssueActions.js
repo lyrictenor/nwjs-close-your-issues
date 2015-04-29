@@ -5,20 +5,28 @@ import uuid from '../utils/uuid';
 import axios from 'axios';
 
 let serverFetchIssues = async function(settings) {
-  const headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
   /* eslint-disable camelcase */
   let config = {
     headers: headers,
     params: {
       state: 'open',
       page: 1,
-      per_page: 100
+      per_page: 100,
+      sort: 'updated'
     }
   };
   /* eslint-enable camelcase */
 
-  let url = `${settings.apiendpoint}/repos/${settings.slug}/issues`;
-  let issues = await axios.get(url, config);
+  let url;
+  if (settings.token) {
+    headers.Authorization = `token ${settings.token}`;
+    config.params.filter = 'all';
+    url = `${settings.apiendpoint}/issues`;
+  } else {
+    url = `${settings.apiendpoint}/repos/${settings.slug}/issues`;
+  }
+  const issues = await axios.get(url, config);
   return issues.data;
   //let issues = await require('../../issues.json');
   //return issues;
