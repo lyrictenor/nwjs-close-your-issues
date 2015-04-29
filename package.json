@@ -66,6 +66,7 @@
   },
   "scripts": {
     "build": "grunt build",
+    "migrate": "lovefield-spac --schema src/schema/close_your_issues.yml --namespace CloseYourIssues --outputdir src/scripts/utils",
     "start": "grunt serve",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess",
     "verify": "npm run build && npm test"
