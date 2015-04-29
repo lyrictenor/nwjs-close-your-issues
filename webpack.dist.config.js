@@ -48,7 +48,10 @@ module.exports = {
   module: {
     preLoaders: [{
       test: /\.js$/,
-      exclude: /node_modules/,
+      exclude: [
+        /node_modules/,
+        /CloseYourIssuesDB_gen.js/
+      ],
       loader: 'eslint-loader'
     }],
 

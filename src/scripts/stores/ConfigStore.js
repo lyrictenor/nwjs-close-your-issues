@@ -3,6 +3,7 @@
 import { Store } from 'flummox';
 import Immutable from 'immutable';
 import Lovefield from 'myUtils/lovefield-index';
+import DB from 'myUtils/db-index';
 
 const defaultValues = require('../../config_settings.json');
 
