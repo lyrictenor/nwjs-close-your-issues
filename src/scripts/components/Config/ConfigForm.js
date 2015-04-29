@@ -3,6 +3,7 @@
 import React from 'react/addons';
 import FormInput from '../UI/FormInput';
 import Formsy from 'formsy-react';
+import onOpenExternals from '../../utils/openExternals';
 import cx from 'classnames';
 const defaultValues = require('../../../config_settings.json');
 
@@ -25,14 +26,14 @@ class ConfigForm extends React.Component {
     this.props.flux.getActions('config').saveSettings(model);
   }
   render() {
-    let submitText = (this.state.canSubmit) ? 'Save' : 'Invalid';
-    let buttonClass = cx(
+    const submitText = (this.state.canSubmit) ? 'Save' : 'Invalid';
+    const buttonClass = cx(
       'btn',
       'btn-default',
       'btn-block',
       {'btn-success': this.state.canSubmit},
     );
-    let settings = this.props.settings.toJS();
+    const settings = this.props.settings.toJS();
 
     return (
       <Formsy.Form
@@ -57,6 +58,7 @@ class ConfigForm extends React.Component {
           validations="equalLengthOrEmpty:40"
           value={settings.token}
           helpBlock="Blank OR Just 40 characters" />
+        <a href={settings.tokenurl} onClick={onOpenExternals.bind(this)} >Get AccessToken</a>.
         <FormInput
           name="slug"
           placeholder={defaultValues.slug}
