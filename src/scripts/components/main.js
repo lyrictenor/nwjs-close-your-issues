@@ -25,10 +25,10 @@ try {
         DefaultRoute = Router.DefaultRoute;
 
     var Interfaces = (
-      <Route name="about" path="/" handler={App}>
-        <DefaultRoute handler={InterfaceAbout} />
-        <Route name="issue" path="/issue" handler={InterfaceIssue} />
+      <Route name="issue" path="/" handler={App}>
+        <DefaultRoute handler={InterfaceIssue} />
         <Route name="config" path="/config" handler={InterfaceConfig} />
+        <Route name="about" path="/about" handler={InterfaceAbout} />
       </Route>
     );
 
