@@ -16,16 +16,17 @@ export class ConfigStore extends Store {
   async constructor(flux) {
     super();
 
-    let result = getPersistedData();
-    console.log(result);
-    const savedConfig = result.reduce((previous, current) => {
-      previous[current.key] = current.value;
-      return previous;
-    }, {});
-    const initialValues = (savedConfig.slug && savedConfig.apiendpoint && savedConfig.webendpoint)
-      ? savedConfig
-      : defaultValues;
-    this.state = { settings: Immutable.fromJS(this.setUpDefault(initialValues))};
+    //let result = getPersistedData();
+    //console.log(result);
+    //const savedConfig = result.reduce((previous, current) => {
+    //  previous[current.key] = current.value;
+    //  return previous;
+    //}, {});
+    //const initialValues = (savedConfig.slug && savedConfig.apiendpoint && savedConfig.webendpoint)
+    //  ? savedConfig
+    //  : defaultValues;
+    //this.state = { settings: Immutable.fromJS(this.setUpDefault(initialValues))};
+    this.state = { settings: Immutable.fromJS(this.setUpDefault(defaultValues))};
 
     /*
      Registering action handlers
