@@ -69,6 +69,16 @@ module.exports = function (grunt) {
     },
 
     copy: {
+      dev: {
+        files: [
+          {
+            flatten: true,
+            expand: true,
+            src: ['node_modules/lovefield/dist/lovefield.min.js'],
+            dest: '<%= pkg.src %>/assets/vendor/'
+          }
+        ]
+      },
       dist: {
         files: [
           // includes files within path
@@ -85,11 +95,31 @@ module.exports = function (grunt) {
             src: ['<%= pkg.src %>/assets/images/*'],
             dest: '<%= pkg.dist %>/assets/images/'
           },
+          {
+            flatten: true,
+            expand: true,
+            src: ['node_modules/lovefield/dist/lovefield.min.js'],
+            dest: '<%= pkg.dist %>/assets/vendor/'
+          },
+          {
+            flatten: true,
+            expand: true,
+            src: ['<%= pkg.src %>/assets/js/*'],
+            dest: '<%= pkg.dist %>/assets/js/'
+          }
         ]
       }
     },
 
     clean: {
+      dev: {
+        files: [{
+          dot: true,
+          src: [
+            '<%= pkg.src %>/assets/vendor'
+          ]
+        }]
+      },
       dist: {
         files: [{
           dot: true,
@@ -107,13 +137,13 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
-      'webpack-dev-server'
+      'clean:dev', 'copy:dev', 'webpack-dev-server'
     ]);
   });
 
   grunt.registerTask('test', []);
 
-  grunt.registerTask('build', ['clean', 'copy', 'webpack']);
+  grunt.registerTask('build', ['clean:dist', 'copy:dist', 'webpack']);
 
   grunt.registerTask('default', []);
 };

@@ -1,32 +1,32 @@
-goog.provide('CloseYourIssuesDB.row.Commits');
-goog.provide('CloseYourIssuesDB.row.CommitsDbType');
-goog.provide('CloseYourIssuesDB.row.CommitsType');
-goog.provide('CloseYourIssuesDB.row.Issues');
-goog.provide('CloseYourIssuesDB.row.IssuesDbType');
-goog.provide('CloseYourIssuesDB.row.IssuesType');
-goog.provide('CloseYourIssuesDB.row.Milestones');
-goog.provide('CloseYourIssuesDB.row.MilestonesDbType');
-goog.provide('CloseYourIssuesDB.row.MilestonesType');
-goog.provide('CloseYourIssuesDB.row.Organizations');
-goog.provide('CloseYourIssuesDB.row.OrganizationsDbType');
-goog.provide('CloseYourIssuesDB.row.OrganizationsType');
-goog.provide('CloseYourIssuesDB.row.PullRequests');
-goog.provide('CloseYourIssuesDB.row.PullRequestsDbType');
-goog.provide('CloseYourIssuesDB.row.PullRequestsType');
-goog.provide('CloseYourIssuesDB.row.Repositories');
-goog.provide('CloseYourIssuesDB.row.RepositoriesDbType');
-goog.provide('CloseYourIssuesDB.row.RepositoriesType');
-goog.provide('CloseYourIssuesDB.row.Users');
-goog.provide('CloseYourIssuesDB.row.UsersDbType');
-goog.provide('CloseYourIssuesDB.row.UsersType');
-goog.provide('CloseYourIssuesDB.schema.Commits');
-goog.provide('CloseYourIssuesDB.schema.Database');
-goog.provide('CloseYourIssuesDB.schema.Issues');
-goog.provide('CloseYourIssuesDB.schema.Milestones');
-goog.provide('CloseYourIssuesDB.schema.Organizations');
-goog.provide('CloseYourIssuesDB.schema.PullRequests');
-goog.provide('CloseYourIssuesDB.schema.Repositories');
-goog.provide('CloseYourIssuesDB.schema.Users');
+goog.provide('closeyourissues.db.row.Commits');
+goog.provide('closeyourissues.db.row.CommitsDbType');
+goog.provide('closeyourissues.db.row.CommitsType');
+goog.provide('closeyourissues.db.row.Issues');
+goog.provide('closeyourissues.db.row.IssuesDbType');
+goog.provide('closeyourissues.db.row.IssuesType');
+goog.provide('closeyourissues.db.row.Milestones');
+goog.provide('closeyourissues.db.row.MilestonesDbType');
+goog.provide('closeyourissues.db.row.MilestonesType');
+goog.provide('closeyourissues.db.row.Organizations');
+goog.provide('closeyourissues.db.row.OrganizationsDbType');
+goog.provide('closeyourissues.db.row.OrganizationsType');
+goog.provide('closeyourissues.db.row.PullRequests');
+goog.provide('closeyourissues.db.row.PullRequestsDbType');
+goog.provide('closeyourissues.db.row.PullRequestsType');
+goog.provide('closeyourissues.db.row.Repositories');
+goog.provide('closeyourissues.db.row.RepositoriesDbType');
+goog.provide('closeyourissues.db.row.RepositoriesType');
+goog.provide('closeyourissues.db.row.Users');
+goog.provide('closeyourissues.db.row.UsersDbType');
+goog.provide('closeyourissues.db.row.UsersType');
+goog.provide('closeyourissues.db.schema.Commits');
+goog.provide('closeyourissues.db.schema.Database');
+goog.provide('closeyourissues.db.schema.Issues');
+goog.provide('closeyourissues.db.schema.Milestones');
+goog.provide('closeyourissues.db.schema.Organizations');
+goog.provide('closeyourissues.db.schema.PullRequests');
+goog.provide('closeyourissues.db.schema.Repositories');
+goog.provide('closeyourissues.db.schema.Users');
 
 /** @suppress {extraRequire} */
 goog.require('lf.Order');
@@ -44,7 +44,7 @@ goog.require('lf.schema.Table');
  * @implements {lf.schema.Database}
  * @constructor
  */
-CloseYourIssuesDB.schema.Database = function() {
+closeyourissues.db.schema.Database = function() {
   /** @private {!Object} */
   this.tableMap_ = {};
 
@@ -53,51 +53,51 @@ CloseYourIssuesDB.schema.Database = function() {
     enableBundledMode: false
   };
 
-  /** @private {!CloseYourIssuesDB.schema.Issues} */
-  this.issues_ = new CloseYourIssuesDB.schema.Issues();
+  /** @private {!closeyourissues.db.schema.Issues} */
+  this.issues_ = new closeyourissues.db.schema.Issues();
   this.tableMap_['Issues'] = this.issues_;
 
-  /** @private {!CloseYourIssuesDB.schema.Users} */
-  this.users_ = new CloseYourIssuesDB.schema.Users();
+  /** @private {!closeyourissues.db.schema.Users} */
+  this.users_ = new closeyourissues.db.schema.Users();
   this.tableMap_['Users'] = this.users_;
 
-  /** @private {!CloseYourIssuesDB.schema.Milestones} */
-  this.milestones_ = new CloseYourIssuesDB.schema.Milestones();
+  /** @private {!closeyourissues.db.schema.Milestones} */
+  this.milestones_ = new closeyourissues.db.schema.Milestones();
   this.tableMap_['Milestones'] = this.milestones_;
 
-  /** @private {!CloseYourIssuesDB.schema.PullRequests} */
-  this.pullRequests_ = new CloseYourIssuesDB.schema.PullRequests();
+  /** @private {!closeyourissues.db.schema.PullRequests} */
+  this.pullRequests_ = new closeyourissues.db.schema.PullRequests();
   this.tableMap_['PullRequests'] = this.pullRequests_;
 
-  /** @private {!CloseYourIssuesDB.schema.Commits} */
-  this.commits_ = new CloseYourIssuesDB.schema.Commits();
+  /** @private {!closeyourissues.db.schema.Commits} */
+  this.commits_ = new closeyourissues.db.schema.Commits();
   this.tableMap_['Commits'] = this.commits_;
 
-  /** @private {!CloseYourIssuesDB.schema.Organizations} */
-  this.organizations_ = new CloseYourIssuesDB.schema.Organizations();
+  /** @private {!closeyourissues.db.schema.Organizations} */
+  this.organizations_ = new closeyourissues.db.schema.Organizations();
   this.tableMap_['Organizations'] = this.organizations_;
 
-  /** @private {!CloseYourIssuesDB.schema.Repositories} */
-  this.repositories_ = new CloseYourIssuesDB.schema.Repositories();
+  /** @private {!closeyourissues.db.schema.Repositories} */
+  this.repositories_ = new closeyourissues.db.schema.Repositories();
   this.tableMap_['Repositories'] = this.repositories_;
 
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Database.prototype.name = function() {
+closeyourissues.db.schema.Database.prototype.name = function() {
   return 'close_your_issues';
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Database.prototype.version = function() {
+closeyourissues.db.schema.Database.prototype.version = function() {
   return 1;
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Database.prototype.tables = function() {
+closeyourissues.db.schema.Database.prototype.tables = function() {
   return [
     this.issues_,
     this.users_,
@@ -111,66 +111,66 @@ CloseYourIssuesDB.schema.Database.prototype.tables = function() {
 
 
 /** @override */
-CloseYourIssuesDB.schema.Database.prototype.table = function(tableName) {
+closeyourissues.db.schema.Database.prototype.table = function(tableName) {
   return this.tableMap_[tableName] || null;
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Database.prototype.pragma = function() {
+closeyourissues.db.schema.Database.prototype.pragma = function() {
   return this.pragma_;
 };
 
 
-/** @return {!CloseYourIssuesDB.schema.Issues} */
-CloseYourIssuesDB.schema.Database.prototype.getIssues = function() {
+/** @return {!closeyourissues.db.schema.Issues} */
+closeyourissues.db.schema.Database.prototype.getIssues = function() {
   return this.issues_;
 };
 
 
-/** @return {!CloseYourIssuesDB.schema.Users} */
-CloseYourIssuesDB.schema.Database.prototype.getUsers = function() {
+/** @return {!closeyourissues.db.schema.Users} */
+closeyourissues.db.schema.Database.prototype.getUsers = function() {
   return this.users_;
 };
 
 
-/** @return {!CloseYourIssuesDB.schema.Milestones} */
-CloseYourIssuesDB.schema.Database.prototype.getMilestones = function() {
+/** @return {!closeyourissues.db.schema.Milestones} */
+closeyourissues.db.schema.Database.prototype.getMilestones = function() {
   return this.milestones_;
 };
 
 
-/** @return {!CloseYourIssuesDB.schema.PullRequests} */
-CloseYourIssuesDB.schema.Database.prototype.getPullRequests = function() {
+/** @return {!closeyourissues.db.schema.PullRequests} */
+closeyourissues.db.schema.Database.prototype.getPullRequests = function() {
   return this.pullRequests_;
 };
 
 
-/** @return {!CloseYourIssuesDB.schema.Commits} */
-CloseYourIssuesDB.schema.Database.prototype.getCommits = function() {
+/** @return {!closeyourissues.db.schema.Commits} */
+closeyourissues.db.schema.Database.prototype.getCommits = function() {
   return this.commits_;
 };
 
 
-/** @return {!CloseYourIssuesDB.schema.Organizations} */
-CloseYourIssuesDB.schema.Database.prototype.getOrganizations = function() {
+/** @return {!closeyourissues.db.schema.Organizations} */
+closeyourissues.db.schema.Database.prototype.getOrganizations = function() {
   return this.organizations_;
 };
 
 
-/** @return {!CloseYourIssuesDB.schema.Repositories} */
-CloseYourIssuesDB.schema.Database.prototype.getRepositories = function() {
+/** @return {!closeyourissues.db.schema.Repositories} */
+closeyourissues.db.schema.Database.prototype.getRepositories = function() {
   return this.repositories_;
 };
 
 
 
 /**
- * @extends {lf.schema.Table.<!CloseYourIssuesDB.row.IssuesType,
- *     !CloseYourIssuesDB.row.IssuesDbType>}
+ * @extends {lf.schema.Table.<!closeyourissues.db.row.IssuesType,
+ *     !closeyourissues.db.row.IssuesDbType>}
  * @constructor
  */
-CloseYourIssuesDB.schema.Issues = function() {
+closeyourissues.db.schema.Issues = function() {
   var cols = [];
 
   /** @type {!lf.schema.BaseColumn.<string>} */
@@ -265,32 +265,32 @@ CloseYourIssuesDB.schema.Issues = function() {
         ])
   ];
 
-  CloseYourIssuesDB.schema.Issues.base(
+  closeyourissues.db.schema.Issues.base(
       this, 'constructor', 'Issues', cols, indices, false);
 };
-goog.inherits(CloseYourIssuesDB.schema.Issues, lf.schema.Table);
+goog.inherits(closeyourissues.db.schema.Issues, lf.schema.Table);
 
 
 /** @override */
-CloseYourIssuesDB.schema.Issues.prototype.createRow = function(opt_value) {
-  return new CloseYourIssuesDB.row.Issues(lf.Row.getNextId(), opt_value);
+closeyourissues.db.schema.Issues.prototype.createRow = function(opt_value) {
+  return new closeyourissues.db.row.Issues(lf.Row.getNextId(), opt_value);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Issues.prototype.deserializeRow =
+closeyourissues.db.schema.Issues.prototype.deserializeRow =
     function(dbRecord) {
   var data = dbRecord['value'];
   data.closed_at = goog.isNull(data.closed_at) ?
       null : new Date(data.closed_at);
   data.created_at = new Date(data.created_at);
   data.updated_at = new Date(data.updated_at);
-  return new CloseYourIssuesDB.row.Issues(dbRecord['id'], data);
+  return new closeyourissues.db.row.Issues(dbRecord['id'], data);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Issues.prototype.getConstraint = function() {
+closeyourissues.db.schema.Issues.prototype.getConstraint = function() {
   var pk = new lf.schema.Index('Issues', 'pkIssues', true,
       [
         {schema: this.id, order: lf.Order.ASC, autoIncrement: false}
@@ -327,7 +327,7 @@ CloseYourIssuesDB.schema.Issues.prototype.getConstraint = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.IssuesType = function() {
+closeyourissues.db.row.IssuesType = function() {
   /** @export @type {string} */
   this.id;
   /** @export @type {string} */
@@ -372,7 +372,7 @@ CloseYourIssuesDB.row.IssuesType = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.IssuesDbType = function() {
+closeyourissues.db.row.IssuesDbType = function() {
   /** @export @type {string} */
   this.id;
   /** @export @type {string} */
@@ -414,21 +414,21 @@ CloseYourIssuesDB.row.IssuesDbType = function() {
 /**
  * Constructs a new Issues row.
  * @constructor
- * @extends {lf.Row.<!CloseYourIssuesDB.row.IssuesType,
- *     !CloseYourIssuesDB.row.IssuesDbType>}
+ * @extends {lf.Row.<!closeyourissues.db.row.IssuesType,
+ *     !closeyourissues.db.row.IssuesDbType>}
  *
  * @param {number} rowId The row ID.
- * @param {!CloseYourIssuesDB.row.IssuesType=} opt_payload
+ * @param {!closeyourissues.db.row.IssuesType=} opt_payload
  */
-CloseYourIssuesDB.row.Issues = function(rowId, opt_payload) {
-  CloseYourIssuesDB.row.Issues.base(this, 'constructor', rowId, opt_payload);
+closeyourissues.db.row.Issues = function(rowId, opt_payload) {
+  closeyourissues.db.row.Issues.base(this, 'constructor', rowId, opt_payload);
 };
-goog.inherits(CloseYourIssuesDB.row.Issues, lf.Row);
+goog.inherits(closeyourissues.db.row.Issues, lf.Row);
 
 
 /** @override */
-CloseYourIssuesDB.row.Issues.prototype.defaultPayload = function() {
-  var payload = new CloseYourIssuesDB.row.IssuesType();
+closeyourissues.db.row.Issues.prototype.defaultPayload = function() {
+  var payload = new closeyourissues.db.row.IssuesType();
   payload.id = '';
   payload.owner = '';
   payload.repository = '';
@@ -451,8 +451,8 @@ CloseYourIssuesDB.row.Issues.prototype.defaultPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.Issues.prototype.toDbPayload = function() {
-  var payload = new CloseYourIssuesDB.row.IssuesDbType();
+closeyourissues.db.row.Issues.prototype.toDbPayload = function() {
+  var payload = new closeyourissues.db.row.IssuesDbType();
   payload.id = this.payload().id;
   payload.owner = this.payload().owner;
   payload.repository = this.payload().repository;
@@ -476,7 +476,7 @@ CloseYourIssuesDB.row.Issues.prototype.toDbPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.Issues.prototype.keyOfIndex = function(indexName) {
+closeyourissues.db.row.Issues.prototype.keyOfIndex = function(indexName) {
   switch (indexName) {
     case 'Issues.pkIssues':
       return this.payload().id;
@@ -490,272 +490,272 @@ CloseYourIssuesDB.row.Issues.prototype.keyOfIndex = function(indexName) {
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Issues.prototype.getId = function() {
+closeyourissues.db.row.Issues.prototype.getId = function() {
   return this.payload().id;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setId = function(value) {
+closeyourissues.db.row.Issues.prototype.setId = function(value) {
   this.payload().id = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Issues.prototype.getOwner = function() {
+closeyourissues.db.row.Issues.prototype.getOwner = function() {
   return this.payload().owner;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setOwner = function(value) {
+closeyourissues.db.row.Issues.prototype.setOwner = function(value) {
   this.payload().owner = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Issues.prototype.getRepository = function() {
+closeyourissues.db.row.Issues.prototype.getRepository = function() {
   return this.payload().repository;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setRepository = function(value) {
+closeyourissues.db.row.Issues.prototype.setRepository = function(value) {
   this.payload().repository = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Issues.prototype.getUrl = function() {
+closeyourissues.db.row.Issues.prototype.getUrl = function() {
   return this.payload().url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setUrl = function(value) {
+closeyourissues.db.row.Issues.prototype.setUrl = function(value) {
   this.payload().url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Issues.prototype.getHtml_url = function() {
+closeyourissues.db.row.Issues.prototype.getHtml_url = function() {
   return this.payload().html_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setHtml_url = function(value) {
+closeyourissues.db.row.Issues.prototype.setHtml_url = function(value) {
   this.payload().html_url = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Issues.prototype.getNumber = function() {
+closeyourissues.db.row.Issues.prototype.getNumber = function() {
   return this.payload().number;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setNumber = function(value) {
+closeyourissues.db.row.Issues.prototype.setNumber = function(value) {
   this.payload().number = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Issues.prototype.getState = function() {
+closeyourissues.db.row.Issues.prototype.getState = function() {
   return this.payload().state;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setState = function(value) {
+closeyourissues.db.row.Issues.prototype.setState = function(value) {
   this.payload().state = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Issues.prototype.getTitle = function() {
+closeyourissues.db.row.Issues.prototype.getTitle = function() {
   return this.payload().title;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setTitle = function(value) {
+closeyourissues.db.row.Issues.prototype.setTitle = function(value) {
   this.payload().title = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Issues.prototype.getBody = function() {
+closeyourissues.db.row.Issues.prototype.getBody = function() {
   return this.payload().body;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setBody = function(value) {
+closeyourissues.db.row.Issues.prototype.setBody = function(value) {
   this.payload().body = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Issues.prototype.getUser = function() {
+closeyourissues.db.row.Issues.prototype.getUser = function() {
   return this.payload().user;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setUser = function(value) {
+closeyourissues.db.row.Issues.prototype.setUser = function(value) {
   this.payload().user = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Issues.prototype.getAssignee = function() {
+closeyourissues.db.row.Issues.prototype.getAssignee = function() {
   return this.payload().assignee;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setAssignee = function(value) {
+closeyourissues.db.row.Issues.prototype.setAssignee = function(value) {
   this.payload().assignee = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Issues.prototype.getMilestone = function() {
+closeyourissues.db.row.Issues.prototype.getMilestone = function() {
   return this.payload().milestone;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setMilestone = function(value) {
+closeyourissues.db.row.Issues.prototype.setMilestone = function(value) {
   this.payload().milestone = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Issues.prototype.getComments = function() {
+closeyourissues.db.row.Issues.prototype.getComments = function() {
   return this.payload().comments;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setComments = function(value) {
+closeyourissues.db.row.Issues.prototype.setComments = function(value) {
   this.payload().comments = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Issues.prototype.getPull_request = function() {
+closeyourissues.db.row.Issues.prototype.getPull_request = function() {
   return this.payload().pull_request;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setPull_request = function(value) {
+closeyourissues.db.row.Issues.prototype.setPull_request = function(value) {
   this.payload().pull_request = value;
   return this;
 };
 
 
 /** @return {?Date} */
-CloseYourIssuesDB.row.Issues.prototype.getClosed_at = function() {
+closeyourissues.db.row.Issues.prototype.getClosed_at = function() {
   return this.payload().closed_at;
 };
 
 
 /**
  * @param {?Date} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setClosed_at = function(value) {
+closeyourissues.db.row.Issues.prototype.setClosed_at = function(value) {
   this.payload().closed_at = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.Issues.prototype.getCreated_at = function() {
+closeyourissues.db.row.Issues.prototype.getCreated_at = function() {
   return this.payload().created_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setCreated_at = function(value) {
+closeyourissues.db.row.Issues.prototype.setCreated_at = function(value) {
   this.payload().created_at = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.Issues.prototype.getUpdated_at = function() {
+closeyourissues.db.row.Issues.prototype.getUpdated_at = function() {
   return this.payload().updated_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.Issues}
+ * @return {!closeyourissues.db.row.Issues}
 */
-CloseYourIssuesDB.row.Issues.prototype.setUpdated_at = function(value) {
+closeyourissues.db.row.Issues.prototype.setUpdated_at = function(value) {
   this.payload().updated_at = value;
   return this;
 };
@@ -763,11 +763,11 @@ CloseYourIssuesDB.row.Issues.prototype.setUpdated_at = function(value) {
 
 
 /**
- * @extends {lf.schema.Table.<!CloseYourIssuesDB.row.UsersType,
- *     !CloseYourIssuesDB.row.UsersDbType>}
+ * @extends {lf.schema.Table.<!closeyourissues.db.row.UsersType,
+ *     !closeyourissues.db.row.UsersDbType>}
  * @constructor
  */
-CloseYourIssuesDB.schema.Users = function() {
+closeyourissues.db.schema.Users = function() {
   var cols = [];
 
   /** @type {!lf.schema.BaseColumn.<string>} */
@@ -927,32 +927,32 @@ CloseYourIssuesDB.schema.Users = function() {
         ])
   ];
 
-  CloseYourIssuesDB.schema.Users.base(
+  closeyourissues.db.schema.Users.base(
       this, 'constructor', 'Users', cols, indices, false);
 };
-goog.inherits(CloseYourIssuesDB.schema.Users, lf.schema.Table);
+goog.inherits(closeyourissues.db.schema.Users, lf.schema.Table);
 
 
 /** @override */
-CloseYourIssuesDB.schema.Users.prototype.createRow = function(opt_value) {
-  return new CloseYourIssuesDB.row.Users(lf.Row.getNextId(), opt_value);
+closeyourissues.db.schema.Users.prototype.createRow = function(opt_value) {
+  return new closeyourissues.db.row.Users(lf.Row.getNextId(), opt_value);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Users.prototype.deserializeRow =
+closeyourissues.db.schema.Users.prototype.deserializeRow =
     function(dbRecord) {
   var data = dbRecord['value'];
   data.created_at = goog.isNull(data.created_at) ?
       null : new Date(data.created_at);
   data.updated_at = goog.isNull(data.updated_at) ?
       null : new Date(data.updated_at);
-  return new CloseYourIssuesDB.row.Users(dbRecord['id'], data);
+  return new closeyourissues.db.row.Users(dbRecord['id'], data);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Users.prototype.getConstraint = function() {
+closeyourissues.db.schema.Users.prototype.getConstraint = function() {
   var pk = new lf.schema.Index('Users', 'pkUsers', true,
       [
         {schema: this.id, order: lf.Order.ASC, autoIncrement: false}
@@ -995,7 +995,7 @@ CloseYourIssuesDB.schema.Users.prototype.getConstraint = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.UsersType = function() {
+closeyourissues.db.row.UsersType = function() {
   /** @export @type {string} */
   this.login;
   /** @export @type {number} */
@@ -1066,7 +1066,7 @@ CloseYourIssuesDB.row.UsersType = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.UsersDbType = function() {
+closeyourissues.db.row.UsersDbType = function() {
   /** @export @type {string} */
   this.login;
   /** @export @type {number} */
@@ -1134,21 +1134,21 @@ CloseYourIssuesDB.row.UsersDbType = function() {
 /**
  * Constructs a new Users row.
  * @constructor
- * @extends {lf.Row.<!CloseYourIssuesDB.row.UsersType,
- *     !CloseYourIssuesDB.row.UsersDbType>}
+ * @extends {lf.Row.<!closeyourissues.db.row.UsersType,
+ *     !closeyourissues.db.row.UsersDbType>}
  *
  * @param {number} rowId The row ID.
- * @param {!CloseYourIssuesDB.row.UsersType=} opt_payload
+ * @param {!closeyourissues.db.row.UsersType=} opt_payload
  */
-CloseYourIssuesDB.row.Users = function(rowId, opt_payload) {
-  CloseYourIssuesDB.row.Users.base(this, 'constructor', rowId, opt_payload);
+closeyourissues.db.row.Users = function(rowId, opt_payload) {
+  closeyourissues.db.row.Users.base(this, 'constructor', rowId, opt_payload);
 };
-goog.inherits(CloseYourIssuesDB.row.Users, lf.Row);
+goog.inherits(closeyourissues.db.row.Users, lf.Row);
 
 
 /** @override */
-CloseYourIssuesDB.row.Users.prototype.defaultPayload = function() {
-  var payload = new CloseYourIssuesDB.row.UsersType();
+closeyourissues.db.row.Users.prototype.defaultPayload = function() {
+  var payload = new closeyourissues.db.row.UsersType();
   payload.login = '';
   payload.id = 0;
   payload.avatar_url = '';
@@ -1184,8 +1184,8 @@ CloseYourIssuesDB.row.Users.prototype.defaultPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.Users.prototype.toDbPayload = function() {
-  var payload = new CloseYourIssuesDB.row.UsersDbType();
+closeyourissues.db.row.Users.prototype.toDbPayload = function() {
+  var payload = new closeyourissues.db.row.UsersDbType();
   payload.login = this.payload().login;
   payload.id = this.payload().id;
   payload.avatar_url = this.payload().avatar_url;
@@ -1223,7 +1223,7 @@ CloseYourIssuesDB.row.Users.prototype.toDbPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.Users.prototype.keyOfIndex = function(indexName) {
+closeyourissues.db.row.Users.prototype.keyOfIndex = function(indexName) {
   switch (indexName) {
     case 'Users.pkUsers':
       return this.payload().id;
@@ -1237,480 +1237,480 @@ CloseYourIssuesDB.row.Users.prototype.keyOfIndex = function(indexName) {
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getLogin = function() {
+closeyourissues.db.row.Users.prototype.getLogin = function() {
   return this.payload().login;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setLogin = function(value) {
+closeyourissues.db.row.Users.prototype.setLogin = function(value) {
   this.payload().login = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Users.prototype.getId = function() {
+closeyourissues.db.row.Users.prototype.getId = function() {
   return this.payload().id;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setId = function(value) {
+closeyourissues.db.row.Users.prototype.setId = function(value) {
   this.payload().id = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getAvatar_url = function() {
+closeyourissues.db.row.Users.prototype.getAvatar_url = function() {
   return this.payload().avatar_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setAvatar_url = function(value) {
+closeyourissues.db.row.Users.prototype.setAvatar_url = function(value) {
   this.payload().avatar_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getGravatar_id = function() {
+closeyourissues.db.row.Users.prototype.getGravatar_id = function() {
   return this.payload().gravatar_id;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setGravatar_id = function(value) {
+closeyourissues.db.row.Users.prototype.setGravatar_id = function(value) {
   this.payload().gravatar_id = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getUrl = function() {
+closeyourissues.db.row.Users.prototype.getUrl = function() {
   return this.payload().url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setUrl = function(value) {
+closeyourissues.db.row.Users.prototype.setUrl = function(value) {
   this.payload().url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getHtml_url = function() {
+closeyourissues.db.row.Users.prototype.getHtml_url = function() {
   return this.payload().html_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setHtml_url = function(value) {
+closeyourissues.db.row.Users.prototype.setHtml_url = function(value) {
   this.payload().html_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getFollowers_url = function() {
+closeyourissues.db.row.Users.prototype.getFollowers_url = function() {
   return this.payload().followers_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setFollowers_url = function(value) {
+closeyourissues.db.row.Users.prototype.setFollowers_url = function(value) {
   this.payload().followers_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getFollowing_url = function() {
+closeyourissues.db.row.Users.prototype.getFollowing_url = function() {
   return this.payload().following_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setFollowing_url = function(value) {
+closeyourissues.db.row.Users.prototype.setFollowing_url = function(value) {
   this.payload().following_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getGists_url = function() {
+closeyourissues.db.row.Users.prototype.getGists_url = function() {
   return this.payload().gists_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setGists_url = function(value) {
+closeyourissues.db.row.Users.prototype.setGists_url = function(value) {
   this.payload().gists_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getStarred_url = function() {
+closeyourissues.db.row.Users.prototype.getStarred_url = function() {
   return this.payload().starred_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setStarred_url = function(value) {
+closeyourissues.db.row.Users.prototype.setStarred_url = function(value) {
   this.payload().starred_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getSubscriptions_url = function() {
+closeyourissues.db.row.Users.prototype.getSubscriptions_url = function() {
   return this.payload().subscriptions_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setSubscriptions_url = function(value) {
+closeyourissues.db.row.Users.prototype.setSubscriptions_url = function(value) {
   this.payload().subscriptions_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getOrganizations_url = function() {
+closeyourissues.db.row.Users.prototype.getOrganizations_url = function() {
   return this.payload().organizations_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setOrganizations_url = function(value) {
+closeyourissues.db.row.Users.prototype.setOrganizations_url = function(value) {
   this.payload().organizations_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getRepos_url = function() {
+closeyourissues.db.row.Users.prototype.getRepos_url = function() {
   return this.payload().repos_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setRepos_url = function(value) {
+closeyourissues.db.row.Users.prototype.setRepos_url = function(value) {
   this.payload().repos_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getEvents_url = function() {
+closeyourissues.db.row.Users.prototype.getEvents_url = function() {
   return this.payload().events_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setEvents_url = function(value) {
+closeyourissues.db.row.Users.prototype.setEvents_url = function(value) {
   this.payload().events_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getReceived_events_url = function() {
+closeyourissues.db.row.Users.prototype.getReceived_events_url = function() {
   return this.payload().received_events_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setReceived_events_url = function(value) {
+closeyourissues.db.row.Users.prototype.setReceived_events_url = function(value) {
   this.payload().received_events_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Users.prototype.getType = function() {
+closeyourissues.db.row.Users.prototype.getType = function() {
   return this.payload().type;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setType = function(value) {
+closeyourissues.db.row.Users.prototype.setType = function(value) {
   this.payload().type = value;
   return this;
 };
 
 
 /** @return {boolean} */
-CloseYourIssuesDB.row.Users.prototype.getSite_admin = function() {
+closeyourissues.db.row.Users.prototype.getSite_admin = function() {
   return this.payload().site_admin;
 };
 
 
 /**
  * @param {boolean} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setSite_admin = function(value) {
+closeyourissues.db.row.Users.prototype.setSite_admin = function(value) {
   this.payload().site_admin = value;
   return this;
 };
 
 
 /** @return {?string} */
-CloseYourIssuesDB.row.Users.prototype.getName = function() {
+closeyourissues.db.row.Users.prototype.getName = function() {
   return this.payload().name;
 };
 
 
 /**
  * @param {?string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setName = function(value) {
+closeyourissues.db.row.Users.prototype.setName = function(value) {
   this.payload().name = value;
   return this;
 };
 
 
 /** @return {?string} */
-CloseYourIssuesDB.row.Users.prototype.getCompany = function() {
+closeyourissues.db.row.Users.prototype.getCompany = function() {
   return this.payload().company;
 };
 
 
 /**
  * @param {?string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setCompany = function(value) {
+closeyourissues.db.row.Users.prototype.setCompany = function(value) {
   this.payload().company = value;
   return this;
 };
 
 
 /** @return {?string} */
-CloseYourIssuesDB.row.Users.prototype.getBlog = function() {
+closeyourissues.db.row.Users.prototype.getBlog = function() {
   return this.payload().blog;
 };
 
 
 /**
  * @param {?string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setBlog = function(value) {
+closeyourissues.db.row.Users.prototype.setBlog = function(value) {
   this.payload().blog = value;
   return this;
 };
 
 
 /** @return {?string} */
-CloseYourIssuesDB.row.Users.prototype.getLocation = function() {
+closeyourissues.db.row.Users.prototype.getLocation = function() {
   return this.payload().location;
 };
 
 
 /**
  * @param {?string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setLocation = function(value) {
+closeyourissues.db.row.Users.prototype.setLocation = function(value) {
   this.payload().location = value;
   return this;
 };
 
 
 /** @return {?string} */
-CloseYourIssuesDB.row.Users.prototype.getEmail = function() {
+closeyourissues.db.row.Users.prototype.getEmail = function() {
   return this.payload().email;
 };
 
 
 /**
  * @param {?string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setEmail = function(value) {
+closeyourissues.db.row.Users.prototype.setEmail = function(value) {
   this.payload().email = value;
   return this;
 };
 
 
 /** @return {boolean} */
-CloseYourIssuesDB.row.Users.prototype.getHireable = function() {
+closeyourissues.db.row.Users.prototype.getHireable = function() {
   return this.payload().hireable;
 };
 
 
 /**
  * @param {boolean} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setHireable = function(value) {
+closeyourissues.db.row.Users.prototype.setHireable = function(value) {
   this.payload().hireable = value;
   return this;
 };
 
 
 /** @return {?string} */
-CloseYourIssuesDB.row.Users.prototype.getBio = function() {
+closeyourissues.db.row.Users.prototype.getBio = function() {
   return this.payload().bio;
 };
 
 
 /**
  * @param {?string} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setBio = function(value) {
+closeyourissues.db.row.Users.prototype.setBio = function(value) {
   this.payload().bio = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Users.prototype.getPublic_repos = function() {
+closeyourissues.db.row.Users.prototype.getPublic_repos = function() {
   return this.payload().public_repos;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setPublic_repos = function(value) {
+closeyourissues.db.row.Users.prototype.setPublic_repos = function(value) {
   this.payload().public_repos = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Users.prototype.getPublic_gists = function() {
+closeyourissues.db.row.Users.prototype.getPublic_gists = function() {
   return this.payload().public_gists;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setPublic_gists = function(value) {
+closeyourissues.db.row.Users.prototype.setPublic_gists = function(value) {
   this.payload().public_gists = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Users.prototype.getFollowers = function() {
+closeyourissues.db.row.Users.prototype.getFollowers = function() {
   return this.payload().followers;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setFollowers = function(value) {
+closeyourissues.db.row.Users.prototype.setFollowers = function(value) {
   this.payload().followers = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Users.prototype.getFollowing = function() {
+closeyourissues.db.row.Users.prototype.getFollowing = function() {
   return this.payload().following;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setFollowing = function(value) {
+closeyourissues.db.row.Users.prototype.setFollowing = function(value) {
   this.payload().following = value;
   return this;
 };
 
 
 /** @return {?Date} */
-CloseYourIssuesDB.row.Users.prototype.getCreated_at = function() {
+closeyourissues.db.row.Users.prototype.getCreated_at = function() {
   return this.payload().created_at;
 };
 
 
 /**
  * @param {?Date} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setCreated_at = function(value) {
+closeyourissues.db.row.Users.prototype.setCreated_at = function(value) {
   this.payload().created_at = value;
   return this;
 };
 
 
 /** @return {?Date} */
-CloseYourIssuesDB.row.Users.prototype.getUpdated_at = function() {
+closeyourissues.db.row.Users.prototype.getUpdated_at = function() {
   return this.payload().updated_at;
 };
 
 
 /**
  * @param {?Date} value
- * @return {!CloseYourIssuesDB.row.Users}
+ * @return {!closeyourissues.db.row.Users}
 */
-CloseYourIssuesDB.row.Users.prototype.setUpdated_at = function(value) {
+closeyourissues.db.row.Users.prototype.setUpdated_at = function(value) {
   this.payload().updated_at = value;
   return this;
 };
@@ -1718,11 +1718,11 @@ CloseYourIssuesDB.row.Users.prototype.setUpdated_at = function(value) {
 
 
 /**
- * @extends {lf.schema.Table.<!CloseYourIssuesDB.row.MilestonesType,
- *     !CloseYourIssuesDB.row.MilestonesDbType>}
+ * @extends {lf.schema.Table.<!closeyourissues.db.row.MilestonesType,
+ *     !closeyourissues.db.row.MilestonesDbType>}
  * @constructor
  */
-CloseYourIssuesDB.schema.Milestones = function() {
+closeyourissues.db.schema.Milestones = function() {
   var cols = [];
 
   /** @type {!lf.schema.BaseColumn.<string>} */
@@ -1792,20 +1792,20 @@ CloseYourIssuesDB.schema.Milestones = function() {
         ])
   ];
 
-  CloseYourIssuesDB.schema.Milestones.base(
+  closeyourissues.db.schema.Milestones.base(
       this, 'constructor', 'Milestones', cols, indices, false);
 };
-goog.inherits(CloseYourIssuesDB.schema.Milestones, lf.schema.Table);
+goog.inherits(closeyourissues.db.schema.Milestones, lf.schema.Table);
 
 
 /** @override */
-CloseYourIssuesDB.schema.Milestones.prototype.createRow = function(opt_value) {
-  return new CloseYourIssuesDB.row.Milestones(lf.Row.getNextId(), opt_value);
+closeyourissues.db.schema.Milestones.prototype.createRow = function(opt_value) {
+  return new closeyourissues.db.row.Milestones(lf.Row.getNextId(), opt_value);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Milestones.prototype.deserializeRow =
+closeyourissues.db.schema.Milestones.prototype.deserializeRow =
     function(dbRecord) {
   var data = dbRecord['value'];
   data.created_at = new Date(data.created_at);
@@ -1813,12 +1813,12 @@ CloseYourIssuesDB.schema.Milestones.prototype.deserializeRow =
   data.closed_at = new Date(data.closed_at);
   data.due_on = goog.isNull(data.due_on) ?
       null : new Date(data.due_on);
-  return new CloseYourIssuesDB.row.Milestones(dbRecord['id'], data);
+  return new closeyourissues.db.row.Milestones(dbRecord['id'], data);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Milestones.prototype.getConstraint = function() {
+closeyourissues.db.schema.Milestones.prototype.getConstraint = function() {
   var pk = new lf.schema.Index('Milestones', 'pkMilestones', true,
       [
         {schema: this.number, order: lf.Order.ASC, autoIncrement: false}
@@ -1850,7 +1850,7 @@ CloseYourIssuesDB.schema.Milestones.prototype.getConstraint = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.MilestonesType = function() {
+closeyourissues.db.row.MilestonesType = function() {
   /** @export @type {string} */
   this.url;
   /** @export @type {number} */
@@ -1885,7 +1885,7 @@ CloseYourIssuesDB.row.MilestonesType = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.MilestonesDbType = function() {
+closeyourissues.db.row.MilestonesDbType = function() {
   /** @export @type {string} */
   this.url;
   /** @export @type {number} */
@@ -1917,21 +1917,21 @@ CloseYourIssuesDB.row.MilestonesDbType = function() {
 /**
  * Constructs a new Milestones row.
  * @constructor
- * @extends {lf.Row.<!CloseYourIssuesDB.row.MilestonesType,
- *     !CloseYourIssuesDB.row.MilestonesDbType>}
+ * @extends {lf.Row.<!closeyourissues.db.row.MilestonesType,
+ *     !closeyourissues.db.row.MilestonesDbType>}
  *
  * @param {number} rowId The row ID.
- * @param {!CloseYourIssuesDB.row.MilestonesType=} opt_payload
+ * @param {!closeyourissues.db.row.MilestonesType=} opt_payload
  */
-CloseYourIssuesDB.row.Milestones = function(rowId, opt_payload) {
-  CloseYourIssuesDB.row.Milestones.base(this, 'constructor', rowId, opt_payload);
+closeyourissues.db.row.Milestones = function(rowId, opt_payload) {
+  closeyourissues.db.row.Milestones.base(this, 'constructor', rowId, opt_payload);
 };
-goog.inherits(CloseYourIssuesDB.row.Milestones, lf.Row);
+goog.inherits(closeyourissues.db.row.Milestones, lf.Row);
 
 
 /** @override */
-CloseYourIssuesDB.row.Milestones.prototype.defaultPayload = function() {
-  var payload = new CloseYourIssuesDB.row.MilestonesType();
+closeyourissues.db.row.Milestones.prototype.defaultPayload = function() {
+  var payload = new closeyourissues.db.row.MilestonesType();
   payload.url = '';
   payload.number = 0;
   payload.state = '';
@@ -1949,8 +1949,8 @@ CloseYourIssuesDB.row.Milestones.prototype.defaultPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.Milestones.prototype.toDbPayload = function() {
-  var payload = new CloseYourIssuesDB.row.MilestonesDbType();
+closeyourissues.db.row.Milestones.prototype.toDbPayload = function() {
+  var payload = new closeyourissues.db.row.MilestonesDbType();
   payload.url = this.payload().url;
   payload.number = this.payload().number;
   payload.state = this.payload().state;
@@ -1969,7 +1969,7 @@ CloseYourIssuesDB.row.Milestones.prototype.toDbPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.Milestones.prototype.keyOfIndex = function(indexName) {
+closeyourissues.db.row.Milestones.prototype.keyOfIndex = function(indexName) {
   switch (indexName) {
     case 'Milestones.pkMilestones':
       return this.payload().number;
@@ -1983,192 +1983,192 @@ CloseYourIssuesDB.row.Milestones.prototype.keyOfIndex = function(indexName) {
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Milestones.prototype.getUrl = function() {
+closeyourissues.db.row.Milestones.prototype.getUrl = function() {
   return this.payload().url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Milestones}
+ * @return {!closeyourissues.db.row.Milestones}
 */
-CloseYourIssuesDB.row.Milestones.prototype.setUrl = function(value) {
+closeyourissues.db.row.Milestones.prototype.setUrl = function(value) {
   this.payload().url = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Milestones.prototype.getNumber = function() {
+closeyourissues.db.row.Milestones.prototype.getNumber = function() {
   return this.payload().number;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Milestones}
+ * @return {!closeyourissues.db.row.Milestones}
 */
-CloseYourIssuesDB.row.Milestones.prototype.setNumber = function(value) {
+closeyourissues.db.row.Milestones.prototype.setNumber = function(value) {
   this.payload().number = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Milestones.prototype.getState = function() {
+closeyourissues.db.row.Milestones.prototype.getState = function() {
   return this.payload().state;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Milestones}
+ * @return {!closeyourissues.db.row.Milestones}
 */
-CloseYourIssuesDB.row.Milestones.prototype.setState = function(value) {
+closeyourissues.db.row.Milestones.prototype.setState = function(value) {
   this.payload().state = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Milestones.prototype.getTitle = function() {
+closeyourissues.db.row.Milestones.prototype.getTitle = function() {
   return this.payload().title;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Milestones}
+ * @return {!closeyourissues.db.row.Milestones}
 */
-CloseYourIssuesDB.row.Milestones.prototype.setTitle = function(value) {
+closeyourissues.db.row.Milestones.prototype.setTitle = function(value) {
   this.payload().title = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Milestones.prototype.getDescription = function() {
+closeyourissues.db.row.Milestones.prototype.getDescription = function() {
   return this.payload().description;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Milestones}
+ * @return {!closeyourissues.db.row.Milestones}
 */
-CloseYourIssuesDB.row.Milestones.prototype.setDescription = function(value) {
+closeyourissues.db.row.Milestones.prototype.setDescription = function(value) {
   this.payload().description = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Milestones.prototype.getCreator = function() {
+closeyourissues.db.row.Milestones.prototype.getCreator = function() {
   return this.payload().creator;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Milestones}
+ * @return {!closeyourissues.db.row.Milestones}
 */
-CloseYourIssuesDB.row.Milestones.prototype.setCreator = function(value) {
+closeyourissues.db.row.Milestones.prototype.setCreator = function(value) {
   this.payload().creator = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Milestones.prototype.getOpen_issues = function() {
+closeyourissues.db.row.Milestones.prototype.getOpen_issues = function() {
   return this.payload().open_issues;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Milestones}
+ * @return {!closeyourissues.db.row.Milestones}
 */
-CloseYourIssuesDB.row.Milestones.prototype.setOpen_issues = function(value) {
+closeyourissues.db.row.Milestones.prototype.setOpen_issues = function(value) {
   this.payload().open_issues = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Milestones.prototype.getClosed_issues = function() {
+closeyourissues.db.row.Milestones.prototype.getClosed_issues = function() {
   return this.payload().closed_issues;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Milestones}
+ * @return {!closeyourissues.db.row.Milestones}
 */
-CloseYourIssuesDB.row.Milestones.prototype.setClosed_issues = function(value) {
+closeyourissues.db.row.Milestones.prototype.setClosed_issues = function(value) {
   this.payload().closed_issues = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.Milestones.prototype.getCreated_at = function() {
+closeyourissues.db.row.Milestones.prototype.getCreated_at = function() {
   return this.payload().created_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.Milestones}
+ * @return {!closeyourissues.db.row.Milestones}
 */
-CloseYourIssuesDB.row.Milestones.prototype.setCreated_at = function(value) {
+closeyourissues.db.row.Milestones.prototype.setCreated_at = function(value) {
   this.payload().created_at = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.Milestones.prototype.getUpdated_at = function() {
+closeyourissues.db.row.Milestones.prototype.getUpdated_at = function() {
   return this.payload().updated_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.Milestones}
+ * @return {!closeyourissues.db.row.Milestones}
 */
-CloseYourIssuesDB.row.Milestones.prototype.setUpdated_at = function(value) {
+closeyourissues.db.row.Milestones.prototype.setUpdated_at = function(value) {
   this.payload().updated_at = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.Milestones.prototype.getClosed_at = function() {
+closeyourissues.db.row.Milestones.prototype.getClosed_at = function() {
   return this.payload().closed_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.Milestones}
+ * @return {!closeyourissues.db.row.Milestones}
 */
-CloseYourIssuesDB.row.Milestones.prototype.setClosed_at = function(value) {
+closeyourissues.db.row.Milestones.prototype.setClosed_at = function(value) {
   this.payload().closed_at = value;
   return this;
 };
 
 
 /** @return {?Date} */
-CloseYourIssuesDB.row.Milestones.prototype.getDue_on = function() {
+closeyourissues.db.row.Milestones.prototype.getDue_on = function() {
   return this.payload().due_on;
 };
 
 
 /**
  * @param {?Date} value
- * @return {!CloseYourIssuesDB.row.Milestones}
+ * @return {!closeyourissues.db.row.Milestones}
 */
-CloseYourIssuesDB.row.Milestones.prototype.setDue_on = function(value) {
+closeyourissues.db.row.Milestones.prototype.setDue_on = function(value) {
   this.payload().due_on = value;
   return this;
 };
@@ -2176,11 +2176,11 @@ CloseYourIssuesDB.row.Milestones.prototype.setDue_on = function(value) {
 
 
 /**
- * @extends {lf.schema.Table.<!CloseYourIssuesDB.row.PullRequestsType,
- *     !CloseYourIssuesDB.row.PullRequestsDbType>}
+ * @extends {lf.schema.Table.<!closeyourissues.db.row.PullRequestsType,
+ *     !closeyourissues.db.row.PullRequestsDbType>}
  * @constructor
  */
-CloseYourIssuesDB.schema.PullRequests = function() {
+closeyourissues.db.schema.PullRequests = function() {
   var cols = [];
 
   /** @type {!lf.schema.BaseColumn.<number>} */
@@ -2300,32 +2300,32 @@ CloseYourIssuesDB.schema.PullRequests = function() {
         ])
   ];
 
-  CloseYourIssuesDB.schema.PullRequests.base(
+  closeyourissues.db.schema.PullRequests.base(
       this, 'constructor', 'PullRequests', cols, indices, false);
 };
-goog.inherits(CloseYourIssuesDB.schema.PullRequests, lf.schema.Table);
+goog.inherits(closeyourissues.db.schema.PullRequests, lf.schema.Table);
 
 
 /** @override */
-CloseYourIssuesDB.schema.PullRequests.prototype.createRow = function(opt_value) {
-  return new CloseYourIssuesDB.row.PullRequests(lf.Row.getNextId(), opt_value);
+closeyourissues.db.schema.PullRequests.prototype.createRow = function(opt_value) {
+  return new closeyourissues.db.row.PullRequests(lf.Row.getNextId(), opt_value);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.PullRequests.prototype.deserializeRow =
+closeyourissues.db.schema.PullRequests.prototype.deserializeRow =
     function(dbRecord) {
   var data = dbRecord['value'];
   data.created_at = new Date(data.created_at);
   data.updated_at = new Date(data.updated_at);
   data.closed_at = new Date(data.closed_at);
   data.merged_at = new Date(data.merged_at);
-  return new CloseYourIssuesDB.row.PullRequests(dbRecord['id'], data);
+  return new closeyourissues.db.row.PullRequests(dbRecord['id'], data);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.PullRequests.prototype.getConstraint = function() {
+closeyourissues.db.schema.PullRequests.prototype.getConstraint = function() {
   var pk = new lf.schema.Index('PullRequests', 'pkPullRequests', true,
       [
         {schema: this.id, order: lf.Order.ASC, autoIncrement: false}
@@ -2368,7 +2368,7 @@ CloseYourIssuesDB.schema.PullRequests.prototype.getConstraint = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.PullRequestsType = function() {
+closeyourissues.db.row.PullRequestsType = function() {
   /** @export @type {number} */
   this.id;
   /** @export @type {string} */
@@ -2423,7 +2423,7 @@ CloseYourIssuesDB.row.PullRequestsType = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.PullRequestsDbType = function() {
+closeyourissues.db.row.PullRequestsDbType = function() {
   /** @export @type {number} */
   this.id;
   /** @export @type {string} */
@@ -2475,21 +2475,21 @@ CloseYourIssuesDB.row.PullRequestsDbType = function() {
 /**
  * Constructs a new PullRequests row.
  * @constructor
- * @extends {lf.Row.<!CloseYourIssuesDB.row.PullRequestsType,
- *     !CloseYourIssuesDB.row.PullRequestsDbType>}
+ * @extends {lf.Row.<!closeyourissues.db.row.PullRequestsType,
+ *     !closeyourissues.db.row.PullRequestsDbType>}
  *
  * @param {number} rowId The row ID.
- * @param {!CloseYourIssuesDB.row.PullRequestsType=} opt_payload
+ * @param {!closeyourissues.db.row.PullRequestsType=} opt_payload
  */
-CloseYourIssuesDB.row.PullRequests = function(rowId, opt_payload) {
-  CloseYourIssuesDB.row.PullRequests.base(this, 'constructor', rowId, opt_payload);
+closeyourissues.db.row.PullRequests = function(rowId, opt_payload) {
+  closeyourissues.db.row.PullRequests.base(this, 'constructor', rowId, opt_payload);
 };
-goog.inherits(CloseYourIssuesDB.row.PullRequests, lf.Row);
+goog.inherits(closeyourissues.db.row.PullRequests, lf.Row);
 
 
 /** @override */
-CloseYourIssuesDB.row.PullRequests.prototype.defaultPayload = function() {
-  var payload = new CloseYourIssuesDB.row.PullRequestsType();
+closeyourissues.db.row.PullRequests.prototype.defaultPayload = function() {
+  var payload = new closeyourissues.db.row.PullRequestsType();
   payload.id = 0;
   payload.url = '';
   payload.html_url = '';
@@ -2517,8 +2517,8 @@ CloseYourIssuesDB.row.PullRequests.prototype.defaultPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.PullRequests.prototype.toDbPayload = function() {
-  var payload = new CloseYourIssuesDB.row.PullRequestsDbType();
+closeyourissues.db.row.PullRequests.prototype.toDbPayload = function() {
+  var payload = new closeyourissues.db.row.PullRequestsDbType();
   payload.id = this.payload().id;
   payload.url = this.payload().url;
   payload.html_url = this.payload().html_url;
@@ -2546,7 +2546,7 @@ CloseYourIssuesDB.row.PullRequests.prototype.toDbPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.PullRequests.prototype.keyOfIndex = function(indexName) {
+closeyourissues.db.row.PullRequests.prototype.keyOfIndex = function(indexName) {
   switch (indexName) {
     case 'PullRequests.pkPullRequests':
       return this.payload().id;
@@ -2560,352 +2560,352 @@ CloseYourIssuesDB.row.PullRequests.prototype.keyOfIndex = function(indexName) {
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.PullRequests.prototype.getId = function() {
+closeyourissues.db.row.PullRequests.prototype.getId = function() {
   return this.payload().id;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setId = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setId = function(value) {
   this.payload().id = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getUrl = function() {
+closeyourissues.db.row.PullRequests.prototype.getUrl = function() {
   return this.payload().url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setUrl = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setUrl = function(value) {
   this.payload().url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getHtml_url = function() {
+closeyourissues.db.row.PullRequests.prototype.getHtml_url = function() {
   return this.payload().html_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setHtml_url = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setHtml_url = function(value) {
   this.payload().html_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getDiff_url = function() {
+closeyourissues.db.row.PullRequests.prototype.getDiff_url = function() {
   return this.payload().diff_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setDiff_url = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setDiff_url = function(value) {
   this.payload().diff_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getPatch_url = function() {
+closeyourissues.db.row.PullRequests.prototype.getPatch_url = function() {
   return this.payload().patch_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setPatch_url = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setPatch_url = function(value) {
   this.payload().patch_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getIssue_url = function() {
+closeyourissues.db.row.PullRequests.prototype.getIssue_url = function() {
   return this.payload().issue_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setIssue_url = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setIssue_url = function(value) {
   this.payload().issue_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getCommits_url = function() {
+closeyourissues.db.row.PullRequests.prototype.getCommits_url = function() {
   return this.payload().commits_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setCommits_url = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setCommits_url = function(value) {
   this.payload().commits_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getReview_comments_url = function() {
+closeyourissues.db.row.PullRequests.prototype.getReview_comments_url = function() {
   return this.payload().review_comments_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setReview_comments_url = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setReview_comments_url = function(value) {
   this.payload().review_comments_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getReview_comment_url = function() {
+closeyourissues.db.row.PullRequests.prototype.getReview_comment_url = function() {
   return this.payload().review_comment_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setReview_comment_url = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setReview_comment_url = function(value) {
   this.payload().review_comment_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getComments_url = function() {
+closeyourissues.db.row.PullRequests.prototype.getComments_url = function() {
   return this.payload().comments_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setComments_url = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setComments_url = function(value) {
   this.payload().comments_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getStatuses_url = function() {
+closeyourissues.db.row.PullRequests.prototype.getStatuses_url = function() {
   return this.payload().statuses_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setStatuses_url = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setStatuses_url = function(value) {
   this.payload().statuses_url = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.PullRequests.prototype.getNumber = function() {
+closeyourissues.db.row.PullRequests.prototype.getNumber = function() {
   return this.payload().number;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setNumber = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setNumber = function(value) {
   this.payload().number = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getState = function() {
+closeyourissues.db.row.PullRequests.prototype.getState = function() {
   return this.payload().state;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setState = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setState = function(value) {
   this.payload().state = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getTitle = function() {
+closeyourissues.db.row.PullRequests.prototype.getTitle = function() {
   return this.payload().title;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setTitle = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setTitle = function(value) {
   this.payload().title = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getBody = function() {
+closeyourissues.db.row.PullRequests.prototype.getBody = function() {
   return this.payload().body;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setBody = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setBody = function(value) {
   this.payload().body = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.PullRequests.prototype.getCreated_at = function() {
+closeyourissues.db.row.PullRequests.prototype.getCreated_at = function() {
   return this.payload().created_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setCreated_at = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setCreated_at = function(value) {
   this.payload().created_at = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.PullRequests.prototype.getUpdated_at = function() {
+closeyourissues.db.row.PullRequests.prototype.getUpdated_at = function() {
   return this.payload().updated_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setUpdated_at = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setUpdated_at = function(value) {
   this.payload().updated_at = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.PullRequests.prototype.getClosed_at = function() {
+closeyourissues.db.row.PullRequests.prototype.getClosed_at = function() {
   return this.payload().closed_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setClosed_at = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setClosed_at = function(value) {
   this.payload().closed_at = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.PullRequests.prototype.getMerged_at = function() {
+closeyourissues.db.row.PullRequests.prototype.getMerged_at = function() {
   return this.payload().merged_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setMerged_at = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setMerged_at = function(value) {
   this.payload().merged_at = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getHead = function() {
+closeyourissues.db.row.PullRequests.prototype.getHead = function() {
   return this.payload().head;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setHead = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setHead = function(value) {
   this.payload().head = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.PullRequests.prototype.getBase = function() {
+closeyourissues.db.row.PullRequests.prototype.getBase = function() {
   return this.payload().base;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setBase = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setBase = function(value) {
   this.payload().base = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.PullRequests.prototype.getUser = function() {
+closeyourissues.db.row.PullRequests.prototype.getUser = function() {
   return this.payload().user;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.PullRequests}
+ * @return {!closeyourissues.db.row.PullRequests}
 */
-CloseYourIssuesDB.row.PullRequests.prototype.setUser = function(value) {
+closeyourissues.db.row.PullRequests.prototype.setUser = function(value) {
   this.payload().user = value;
   return this;
 };
@@ -2913,11 +2913,11 @@ CloseYourIssuesDB.row.PullRequests.prototype.setUser = function(value) {
 
 
 /**
- * @extends {lf.schema.Table.<!CloseYourIssuesDB.row.CommitsType,
- *     !CloseYourIssuesDB.row.CommitsDbType>}
+ * @extends {lf.schema.Table.<!closeyourissues.db.row.CommitsType,
+ *     !closeyourissues.db.row.CommitsDbType>}
  * @constructor
  */
-CloseYourIssuesDB.schema.Commits = function() {
+closeyourissues.db.schema.Commits = function() {
   var cols = [];
 
   /** @type {!lf.schema.BaseColumn.<string>} */
@@ -2952,28 +2952,28 @@ CloseYourIssuesDB.schema.Commits = function() {
         ])
   ];
 
-  CloseYourIssuesDB.schema.Commits.base(
+  closeyourissues.db.schema.Commits.base(
       this, 'constructor', 'Commits', cols, indices, false);
 };
-goog.inherits(CloseYourIssuesDB.schema.Commits, lf.schema.Table);
+goog.inherits(closeyourissues.db.schema.Commits, lf.schema.Table);
 
 
 /** @override */
-CloseYourIssuesDB.schema.Commits.prototype.createRow = function(opt_value) {
-  return new CloseYourIssuesDB.row.Commits(lf.Row.getNextId(), opt_value);
+closeyourissues.db.schema.Commits.prototype.createRow = function(opt_value) {
+  return new closeyourissues.db.row.Commits(lf.Row.getNextId(), opt_value);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Commits.prototype.deserializeRow =
+closeyourissues.db.schema.Commits.prototype.deserializeRow =
     function(dbRecord) {
   var data = dbRecord['value'];
-  return new CloseYourIssuesDB.row.Commits(dbRecord['id'], data);
+  return new closeyourissues.db.row.Commits(dbRecord['id'], data);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Commits.prototype.getConstraint = function() {
+closeyourissues.db.schema.Commits.prototype.getConstraint = function() {
   var pk = new lf.schema.Index('Commits', 'pkCommits', true,
       [
         {schema: this.sha, order: lf.Order.ASC, autoIncrement: false}
@@ -2999,7 +2999,7 @@ CloseYourIssuesDB.schema.Commits.prototype.getConstraint = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.CommitsType = function() {
+closeyourissues.db.row.CommitsType = function() {
   /** @export @type {string} */
   this.sha;
   /** @export @type {string} */
@@ -3020,7 +3020,7 @@ CloseYourIssuesDB.row.CommitsType = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.CommitsDbType = function() {
+closeyourissues.db.row.CommitsDbType = function() {
   /** @export @type {string} */
   this.sha;
   /** @export @type {string} */
@@ -3038,21 +3038,21 @@ CloseYourIssuesDB.row.CommitsDbType = function() {
 /**
  * Constructs a new Commits row.
  * @constructor
- * @extends {lf.Row.<!CloseYourIssuesDB.row.CommitsType,
- *     !CloseYourIssuesDB.row.CommitsDbType>}
+ * @extends {lf.Row.<!closeyourissues.db.row.CommitsType,
+ *     !closeyourissues.db.row.CommitsDbType>}
  *
  * @param {number} rowId The row ID.
- * @param {!CloseYourIssuesDB.row.CommitsType=} opt_payload
+ * @param {!closeyourissues.db.row.CommitsType=} opt_payload
  */
-CloseYourIssuesDB.row.Commits = function(rowId, opt_payload) {
-  CloseYourIssuesDB.row.Commits.base(this, 'constructor', rowId, opt_payload);
+closeyourissues.db.row.Commits = function(rowId, opt_payload) {
+  closeyourissues.db.row.Commits.base(this, 'constructor', rowId, opt_payload);
 };
-goog.inherits(CloseYourIssuesDB.row.Commits, lf.Row);
+goog.inherits(closeyourissues.db.row.Commits, lf.Row);
 
 
 /** @override */
-CloseYourIssuesDB.row.Commits.prototype.defaultPayload = function() {
-  var payload = new CloseYourIssuesDB.row.CommitsType();
+closeyourissues.db.row.Commits.prototype.defaultPayload = function() {
+  var payload = new closeyourissues.db.row.CommitsType();
   payload.sha = '';
   payload.url = '';
   payload.author = 0;
@@ -3063,8 +3063,8 @@ CloseYourIssuesDB.row.Commits.prototype.defaultPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.Commits.prototype.toDbPayload = function() {
-  var payload = new CloseYourIssuesDB.row.CommitsDbType();
+closeyourissues.db.row.Commits.prototype.toDbPayload = function() {
+  var payload = new closeyourissues.db.row.CommitsDbType();
   payload.sha = this.payload().sha;
   payload.url = this.payload().url;
   payload.author = this.payload().author;
@@ -3075,7 +3075,7 @@ CloseYourIssuesDB.row.Commits.prototype.toDbPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.Commits.prototype.keyOfIndex = function(indexName) {
+closeyourissues.db.row.Commits.prototype.keyOfIndex = function(indexName) {
   switch (indexName) {
     case 'Commits.pkCommits':
       return this.payload().sha;
@@ -3089,80 +3089,80 @@ CloseYourIssuesDB.row.Commits.prototype.keyOfIndex = function(indexName) {
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Commits.prototype.getSha = function() {
+closeyourissues.db.row.Commits.prototype.getSha = function() {
   return this.payload().sha;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Commits}
+ * @return {!closeyourissues.db.row.Commits}
 */
-CloseYourIssuesDB.row.Commits.prototype.setSha = function(value) {
+closeyourissues.db.row.Commits.prototype.setSha = function(value) {
   this.payload().sha = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Commits.prototype.getUrl = function() {
+closeyourissues.db.row.Commits.prototype.getUrl = function() {
   return this.payload().url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Commits}
+ * @return {!closeyourissues.db.row.Commits}
 */
-CloseYourIssuesDB.row.Commits.prototype.setUrl = function(value) {
+closeyourissues.db.row.Commits.prototype.setUrl = function(value) {
   this.payload().url = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Commits.prototype.getAuthor = function() {
+closeyourissues.db.row.Commits.prototype.getAuthor = function() {
   return this.payload().author;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Commits}
+ * @return {!closeyourissues.db.row.Commits}
 */
-CloseYourIssuesDB.row.Commits.prototype.setAuthor = function(value) {
+closeyourissues.db.row.Commits.prototype.setAuthor = function(value) {
   this.payload().author = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Commits.prototype.getCommitter = function() {
+closeyourissues.db.row.Commits.prototype.getCommitter = function() {
   return this.payload().committer;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Commits}
+ * @return {!closeyourissues.db.row.Commits}
 */
-CloseYourIssuesDB.row.Commits.prototype.setCommitter = function(value) {
+closeyourissues.db.row.Commits.prototype.setCommitter = function(value) {
   this.payload().committer = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Commits.prototype.getMessage = function() {
+closeyourissues.db.row.Commits.prototype.getMessage = function() {
   return this.payload().message;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Commits}
+ * @return {!closeyourissues.db.row.Commits}
 */
-CloseYourIssuesDB.row.Commits.prototype.setMessage = function(value) {
+closeyourissues.db.row.Commits.prototype.setMessage = function(value) {
   this.payload().message = value;
   return this;
 };
@@ -3170,11 +3170,11 @@ CloseYourIssuesDB.row.Commits.prototype.setMessage = function(value) {
 
 
 /**
- * @extends {lf.schema.Table.<!CloseYourIssuesDB.row.OrganizationsType,
- *     !CloseYourIssuesDB.row.OrganizationsDbType>}
+ * @extends {lf.schema.Table.<!closeyourissues.db.row.OrganizationsType,
+ *     !closeyourissues.db.row.OrganizationsDbType>}
  * @constructor
  */
-CloseYourIssuesDB.schema.Organizations = function() {
+closeyourissues.db.schema.Organizations = function() {
   var cols = [];
 
   /** @type {!lf.schema.BaseColumn.<number>} */
@@ -3269,29 +3269,29 @@ CloseYourIssuesDB.schema.Organizations = function() {
         ])
   ];
 
-  CloseYourIssuesDB.schema.Organizations.base(
+  closeyourissues.db.schema.Organizations.base(
       this, 'constructor', 'Organizations', cols, indices, false);
 };
-goog.inherits(CloseYourIssuesDB.schema.Organizations, lf.schema.Table);
+goog.inherits(closeyourissues.db.schema.Organizations, lf.schema.Table);
 
 
 /** @override */
-CloseYourIssuesDB.schema.Organizations.prototype.createRow = function(opt_value) {
-  return new CloseYourIssuesDB.row.Organizations(lf.Row.getNextId(), opt_value);
+closeyourissues.db.schema.Organizations.prototype.createRow = function(opt_value) {
+  return new closeyourissues.db.row.Organizations(lf.Row.getNextId(), opt_value);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Organizations.prototype.deserializeRow =
+closeyourissues.db.schema.Organizations.prototype.deserializeRow =
     function(dbRecord) {
   var data = dbRecord['value'];
   data.created_at = new Date(data.created_at);
-  return new CloseYourIssuesDB.row.Organizations(dbRecord['id'], data);
+  return new closeyourissues.db.row.Organizations(dbRecord['id'], data);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Organizations.prototype.getConstraint = function() {
+closeyourissues.db.schema.Organizations.prototype.getConstraint = function() {
   var pk = new lf.schema.Index('Organizations', 'pkOrganizations', true,
       [
         {schema: this.id, order: lf.Order.ASC, autoIncrement: false}
@@ -3327,7 +3327,7 @@ CloseYourIssuesDB.schema.Organizations.prototype.getConstraint = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.OrganizationsType = function() {
+closeyourissues.db.row.OrganizationsType = function() {
   /** @export @type {number} */
   this.id;
   /** @export @type {string} */
@@ -3372,7 +3372,7 @@ CloseYourIssuesDB.row.OrganizationsType = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.OrganizationsDbType = function() {
+closeyourissues.db.row.OrganizationsDbType = function() {
   /** @export @type {number} */
   this.id;
   /** @export @type {string} */
@@ -3414,21 +3414,21 @@ CloseYourIssuesDB.row.OrganizationsDbType = function() {
 /**
  * Constructs a new Organizations row.
  * @constructor
- * @extends {lf.Row.<!CloseYourIssuesDB.row.OrganizationsType,
- *     !CloseYourIssuesDB.row.OrganizationsDbType>}
+ * @extends {lf.Row.<!closeyourissues.db.row.OrganizationsType,
+ *     !closeyourissues.db.row.OrganizationsDbType>}
  *
  * @param {number} rowId The row ID.
- * @param {!CloseYourIssuesDB.row.OrganizationsType=} opt_payload
+ * @param {!closeyourissues.db.row.OrganizationsType=} opt_payload
  */
-CloseYourIssuesDB.row.Organizations = function(rowId, opt_payload) {
-  CloseYourIssuesDB.row.Organizations.base(this, 'constructor', rowId, opt_payload);
+closeyourissues.db.row.Organizations = function(rowId, opt_payload) {
+  closeyourissues.db.row.Organizations.base(this, 'constructor', rowId, opt_payload);
 };
-goog.inherits(CloseYourIssuesDB.row.Organizations, lf.Row);
+goog.inherits(closeyourissues.db.row.Organizations, lf.Row);
 
 
 /** @override */
-CloseYourIssuesDB.row.Organizations.prototype.defaultPayload = function() {
-  var payload = new CloseYourIssuesDB.row.OrganizationsType();
+closeyourissues.db.row.Organizations.prototype.defaultPayload = function() {
+  var payload = new closeyourissues.db.row.OrganizationsType();
   payload.id = 0;
   payload.login = '';
   payload.url = '';
@@ -3451,8 +3451,8 @@ CloseYourIssuesDB.row.Organizations.prototype.defaultPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.Organizations.prototype.toDbPayload = function() {
-  var payload = new CloseYourIssuesDB.row.OrganizationsDbType();
+closeyourissues.db.row.Organizations.prototype.toDbPayload = function() {
+  var payload = new closeyourissues.db.row.OrganizationsDbType();
   payload.id = this.payload().id;
   payload.login = this.payload().login;
   payload.url = this.payload().url;
@@ -3475,7 +3475,7 @@ CloseYourIssuesDB.row.Organizations.prototype.toDbPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.Organizations.prototype.keyOfIndex = function(indexName) {
+closeyourissues.db.row.Organizations.prototype.keyOfIndex = function(indexName) {
   switch (indexName) {
     case 'Organizations.pkOrganizations':
       return this.payload().id;
@@ -3489,272 +3489,272 @@ CloseYourIssuesDB.row.Organizations.prototype.keyOfIndex = function(indexName) {
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Organizations.prototype.getId = function() {
+closeyourissues.db.row.Organizations.prototype.getId = function() {
   return this.payload().id;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setId = function(value) {
+closeyourissues.db.row.Organizations.prototype.setId = function(value) {
   this.payload().id = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Organizations.prototype.getLogin = function() {
+closeyourissues.db.row.Organizations.prototype.getLogin = function() {
   return this.payload().login;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setLogin = function(value) {
+closeyourissues.db.row.Organizations.prototype.setLogin = function(value) {
   this.payload().login = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Organizations.prototype.getUrl = function() {
+closeyourissues.db.row.Organizations.prototype.getUrl = function() {
   return this.payload().url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setUrl = function(value) {
+closeyourissues.db.row.Organizations.prototype.setUrl = function(value) {
   this.payload().url = value;
   return this;
 };
 
 
 /** @return {?string} */
-CloseYourIssuesDB.row.Organizations.prototype.getAvatar_url = function() {
+closeyourissues.db.row.Organizations.prototype.getAvatar_url = function() {
   return this.payload().avatar_url;
 };
 
 
 /**
  * @param {?string} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setAvatar_url = function(value) {
+closeyourissues.db.row.Organizations.prototype.setAvatar_url = function(value) {
   this.payload().avatar_url = value;
   return this;
 };
 
 
 /** @return {?string} */
-CloseYourIssuesDB.row.Organizations.prototype.getDescription = function() {
+closeyourissues.db.row.Organizations.prototype.getDescription = function() {
   return this.payload().description;
 };
 
 
 /**
  * @param {?string} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setDescription = function(value) {
+closeyourissues.db.row.Organizations.prototype.setDescription = function(value) {
   this.payload().description = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Organizations.prototype.getName = function() {
+closeyourissues.db.row.Organizations.prototype.getName = function() {
   return this.payload().name;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setName = function(value) {
+closeyourissues.db.row.Organizations.prototype.setName = function(value) {
   this.payload().name = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Organizations.prototype.getCompany = function() {
+closeyourissues.db.row.Organizations.prototype.getCompany = function() {
   return this.payload().company;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setCompany = function(value) {
+closeyourissues.db.row.Organizations.prototype.setCompany = function(value) {
   this.payload().company = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Organizations.prototype.getBlog = function() {
+closeyourissues.db.row.Organizations.prototype.getBlog = function() {
   return this.payload().blog;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setBlog = function(value) {
+closeyourissues.db.row.Organizations.prototype.setBlog = function(value) {
   this.payload().blog = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Organizations.prototype.getLocation = function() {
+closeyourissues.db.row.Organizations.prototype.getLocation = function() {
   return this.payload().location;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setLocation = function(value) {
+closeyourissues.db.row.Organizations.prototype.setLocation = function(value) {
   this.payload().location = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Organizations.prototype.getEmail = function() {
+closeyourissues.db.row.Organizations.prototype.getEmail = function() {
   return this.payload().email;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setEmail = function(value) {
+closeyourissues.db.row.Organizations.prototype.setEmail = function(value) {
   this.payload().email = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Organizations.prototype.getPublic_repos = function() {
+closeyourissues.db.row.Organizations.prototype.getPublic_repos = function() {
   return this.payload().public_repos;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setPublic_repos = function(value) {
+closeyourissues.db.row.Organizations.prototype.setPublic_repos = function(value) {
   this.payload().public_repos = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Organizations.prototype.getPublic_gists = function() {
+closeyourissues.db.row.Organizations.prototype.getPublic_gists = function() {
   return this.payload().public_gists;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setPublic_gists = function(value) {
+closeyourissues.db.row.Organizations.prototype.setPublic_gists = function(value) {
   this.payload().public_gists = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Organizations.prototype.getFollowers = function() {
+closeyourissues.db.row.Organizations.prototype.getFollowers = function() {
   return this.payload().followers;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setFollowers = function(value) {
+closeyourissues.db.row.Organizations.prototype.setFollowers = function(value) {
   this.payload().followers = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Organizations.prototype.getFollowing = function() {
+closeyourissues.db.row.Organizations.prototype.getFollowing = function() {
   return this.payload().following;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setFollowing = function(value) {
+closeyourissues.db.row.Organizations.prototype.setFollowing = function(value) {
   this.payload().following = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Organizations.prototype.getHtml_url = function() {
+closeyourissues.db.row.Organizations.prototype.getHtml_url = function() {
   return this.payload().html_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setHtml_url = function(value) {
+closeyourissues.db.row.Organizations.prototype.setHtml_url = function(value) {
   this.payload().html_url = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.Organizations.prototype.getCreated_at = function() {
+closeyourissues.db.row.Organizations.prototype.getCreated_at = function() {
   return this.payload().created_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setCreated_at = function(value) {
+closeyourissues.db.row.Organizations.prototype.setCreated_at = function(value) {
   this.payload().created_at = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Organizations.prototype.getType = function() {
+closeyourissues.db.row.Organizations.prototype.getType = function() {
   return this.payload().type;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Organizations}
+ * @return {!closeyourissues.db.row.Organizations}
 */
-CloseYourIssuesDB.row.Organizations.prototype.setType = function(value) {
+closeyourissues.db.row.Organizations.prototype.setType = function(value) {
   this.payload().type = value;
   return this;
 };
@@ -3762,11 +3762,11 @@ CloseYourIssuesDB.row.Organizations.prototype.setType = function(value) {
 
 
 /**
- * @extends {lf.schema.Table.<!CloseYourIssuesDB.row.RepositoriesType,
- *     !CloseYourIssuesDB.row.RepositoriesDbType>}
+ * @extends {lf.schema.Table.<!closeyourissues.db.row.RepositoriesType,
+ *     !closeyourissues.db.row.RepositoriesDbType>}
  * @constructor
  */
-CloseYourIssuesDB.schema.Repositories = function() {
+closeyourissues.db.schema.Repositories = function() {
   var cols = [];
 
   /** @type {!lf.schema.BaseColumn.<number>} */
@@ -3921,31 +3921,31 @@ CloseYourIssuesDB.schema.Repositories = function() {
         ])
   ];
 
-  CloseYourIssuesDB.schema.Repositories.base(
+  closeyourissues.db.schema.Repositories.base(
       this, 'constructor', 'Repositories', cols, indices, false);
 };
-goog.inherits(CloseYourIssuesDB.schema.Repositories, lf.schema.Table);
+goog.inherits(closeyourissues.db.schema.Repositories, lf.schema.Table);
 
 
 /** @override */
-CloseYourIssuesDB.schema.Repositories.prototype.createRow = function(opt_value) {
-  return new CloseYourIssuesDB.row.Repositories(lf.Row.getNextId(), opt_value);
+closeyourissues.db.schema.Repositories.prototype.createRow = function(opt_value) {
+  return new closeyourissues.db.row.Repositories(lf.Row.getNextId(), opt_value);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Repositories.prototype.deserializeRow =
+closeyourissues.db.schema.Repositories.prototype.deserializeRow =
     function(dbRecord) {
   var data = dbRecord['value'];
   data.pushed_at = new Date(data.pushed_at);
   data.created_at = new Date(data.created_at);
   data.updated_at = new Date(data.updated_at);
-  return new CloseYourIssuesDB.row.Repositories(dbRecord['id'], data);
+  return new closeyourissues.db.row.Repositories(dbRecord['id'], data);
 };
 
 
 /** @override */
-CloseYourIssuesDB.schema.Repositories.prototype.getConstraint = function() {
+closeyourissues.db.schema.Repositories.prototype.getConstraint = function() {
   var pk = new lf.schema.Index('Repositories', 'pkRepositories', true,
       [
         {schema: this.id, order: lf.Order.ASC, autoIncrement: false}
@@ -3994,7 +3994,7 @@ CloseYourIssuesDB.schema.Repositories.prototype.getConstraint = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.RepositoriesType = function() {
+closeyourissues.db.row.RepositoriesType = function() {
   /** @export @type {number} */
   this.id;
   /** @export @type {number} */
@@ -4063,7 +4063,7 @@ CloseYourIssuesDB.row.RepositoriesType = function() {
  * @struct
  * @final
  */
-CloseYourIssuesDB.row.RepositoriesDbType = function() {
+closeyourissues.db.row.RepositoriesDbType = function() {
   /** @export @type {number} */
   this.id;
   /** @export @type {number} */
@@ -4129,21 +4129,21 @@ CloseYourIssuesDB.row.RepositoriesDbType = function() {
 /**
  * Constructs a new Repositories row.
  * @constructor
- * @extends {lf.Row.<!CloseYourIssuesDB.row.RepositoriesType,
- *     !CloseYourIssuesDB.row.RepositoriesDbType>}
+ * @extends {lf.Row.<!closeyourissues.db.row.RepositoriesType,
+ *     !closeyourissues.db.row.RepositoriesDbType>}
  *
  * @param {number} rowId The row ID.
- * @param {!CloseYourIssuesDB.row.RepositoriesType=} opt_payload
+ * @param {!closeyourissues.db.row.RepositoriesType=} opt_payload
  */
-CloseYourIssuesDB.row.Repositories = function(rowId, opt_payload) {
-  CloseYourIssuesDB.row.Repositories.base(this, 'constructor', rowId, opt_payload);
+closeyourissues.db.row.Repositories = function(rowId, opt_payload) {
+  closeyourissues.db.row.Repositories.base(this, 'constructor', rowId, opt_payload);
 };
-goog.inherits(CloseYourIssuesDB.row.Repositories, lf.Row);
+goog.inherits(closeyourissues.db.row.Repositories, lf.Row);
 
 
 /** @override */
-CloseYourIssuesDB.row.Repositories.prototype.defaultPayload = function() {
-  var payload = new CloseYourIssuesDB.row.RepositoriesType();
+closeyourissues.db.row.Repositories.prototype.defaultPayload = function() {
+  var payload = new closeyourissues.db.row.RepositoriesType();
   payload.id = 0;
   payload.owner = 0;
   payload.name = '';
@@ -4178,8 +4178,8 @@ CloseYourIssuesDB.row.Repositories.prototype.defaultPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.Repositories.prototype.toDbPayload = function() {
-  var payload = new CloseYourIssuesDB.row.RepositoriesDbType();
+closeyourissues.db.row.Repositories.prototype.toDbPayload = function() {
+  var payload = new closeyourissues.db.row.RepositoriesDbType();
   payload.id = this.payload().id;
   payload.owner = this.payload().owner;
   payload.name = this.payload().name;
@@ -4214,7 +4214,7 @@ CloseYourIssuesDB.row.Repositories.prototype.toDbPayload = function() {
 
 
 /** @override */
-CloseYourIssuesDB.row.Repositories.prototype.keyOfIndex = function(indexName) {
+closeyourissues.db.row.Repositories.prototype.keyOfIndex = function(indexName) {
   switch (indexName) {
     case 'Repositories.pkRepositories':
       return this.payload().id;
@@ -4228,470 +4228,470 @@ CloseYourIssuesDB.row.Repositories.prototype.keyOfIndex = function(indexName) {
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Repositories.prototype.getId = function() {
+closeyourissues.db.row.Repositories.prototype.getId = function() {
   return this.payload().id;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setId = function(value) {
+closeyourissues.db.row.Repositories.prototype.setId = function(value) {
   this.payload().id = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Repositories.prototype.getOwner = function() {
+closeyourissues.db.row.Repositories.prototype.getOwner = function() {
   return this.payload().owner;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setOwner = function(value) {
+closeyourissues.db.row.Repositories.prototype.setOwner = function(value) {
   this.payload().owner = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Repositories.prototype.getName = function() {
+closeyourissues.db.row.Repositories.prototype.getName = function() {
   return this.payload().name;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setName = function(value) {
+closeyourissues.db.row.Repositories.prototype.setName = function(value) {
   this.payload().name = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Repositories.prototype.getFull_name = function() {
+closeyourissues.db.row.Repositories.prototype.getFull_name = function() {
   return this.payload().full_name;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setFull_name = function(value) {
+closeyourissues.db.row.Repositories.prototype.setFull_name = function(value) {
   this.payload().full_name = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Repositories.prototype.getDescription = function() {
+closeyourissues.db.row.Repositories.prototype.getDescription = function() {
   return this.payload().description;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setDescription = function(value) {
+closeyourissues.db.row.Repositories.prototype.setDescription = function(value) {
   this.payload().description = value;
   return this;
 };
 
 
 /** @return {boolean} */
-CloseYourIssuesDB.row.Repositories.prototype.getPrivate = function() {
+closeyourissues.db.row.Repositories.prototype.getPrivate = function() {
   return this.payload().private;
 };
 
 
 /**
  * @param {boolean} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setPrivate = function(value) {
+closeyourissues.db.row.Repositories.prototype.setPrivate = function(value) {
   this.payload().private = value;
   return this;
 };
 
 
 /** @return {boolean} */
-CloseYourIssuesDB.row.Repositories.prototype.getFork = function() {
+closeyourissues.db.row.Repositories.prototype.getFork = function() {
   return this.payload().fork;
 };
 
 
 /**
  * @param {boolean} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setFork = function(value) {
+closeyourissues.db.row.Repositories.prototype.setFork = function(value) {
   this.payload().fork = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Repositories.prototype.getUrl = function() {
+closeyourissues.db.row.Repositories.prototype.getUrl = function() {
   return this.payload().url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setUrl = function(value) {
+closeyourissues.db.row.Repositories.prototype.setUrl = function(value) {
   this.payload().url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Repositories.prototype.getHtml_url = function() {
+closeyourissues.db.row.Repositories.prototype.getHtml_url = function() {
   return this.payload().html_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setHtml_url = function(value) {
+closeyourissues.db.row.Repositories.prototype.setHtml_url = function(value) {
   this.payload().html_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Repositories.prototype.getClone_url = function() {
+closeyourissues.db.row.Repositories.prototype.getClone_url = function() {
   return this.payload().clone_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setClone_url = function(value) {
+closeyourissues.db.row.Repositories.prototype.setClone_url = function(value) {
   this.payload().clone_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Repositories.prototype.getGit_url = function() {
+closeyourissues.db.row.Repositories.prototype.getGit_url = function() {
   return this.payload().git_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setGit_url = function(value) {
+closeyourissues.db.row.Repositories.prototype.setGit_url = function(value) {
   this.payload().git_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Repositories.prototype.getSsh_url = function() {
+closeyourissues.db.row.Repositories.prototype.getSsh_url = function() {
   return this.payload().ssh_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setSsh_url = function(value) {
+closeyourissues.db.row.Repositories.prototype.setSsh_url = function(value) {
   this.payload().ssh_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Repositories.prototype.getSvn_url = function() {
+closeyourissues.db.row.Repositories.prototype.getSvn_url = function() {
   return this.payload().svn_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setSvn_url = function(value) {
+closeyourissues.db.row.Repositories.prototype.setSvn_url = function(value) {
   this.payload().svn_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Repositories.prototype.getMirror_url = function() {
+closeyourissues.db.row.Repositories.prototype.getMirror_url = function() {
   return this.payload().mirror_url;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setMirror_url = function(value) {
+closeyourissues.db.row.Repositories.prototype.setMirror_url = function(value) {
   this.payload().mirror_url = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Repositories.prototype.getHomepage = function() {
+closeyourissues.db.row.Repositories.prototype.getHomepage = function() {
   return this.payload().homepage;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setHomepage = function(value) {
+closeyourissues.db.row.Repositories.prototype.setHomepage = function(value) {
   this.payload().homepage = value;
   return this;
 };
 
 
 /** @return {?string} */
-CloseYourIssuesDB.row.Repositories.prototype.getLanguage = function() {
+closeyourissues.db.row.Repositories.prototype.getLanguage = function() {
   return this.payload().language;
 };
 
 
 /**
  * @param {?string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setLanguage = function(value) {
+closeyourissues.db.row.Repositories.prototype.setLanguage = function(value) {
   this.payload().language = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Repositories.prototype.getForks_count = function() {
+closeyourissues.db.row.Repositories.prototype.getForks_count = function() {
   return this.payload().forks_count;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setForks_count = function(value) {
+closeyourissues.db.row.Repositories.prototype.setForks_count = function(value) {
   this.payload().forks_count = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Repositories.prototype.getStargazers_count = function() {
+closeyourissues.db.row.Repositories.prototype.getStargazers_count = function() {
   return this.payload().stargazers_count;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setStargazers_count = function(value) {
+closeyourissues.db.row.Repositories.prototype.setStargazers_count = function(value) {
   this.payload().stargazers_count = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Repositories.prototype.getWatchers_count = function() {
+closeyourissues.db.row.Repositories.prototype.getWatchers_count = function() {
   return this.payload().watchers_count;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setWatchers_count = function(value) {
+closeyourissues.db.row.Repositories.prototype.setWatchers_count = function(value) {
   this.payload().watchers_count = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Repositories.prototype.getSize = function() {
+closeyourissues.db.row.Repositories.prototype.getSize = function() {
   return this.payload().size;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setSize = function(value) {
+closeyourissues.db.row.Repositories.prototype.setSize = function(value) {
   this.payload().size = value;
   return this;
 };
 
 
 /** @return {string} */
-CloseYourIssuesDB.row.Repositories.prototype.getDefault_branch = function() {
+closeyourissues.db.row.Repositories.prototype.getDefault_branch = function() {
   return this.payload().default_branch;
 };
 
 
 /**
  * @param {string} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setDefault_branch = function(value) {
+closeyourissues.db.row.Repositories.prototype.setDefault_branch = function(value) {
   this.payload().default_branch = value;
   return this;
 };
 
 
 /** @return {number} */
-CloseYourIssuesDB.row.Repositories.prototype.getOpen_issues_count = function() {
+closeyourissues.db.row.Repositories.prototype.getOpen_issues_count = function() {
   return this.payload().open_issues_count;
 };
 
 
 /**
  * @param {number} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setOpen_issues_count = function(value) {
+closeyourissues.db.row.Repositories.prototype.setOpen_issues_count = function(value) {
   this.payload().open_issues_count = value;
   return this;
 };
 
 
 /** @return {boolean} */
-CloseYourIssuesDB.row.Repositories.prototype.getHas_issues = function() {
+closeyourissues.db.row.Repositories.prototype.getHas_issues = function() {
   return this.payload().has_issues;
 };
 
 
 /**
  * @param {boolean} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setHas_issues = function(value) {
+closeyourissues.db.row.Repositories.prototype.setHas_issues = function(value) {
   this.payload().has_issues = value;
   return this;
 };
 
 
 /** @return {boolean} */
-CloseYourIssuesDB.row.Repositories.prototype.getHas_wiki = function() {
+closeyourissues.db.row.Repositories.prototype.getHas_wiki = function() {
   return this.payload().has_wiki;
 };
 
 
 /**
  * @param {boolean} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setHas_wiki = function(value) {
+closeyourissues.db.row.Repositories.prototype.setHas_wiki = function(value) {
   this.payload().has_wiki = value;
   return this;
 };
 
 
 /** @return {boolean} */
-CloseYourIssuesDB.row.Repositories.prototype.getHas_pages = function() {
+closeyourissues.db.row.Repositories.prototype.getHas_pages = function() {
   return this.payload().has_pages;
 };
 
 
 /**
  * @param {boolean} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setHas_pages = function(value) {
+closeyourissues.db.row.Repositories.prototype.setHas_pages = function(value) {
   this.payload().has_pages = value;
   return this;
 };
 
 
 /** @return {boolean} */
-CloseYourIssuesDB.row.Repositories.prototype.getHas_downloads = function() {
+closeyourissues.db.row.Repositories.prototype.getHas_downloads = function() {
   return this.payload().has_downloads;
 };
 
 
 /**
  * @param {boolean} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setHas_downloads = function(value) {
+closeyourissues.db.row.Repositories.prototype.setHas_downloads = function(value) {
   this.payload().has_downloads = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.Repositories.prototype.getPushed_at = function() {
+closeyourissues.db.row.Repositories.prototype.getPushed_at = function() {
   return this.payload().pushed_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setPushed_at = function(value) {
+closeyourissues.db.row.Repositories.prototype.setPushed_at = function(value) {
   this.payload().pushed_at = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.Repositories.prototype.getCreated_at = function() {
+closeyourissues.db.row.Repositories.prototype.getCreated_at = function() {
   return this.payload().created_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setCreated_at = function(value) {
+closeyourissues.db.row.Repositories.prototype.setCreated_at = function(value) {
   this.payload().created_at = value;
   return this;
 };
 
 
 /** @return {!Date} */
-CloseYourIssuesDB.row.Repositories.prototype.getUpdated_at = function() {
+closeyourissues.db.row.Repositories.prototype.getUpdated_at = function() {
   return this.payload().updated_at;
 };
 
 
 /**
  * @param {!Date} value
- * @return {!CloseYourIssuesDB.row.Repositories}
+ * @return {!closeyourissues.db.row.Repositories}
 */
-CloseYourIssuesDB.row.Repositories.prototype.setUpdated_at = function(value) {
+closeyourissues.db.row.Repositories.prototype.setUpdated_at = function(value) {
   this.payload().updated_at = value;
   return this;
 };
-goog.provide('CloseYourIssuesDB');
+goog.provide('closeyourissues.db');
 
-goog.require('CloseYourIssuesDB.schema.Database');
+goog.require('closeyourissues.db.schema.Database');
 goog.require('lf.Global');
 /** @suppress {extraRequire} */
 goog.require('lf.fn');
@@ -4703,9 +4703,9 @@ goog.require('lf.service.ServiceId');
 
 
 /**
- * @return {!lf.Global} The Global instance that refers to CloseYourIssuesDB.
+ * @return {!lf.Global} The Global instance that refers to closeyourissues.db.
  */
-CloseYourIssuesDB.getGlobal = function() {
+closeyourissues.db.getGlobal = function() {
   var namespacedGlobalId = new lf.service.ServiceId('ns_close_your_issues');
   var global = lf.Global.get();
 
@@ -4722,11 +4722,11 @@ CloseYourIssuesDB.getGlobal = function() {
 
 
 /** @return {!lf.schema.Database} */
-CloseYourIssuesDB.getSchema = function() {
-  var global = CloseYourIssuesDB.getGlobal();
+closeyourissues.db.getSchema = function() {
+  var global = closeyourissues.db.getGlobal();
 
   if (!global.isRegistered(lf.service.SCHEMA)) {
-    var schema = new CloseYourIssuesDB.schema.Database();
+    var schema = new closeyourissues.db.schema.Database();
     global.registerService(lf.service.SCHEMA, schema);
   }
   return global.getService(lf.service.SCHEMA);
@@ -4737,8 +4737,8 @@ CloseYourIssuesDB.getSchema = function() {
  * @param {!lf.schema.ConnectOptions=} opt_options
  * @return {!IThenable<!lf.proc.Database>}
  */
-CloseYourIssuesDB.connect = function(opt_options) {
-  CloseYourIssuesDB.getSchema();
-  var db = new lf.proc.Database(CloseYourIssuesDB.getGlobal());
+closeyourissues.db.connect = function(opt_options) {
+  closeyourissues.db.getSchema();
+  var db = new lf.proc.Database(closeyourissues.db.getGlobal());
   return db.init(opt_options);
 };
