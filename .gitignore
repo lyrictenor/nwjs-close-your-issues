@@ -8,3 +8,4 @@ npm-debug.log
 /app/build
 /build
 /src/assets/vendor
+/src/assets/js/closeyourissues_db_gen.js

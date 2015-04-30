@@ -65,10 +65,10 @@
     "url": "https://github.com/sanemat/nwjs-close-your-issues"
   },
   "scripts": {
-    "build": "grunt build",
+    "build": "npm run db && grunt build",
     "db": "lovefield-spac --schema src/schema/close_your_issues.yml --namespace closeyourissues.db --outputdir src/assets/js",
-    "start": "grunt serve",
-    "test": "mocha --compilers js:babel/register --require espower-babel/guess",
+    "start": "npm run db && grunt serve",
+    "test": "npm run db && mocha --compilers js:babel/register --require espower-babel/guess",
     "verify": "npm run build && npm test"
   },
   "src": "src",
