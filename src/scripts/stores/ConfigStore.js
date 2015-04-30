@@ -35,23 +35,24 @@ export class ConfigStore extends Store {
     const configActionIds = flux.getActionIds('config');
 
     this.register(configActionIds.saveSettings, this.saveSettings);
+    this.register(configActionIds.clearAllData, this.clearAllData);
 
-    this.register(configActionIds.clearAllData, () => {
-      // http://stackoverflow.com/questions/15861630/how-can-i-remove-a-whole-indexeddb-database-from-javascript
-      let req = indexedDB.deleteDatabase('close_your_issues');
-      req.onsuccess = function () {
-        console.log("Deleted database successfully");
-      };
-      req.onerror = function () {
-        console.log("Couldn't delete database");
-      };
-      req.onblocked = function () {
-        console.log("Couldn't delete database due to the operation being blocked");
-      };
+  }
 
-      this.setState({ settings: Immutable.fromJS(this.setUpDefault(defaultValues)) });
-    });
+  clearAllData() {
+    this.setState({ settings: Immutable.fromJS(this.setUpDefault(defaultValues)) });
 
+    // http://stackoverflow.com/questions/15861630/how-can-i-remove-a-whole-indexeddb-database-from-javascript
+    let req = indexedDB.deleteDatabase('close_your_issues');
+    req.onsuccess = function () {
+      console.log("Deleted database successfully");
+    };
+    req.onerror = function () {
+      console.log("Couldn't delete database");
+    };
+    req.onblocked = function () {
+      console.log("Couldn't delete database due to the operation being blocked");
+    };
   }
 
   async persistParams(params) {
