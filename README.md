@@ -48,9 +48,9 @@ is licensed by
 
 ----
 
-[travis-url]: https://travis-ci.org/sanemat/nwjs-close-your-issues
-[travis-image]: https://travis-ci.org/sanemat/nwjs-close-your-issues.svg?branch=master
-[daviddm-url]: https://david-dm.org/sanemat/nwjs-close-your-issues.svg?theme=shields.io
-[daviddm-image]: https://david-dm.org/sanemat/nwjs-close-your-issues
-[coveralls-url]: https://coveralls.io/r/sanemat/nwjs-close-your-issues
-[coveralls-image]: https://coveralls.io/repos/sanemat/nwjs-close-your-issues/badge.png
+[travis-url]: https://travis-ci.org/lyrictenor/nwjs-close-your-issues
+[travis-image]: https://travis-ci.org/lyrictenor/nwjs-close-your-issues.svg?branch=master
+[daviddm-url]: https://david-dm.org/lyrictenor/nwjs-close-your-issues.svg?theme=shields.io
+[daviddm-image]: https://david-dm.org/lyrictenor/nwjs-close-your-issues
+[coveralls-url]: https://coveralls.io/r/lyrictenor/nwjs-close-your-issues
+[coveralls-image]: https://coveralls.io/repos/lyrictenor/nwjs-close-your-issues/badge.png
