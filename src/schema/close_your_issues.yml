@@ -7,8 +7,6 @@ table:
     column:
       key: string
       value: string
-      created_at: datetime
-      updated_at: datetime
     constraint:
       nullable: [ value ]
       primaryKey: [ key ]
