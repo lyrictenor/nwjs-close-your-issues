@@ -12,4 +12,7 @@ export class ConfigActions extends Actions {
   saveSettings(settings) {
     return settings;
   }
+  clearAllData() {
+    return true;
+  }
 }

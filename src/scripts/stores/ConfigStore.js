@@ -26,6 +26,22 @@ export class ConfigStore extends Store {
       this.setState({ settings: Immutable.fromJS(this.setUpDefault(params)) });
     });
 
+    this.register(configActionIds.clearAllData, () => {
+      // http://stackoverflow.com/questions/15861630/how-can-i-remove-a-whole-indexeddb-database-from-javascript
+      let req = indexedDB.deleteDatabase('close_your_issues');
+      req.onsuccess = function () {
+        console.log("Deleted database successfully");
+      };
+      req.onerror = function () {
+        console.log("Couldn't delete database");
+      };
+      req.onblocked = function () {
+        console.log("Couldn't delete database due to the operation being blocked");
+      };
+
+      this.setState({ settings: Immutable.fromJS(this.setUpDefault(defaultValues)) });
+    });
+
   }
   getSettings() {
     return this.state.settings.toJS();
