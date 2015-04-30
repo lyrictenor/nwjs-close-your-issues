@@ -13,13 +13,14 @@ class InterfaceConfig extends React.Component {
     return (
       <div>
         <UIPageHeader icon="gear" text={'Config'} />
+        <ConfigForm {...this.props} />
+        <div style={{ height: '100px' }} />
         <button
-          className="btn btn-danger"
+          className="btn btn-danger btn-block"
           type="submit"
           onClick={this.onClearAllData.bind(this)} >
-          Clear local data
+          CLEAR ALL LOCAL DATA
         </button>
-        <ConfigForm {...this.props} />
       </div>
     );
   }
