@@ -34,31 +34,7 @@ export class ConfigStore extends Store {
 
     const configActionIds = flux.getActionIds('config');
 
-    this.register(configActionIds.saveSettings, async (settings) => {
-      const params = {
-        apiendpoint: this.remoteTrailingSlash(settings.apiEndpoint),
-        webendpoint: this.remoteTrailingSlash(settings.webEndpoint),
-        token: settings.accessToken,
-        slug: this.remoteTrailingSlash(settings.slug)
-      };
-
-      let db = await window.closeyourissues.db.connect();
-      let configTables = await db.getSchema().table('Configs');
-      await db.delete().from(configTables).exec();
-
-      let rows = Object.keys(params).reduce(function(previous, current) {
-        previous.push(
-          configTables.createRow({
-            key: current,
-            value: params[current]
-          })
-        );
-        return previous;
-      }, []);
-      let result2 = await db.insertOrReplace().into(configTables).values(rows).exec();
-      console.log(result2);
-      this.setState({ settings: Immutable.fromJS(this.setUpDefault(params)) });
-    });
+    this.register(configActionIds.saveSettings, this.saveSettings);
 
     this.register(configActionIds.clearAllData, () => {
       // http://stackoverflow.com/questions/15861630/how-can-i-remove-a-whole-indexeddb-database-from-javascript
@@ -77,6 +53,33 @@ export class ConfigStore extends Store {
     });
 
   }
+
+  async saveSettings(settings) {
+    const params = {
+      apiendpoint: this.remoteTrailingSlash(settings.apiEndpoint),
+      webendpoint: this.remoteTrailingSlash(settings.webEndpoint),
+      token: settings.accessToken,
+      slug: this.remoteTrailingSlash(settings.slug)
+    };
+
+    let db = await window.closeyourissues.db.connect();
+    let configTables = await db.getSchema().table('Configs');
+    await db.delete().from(configTables).exec();
+
+    let rows = Object.keys(params).reduce(function(previous, current) {
+      previous.push(
+        configTables.createRow({
+          key: current,
+          value: params[current]
+        })
+      );
+      return previous;
+    }, []);
+    let result2 = await db.insertOrReplace().into(configTables).values(rows).exec();
+    console.log(result2);
+    this.setState({ settings: Immutable.fromJS(this.setUpDefault(params)) });
+  }
+
   getSettings() {
     return this.state.settings.toJS();
   }
