@@ -6,7 +6,7 @@
     "email": "ogataken@gmail.com",
     "url": "http://sane.jp"
   },
-  "bugs": "https://github.com/sanemat/nwjs-close-your-issues/issues",
+  "bugs": "https://github.com/lyrictenor/nwjs-close-your-issues/issues",
   "dependencies": {
     "axios": "^0.5.4",
     "babel-runtime": "^5.1.11",
@@ -62,7 +62,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/sanemat/nwjs-close-your-issues"
+    "url": "https://github.com/lyrictenor/nwjs-close-your-issues"
   },
   "scripts": {
     "build": "npm run db && grunt build",
