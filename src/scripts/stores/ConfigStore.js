@@ -16,16 +16,6 @@ export class ConfigStore extends Store {
   async constructor(flux) {
     super();
 
-    //let result = getPersistedData();
-    //console.log(result);
-    //const savedConfig = result.reduce((previous, current) => {
-    //  previous[current.key] = current.value;
-    //  return previous;
-    //}, {});
-    //const initialValues = (savedConfig.slug && savedConfig.apiendpoint && savedConfig.webendpoint)
-    //  ? savedConfig
-    //  : defaultValues;
-    //this.state = { settings: Immutable.fromJS(this.setUpDefault(initialValues))};
     this.state = { settings: Immutable.fromJS(this.setUpDefault(defaultValues))};
 
     /*
@@ -37,6 +27,25 @@ export class ConfigStore extends Store {
     this.register(configActionIds.saveSettings, this.saveSettings);
     this.register(configActionIds.clearAllData, this.clearAllData);
 
+    this.overrideByPersistedData();
+  }
+
+  async overrideByPersistedData() {
+    let result = await this.getPersistedData();
+    const savedConfig = result.reduce((previous, current) => {
+      previous[current.key] = current.value;
+      return previous;
+    }, {});
+    if (savedConfig.slug && savedConfig.apiendpoint && savedConfig.webendpoint) {
+      this.setState({ settings: Immutable.fromJS(this.setUpDefault(savedConfig)) });
+    }
+  }
+
+  async getPersistedData() {
+    let db = await window.closeyourissues.db.connect();
+    let configTables = await db.getSchema().table('Configs');
+    let results = await db.select().from(configTables).exec();
+    return results;
   }
 
   clearAllData() {
