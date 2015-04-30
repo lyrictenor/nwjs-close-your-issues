@@ -16,7 +16,7 @@
     },
     "babel-runtime": {
       "version": "5.1.13",
-      "from": "babel-runtime@5.1.13",
+      "from": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.1.13.tgz",
       "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.1.13.tgz"
     },
     "bootstrap": {
@@ -26,12 +26,12 @@
     },
     "classnames": {
       "version": "1.2.1",
-      "from": "classnames@*",
+      "from": "https://registry.npmjs.org/classnames/-/classnames-1.2.1.tgz",
       "resolved": "https://registry.npmjs.org/classnames/-/classnames-1.2.1.tgz"
     },
     "core-js": {
       "version": "0.9.3",
-      "from": "core-js@0.9.3",
+      "from": "https://registry.npmjs.org/core-js/-/core-js-0.9.3.tgz",
       "resolved": "https://registry.npmjs.org/core-js/-/core-js-0.9.3.tgz"
     },
     "file-loader": {
@@ -92,7 +92,7 @@
     },
     "formsy-react": {
       "version": "0.13.0",
-      "from": "formsy-react@*",
+      "from": "https://registry.npmjs.org/formsy-react/-/formsy-react-0.13.0.tgz",
       "resolved": "https://registry.npmjs.org/formsy-react/-/formsy-react-0.13.0.tgz"
     },
     "github-url-to-object": {
