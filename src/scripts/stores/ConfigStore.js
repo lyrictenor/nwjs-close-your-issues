@@ -44,13 +44,13 @@ export class ConfigStore extends Store {
 
     // http://stackoverflow.com/questions/15861630/how-can-i-remove-a-whole-indexeddb-database-from-javascript
     let req = indexedDB.deleteDatabase('close_your_issues');
-    req.onsuccess = function () {
+    req.onsuccess = () => {
       console.log("Deleted database successfully");
     };
-    req.onerror = function () {
+    req.onerror = () => {
       console.log("Couldn't delete database");
     };
-    req.onblocked = function () {
+    req.onblocked = () => {
       console.log("Couldn't delete database due to the operation being blocked");
     };
   }
@@ -60,7 +60,7 @@ export class ConfigStore extends Store {
     let configTables = await db.getSchema().table('Configs');
     await db.delete().from(configTables).exec();
 
-    let rows = Object.keys(params).reduce(function(previous, current) {
+    let rows = Object.keys(params).reduce((previous, current) => {
       previous.push(
         configTables.createRow({
           key: current,
