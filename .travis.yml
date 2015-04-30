@@ -24,6 +24,6 @@ deploy:
   - "build/close-your-issues-linux32.zip"
   - "build/close-your-issues-linux64.zip"
   on:
-    repo: sanemat/nwjs-close-your-issues
+    repo: lyrictenor/nwjs-close-your-issues
     tags: true
   skip_cleanup: true
