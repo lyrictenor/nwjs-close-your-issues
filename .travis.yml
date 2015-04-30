@@ -15,7 +15,7 @@ notifications:
 deploy:
   provider: releases
   api_key:
-    secure: B3aS5ZTTPnA2FNSksich40vB+E7dgzxmt1iMZ7/cF5t5a2xyUDYJDlI0esEZgU9fzt4eMrhmuxuHUcrbnV5bYa5zy/tKzSOy2p51QOWHz/7rQVYQeh/zB83qRxofSmpiXEQ0xXoewXSgNZ/w9lDAri2Fj9VA+XaSqzhzqERR8Z4=
+    secure: "GfspJV8+cSBJERtTfXiwbyM5WTRD95hfbAdkZLHuaIqh/Q7/lO7L5FXqucwIwRt++Rz6kG624x+pkjRa6+HJbnzunLW03s/wj1eu/ts3o0Md6I4euaGxqCYzzwd0KcM4YJiGpRYtQFqWqEfdrafTXipZziylKDbXK6O0/ynJiqo="
   file:
   - "build/close-your-issues-win32.zip"
   - "build/close-your-issues-win64.zip"
