@@ -14,8 +14,6 @@ notifications:
   - ogataken@gmail.com
 deploy:
   provider: releases
-  api_key:
-    secure: B0D1fd0tfkBSLV56MiS3WzrmRocdoluJYbVKKnTUv8naxtRd5WNtRHpe5Uok8yUxnTO+ARzaMmvOcaQS3B41+Y/EC3bv1xeWuwHifJRghBEn6uz5XQEWMlD/LIh/zi+KfV3rqZGSHPo9kIvTLdrVH8JWQ61FHJmBS20ObZdqPdo=
   file:
   - "build/close-your-issues-win32.zip"
   - "build/close-your-issues-win64.zip"
