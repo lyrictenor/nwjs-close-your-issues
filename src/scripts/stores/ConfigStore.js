@@ -54,14 +54,7 @@ export class ConfigStore extends Store {
 
   }
 
-  async saveSettings(settings) {
-    const params = {
-      apiendpoint: this.remoteTrailingSlash(settings.apiEndpoint),
-      webendpoint: this.remoteTrailingSlash(settings.webEndpoint),
-      token: settings.accessToken,
-      slug: this.remoteTrailingSlash(settings.slug)
-    };
-
+  async persistParams(params) {
     let db = await window.closeyourissues.db.connect();
     let configTables = await db.getSchema().table('Configs');
     await db.delete().from(configTables).exec();
@@ -75,9 +68,23 @@ export class ConfigStore extends Store {
       );
       return previous;
     }, []);
-    let result2 = await db.insertOrReplace().into(configTables).values(rows).exec();
-    console.log(result2);
+    let result = await db.insertOrReplace().into(configTables).values(rows).exec();
+    console.log(result);
+  }
+
+  async saveSettings(settings) {
+    let params = this.convertSettings(settings);
     this.setState({ settings: Immutable.fromJS(this.setUpDefault(params)) });
+    await this.persistParams(params);
+  }
+
+  convertSettings(settings) {
+    return {
+      apiendpoint: this.remoteTrailingSlash(settings.apiEndpoint),
+      webendpoint: this.remoteTrailingSlash(settings.webEndpoint),
+      token: settings.accessToken,
+      slug: this.remoteTrailingSlash(settings.slug)
+    };
   }
 
   getSettings() {
