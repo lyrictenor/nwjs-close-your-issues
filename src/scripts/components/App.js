@@ -10,7 +10,16 @@ const RouteHandler = Router.RouteHandler;
 
 class App extends React.Component {
 
-  componentDidMount() {
+  async delayFunction(msec) {
+    return new Promise(function (resolve, reject) {
+      setTimeout(() => {
+        resolve();
+      }, msec);
+    });
+  }
+
+  async componentDidMount() {
+    await this.delayFunction(3000);
     this.props.flux.getActions('issues').fetchIssues();
   }
 
