@@ -6,7 +6,7 @@ import Immutable from 'immutable';
 const defaultValues = require('../../config_settings.json');
 
 export class ConfigStore extends Store {
-  async constructor(flux) {
+  constructor(flux) {
     super();
 
     this.state = { settings: Immutable.fromJS(this.configDecorator(defaultValues))};
