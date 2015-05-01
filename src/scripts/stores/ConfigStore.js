@@ -16,7 +16,7 @@ export class ConfigStore extends Store {
   async constructor(flux) {
     super();
 
-    this.state = { settings: Immutable.fromJS(this.setUpDefault(defaultValues))};
+    this.state = { settings: Immutable.fromJS(this.configDecorator(defaultValues))};
 
     /*
      Registering action handlers
@@ -37,7 +37,7 @@ export class ConfigStore extends Store {
       return previous;
     }, {});
     if (savedConfig.slug && savedConfig.apiendpoint && savedConfig.webendpoint) {
-      this.setState({ settings: Immutable.fromJS(this.setUpDefault(savedConfig)) });
+      this.setState({ settings: Immutable.fromJS(this.configDecorator(savedConfig)) });
     }
   }
 
@@ -49,7 +49,7 @@ export class ConfigStore extends Store {
   }
 
   clearAllData() {
-    this.setState({ settings: Immutable.fromJS(this.setUpDefault(defaultValues)) });
+    this.setState({ settings: Immutable.fromJS(this.configDecorator(defaultValues)) });
 
     // http://stackoverflow.com/questions/15861630/how-can-i-remove-a-whole-indexeddb-database-from-javascript
     let req = indexedDB.deleteDatabase('close_your_issues');
@@ -84,7 +84,7 @@ export class ConfigStore extends Store {
 
   async saveSettings(settings) {
     let params = this.convertSettings(settings);
-    this.setState({ settings: Immutable.fromJS(this.setUpDefault(params)) });
+    this.setState({ settings: Immutable.fromJS(this.configDecorator(params)) });
     await this.persistParams(params);
   }
 
@@ -106,8 +106,8 @@ export class ConfigStore extends Store {
     }
     return string.replace(/\/+$/, '');
   }
-  setUpDefault(json) {
-    json.tokenurl = `${json.webendpoint}/settings/tokens/new`;
-    return json;
+  configDecorator(jsObject) {
+    jsObject.tokenurl = `${jsObject.webendpoint}/settings/tokens/new`;
+    return jsObject;
   }
 }
