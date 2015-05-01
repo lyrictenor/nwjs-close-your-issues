@@ -99,7 +99,8 @@ export class ConfigStore extends Store {
     return string.replace(/\/+$/, '');
   }
   configDecorator(jsObject) {
-    jsObject.tokenurl = `${jsObject.webendpoint}/settings/tokens/new`;
-    return jsObject;
+    let copied = Object.assign({}, jsObject);
+    copied.tokenurl = `${copied.webendpoint}/settings/tokens/new`;
+    return copied;
   }
 }
