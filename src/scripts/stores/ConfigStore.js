@@ -81,11 +81,12 @@ export class ConfigStore extends Store {
   }
 
   convertSettings(settings) {
+    const copied = Object.assign({}, settings);
     return {
-      apiendpoint: this.remoteTrailingSlash(settings.apiEndpoint),
-      webendpoint: this.remoteTrailingSlash(settings.webEndpoint),
-      token: settings.accessToken,
-      slug: this.remoteTrailingSlash(settings.slug)
+      apiendpoint: this.remoteTrailingSlash(copied.apiEndpoint),
+      webendpoint: this.remoteTrailingSlash(copied.webEndpoint),
+      token: copied.accessToken,
+      slug: this.remoteTrailingSlash(copied.slug)
     };
   }
 
