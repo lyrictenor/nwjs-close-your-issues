@@ -8,7 +8,8 @@ const defaultValues = require('../../config_settings.json');
 export class ConfigStore extends Store {
   constructor(flux) {
     super();
-    this.state = { settings: Immutable.fromJS(this.setUpDefault(defaultValues))};
+
+    this.state = { settings: Immutable.fromJS(this.configDecorator(this.getDefaultValues()))};
 
     /*
      Registering action handlers
@@ -16,19 +17,85 @@ export class ConfigStore extends Store {
 
     const configActionIds = flux.getActionIds('config');
 
-    this.register(configActionIds.saveSettings, (settings) => {
-      const params = {
-        apiendpoint: this.remoteTrailingSlash(settings.apiEndpoint),
-        webendpoint: this.remoteTrailingSlash(settings.webEndpoint),
-        token: settings.accessToken,
-        slug: this.remoteTrailingSlash(settings.slug)
-      };
-      this.setState({ settings: Immutable.fromJS(this.setUpDefault(params)) });
-    });
+    this.register(configActionIds.saveSettings, this.saveSettings);
+    this.register(configActionIds.clearAllData, this.clearAllData);
 
+    this.overrideByPersistedData();
   }
+
+  async overrideByPersistedData() {
+    let result = await this.getPersistedData();
+    const savedConfig = result.reduce((previous, current) => {
+      previous[current.key] = current.value;
+      return previous;
+    }, {});
+    if (savedConfig.slug && savedConfig.apiendpoint && savedConfig.webendpoint) {
+      this.setState({ settings: Immutable.fromJS(this.configDecorator(savedConfig)) });
+    }
+  }
+
+  async getPersistedData() {
+    let db = await window.closeyourissues.db.connect();
+    let configTables = await db.getSchema().table('Configs');
+    let results = await db.select().from(configTables).exec();
+    return results;
+  }
+
+  clearAllData() {
+    this.setState({ settings: Immutable.fromJS(this.configDecorator(this.getDefaultValues())) });
+
+    // http://stackoverflow.com/questions/15861630/how-can-i-remove-a-whole-indexeddb-database-from-javascript
+    let req = indexedDB.deleteDatabase('close_your_issues');
+    req.onsuccess = () => {
+      console.log("Deleted database successfully");
+    };
+    req.onerror = () => {
+      console.log("Couldn't delete database");
+    };
+    req.onblocked = () => {
+      console.log("Couldn't delete database due to the operation being blocked");
+    };
+  }
+
+  async persistParams(params) {
+    let db = await window.closeyourissues.db.connect();
+    let configTables = await db.getSchema().table('Configs');
+    await db.delete().from(configTables).exec();
+
+    let rows = Object.keys(params).reduce((previous, current) => {
+      previous.push(
+        configTables.createRow({
+          key: current,
+          value: params[current]
+        })
+      );
+      return previous;
+    }, []);
+    return await db.insertOrReplace().into(configTables).values(rows).exec();
+  }
+
+  async saveSettings(settings) {
+    let params = this.convertSettings(settings);
+    this.setState({ settings: Immutable.fromJS(this.configDecorator(params)) });
+    await this.persistParams(params);
+  }
+
+  convertSettings(settings) {
+    const copied = Object.assign({}, settings);
+    return {
+      apiendpoint: this.remoteTrailingSlash(copied.apiEndpoint),
+      webendpoint: this.remoteTrailingSlash(copied.webEndpoint),
+      token: copied.accessToken,
+      slug: this.remoteTrailingSlash(copied.slug)
+    };
+  }
+
   getSettings() {
-    return this.state.settings.toJS();
+    return this.state.settings;
+  }
+
+  getDefaultValues() {
+    return Object.assign({}, defaultValues);
   }
   remoteTrailingSlash(string) {
     if(typeof string !== 'string') {
@@ -36,8 +103,9 @@ export class ConfigStore extends Store {
     }
     return string.replace(/\/+$/, '');
   }
-  setUpDefault(json) {
-    json.tokenurl = `${json.webendpoint}/settings/tokens/new`;
-    return json;
+  configDecorator(jsObject) {
+    let copied = Object.assign({}, jsObject);
+    copied.tokenurl = `${copied.webendpoint}/settings/tokens/new`;
+    return copied;
   }
 }

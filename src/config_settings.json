@@ -2,9 +2,5 @@
   "apiendpoint": "https://api.github.com",
   "webendpoint": "https://github.com",
   "token": "",
-  "slug": "rails/rails",
-  "user": {
-    "firstname": "Dear",
-    "lastname": "User"
-  }
+  "slug": "rails/rails"
 }

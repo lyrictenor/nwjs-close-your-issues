@@ -58,7 +58,9 @@ class ConfigForm extends React.Component {
           validations="equalLengthOrEmpty:40"
           value={settings.token}
           helpBlock="Blank OR Just 40 characters" />
-        <a href={settings.tokenurl} onClick={onOpenExternals.bind(this)} >Get AccessToken</a>.
+        <a href={settings.tokenurl} onClick={onOpenExternals.bind(this)} >
+          Get AccessToken
+        </a>.
         <FormInput
           name="slug"
           placeholder={defaultValues.slug}

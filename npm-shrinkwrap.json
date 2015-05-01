@@ -112,6 +112,51 @@
       "from": "https://registry.npmjs.org/immutable/-/immutable-3.7.2.tgz",
       "resolved": "https://registry.npmjs.org/immutable/-/immutable-3.7.2.tgz"
     },
+    "lovefield": {
+      "version": "2.0.49",
+      "from": "lovefield@*",
+      "resolved": "https://registry.npmjs.org/lovefield/-/lovefield-2.0.49.tgz",
+      "dependencies": {
+        "js-yaml": {
+          "version": "3.1.0",
+          "from": "js-yaml@>=3.1.0 <3.2.0",
+          "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-3.1.0.tgz",
+          "dependencies": {
+            "argparse": {
+              "version": "0.1.16",
+              "from": "argparse@>=0.1.11 <0.2.0",
+              "resolved": "https://registry.npmjs.org/argparse/-/argparse-0.1.16.tgz",
+              "dependencies": {
+                "underscore": {
+                  "version": "1.7.0",
+                  "from": "underscore@>=1.7.0 <1.8.0",
+                  "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.7.0.tgz"
+                },
+                "underscore.string": {
+                  "version": "2.4.0",
+                  "from": "underscore.string@>=2.4.0 <2.5.0",
+                  "resolved": "https://registry.npmjs.org/underscore.string/-/underscore.string-2.4.0.tgz"
+                }
+              }
+            },
+            "esprima": {
+              "version": "1.0.4",
+              "from": "esprima@>=1.0.2 <1.1.0"
+            }
+          }
+        },
+        "nopt": {
+          "version": "2.2.1",
+          "from": "nopt@>=2.2.1 <2.3.0",
+          "dependencies": {
+            "abbrev": {
+              "version": "1.0.5",
+              "from": "abbrev@>=1.0.0 <2.0.0"
+            }
+          }
+        }
+      }
+    },
     "octicons": {
       "version": "2.2.0",
       "from": "https://registry.npmjs.org/octicons/-/octicons-2.2.0.tgz",
