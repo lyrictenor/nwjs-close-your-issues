@@ -5,13 +5,6 @@ import Immutable from 'immutable';
 
 const defaultValues = require('../../config_settings.json');
 
-let getPersistedData = async () => {
-  let db = await window.closeyourissues.db.connect();
-  let configTables = await db.getSchema().table('Configs');
-  let results = await db.select().from(configTables).exec();
-  return results;
-};
-
 export class ConfigStore extends Store {
   async constructor(flux) {
     super();
@@ -78,8 +71,7 @@ export class ConfigStore extends Store {
       );
       return previous;
     }, []);
-    let result = await db.insertOrReplace().into(configTables).values(rows).exec();
-    console.log(result);
+    return await db.insertOrReplace().into(configTables).values(rows).exec();
   }
 
   async saveSettings(settings) {
