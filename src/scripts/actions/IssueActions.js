@@ -19,12 +19,12 @@ let serverFetchIssues = async function(settings) {
   /* eslint-enable camelcase */
 
   let url;
-  if (settings.token) {
-    headers.Authorization = `token ${settings.token}`;
+  if (settings.get('token')) {
+    headers.Authorization = `token ${settings.get('token')}`;
     config.params.filter = 'all';
-    url = `${settings.apiendpoint}/issues`;
+    url = `${settings.get('apiendpoint')}/issues`;
   } else {
-    url = `${settings.apiendpoint}/repos/${settings.slug}/issues`;
+    url = `${settings.get('apiendpoint')}/repos/${settings.get('slug')}/issues`;
   }
   const issues = await axios.get(url, config);
   return issues.data;
@@ -53,27 +53,26 @@ export class IssueActions extends Actions {
   }
 
   fetchSettings() {
-    const config = this.flux.getStore('config');
-    this.settings = config.getSettings();
+    return this.flux.getStore('config').getSettings();
   }
 
   async fetchIssues() {
-    this.fetchSettings();
-    return await serverFetchIssues(this.settings);
+    const settings = this.fetchSettings();
+    return await serverFetchIssues(settings);
   }
 
   clearIssues() {
-    this.fetchSettings();
+    const settings = this.fetchSettings();
     return true;
   }
 
   createIssue(issueContent) {
-    this.fetchSettings();
-    return serverCreateIssue(this.settings, issueContent);
+    const settings = this.fetchSettings();
+    return serverCreateIssue(settings, issueContent);
   }
 
   deleteIssue(issue) {
-    this.fetchSettings();
-    return serverDeleteIssue(this.settings, issue);
+    const settings = this.fetchSettings();
+    return serverDeleteIssue(settings, issue);
   }
 }

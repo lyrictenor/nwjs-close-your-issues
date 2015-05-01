@@ -98,7 +98,7 @@ export class ConfigStore extends Store {
   }
 
   getSettings() {
-    return this.state.settings.toJS();
+    return this.state.settings;
   }
   remoteTrailingSlash(string) {
     if(typeof string !== 'string') {
