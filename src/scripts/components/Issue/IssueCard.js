@@ -34,20 +34,6 @@ export default class IssueCard extends React.Component {
         <div>
           <button
             className="btn btn-default btn-sm"
-            {...enableButton(issue.button_delete_branch)}
-            onClick={onDelete.bind(this, issue)}
-            >
-            Delete Branch
-          </button>
-          <button
-            className="btn btn-default btn-sm"
-            {...enableButton(issue.button_restore_branch)}
-            onClick={onDelete.bind(this, issue)}
-            >
-            Restore Branch
-          </button>
-          <button
-            className="btn btn-default btn-sm"
             {...enableButton(issue.button_close_issue)}
             onClick={onDelete.bind(this, issue)}
             >
@@ -66,6 +52,20 @@ export default class IssueCard extends React.Component {
             onClick={onDelete.bind(this, issue)}
             >
             Merge Pull Request
+          </button>
+          <button
+            className="btn btn-default btn-sm"
+            {...enableButton(issue.button_delete_branch)}
+            onClick={onDelete.bind(this, issue)}
+            >
+            Delete Branch
+          </button>
+          <button
+            className="btn btn-default btn-sm"
+            {...enableButton(issue.button_restore_branch)}
+            onClick={onDelete.bind(this, issue)}
+            >
+            Restore Branch
           </button>
           <button
             className="btn btn-default btn-sm"
