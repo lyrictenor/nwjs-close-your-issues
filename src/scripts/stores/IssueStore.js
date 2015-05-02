@@ -71,11 +71,11 @@ const issueDecorator = (issue) => {
   copied.body_text_short = trimWidth(copied.body_text, 100);
   copied.card_icon_class = switchCardIconClass(copied);
   copied.button_snooze = true;
-  copied.button_close_issue = false;
-  copied.button_reopen_issue = false;
-  copied.button_delete_branch = false;
-  copied.button_restore_branch = false;
-  copied.button_merge_pull_request = false;
+  copied.button_close_issue = !isClosed(copied);
+  copied.button_reopen_issue = isClosed(copied);
+  copied.button_delete_branch = isPullRequest(copied) && isClosed(copied);
+  copied.button_restore_branch = isPullRequest(copied) && isClosed(copied);
+  copied.button_merge_pull_request = isPullRequest(copied) && !isClosed(copied);
   /* eslint-enable camelcase */
   return copied;
 };
