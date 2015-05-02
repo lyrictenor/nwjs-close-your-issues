@@ -5,6 +5,16 @@ import Immutable from 'immutable';
 import removeTrailingSlash from 'myUtils/removeTrailingSlash';
 
 const defaultValues = require('../../config_settings.json');
+const convertSettings = (settings) => {
+  const copied = Object.assign({}, settings);
+  return {
+    apiendpoint: removeTrailingSlash(copied.apiEndpoint),
+    webendpoint: removeTrailingSlash(copied.webEndpoint),
+    token: copied.accessToken,
+    slug: removeTrailingSlash(copied.slug)
+  };
+};
+
 
 export class ConfigStore extends Store {
   constructor(flux) {
@@ -76,19 +86,9 @@ export class ConfigStore extends Store {
   }
 
   async saveSettings(settings) {
-    let params = this.convertSettings(settings);
+    let params = convertSettings(settings);
     this.setState({ settings: Immutable.fromJS(this.configDecorator(params)) });
     await this.persistParams(params);
-  }
-
-  convertSettings(settings) {
-    const copied = Object.assign({}, settings);
-    return {
-      apiendpoint: removeTrailingSlash(copied.apiEndpoint),
-      webendpoint: removeTrailingSlash(copied.webEndpoint),
-      token: copied.accessToken,
-      slug: removeTrailingSlash(copied.slug)
-    };
   }
 
   getSettings() {
