@@ -9,16 +9,29 @@
   background-color: #f8f8f8;
 }
 
-.issue-list .octicon.open {
-  color: #6cc644;
-}
-
-.issue-list .octicon.closed {
-  color: #bd2c00;
-}
-
-.issue-list .octicon.merged {
-}
-
-.issue-list .octicon.reverted {
+.issue-list {
+  .octicon {
+    &.open {
+      color: #6cc644;
+    }
+    &.closed {
+      color: #bd2c00;
+    }
+    &.merged {
+    }
+    &.reverted {
+    }
+  }
+  li {
+    .btn {
+      margin: 10px;
+      padding: 5px 20px;
+    }
+    .btn:first-child {
+      margin: 10px 10px 10px 0;
+    }
+    .btn:last-child {
+      margin: 10px 0 10px 10px;
+    }
+  }
 }
