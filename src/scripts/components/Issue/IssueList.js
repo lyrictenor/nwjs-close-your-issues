@@ -12,7 +12,7 @@ export default class IssueList extends React.Component {
     return (
       <div>
         {issues.size > 0 ?
-          <ul className="alternatives list-unstyled">{issues}</ul>
+          <ul className="issue-list alternatives list-unstyled">{issues}</ul>
           :
           <h4>Nothing in the list ! Try adding some elements using the form below.</h4>
         }
