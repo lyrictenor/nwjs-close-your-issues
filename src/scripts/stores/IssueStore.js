@@ -21,6 +21,7 @@ const IssueRecord = Record({
   updated_at: null,
   closed_at: null,
   body_text: "",
+  body_text_short: "",
   user: Record({
     id: null,
     login: null,
@@ -29,6 +30,10 @@ const IssueRecord = Record({
   slug: ""
 });
 /* eslint-enable camelcase */
+
+const TrimWidth = (string, length=100) => {
+  return `${string.slice(0, length)}...`;
+};
 
 export class IssueStore extends Store {
 
@@ -72,7 +77,10 @@ export class IssueStore extends Store {
 
   transform(issue) {
     let copied = Object.assign({}, issue);
+    /* eslint-disable camelcase */
     copied.slug = GithubSlug(copied.html_url);
+    copied.body_text_short = TrimWidth(copied.body_text, 100);
+    /* eslint-enable camelcase */
     return copied;
   }
 

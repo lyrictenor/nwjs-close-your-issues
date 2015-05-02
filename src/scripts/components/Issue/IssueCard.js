@@ -4,11 +4,6 @@ import React from 'react/addons';
 import onOpenExternals from 'myUtils/openExternals';
 
 export default class IssueCard extends React.Component {
-  //TODO move this to business logic
-  trimWidth(string, length=100) {
-    return `${string.slice(0, length)}...`;
-  }
-
   render() {
     const onDelete = (targetIssue) => {
       this.props.flux.getActions('issues').deleteIssue(targetIssue);
@@ -33,7 +28,7 @@ export default class IssueCard extends React.Component {
           {issue.slug}
         </div>
         <div>
-          {this.trimWidth(issue.body_text)}
+          {issue.body_text_short}
         </div>
         <div>
           <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
