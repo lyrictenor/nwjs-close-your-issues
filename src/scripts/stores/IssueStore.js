@@ -33,6 +33,16 @@ const IssueRecord = Record({
 });
 /* eslint-enable camelcase */
 
+const issueDecorator = (issue) => {
+  let copied = Object.assign({}, issue);
+  /* eslint-disable camelcase */
+  copied.slug = githubSlug(copied.html_url);
+  copied.body_text_short = trimWidth(copied.body_text, 100);
+  copied.card_icon_class = "octicon octicon-issue-opened";
+  /* eslint-enable camelcase */
+  return copied;
+};
+
 export class IssueStore extends Store {
 
   constructor(flux) {
@@ -52,13 +62,13 @@ export class IssueStore extends Store {
     this.register(issueActionIds.deleteIssue, this.deleteIssue);
   }
   createIssue(data) {
-    const newMap = this.state.issues.set(data.id, new IssueRecord(this.issueDecorator(data)));
+    const newMap = this.state.issues.set(data.id, new IssueRecord(issueDecorator(data)));
     this.setState({ issues: newMap });
   }
   fetchIssues(issues) {
     let issuesMap = Map();
     for(let issue of issues) {
-      issuesMap = issuesMap.set(issue.id, new IssueRecord(this.issueDecorator(issue)));
+      issuesMap = issuesMap.set(issue.id, new IssueRecord(issueDecorator(issue)));
     }
 
     this.setState({ issues: this.state.issues.merge(issuesMap) });
@@ -73,15 +83,6 @@ export class IssueStore extends Store {
     }
   }
 
-  issueDecorator(issue) {
-    let copied = Object.assign({}, issue);
-    /* eslint-disable camelcase */
-    copied.slug = githubSlug(copied.html_url);
-    copied.body_text_short = trimWidth(copied.body_text, 100);
-    copied.card_icon_class = "octicon octicon-issue-opened";
-    /* eslint-enable camelcase */
-    return copied;
-  }
 
   getIssues() {
     return this.state.issues;
