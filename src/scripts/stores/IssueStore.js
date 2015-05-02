@@ -30,7 +30,11 @@ const IssueRecord = Record({
     avatar_url: null
   }),
   slug: "",
-  card_icon_class: ""
+  card_icon_class: "",
+  button_snooze: false,
+  button_delete_branch: false,
+  button_close_issue: false,
+  button_merge_pull_request: false
 });
 /* eslint-enable camelcase */
 
@@ -64,6 +68,10 @@ const issueDecorator = (issue) => {
   copied.slug = githubSlug(copied.html_url);
   copied.body_text_short = trimWidth(copied.body_text, 100);
   copied.card_icon_class = switchCardIconClass(copied);
+  copied.button_snooze = true;
+  copied.button_close_issue = false;
+  copied.button_delete_branch = false;
+  copied.button_merge_pull_request = false;
   /* eslint-enable camelcase */
   return copied;
 };
