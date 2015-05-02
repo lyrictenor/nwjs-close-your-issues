@@ -5,7 +5,6 @@ import FormInput from 'components/UI/FormInput';
 import Formsy from 'formsy-react';
 import onOpenExternals from 'myUtils/openExternals';
 import cx from 'classnames';
-const defaultValues = require('../../../config_settings.json');
 
 class ConfigForm extends React.Component {
   constructor(props) {
@@ -33,7 +32,7 @@ class ConfigForm extends React.Component {
       'btn-block',
       {'btn-success': this.state.canSubmit},
     );
-    const { settings } = this.props;
+    const { settings, defaultValues } = this.props;
 
     return (
       <Formsy.Form
