@@ -20,6 +20,9 @@ class InterfaceAbout extends React.Component {
           <li><a href="http://facebook.github.io/immutable-js/">Immutable.js</a> for immutability in the stores;</li>
           <li><a href="https://babeljs.io/">Babel</a> for ES6/ES7 transpilation and linting;</li>
           <li><a href="http://webpack.github.io/">Webpack</a> for the tooling.</li>
+          <li><a href="https://github.com/google/lovefield">Lovefield</a> A cross-browser, SQL-like, relational query engine for Web in pure JavaScript;</li>
+          <li><a href="http://nwjs.io/">NW.js</a>;</li>
+          <li><a href="https://github.com/twada/power-assert">Power-Assert</a>;</li>
         </ul>
       </div>
     );
