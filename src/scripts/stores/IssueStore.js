@@ -4,6 +4,7 @@ import { Store } from 'flummox';
 import { Map, Record } from 'immutable';
 import githubSlug from 'myUtils/githubSlug';
 import trimWidth from 'myUtils/trimWidth';
+import cx from 'classnames';
 
 /* eslint-disable camelcase */
 const IssueRecord = Record({
@@ -34,7 +35,10 @@ const IssueRecord = Record({
 /* eslint-enable camelcase */
 
 const switchCardIconClass = (issue) => {
-  return "octicon octicon-issue-opened";
+  return cx(
+    "octicon",
+    "octicon-issue-opened",
+  );
 };
 
 const issueDecorator = (issue) => {
