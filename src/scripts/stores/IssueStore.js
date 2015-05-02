@@ -34,13 +34,20 @@ const IssueRecord = Record({
 });
 /* eslint-enable camelcase */
 
+const isPullRequest = (issue) => {
+  if (typeof issue.pull_request === 'undefined' || issue.pull_request === null) {
+    return false;
+  }
+  return Object.keys(issue.pull_request).length !== 0;
+};
+
 const switchCardIconClass = (issue) => {
   return cx(
     'octicon',
-    { 'octicon-issue-opened': false },
+    { 'octicon-issue-opened': !isPullRequest(issue) },
     { 'octicon-issue-closed': false },
     { 'octicon-issue-reopened': false },
-    { 'octicon-git-pull-request': false },
+    { 'octicon-git-pull-request': isPullRequest(issue) },
     { 'open': false },
     { 'merged': false },
     { 'closed': false },
