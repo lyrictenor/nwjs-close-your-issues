@@ -40,17 +40,20 @@ const isPullRequest = (issue) => {
   }
   return Object.keys(issue.pull_request).length !== 0;
 };
+const isClosed = (issue) => {
+  return issue.state === 'closed';
+};
 
 const switchCardIconClass = (issue) => {
   return cx(
     'octicon',
-    { 'octicon-issue-opened': !isPullRequest(issue) },
-    { 'octicon-issue-closed': false },
+    { 'octicon-issue-opened': !isPullRequest(issue) && !isClosed(issue) },
+    { 'octicon-issue-closed': !isPullRequest(issue) && isClosed(issue) },
     { 'octicon-issue-reopened': false },
     { 'octicon-git-pull-request': isPullRequest(issue) },
-    { 'open': false },
+    { 'open': !isClosed(issue) },
     { 'merged': false },
-    { 'closed': false },
+    { 'closed': isClosed(issue) },
     { 'reverted': false },
   );
 };
