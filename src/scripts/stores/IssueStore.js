@@ -51,13 +51,13 @@ export class IssueStore extends Store {
     this.register(issueActionIds.deleteIssue, this.deleteIssue);
   }
   createIssue(data) {
-    const newMap = this.state.issues.set(data.id, new IssueRecord(this.transform(data)));
+    const newMap = this.state.issues.set(data.id, new IssueRecord(this.issueDecorator(data)));
     this.setState({ issues: newMap });
   }
   fetchIssues(issues) {
     let issuesMap = Map();
     for(let issue of issues) {
-      issuesMap = issuesMap.set(issue.id, new IssueRecord(this.transform(issue)));
+      issuesMap = issuesMap.set(issue.id, new IssueRecord(this.issueDecorator(issue)));
     }
 
     this.setState({ issues: this.state.issues.merge(issuesMap) });
@@ -72,7 +72,7 @@ export class IssueStore extends Store {
     }
   }
 
-  transform(issue) {
+  issueDecorator(issue) {
     let copied = Object.assign({}, issue);
     /* eslint-disable camelcase */
     copied.slug = GithubSlug(copied.html_url);
