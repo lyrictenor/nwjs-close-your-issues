@@ -2,8 +2,8 @@
 
 import { Store } from 'flummox';
 import { Map, Record } from 'immutable';
-import GithubSlug from 'myUtils/githubSlug';
-import TrimWidth from 'myUtils/TrimWidth';
+import githubSlug from 'myUtils/githubSlug';
+import trimWidth from 'myUtils/trimWidth';
 
 /* eslint-disable camelcase */
 const IssueRecord = Record({
@@ -75,8 +75,8 @@ export class IssueStore extends Store {
   issueDecorator(issue) {
     let copied = Object.assign({}, issue);
     /* eslint-disable camelcase */
-    copied.slug = GithubSlug(copied.html_url);
-    copied.body_text_short = TrimWidth(copied.body_text, 100);
+    copied.slug = githubSlug(copied.html_url);
+    copied.body_text_short = trimWidth(copied.body_text, 100);
     /* eslint-enable camelcase */
     return copied;
   }
