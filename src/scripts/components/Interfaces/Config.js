@@ -16,7 +16,9 @@ class InterfaceConfig extends React.Component {
         <UIPageHeader icon="gear" text={'Config'} />
         <FluxComponent {...this.props} connectToStores={{
           config: store => ({
+            // Immutable.Map
             settings: store.getSettings(),
+            // javascript object
             defaultValues: store.getDefaultValues()
           })
         }}>
