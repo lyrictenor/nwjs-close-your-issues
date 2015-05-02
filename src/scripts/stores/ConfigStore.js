@@ -5,6 +5,13 @@ import Immutable from 'immutable';
 
 const defaultValues = require('../../config_settings.json');
 
+const removeTrailingSlash = (string) => {
+  if(typeof string !== 'string') {
+    return string;
+  }
+  return string.replace(/\/+$/, '');
+};
+
 export class ConfigStore extends Store {
   constructor(flux) {
     super();
@@ -83,10 +90,10 @@ export class ConfigStore extends Store {
   convertSettings(settings) {
     const copied = Object.assign({}, settings);
     return {
-      apiendpoint: this.removeTrailingSlash(copied.apiEndpoint),
-      webendpoint: this.removeTrailingSlash(copied.webEndpoint),
+      apiendpoint: removeTrailingSlash(copied.apiEndpoint),
+      webendpoint: removeTrailingSlash(copied.webEndpoint),
       token: copied.accessToken,
-      slug: this.removeTrailingSlash(copied.slug)
+      slug: removeTrailingSlash(copied.slug)
     };
   }
 
@@ -96,12 +103,6 @@ export class ConfigStore extends Store {
 
   getDefaultValues() {
     return Object.assign({}, defaultValues);
-  }
-  removeTrailingSlash(string) {
-    if(typeof string !== 'string') {
-      return string;
-    }
-    return string.replace(/\/+$/, '');
   }
   configDecorator(jsObject) {
     let copied = Object.assign({}, jsObject);
