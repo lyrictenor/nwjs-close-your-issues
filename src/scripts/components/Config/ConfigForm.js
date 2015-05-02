@@ -5,7 +5,6 @@ import FormInput from 'components/UI/FormInput';
 import Formsy from 'formsy-react';
 import onOpenExternals from 'myUtils/openExternals';
 import cx from 'classnames';
-const defaultValues = require('../../../config_settings.json');
 
 class ConfigForm extends React.Component {
   constructor(props) {
@@ -33,7 +32,7 @@ class ConfigForm extends React.Component {
       'btn-block',
       {'btn-success': this.state.canSubmit},
     );
-    const settings = this.props.settings.toJS();
+    const { settings, defaultValues } = this.props;
 
     return (
       <Formsy.Form
@@ -44,28 +43,28 @@ class ConfigForm extends React.Component {
           name="apiEndpoint"
           placeholder={defaultValues.apiendpoint}
           validationError="Api Endpoint is required"
-          value={settings.apiendpoint}
+          value={settings.get('apiendpoint')}
           required />
         <FormInput
           name="webEndpoint"
           placeholder={defaultValues.webendpoint}
           validationError="Web Endpoint is required"
-          value={settings.webendpoint}
+          value={settings.get('webendpoint')}
           required />
         <FormInput
           name="accessToken"
           type="password"
           validations="equalLengthOrEmpty:40"
-          value={settings.token}
+          value={settings.get('token')}
           helpBlock="Blank OR Just 40 characters" />
-        <a href={settings.tokenurl} onClick={onOpenExternals.bind(this)} >
+        <a href={settings.get('tokenurl')} onClick={onOpenExternals.bind(this)} >
           Get AccessToken
         </a>.
         <FormInput
           name="slug"
           placeholder={defaultValues.slug}
           validationError="Slug is required"
-          value={settings.slug}
+          value={settings.get('slug')}
           required />
         <button
           className={buttonClass}
