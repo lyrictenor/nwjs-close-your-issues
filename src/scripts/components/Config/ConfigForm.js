@@ -4,6 +4,7 @@ import React from 'react/addons';
 import FormInput from 'components/UI/FormInput';
 import Formsy from 'formsy-react';
 import onOpenExternals from 'myUtils/openExternals';
+import enableButton from 'myUtils/enableButton';
 import cx from 'classnames';
 
 class ConfigForm extends React.Component {
@@ -69,7 +70,8 @@ class ConfigForm extends React.Component {
         <button
           className={buttonClass}
           type="submit"
-          disabled={!this.state.canSubmit}>
+          {...enableButton(this.state.canSubmit)}
+          >
           {submitText}
         </button>
       </Formsy.Form>

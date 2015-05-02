@@ -2,6 +2,7 @@
 
 import React from 'react/addons';
 import onOpenExternals from 'myUtils/openExternals';
+import enableButton from 'myUtils/enableButton';
 
 export default class IssueCard extends React.Component {
   render() {
@@ -31,16 +32,32 @@ export default class IssueCard extends React.Component {
           {issue.body_text_short}
         </div>
         <div>
-          <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
+          <button
+            className="btn btn-default btn-sm"
+            {...enableButton(issue.button_delete_branch)}
+            onClick={onDelete.bind(this, issue)}
+            >
             Delete Branch
           </button>
-          <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
+          <button
+            className="btn btn-default btn-sm"
+            {...enableButton(issue.button_close_issue)}
+            onClick={onDelete.bind(this, issue)}
+            >
             Close Issue
           </button>
-          <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
+          <button
+            className="btn btn-default btn-sm"
+            {...enableButton(issue.button_merge_pull_request)}
+            onClick={onDelete.bind(this, issue)}
+            >
             Merge Pull Request
           </button>
-          <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
+          <button
+            className="btn btn-default btn-sm"
+            {...enableButton(issue.button_snooze)}
+            onClick={onDelete.bind(this, issue)}
+            >
             Snooze
           </button>
         </div>
