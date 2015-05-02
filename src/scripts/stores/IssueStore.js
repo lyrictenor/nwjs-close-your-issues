@@ -3,6 +3,7 @@
 import { Store } from 'flummox';
 import { Map, Record } from 'immutable';
 import GithubSlug from 'myUtils/githubSlug';
+import TrimWidth from 'myUtils/TrimWidth';
 
 /* eslint-disable camelcase */
 const IssueRecord = Record({
@@ -30,10 +31,6 @@ const IssueRecord = Record({
   slug: ""
 });
 /* eslint-enable camelcase */
-
-const TrimWidth = (string, length=100) => {
-  return `${string.slice(0, length)}...`;
-};
 
 export class IssueStore extends Store {
 
