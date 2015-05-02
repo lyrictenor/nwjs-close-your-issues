@@ -63,8 +63,12 @@ export class IssueStore extends Store {
   }
   deleteIssue(issue) {
     let issues = this.state.issues.delete(issue.get('id'));
-    if(issues !== this.state.issues) { this.setState({ issues: issues }); }
+    if(issues !== this.state.issues) {
+      this.setState({ issues: issues });
+    }
   }
 
-  getIssues() { return this.state.issues; }
+  getIssues() {
+    return this.state.issues;
+  }
 }
