@@ -33,12 +33,16 @@ const IssueRecord = Record({
 });
 /* eslint-enable camelcase */
 
+const switchCardIconClass = (issue) => {
+  return "octicon octicon-issue-opened";
+};
+
 const issueDecorator = (issue) => {
   let copied = Object.assign({}, issue);
   /* eslint-disable camelcase */
   copied.slug = githubSlug(copied.html_url);
   copied.body_text_short = trimWidth(copied.body_text, 100);
-  copied.card_icon_class = "octicon octicon-issue-opened";
+  copied.card_icon_class = switchCardIconClass(copied);
   /* eslint-enable camelcase */
   return copied;
 };
