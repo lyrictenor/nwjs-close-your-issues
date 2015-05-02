@@ -22,6 +22,13 @@ const configDecorator = (jsObject) => {
   return copied;
 };
 
+let getPersistedData = async () => {
+  let db = await window.closeyourissues.db.connect();
+  let configTables = await db.getSchema().table('Configs');
+  let results = await db.select().from(configTables).exec();
+  return results;
+};
+
 export class ConfigStore extends Store {
   constructor(flux) {
     super();
@@ -41,7 +48,7 @@ export class ConfigStore extends Store {
   }
 
   async overrideByPersistedData() {
-    let result = await this.getPersistedData();
+    let result = await getPersistedData();
     const savedConfig = result.reduce((previous, current) => {
       previous[current.key] = current.value;
       return previous;
@@ -51,12 +58,6 @@ export class ConfigStore extends Store {
     }
   }
 
-  async getPersistedData() {
-    let db = await window.closeyourissues.db.connect();
-    let configTables = await db.getSchema().table('Configs');
-    let results = await db.select().from(configTables).exec();
-    return results;
-  }
 
   clearAllData() {
     this.setState({ settings: Immutable.fromJS(configDecorator(this.getDefaultValues())) });
