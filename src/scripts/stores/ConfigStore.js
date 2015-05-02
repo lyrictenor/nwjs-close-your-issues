@@ -83,10 +83,10 @@ export class ConfigStore extends Store {
   convertSettings(settings) {
     const copied = Object.assign({}, settings);
     return {
-      apiendpoint: this.remoteTrailingSlash(copied.apiEndpoint),
-      webendpoint: this.remoteTrailingSlash(copied.webEndpoint),
+      apiendpoint: this.removeTrailingSlash(copied.apiEndpoint),
+      webendpoint: this.removeTrailingSlash(copied.webEndpoint),
       token: copied.accessToken,
-      slug: this.remoteTrailingSlash(copied.slug)
+      slug: this.removeTrailingSlash(copied.slug)
     };
   }
 
@@ -97,7 +97,7 @@ export class ConfigStore extends Store {
   getDefaultValues() {
     return Object.assign({}, defaultValues);
   }
-  remoteTrailingSlash(string) {
+  removeTrailingSlash(string) {
     if(typeof string !== 'string') {
       return string;
     }
