@@ -2,15 +2,9 @@
 
 import { Store } from 'flummox';
 import Immutable from 'immutable';
+import removeTrailingSlash from 'myUtils/removeTrailingSlash';
 
 const defaultValues = require('../../config_settings.json');
-
-const removeTrailingSlash = (string) => {
-  if(typeof string !== 'string') {
-    return string;
-  }
-  return string.replace(/\/+$/, '');
-};
 
 export class ConfigStore extends Store {
   constructor(flux) {
