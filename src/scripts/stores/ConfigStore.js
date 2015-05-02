@@ -30,6 +30,23 @@ let getPersistedData = async () => {
   return results;
 };
 
+let persistParams = async (params) => {
+  let db = await window.closeyourissues.db.connect();
+  let configTables = await db.getSchema().table('Configs');
+  await db.delete().from(configTables).exec();
+
+  let rows = Object.keys(params).reduce((previous, current) => {
+    previous.push(
+      configTables.createRow({
+        key: current,
+        value: params[current]
+      })
+    );
+    return previous;
+  }, []);
+  return await db.insertOrReplace().into(configTables).values(rows).exec();
+};
+
 export class ConfigStore extends Store {
   constructor(flux) {
     super();
@@ -65,27 +82,10 @@ export class ConfigStore extends Store {
     resetStorages();
   }
 
-  async persistParams(params) {
-    let db = await window.closeyourissues.db.connect();
-    let configTables = await db.getSchema().table('Configs');
-    await db.delete().from(configTables).exec();
-
-    let rows = Object.keys(params).reduce((previous, current) => {
-      previous.push(
-        configTables.createRow({
-          key: current,
-          value: params[current]
-        })
-      );
-      return previous;
-    }, []);
-    return await db.insertOrReplace().into(configTables).values(rows).exec();
-  }
-
   async saveSettings(settings) {
     let params = convertSettings(settings);
     this.setState({ settings: Immutable.fromJS(configDecorator(params)) });
-    await this.persistParams(params);
+    await persistParams(params);
   }
 
   getSettings() {
