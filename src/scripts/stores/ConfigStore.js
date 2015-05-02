@@ -5,6 +5,7 @@ import Immutable from 'immutable';
 import removeTrailingSlash from 'myUtils/removeTrailingSlash';
 
 const defaultValues = require('../../config_settings.json');
+
 const convertSettings = (settings) => {
   const copied = Object.assign({}, settings);
   return {
@@ -15,12 +16,17 @@ const convertSettings = (settings) => {
   };
 };
 
+const configDecorator = (jsObject) => {
+  let copied = Object.assign({}, jsObject);
+  copied.tokenurl = `${copied.webendpoint}/settings/tokens/new`;
+  return copied;
+};
 
 export class ConfigStore extends Store {
   constructor(flux) {
     super();
 
-    this.state = { settings: Immutable.fromJS(this.configDecorator(this.getDefaultValues()))};
+    this.state = { settings: Immutable.fromJS(configDecorator(this.getDefaultValues()))};
 
     /*
      Registering action handlers
@@ -41,7 +47,7 @@ export class ConfigStore extends Store {
       return previous;
     }, {});
     if (savedConfig.slug && savedConfig.apiendpoint && savedConfig.webendpoint) {
-      this.setState({ settings: Immutable.fromJS(this.configDecorator(savedConfig)) });
+      this.setState({ settings: Immutable.fromJS(configDecorator(savedConfig)) });
     }
   }
 
@@ -53,7 +59,7 @@ export class ConfigStore extends Store {
   }
 
   clearAllData() {
-    this.setState({ settings: Immutable.fromJS(this.configDecorator(this.getDefaultValues())) });
+    this.setState({ settings: Immutable.fromJS(configDecorator(this.getDefaultValues())) });
 
     // http://stackoverflow.com/questions/15861630/how-can-i-remove-a-whole-indexeddb-database-from-javascript
     let req = indexedDB.deleteDatabase('close_your_issues');
@@ -87,7 +93,7 @@ export class ConfigStore extends Store {
 
   async saveSettings(settings) {
     let params = convertSettings(settings);
-    this.setState({ settings: Immutable.fromJS(this.configDecorator(params)) });
+    this.setState({ settings: Immutable.fromJS(configDecorator(params)) });
     await this.persistParams(params);
   }
 
@@ -97,10 +103,5 @@ export class ConfigStore extends Store {
 
   getDefaultValues() {
     return Object.assign({}, defaultValues);
-  }
-  configDecorator(jsObject) {
-    let copied = Object.assign({}, jsObject);
-    copied.tokenurl = `${copied.webendpoint}/settings/tokens/new`;
-    return copied;
   }
 }
