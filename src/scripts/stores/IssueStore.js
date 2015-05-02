@@ -28,7 +28,8 @@ const IssueRecord = Record({
     login: null,
     avatar_url: null
   }),
-  slug: ""
+  slug: "",
+  card_icon_class: ""
 });
 /* eslint-enable camelcase */
 
@@ -77,6 +78,7 @@ export class IssueStore extends Store {
     /* eslint-disable camelcase */
     copied.slug = githubSlug(copied.html_url);
     copied.body_text_short = trimWidth(copied.body_text, 100);
+    copied.card_icon_class = "octicon octicon-issue-opened";
     /* eslint-enable camelcase */
     return copied;
   }
