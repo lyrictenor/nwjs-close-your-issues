@@ -36,8 +36,15 @@ const IssueRecord = Record({
 
 const switchCardIconClass = (issue) => {
   return cx(
-    "octicon",
-    "octicon-issue-opened",
+    'octicon',
+    { 'octicon-issue-opened': false },
+    { 'octicon-issue-closed': false },
+    { 'octicon-issue-reopened': false },
+    { 'octicon-git-pull-request': false },
+    { 'open': false },
+    { 'merged': false },
+    { 'closed': false },
+    { 'reverted': false },
   );
 };
 
