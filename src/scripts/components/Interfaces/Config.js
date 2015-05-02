@@ -14,7 +14,11 @@ class InterfaceConfig extends React.Component {
     return (
       <div>
         <UIPageHeader icon="gear" text={'Config'} />
-        <FluxComponent {...this.props} connectToStores={['config']}>
+        <FluxComponent {...this.props} connectToStores={{
+          config: store => ({
+            settings: store.getSettings()
+          })
+        }}>
           <ConfigForm />
         </FluxComponent>
         <div style={{ height: '100px' }} />
