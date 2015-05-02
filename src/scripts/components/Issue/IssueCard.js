@@ -2,9 +2,7 @@
 
 import React from 'react/addons';
 import onOpenExternals from 'myUtils/openExternals';
-const enableButton = (boolean) => {
-  return (boolean) ? null : { disabled: 'disabled' };
-};
+import enableButton from 'myUtils/enableButton';
 
 export default class IssueCard extends React.Component {
   render() {
