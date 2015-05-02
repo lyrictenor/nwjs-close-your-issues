@@ -11,7 +11,7 @@ class InterfaceAbout extends React.Component {
         return (
             <div>
                 <UIPageHeader icon="gear" text={'you, welcome !'} />
-                <p><strong>Idiomatic React</strong> aims to be the simplest API-centric Flux app one could build using React.</p>
+                <p><strong>Close Your Issues</strong> aims to be the simplest API-centric Flux app one could build using React.</p>
                 <p>Currently, it uses :</p>
                 <ul>
                     <li><a href="http://facebook.github.io/react/">React</a> with <a href="https://facebook.github.io/jsx/">JSX</a>;</li>
