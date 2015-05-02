@@ -2,6 +2,7 @@
 
 import { Store } from 'flummox';
 import { Map, Record } from 'immutable';
+import GithubUrl from 'github-url-to-object';
 
 /* eslint-disable camelcase */
 const IssueRecord = Record({
@@ -24,9 +25,15 @@ const IssueRecord = Record({
     id: null,
     login: null,
     avatar_url: null
-  })
+  }),
+  slug: ""
 });
 /* eslint-enable camelcase */
+
+const getSlug = (repo) => {
+  let GithubObject = GithubUrl(repo);
+  return `${GithubObject.user}/${GithubObject.repo}`;
+};
 
 export class IssueStore extends Store {
 
@@ -70,6 +77,7 @@ export class IssueStore extends Store {
 
   transform(issue) {
     let copied = Object.assign({}, issue);
+    copied.slug = getSlug(copied.html_url);
     return copied;
   }
 

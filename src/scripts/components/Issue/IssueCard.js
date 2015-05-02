@@ -1,15 +1,9 @@
 'use strict';
 
 import React from 'react/addons';
-import GithubUrl from 'github-url-to-object';
 import onOpenExternals from 'myUtils/openExternals';
 
 export default class IssueCard extends React.Component {
-  //TODO move this to business logic
-  getSlug(repo) {
-    let GithubObject = GithubUrl(repo);
-    return `${GithubObject.user}/${GithubObject.repo}`;
-  }
   //TODO move this to business logic
   trimWidth(string, length=100) {
     return `${string.slice(0, length)}...`;
@@ -36,7 +30,7 @@ export default class IssueCard extends React.Component {
           by <img src={issue.user.avatar_url} style={{width: '20px', height: '20px'}} /> {issue.user.login}
         </div>
         <div>
-          {this.getSlug(issue.html_url)}
+          {issue.slug}
         </div>
         <div>
           {this.trimWidth(issue.body_text)}
