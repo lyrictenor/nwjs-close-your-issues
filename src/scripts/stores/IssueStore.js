@@ -41,29 +41,34 @@ export class IssueStore extends Store {
 
     const issueActionIds = flux.getActionIds('issues');
 
-    this.register(issueActionIds.createIssue, (data) => {
-      const newMap = this.state.issues.set(data.id, new IssueRecord(data));
-      this.setState({ issues: newMap });
-    });
+    this.register(issueActionIds.createIssue, this.createIssue);
+    this.register(issueActionIds.fetchIssues, this.fetchIssues);
+    this.register(issueActionIds.clearIssues, this.clearIssues);
+    this.register(issueActionIds.deleteIssue, this.deleteIssue);
+  }
+  createIssue(data) {
+    const newMap = this.state.issues.set(data.id, new IssueRecord(data));
+    this.setState({ issues: newMap });
+  }
+  fetchIssues(issues) {
+    let issuesMap = Map();
+    for(let issue of issues) {
+      issuesMap = issuesMap.set(issue.id, new IssueRecord(issue));
+    }
 
-    this.register(issueActionIds.fetchIssues, (issues) => {
-      let issuesMap = Map();
-      for(let issue of issues) {
-        issuesMap = issuesMap.set(issue.id, new IssueRecord(issue));
-      }
-
-      this.setState({ issues: this.state.issues.merge(issuesMap) });
-    });
-
-    this.register(issueActionIds.clearIssues, () => {
-      this.setState({ issues: this.state.issues.clear() });
-    });
-
-    this.register(issueActionIds.deleteIssue, (issue) => {
-      let issues = this.state.issues.delete(issue.get('id'));
-      if(issues !== this.state.issues) { this.setState({ issues: issues }); }
-    });
+    this.setState({ issues: this.state.issues.merge(issuesMap) });
+  }
+  clearIssues() {
+    this.setState({ issues: this.state.issues.clear() });
+  }
+  deleteIssue(issue) {
+    let issues = this.state.issues.delete(issue.get('id'));
+    if(issues !== this.state.issues) {
+      this.setState({ issues: issues });
+    }
   }
 
-  getIssues() { return this.state.issues; }
+  getIssues() {
+    return this.state.issues;
+  }
 }
