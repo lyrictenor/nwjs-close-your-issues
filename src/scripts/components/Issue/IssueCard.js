@@ -16,20 +16,27 @@ export default class IssueCard extends React.Component {
       <li>
         <div>
           <span className={issue.card_icon_class}></span>
+          <span className="slug">{issue.slug}</span>
+          <span className="number">#{issue.number}</span>
+          <span className="state">{issue.state}</span>
+        </div>
+        <div className="title">
           <a href={issue.html_url} onClick={onOpenExternals.bind(this)}>
             {issue.title}
           </a>
         </div>
-        <div>
-          #{issue.number}
-          opened {issue.created_at}
-          by <img src={issue.user.avatar_url} style={{width: '20px', height: '20px'}} /> {issue.user.login}
-        </div>
-        <div>
-          {issue.slug}
-        </div>
-        <div>
+        <div className="body_text">
           {issue.body_text_short}
+        </div>
+        <div className="opened">
+          <span className="time">opened {issue.created_at}</span>
+          <span className="by">by <img src={issue.user.avatar_url} style={{width: '20px', height: '20px'}} /> {issue.user.login}</span>
+        </div>
+        <div className="updated">
+          <span className="time">updated {issue.updated_at}</span>
+        </div>
+        <div className="closed">
+          <span className="time">closed {issue.closed_at}</span>
         </div>
         <div>
           <button
