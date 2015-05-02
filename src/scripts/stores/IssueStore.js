@@ -2,6 +2,8 @@
 
 import { Store } from 'flummox';
 import { Map, Record } from 'immutable';
+import githubSlug from 'myUtils/githubSlug';
+import trimWidth from 'myUtils/trimWidth';
 
 /* eslint-disable camelcase */
 const IssueRecord = Record({
@@ -20,11 +22,13 @@ const IssueRecord = Record({
   updated_at: null,
   closed_at: null,
   body_text: "",
+  body_text_short: "",
   user: Record({
     id: null,
     login: null,
     avatar_url: null
-  })
+  }),
+  slug: ""
 });
 /* eslint-enable camelcase */
 
@@ -47,13 +51,13 @@ export class IssueStore extends Store {
     this.register(issueActionIds.deleteIssue, this.deleteIssue);
   }
   createIssue(data) {
-    const newMap = this.state.issues.set(data.id, new IssueRecord(data));
+    const newMap = this.state.issues.set(data.id, new IssueRecord(this.issueDecorator(data)));
     this.setState({ issues: newMap });
   }
   fetchIssues(issues) {
     let issuesMap = Map();
     for(let issue of issues) {
-      issuesMap = issuesMap.set(issue.id, new IssueRecord(issue));
+      issuesMap = issuesMap.set(issue.id, new IssueRecord(this.issueDecorator(issue)));
     }
 
     this.setState({ issues: this.state.issues.merge(issuesMap) });
@@ -66,6 +70,15 @@ export class IssueStore extends Store {
     if(issues !== this.state.issues) {
       this.setState({ issues: issues });
     }
+  }
+
+  issueDecorator(issue) {
+    let copied = Object.assign({}, issue);
+    /* eslint-disable camelcase */
+    copied.slug = githubSlug(copied.html_url);
+    copied.body_text_short = trimWidth(copied.body_text, 100);
+    /* eslint-enable camelcase */
+    return copied;
   }
 
   getIssues() {

@@ -1,20 +1,9 @@
 'use strict';
 
 import React from 'react/addons';
-import GithubUrl from 'github-url-to-object';
 import onOpenExternals from 'myUtils/openExternals';
 
 export default class IssueCard extends React.Component {
-  //TODO move this to business logic
-  getSlug(repo) {
-    let GithubObject = GithubUrl(repo);
-    return `${GithubObject.user}/${GithubObject.repo}`;
-  }
-  //TODO move this to business logic
-  trimWidth(string, length=100) {
-    return `${string.slice(0, length)}...`;
-  }
-
   render() {
     const onDelete = (targetIssue) => {
       this.props.flux.getActions('issues').deleteIssue(targetIssue);
@@ -36,10 +25,10 @@ export default class IssueCard extends React.Component {
           by <img src={issue.user.avatar_url} style={{width: '20px', height: '20px'}} /> {issue.user.login}
         </div>
         <div>
-          {this.getSlug(issue.html_url)}
+          {issue.slug}
         </div>
         <div>
-          {this.trimWidth(issue.body_text)}
+          {issue.body_text_short}
         </div>
         <div>
           <button className="btn btn-default btn-sm" onClick={onDelete.bind(this, issue)}>
