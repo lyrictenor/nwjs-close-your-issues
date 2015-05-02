@@ -2,7 +2,6 @@
 
 import React from 'react/addons';
 import Router from 'react-router';
-import FluxComponent from 'flummox/component';
 
 import UINavbar from 'components/UI/Navbar';
 
@@ -27,10 +26,8 @@ class App extends React.Component {
 
     return (
       <div className='main container-fluid'>
-        <FluxComponent {...this.props} connectToStores={['issues', 'config']}>
-          <UINavbar />
-          <RouteHandler />
-        </FluxComponent>
+        <UINavbar />
+        <RouteHandler {...this.props} />
       </div>
     );
   }

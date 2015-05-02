@@ -3,6 +3,7 @@
 import React from 'react/addons';
 import UIPageHeader from 'components/UI/PageHeader';
 import IssueList from 'components/Issue/IssueList';
+import FluxComponent from 'flummox/component';
 
 class InterfaceIssue extends React.Component {
   onFetch() {
@@ -28,8 +29,9 @@ class InterfaceIssue extends React.Component {
           onClick={this.onClear.bind(this)} >
           Clear Issues
         </button>
-
-        <IssueList {...this.props} />
+        <FluxComponent {...this.props} connectToStores={['issues']}>
+          <IssueList />
+        </FluxComponent>
       </div>
     );
   }

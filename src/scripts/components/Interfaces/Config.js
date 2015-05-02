@@ -3,6 +3,7 @@
 import React from 'react/addons';
 import UIPageHeader from 'components/UI/PageHeader';
 import ConfigForm from 'components/Config/ConfigForm';
+import FluxComponent from 'flummox/component';
 
 class InterfaceConfig extends React.Component {
   onClearAllData(){
@@ -13,7 +14,9 @@ class InterfaceConfig extends React.Component {
     return (
       <div>
         <UIPageHeader icon="gear" text={'Config'} />
-        <ConfigForm {...this.props} />
+        <FluxComponent {...this.props} connectToStores={['config']}>
+          <ConfigForm />
+        </FluxComponent>
         <div style={{ height: '100px' }} />
         <button
           className="btn btn-danger btn-block"
