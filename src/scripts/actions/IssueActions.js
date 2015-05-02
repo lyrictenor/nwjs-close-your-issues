@@ -10,7 +10,7 @@ let serverFetchIssues = async function(settings) {
   let config = {
     headers: headers,
     params: {
-      state: 'open',
+      state: 'all',
       page: 1,
       per_page: 100,
       sort: 'updated'
