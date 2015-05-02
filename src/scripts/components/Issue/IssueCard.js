@@ -41,10 +41,24 @@ export default class IssueCard extends React.Component {
           </button>
           <button
             className="btn btn-default btn-sm"
+            {...enableButton(issue.button_restore_branch)}
+            onClick={onDelete.bind(this, issue)}
+            >
+            Restore Branch
+          </button>
+          <button
+            className="btn btn-default btn-sm"
             {...enableButton(issue.button_close_issue)}
             onClick={onDelete.bind(this, issue)}
             >
             Close Issue
+          </button>
+          <button
+            className="btn btn-default btn-sm"
+            {...enableButton(issue.button_reopen_issue)}
+            onClick={onDelete.bind(this, issue)}
+            >
+            ReOpen Issue
           </button>
           <button
             className="btn btn-default btn-sm"
