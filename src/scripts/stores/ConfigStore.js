@@ -3,6 +3,7 @@
 import { Store } from 'flummox';
 import Immutable from 'immutable';
 import removeTrailingSlash from 'myUtils/removeTrailingSlash';
+import resetStorages from 'myUtils/resetStorages';
 
 const defaultValues = require('../../config_settings.json');
 
@@ -61,18 +62,7 @@ export class ConfigStore extends Store {
 
   clearAllData() {
     this.setState({ settings: Immutable.fromJS(configDecorator(this.getDefaultValues())) });
-
-    // http://stackoverflow.com/questions/15861630/how-can-i-remove-a-whole-indexeddb-database-from-javascript
-    let req = indexedDB.deleteDatabase('close_your_issues');
-    req.onsuccess = () => {
-      console.log("Deleted database successfully");
-    };
-    req.onerror = () => {
-      console.log("Couldn't delete database");
-    };
-    req.onblocked = () => {
-      console.log("Couldn't delete database due to the operation being blocked");
-    };
+    resetStorages();
   }
 
   async persistParams(params) {
