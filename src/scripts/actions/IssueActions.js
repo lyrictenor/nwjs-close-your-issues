@@ -45,6 +45,11 @@ let serverDeleteIssue = function(settings, issue) {
   return issue; // passed to the store without awaiting REST response for optimistic delete
 };
 
+let serverCloseIssue = async (settings, issue) => {
+  const data = issue.toJS();
+  return data;
+};
+
 export class IssueActions extends Actions {
 
   constructor(flux) {
@@ -74,5 +79,10 @@ export class IssueActions extends Actions {
   deleteIssue(issue) {
     const settings = this.fetchSettings();
     return serverDeleteIssue(settings, issue);
+  }
+
+  async closeIssue(issue) {
+    const settings = this.fetchSettings();
+    return await serverCloseIssue(settings, issue);
   }
 }
