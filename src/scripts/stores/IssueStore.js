@@ -94,15 +94,16 @@ export class IssueStore extends Store {
     const issueActionIds = flux.getActionIds('issues');
 
     this.register(issueActionIds.createIssue, this.createIssue);
-    this.register(issueActionIds.fetchIssues, this.fetchIssues);
+    this.register(issueActionIds.fetchIssues, this.updateMultipleIssues);
     this.register(issueActionIds.clearIssues, this.clearIssues);
     this.register(issueActionIds.deleteIssue, this.deleteIssue);
+    this.register(issueActionIds.closeIssue, this.updateSingleIssue);
   }
   createIssue(data) {
     const newMap = this.state.issues.set(data.id, new IssueRecord(issueDecorator(data)));
     this.setState({ issues: newMap });
   }
-  fetchIssues(issues) {
+  updateMultipleIssues(issues) {
     let issuesMap = Map();
     for(let issue of issues) {
       issuesMap = issuesMap.set(issue.id, new IssueRecord(issueDecorator(issue)));
@@ -119,7 +120,9 @@ export class IssueStore extends Store {
       this.setState({ issues: issues });
     }
   }
-
+  updateSingleIssue(data) {
+    this.updateMultipleIssues([data]);
+  }
 
   getIssues() {
     return this.state.issues;

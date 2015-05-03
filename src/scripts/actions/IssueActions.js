@@ -45,6 +45,29 @@ let serverDeleteIssue = function(settings, issue) {
   return issue; // passed to the store without awaiting REST response for optimistic delete
 };
 
+let serverCloseIssue = async (settings, issue) => {
+  // PATCH /repos/:owner/:repo/issues/:number
+  let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  let data = {
+    state: 'closed'
+  };
+  let config = {
+    headers: headers
+  };
+
+  let url;
+  if (settings.get('token')) {
+    headers.Authorization = `token ${settings.get('token')}`;
+    url = issue.get('url');
+  } else {
+    // TODO: Handle error
+    return issue.toJS();
+  }
+  // TODO: Handle error
+  const updatedIssue = await axios.patch(url, data, config);
+  return updatedIssue.data;
+};
+
 export class IssueActions extends Actions {
 
   constructor(flux) {
@@ -74,5 +97,10 @@ export class IssueActions extends Actions {
   deleteIssue(issue) {
     const settings = this.fetchSettings();
     return serverDeleteIssue(settings, issue);
+  }
+
+  async closeIssue(issue) {
+    const settings = this.fetchSettings();
+    return await serverCloseIssue(settings, issue);
   }
 }
