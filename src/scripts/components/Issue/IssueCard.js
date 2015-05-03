@@ -51,7 +51,7 @@ export default class IssueCard extends React.Component {
           <button
             className="btn btn-default btn-sm"
             {...enableButton(issue.button_reopen_issue)}
-            onClick={this.onDelete.bind(this, issue)}
+            onClick={this.onToggleIssueState.bind(this, issue)}
             >
             ReOpen Issue
           </button>
