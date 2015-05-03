@@ -3,6 +3,7 @@
 import { Actions } from 'flummox';
 import uuid from 'myUtils/uuid';
 import axios from 'axios';
+import uriTemplates from 'uri-templates';
 
 let serverFetchIssues = async function(settings) {
   let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
@@ -105,6 +106,8 @@ let serverGetSinglePullRequest = async (settings, issue) => {
   }
   if (!issue.pull_request.url) {
     // TODO: Handle Error
+    console.log('issue not pull request');
+    console.log(issue);
     return null;
   }
   let url = issue.pull_request.url;
@@ -149,9 +152,8 @@ let serverDeleteBranch = async (settings, issue) => {
   }
 
   const headRef = pullRequest.head.ref;
-  const repoUrl = pullRequest.repo.url;
-  if (!headRef || !repoUrl) {
-    console.log(pullRequest);
+  const refTemplate = pullRequest.head.repo.git_refs_url;
+  if (!headRef || !refTemplate) {
     return issue.toJS();
   }
 
@@ -161,10 +163,11 @@ let serverDeleteBranch = async (settings, issue) => {
   let config = {
     headers: headers
   };
+  const template = uriTemplates(refTemplate);
   let url;
   if (settings.get('token')) {
     headers.Authorization = `token ${settings.get('token')}`;
-    url = `${repoUrl}/git/refs/heads/${headRef}`;
+    url = template.fill({ sha: `heads/${headRef}`});
   } else {
     // TODO: Handle Error
     return issue.toJS();
