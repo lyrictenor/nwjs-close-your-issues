@@ -72,6 +72,52 @@ let serverToggleIssueState = async (settings, issue) => {
   return updatedIssue.data;
 };
 
+let serverGetSingleIssue = async (settings, issue) => {
+  // GET /repos/:owner/:repo/issues/:number
+  let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  /* eslint-disable camelcase */
+  let config = {
+    headers: headers
+  };
+  /* eslint-enable camelcase */
+
+  let url;
+  if (settings.get('token')) {
+    headers.Authorization = `token ${settings.get('token')}`;
+  }
+  url = issue.url;
+  // TODO: Handle Error
+  const updatedIssue = await axios.get(url, config);
+  return updatedIssue.data;
+};
+
+let serverMergePullRequest = async (settings, issue) => {
+  // PUT /repos/:owner/:repo/pulls/:number/merge
+  let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  let data = {
+  };
+  let config = {
+    headers: headers
+  };
+  let url;
+  if (settings.get('token')) {
+    headers.Authorization = `token ${settings.get('token')}`;
+    url = `${issue.pull_request.url}/merge`;
+  } else {
+    // TODO: Handle Error
+    return issue.toJS();
+  }
+  // TODO: Handle Error
+  const response = await axios.put(url, data, config);
+  if (response.data.merged !== true) {
+    // TODO: Handle Error
+    console.log(response.data.message);
+    return issue.toJS();
+  }
+  // TODO: Handle Error
+  return await serverGetSingleIssue(settings, issue);
+};
+
 export class IssueActions extends Actions {
 
   constructor(flux) {
@@ -106,5 +152,10 @@ export class IssueActions extends Actions {
   async toggleIssueState(issue) {
     const settings = this.fetchSettings();
     return await serverToggleIssueState(settings, issue);
+  }
+
+  async mergePullRequest(issue) {
+    const settings = this.fetchSettings();
+    return await serverMergePullRequest(settings, issue);
   }
 }

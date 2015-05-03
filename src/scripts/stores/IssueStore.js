@@ -36,7 +36,11 @@ const IssueRecord = Record({
   button_restore_branch: false,
   button_close_issue: false,
   button_reopen_issue: false,
-  button_merge_pull_request: false
+  button_merge_pull_request: false,
+  pull_request: Record({
+    url: null,
+    html_url: null
+  })
 });
 /* eslint-enable camelcase */
 
@@ -98,6 +102,7 @@ export class IssueStore extends Store {
     this.register(issueActionIds.clearIssues, this.clearIssues);
     this.register(issueActionIds.deleteIssue, this.deleteIssue);
     this.register(issueActionIds.toggleIssueState, this.updateSingleIssue);
+    this.register(issueActionIds.mergePullRequest, this.updateSingleIssue);
   }
   createIssue(data) {
     const newMap = this.state.issues.set(data.id, new IssueRecord(issueDecorator(data)));
