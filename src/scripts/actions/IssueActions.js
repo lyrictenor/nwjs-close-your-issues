@@ -106,8 +106,6 @@ let serverGetSinglePullRequest = async (settings, issue) => {
   }
   if (!issue.pull_request.url) {
     // TODO: Handle Error
-    console.log("issue not pull request");
-    console.log(issue);
     return null;
   }
   let url = issue.pull_request.url;
@@ -174,7 +172,6 @@ let serverDeleteBranch = async (settings, issue) => {
   }
   // TODO: Handle Error
   const response = await axios.delete(url, config);
-  console.log(response);
   // TODO: Handle Error
   return await serverGetSingleIssue(settings, issue);
 };
