@@ -46,8 +46,26 @@ let serverDeleteIssue = function(settings, issue) {
 };
 
 let serverCloseIssue = async (settings, issue) => {
-  const data = issue.toJS();
-  return data;
+  // PATCH /repos/:owner/:repo/issues/:number
+  let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  let data = {
+    state: 'closed'
+  };
+  let config = {
+    headers: headers
+  };
+
+  let url;
+  if (settings.get('token')) {
+    headers.Authorization = `token ${settings.get('token')}`;
+    url = issue.get('url');
+  } else {
+    // TODO: Handle error
+    return issue.toJS();
+  }
+  // TODO: Handle error
+  const issues = await axios.patch(url, data, config);
+  return issues.data;
 };
 
 export class IssueActions extends Actions {
