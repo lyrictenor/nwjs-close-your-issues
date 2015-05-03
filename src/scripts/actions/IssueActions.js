@@ -64,8 +64,8 @@ let serverCloseIssue = async (settings, issue) => {
     return issue.toJS();
   }
   // TODO: Handle error
-  const issues = await axios.patch(url, data, config);
-  return issues.data;
+  const updatedIssue = await axios.patch(url, data, config);
+  return updatedIssue.data;
 };
 
 export class IssueActions extends Actions {
