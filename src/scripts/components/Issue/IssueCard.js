@@ -8,8 +8,8 @@ export default class IssueCard extends React.Component {
   onDelete(issue) {
     this.props.flux.getActions('issues').deleteIssue(issue);
   }
-  onCloseIssue(issue) {
-    this.props.flux.getActions('issues').closeIssue(issue);
+  onToggleIssueState(issue) {
+    this.props.flux.getActions('issues').toggleIssueState(issue);
   }
   render() {
     const { issue } = this.props;
@@ -44,14 +44,14 @@ export default class IssueCard extends React.Component {
           <button
             className="btn btn-default btn-sm"
             {...enableButton(issue.button_close_issue)}
-            onClick={this.onCloseIssue.bind(this, issue)}
+            onClick={this.onToggleIssueState.bind(this, issue)}
             >
             Close Issue
           </button>
           <button
             className="btn btn-default btn-sm"
             {...enableButton(issue.button_reopen_issue)}
-            onClick={this.onDelete.bind(this, issue)}
+            onClick={this.onToggleIssueState.bind(this, issue)}
             >
             ReOpen Issue
           </button>

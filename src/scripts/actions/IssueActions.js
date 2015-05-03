@@ -45,11 +45,15 @@ let serverDeleteIssue = function(settings, issue) {
   return issue; // passed to the store without awaiting REST response for optimistic delete
 };
 
-let serverCloseIssue = async (settings, issue) => {
+const toggledIssueState = (state) => {
+  return (state === 'open') ? 'closed' : 'open';
+};
+
+let serverToggleIssueState = async (settings, issue) => {
   // PATCH /repos/:owner/:repo/issues/:number
   let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
   let data = {
-    state: 'closed'
+    state: toggledIssueState(issue.get('state'))
   };
   let config = {
     headers: headers
@@ -99,8 +103,8 @@ export class IssueActions extends Actions {
     return serverDeleteIssue(settings, issue);
   }
 
-  async closeIssue(issue) {
+  async toggleIssueState(issue) {
     const settings = this.fetchSettings();
-    return await serverCloseIssue(settings, issue);
+    return await serverToggleIssueState(settings, issue);
   }
 }
