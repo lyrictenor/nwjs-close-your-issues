@@ -14,6 +14,9 @@ export default class IssueCard extends React.Component {
   onMergePullRequest(issue) {
     this.props.flux.getActions('issues').mergePullRequest(issue);
   }
+  onDeleteBranch(issue) {
+    this.props.flux.getActions('issues').deleteBranch(issue);
+  }
   render() {
     const { issue } = this.props;
 
@@ -68,7 +71,7 @@ export default class IssueCard extends React.Component {
           <button
             className="btn btn-default btn-sm"
             {...enableButton(issue.button_delete_branch)}
-            onClick={this.onDelete.bind(this, issue)}
+            onClick={this.onDeleteBranch.bind(this, issue)}
             >
             Delete Branch
           </button>
