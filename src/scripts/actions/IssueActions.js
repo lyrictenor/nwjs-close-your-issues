@@ -45,11 +45,15 @@ let serverDeleteIssue = function(settings, issue) {
   return issue; // passed to the store without awaiting REST response for optimistic delete
 };
 
+const toggledIssueState = (state) => {
+  return (state === 'open') ? 'closed' : 'open';
+};
+
 let serverCloseIssue = async (settings, issue) => {
   // PATCH /repos/:owner/:repo/issues/:number
   let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
   let data = {
-    state: 'closed'
+    state: toggledIssueState(issue.get('state'))
   };
   let config = {
     headers: headers
