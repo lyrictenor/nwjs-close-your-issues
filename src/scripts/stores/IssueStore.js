@@ -97,7 +97,7 @@ export class IssueStore extends Store {
     this.register(issueActionIds.fetchIssues, this.updateMultipleIssues);
     this.register(issueActionIds.clearIssues, this.clearIssues);
     this.register(issueActionIds.deleteIssue, this.deleteIssue);
-    this.register(issueActionIds.closeIssue, this.updateSingleIssue);
+    this.register(issueActionIds.toggleIssueState, this.updateSingleIssue);
   }
   createIssue(data) {
     const newMap = this.state.issues.set(data.id, new IssueRecord(issueDecorator(data)));

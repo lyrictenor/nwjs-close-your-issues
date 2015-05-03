@@ -49,7 +49,7 @@ const toggledIssueState = (state) => {
   return (state === 'open') ? 'closed' : 'open';
 };
 
-let serverCloseIssue = async (settings, issue) => {
+let serverToggleIssueState = async (settings, issue) => {
   // PATCH /repos/:owner/:repo/issues/:number
   let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
   let data = {
@@ -103,8 +103,8 @@ export class IssueActions extends Actions {
     return serverDeleteIssue(settings, issue);
   }
 
-  async closeIssue(issue) {
+  async toggleIssueState(issue) {
     const settings = this.fetchSettings();
-    return await serverCloseIssue(settings, issue);
+    return await serverToggleIssueState(settings, issue);
   }
 }
