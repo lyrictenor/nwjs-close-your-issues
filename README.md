@@ -3,6 +3,10 @@
 
 Handle too much issues.
 
+## Download
+
+[Releases](https://github.com/lyrictenor/nwjs-close-your-issues/releases)
+
 ## License
 
 Copyright (c) 2015 sanemat. Licensed under the MIT license.
