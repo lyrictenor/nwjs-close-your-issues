@@ -3,9 +3,25 @@
 
 Handle too much issues.
 
+
+
 ## Download
 
 [Releases](https://github.com/lyrictenor/nwjs-close-your-issues/releases)
+
+## Structures
+
+Currently, it uses :
+
+* [React](http://facebook.github.io/react/) with [JSX](https://facebook.github.io/jsx/);
+* [Flummox](https://github.com/acdlite/flummox) ([Flux implementation](http://facebook.github.io/flux/)) for the stores;
+* [React-Router](https://github.com/rackt/react-router);
+* [Immutable.js](http://facebook.github.io/immutable-js/) for immutability in the stores;
+* [Babel](https://babeljs.io/) for ES6/ES7 transpilation and linting;
+* [Webpack](http://webpack.github.io/) for the tooling;
+* [Lovefield](https://github.com/google/lovefield) A cross-browser, SQL-like, relational query engine for Web in pure JavaScript;
+* [NW.js](http://nwjs.io/);
+* [Power-Assert](https://github.com/twada/power-assert);
 
 ## License
 
