@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-import { Actions } from 'flummox';
+import { Actions } from "flummox";
 
 export class ConfigActions extends Actions {
 

@@ -1,31 +1,31 @@
-'use strict';
+"use strict";
 
-import { Actions } from 'flummox';
-import uuid from 'myUtils/uuid';
-import axios from 'axios';
-import uriTemplates from 'uri-templates';
+import { Actions } from "flummox";
+import uuid from "myUtils/uuid";
+import axios from "axios";
+import uriTemplates from "uri-templates";
 
 let serverFetchIssues = async function(settings) {
-  let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  let headers = { Accept: "application/vnd.github.v3.text+json" };
   /* eslint-disable camelcase */
   let config = {
     headers: headers,
     params: {
-      state: 'all',
+      state: "all",
       page: 1,
       per_page: 100,
-      sort: 'updated'
+      sort: "updated"
     }
   };
   /* eslint-enable camelcase */
 
   let url;
-  if (settings.get('token')) {
-    headers.Authorization = `token ${settings.get('token')}`;
-    config.params.filter = 'all';
-    url = `${settings.get('apiendpoint')}/issues`;
+  if (settings.get("token")) {
+    headers.Authorization = `token ${settings.get("token")}`;
+    config.params.filter = "all";
+    url = `${settings.get("apiendpoint")}/issues`;
   } else {
-    url = `${settings.get('apiendpoint')}/repos/${settings.get('slug')}/issues`;
+    url = `${settings.get("apiendpoint")}/repos/${settings.get("slug")}/issues`;
   }
   const issues = await axios.get(url, config);
   return issues.data;
@@ -47,23 +47,23 @@ let serverDeleteIssue = function(settings, issue) {
 };
 
 const toggledIssueState = (state) => {
-  return (state === 'open') ? 'closed' : 'open';
+  return (state === "open") ? "closed" : "open";
 };
 
 let serverToggleIssueState = async (settings, issue) => {
   // PATCH /repos/:owner/:repo/issues/:number
-  let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  let headers = { Accept: "application/vnd.github.v3.text+json" };
   let data = {
-    state: toggledIssueState(issue.get('state'))
+    state: toggledIssueState(issue.get("state"))
   };
   let config = {
     headers: headers
   };
 
   let url;
-  if (settings.get('token')) {
-    headers.Authorization = `token ${settings.get('token')}`;
-    url = issue.get('url');
+  if (settings.get("token")) {
+    headers.Authorization = `token ${settings.get("token")}`;
+    url = issue.get("url");
   } else {
     // TODO: Handle error
     return issue.toJS();
@@ -75,7 +75,7 @@ let serverToggleIssueState = async (settings, issue) => {
 
 let serverGetSingleIssue = async (settings, issue) => {
   // GET /repos/:owner/:repo/issues/:number
-  let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  let headers = { Accept: "application/vnd.github.v3.text+json" };
   /* eslint-disable camelcase */
   let config = {
     headers: headers
@@ -83,8 +83,8 @@ let serverGetSingleIssue = async (settings, issue) => {
   /* eslint-enable camelcase */
 
   let url;
-  if (settings.get('token')) {
-    headers.Authorization = `token ${settings.get('token')}`;
+  if (settings.get("token")) {
+    headers.Authorization = `token ${settings.get("token")}`;
   }
   url = issue.url;
   // TODO: Handle Error
@@ -94,20 +94,18 @@ let serverGetSingleIssue = async (settings, issue) => {
 
 let serverGetSinglePullRequest = async (settings, issue) => {
   // GET /repos/:owner/:repo/issues/:number
-  let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  let headers = { Accept: "application/vnd.github.v3.text+json" };
   /* eslint-disable camelcase */
   let config = {
     headers: headers
   };
   /* eslint-enable camelcase */
 
-  if (settings.get('token')) {
-    headers.Authorization = `token ${settings.get('token')}`;
+  if (settings.get("token")) {
+    headers.Authorization = `token ${settings.get("token")}`;
   }
   if (!issue.pull_request.url) {
     // TODO: Handle Error
-    console.log('issue not pull request');
-    console.log(issue);
     return null;
   }
   let url = issue.pull_request.url;
@@ -119,15 +117,15 @@ let serverGetSinglePullRequest = async (settings, issue) => {
 
 let serverMergePullRequest = async (settings, issue) => {
   // PUT /repos/:owner/:repo/pulls/:number/merge
-  let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  let headers = { Accept: "application/vnd.github.v3.text+json" };
   let data = {
   };
   let config = {
     headers: headers
   };
   let url;
-  if (settings.get('token')) {
-    headers.Authorization = `token ${settings.get('token')}`;
+  if (settings.get("token")) {
+    headers.Authorization = `token ${settings.get("token")}`;
     url = `${issue.pull_request.url}/merge`;
   } else {
     // TODO: Handle Error
@@ -159,14 +157,14 @@ let serverDeleteBranch = async (settings, issue) => {
 
   // DELETE /repos/:owner/:repo/git/refs/:ref
   // DELETE /repos/octocat/Hello-World/git/refs/heads/feature-a
-  let headers = { 'Accept': 'application/vnd.github.v3.text+json' };
+  let headers = { Accept: "application/vnd.github.v3.text+json" };
   let config = {
     headers: headers
   };
   const template = uriTemplates(refTemplate);
   let url;
-  if (settings.get('token')) {
-    headers.Authorization = `token ${settings.get('token')}`;
+  if (settings.get("token")) {
+    headers.Authorization = `token ${settings.get("token")}`;
     url = template.fill({ sha: `heads/${headRef}`});
   } else {
     // TODO: Handle Error
@@ -174,7 +172,6 @@ let serverDeleteBranch = async (settings, issue) => {
   }
   // TODO: Handle Error
   const response = await axios.delete(url, config);
-  console.log(response);
   // TODO: Handle Error
   return await serverGetSingleIssue(settings, issue);
 };
@@ -188,7 +185,7 @@ export class IssueActions extends Actions {
   }
 
   fetchSettings() {
-    return this.flux.getStore('config').getSettings();
+    return this.flux.getStore("config").getSettings();
   }
 
   async fetchIssues() {

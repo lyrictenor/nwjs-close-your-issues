@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-module.exports = (string, length = 100, suffix = '...') => {
+module.exports = (string, length = 100, suffix = "...") => {
   if (string.length <= length) {
     return string;
   }

@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-import React from 'react/addons';
-import UIPageHeader from 'components/UI/PageHeader';
-import onOpenExternals from 'myUtils/openExternals';
+import React from "react/addons";
+import UIPageHeader from "components/UI/PageHeader";
+import onOpenExternals from "myUtils/openExternals";
 
 class InterfaceAbout extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class InterfaceAbout extends React.Component {
 
     return (
       <div>
-        <UIPageHeader icon="gear" text={'you, welcome !'} />
+        <UIPageHeader icon="gear" text={"you, welcome !"} />
         <p><strong>Close Your Issues</strong> aims to be the simplest API-centric Flux app one could build using React.</p>
         <p>Currently, it uses :</p>
         <ul>

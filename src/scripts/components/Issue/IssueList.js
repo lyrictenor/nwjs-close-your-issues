@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-import React from 'react/addons';
-import IssueCard from 'components/Issue/IssueCard';
+import React from "react/addons";
+import IssueCard from "components/Issue/IssueCard";
 
 export default class IssueList extends React.Component {
   render() {

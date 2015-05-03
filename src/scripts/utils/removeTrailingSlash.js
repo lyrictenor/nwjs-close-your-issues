@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
 module.exports = (string) => {
-  if(typeof string !== 'string') {
+  if(typeof string !== "string") {
     return string;
   }
-  return string.replace(/\/+$/, '');
+  return string.replace(/\/+$/, "");
 };

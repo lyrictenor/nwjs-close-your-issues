@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-import { Store } from 'flummox';
-import Immutable from 'immutable';
-import removeTrailingSlash from 'myUtils/removeTrailingSlash';
-import resetStorages from 'myUtils/resetStorages';
+import { Store } from "flummox";
+import Immutable from "immutable";
+import removeTrailingSlash from "myUtils/removeTrailingSlash";
+import resetStorages from "myUtils/resetStorages";
 
-const defaultValues = require('../../config_settings.json');
+const defaultValues = require("../../config_settings.json");
 
 const convertSettings = (settings) => {
   const copied = Object.assign({}, settings);
@@ -25,14 +25,14 @@ const configDecorator = (jsObject) => {
 
 let getPersistedData = async () => {
   let db = await window.closeyourissues.db.connect();
-  let configTables = await db.getSchema().table('Configs');
+  let configTables = await db.getSchema().table("Configs");
   let results = await db.select().from(configTables).exec();
   return results;
 };
 
 let persistParams = async (params) => {
   let db = await window.closeyourissues.db.connect();
-  let configTables = await db.getSchema().table('Configs');
+  let configTables = await db.getSchema().table("Configs");
   await db.delete().from(configTables).exec();
 
   let rows = Object.keys(params).reduce((previous, current) => {
@@ -57,7 +57,7 @@ export class ConfigStore extends Store {
      Registering action handlers
      */
 
-    const configActionIds = flux.getActionIds('config');
+    const configActionIds = flux.getActionIds("config");
 
     this.register(configActionIds.saveSettings, this.saveSettings);
     this.register(configActionIds.clearAllData, this.clearAllData);
