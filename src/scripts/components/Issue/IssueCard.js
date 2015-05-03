@@ -69,13 +69,14 @@ export default class IssueCard extends React.Component {
             >
             Delete Branch
           </button>
-          <button
+          <a
+            href={issue.html_url}
             className="btn btn-default btn-sm"
             {...enableButton(issue.button_restore_branch)}
-            onClick={this.onDelete.bind(this, issue)}
+            onClick={onOpenExternals.bind(this)}
             >
             Restore Branch
-          </button>
+          </a>
           <button
             className="btn btn-default btn-sm"
             {...enableButton(issue.button_snooze)}
