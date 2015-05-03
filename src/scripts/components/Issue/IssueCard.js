@@ -11,6 +11,9 @@ export default class IssueCard extends React.Component {
   onToggleIssueState(issue) {
     this.props.flux.getActions('issues').toggleIssueState(issue);
   }
+  onMergePullRequest(issue) {
+    this.props.flux.getActions('issues').mergePullRequest(issue);
+  }
   render() {
     const { issue } = this.props;
 
@@ -58,7 +61,7 @@ export default class IssueCard extends React.Component {
           <button
             className="btn btn-default btn-sm"
             {...enableButton(issue.button_merge_pull_request)}
-            onClick={this.onDelete.bind(this, issue)}
+            onClick={this.onMergePullRequest.bind(this, issue)}
             >
             Merge Pull Request
           </button>
