@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-import React from 'react/addons';
-import Formsy from 'formsy-react';
-import cx from 'classnames';
+import React from "react/addons";
+import Formsy from "formsy-react";
+import cx from "classnames";
 
 // github.com/christianalfoni/formsy-react/issues/113
-Formsy.addValidationRule('equalLengthOrEmpty', function (values, value, length) {
+Formsy.addValidationRule("equalLengthOrEmpty", function (values, value, length) {
   return !value || (value && value.length > 0 && value.length === length);
 });
 
@@ -28,14 +28,14 @@ let FormInput = React.createClass({
     // value typed is invalid
     let outerClassName = cx(
       this.props.className,
-      'form-group',
-      'has-feedback',
-      { 'has-success': this.isValid(), 'has-error': !this.isValid() },
+      "form-group",
+      "has-feedback",
+      { "has-success": this.isValid(), "has-error": !this.isValid() },
     );
     let labelClassName = "control-label";
     let inputClassName = cx(
-      'form-control',
-      { 'required': this.showRequired() },
+      "form-control",
+      { "required": this.showRequired() },
     );
 
     // An error message is returned ONLY if the component is invalid
@@ -53,7 +53,7 @@ let FormInput = React.createClass({
         </label>
         {errorMessage}
         <input
-          type={this.props.type || 'text'}
+          type={this.props.type || "text"}
           name={this.props.name}
           className={inputClassName}
           onChange={this.changeValue}

@@ -1,19 +1,19 @@
-'use strict';
+"use strict";
 
-import React from 'react/addons';
-import UIPageHeader from 'components/UI/PageHeader';
-import ConfigForm from 'components/Config/ConfigForm';
-import FluxComponent from 'flummox/component';
+import React from "react/addons";
+import UIPageHeader from "components/UI/PageHeader";
+import ConfigForm from "components/Config/ConfigForm";
+import FluxComponent from "flummox/component";
 
 class InterfaceConfig extends React.Component {
   onClearAllData(){
-    this.props.flux.getActions('config').clearAllData();
+    this.props.flux.getActions("config").clearAllData();
   }
 
   render() {
     return (
       <div>
-        <UIPageHeader icon="gear" text={'Config'} />
+        <UIPageHeader icon="gear" text={"Config"} />
         <FluxComponent {...this.props} connectToStores={{
           config: store => ({
             // Immutable.Map
@@ -24,7 +24,7 @@ class InterfaceConfig extends React.Component {
         }}>
           <ConfigForm />
         </FluxComponent>
-        <div style={{ height: '100px' }} />
+        <div style={{ height: "100px" }} />
         <button
           className="btn btn-danger btn-block"
           type="submit"

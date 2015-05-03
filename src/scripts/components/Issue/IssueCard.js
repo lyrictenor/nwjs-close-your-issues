@@ -1,21 +1,21 @@
-'use strict';
+"use strict";
 
-import React from 'react/addons';
-import onOpenExternals from 'myUtils/openExternals';
-import enableButton from 'myUtils/enableButton';
+import React from "react/addons";
+import onOpenExternals from "myUtils/openExternals";
+import enableButton from "myUtils/enableButton";
 
 export default class IssueCard extends React.Component {
   onDelete(issue) {
-    this.props.flux.getActions('issues').deleteIssue(issue);
+    this.props.flux.getActions("issues").deleteIssue(issue);
   }
   onToggleIssueState(issue) {
-    this.props.flux.getActions('issues').toggleIssueState(issue);
+    this.props.flux.getActions("issues").toggleIssueState(issue);
   }
   onMergePullRequest(issue) {
-    this.props.flux.getActions('issues').mergePullRequest(issue);
+    this.props.flux.getActions("issues").mergePullRequest(issue);
   }
   onDeleteBranch(issue) {
-    this.props.flux.getActions('issues').deleteBranch(issue);
+    this.props.flux.getActions("issues").deleteBranch(issue);
   }
   render() {
     const { issue } = this.props;
@@ -38,7 +38,7 @@ export default class IssueCard extends React.Component {
         </div>
         <div className="opened">
           <span className="time">opened {issue.created_at}</span>
-          <span className="by">by <img src={issue.user.avatar_url} style={{width: '20px', height: '20px'}} /> {issue.user.login}</span>
+          <span className="by">by <img src={issue.user.avatar_url} style={{width: "20px", height: "20px"}} /> {issue.user.login}</span>
         </div>
         <div className="updated">
           <span className="time">updated {issue.updated_at}</span>

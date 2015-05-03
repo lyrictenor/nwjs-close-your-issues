@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 module.exports = (boolean) => {
-  return (boolean) ? null : { disabled: 'disabled' };
+  return (boolean) ? null : { disabled: "disabled" };
 };

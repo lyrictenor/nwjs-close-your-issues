@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 // ChromeでJavaScriptからIndexedDbを初期化する - Qiita
 // http://qiita.com/mizchi/items/54f4b0f30990d48a1350
 
@@ -8,7 +8,7 @@ module.exports = function() {
     return new Promise(function(done, reject) {
       var req;
       req = indexedDB.webkitGetDatabaseNames();
-      req.addEventListener('success', function(event) {
+      req.addEventListener("success", function(event) {
         var dbNames, i;
         dbNames = (function() {
           var j, len, ref, results;
@@ -22,7 +22,7 @@ module.exports = function() {
         })();
         return done(dbNames);
       });
-      return req.addEventListener('error', function(event) {
+      return req.addEventListener("error", function(event) {
         return reject();
       });
     });
@@ -32,10 +32,10 @@ module.exports = function() {
       return new Promise(function(done, reject) {
         var req;
         req = indexedDB.deleteDatabase(name);
-        req.addEventListener('success', function() {
+        req.addEventListener("success", function() {
           return done();
         });
-        return req.addEventListener('error', function() {
+        return req.addEventListener("error", function() {
           return reject();
         });
       });
@@ -45,7 +45,7 @@ module.exports = function() {
     return new Promise(function(done) {
       return getDbNames().then(function(names) {
         return removeAllIndexedDb(names).then(function() {
-          console.info('all items removed!');
+          console.info("all items removed!");
           return done();
         });
       });

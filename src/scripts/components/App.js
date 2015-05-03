@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-import React from 'react/addons';
-import Router from 'react-router';
+import React from "react/addons";
+import Router from "react-router";
 
-import UINavbar from 'components/UI/Navbar';
+import UINavbar from "components/UI/Navbar";
 
 const RouteHandler = Router.RouteHandler;
 
@@ -19,13 +19,13 @@ class App extends React.Component {
 
   async componentDidMount() {
     await this.delayFunction(3000);
-    this.props.flux.getActions('issues').fetchIssues();
+    this.props.flux.getActions("issues").fetchIssues();
   }
 
   render() {
 
     return (
-      <div className='main container-fluid'>
+      <div className="main container-fluid">
         <UINavbar />
         <RouteHandler {...this.props} />
       </div>

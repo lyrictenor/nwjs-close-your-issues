@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-import { Store } from 'flummox';
-import { Map, Record } from 'immutable';
-import githubSlug from 'myUtils/githubSlug';
-import trimWidth from 'myUtils/trimWidth';
-import cx from 'classnames';
+import { Store } from "flummox";
+import { Map, Record } from "immutable";
+import githubSlug from "myUtils/githubSlug";
+import trimWidth from "myUtils/trimWidth";
+import cx from "classnames";
 
 /* eslint-disable camelcase */
 const IssueRecord = Record({
@@ -45,26 +45,26 @@ const IssueRecord = Record({
 /* eslint-enable camelcase */
 
 const isPullRequest = (issue) => {
-  if (typeof issue.pull_request === 'undefined' || issue.pull_request === null) {
+  if (typeof issue.pull_request === "undefined" || issue.pull_request === null) {
     return false;
   }
   return Object.keys(issue.pull_request).length !== 0;
 };
 const isClosed = (issue) => {
-  return issue.state === 'closed';
+  return issue.state === "closed";
 };
 
 const switchCardIconClass = (issue) => {
   return cx(
-    'octicon',
-    { 'octicon-issue-opened': !isPullRequest(issue) && !isClosed(issue) },
-    { 'octicon-issue-closed': !isPullRequest(issue) && isClosed(issue) },
-    { 'octicon-issue-reopened': false },
-    { 'octicon-git-pull-request': isPullRequest(issue) },
-    { 'open': !isClosed(issue) },
-    { 'merged': false },
-    { 'closed': isClosed(issue) },
-    { 'reverted': false },
+    "octicon",
+    { "octicon-issue-opened": !isPullRequest(issue) && !isClosed(issue) },
+    { "octicon-issue-closed": !isPullRequest(issue) && isClosed(issue) },
+    { "octicon-issue-reopened": false },
+    { "octicon-git-pull-request": isPullRequest(issue) },
+    { "open": !isClosed(issue) },
+    { "merged": false },
+    { "closed": isClosed(issue) },
+    { "reverted": false },
   );
 };
 
@@ -95,7 +95,7 @@ export class IssueStore extends Store {
      Registering action handlers
      */
 
-    const issueActionIds = flux.getActionIds('issues');
+    const issueActionIds = flux.getActionIds("issues");
 
     this.register(issueActionIds.createIssue, this.createIssue);
     this.register(issueActionIds.fetchIssues, this.updateMultipleIssues);
@@ -121,7 +121,7 @@ export class IssueStore extends Store {
     this.setState({ issues: this.state.issues.clear() });
   }
   deleteIssue(issue) {
-    let issues = this.state.issues.delete(issue.get('id'));
+    let issues = this.state.issues.delete(issue.get("id"));
     if(issues !== this.state.issues) {
       this.setState({ issues: issues });
     }

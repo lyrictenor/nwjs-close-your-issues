@@ -1,23 +1,23 @@
-'use strict';
+"use strict";
 
-import React from 'react';
-import Router from 'react-router';
-import Immutable from 'immutable';
+import React from "react";
+import Router from "react-router";
+import Immutable from "immutable";
 
-import { AppFlux } from '../flux/AppFlux';
+import { AppFlux } from "../flux/AppFlux";
 
-import App from 'components/App';
-import InterfaceAbout from 'components/Interfaces/About';
-import InterfaceIssue from 'components/Interfaces/Issue';
-import InterfaceConfig from 'components/Interfaces/Config';
+import App from "components/App";
+import InterfaceAbout from "components/Interfaces/About";
+import InterfaceIssue from "components/Interfaces/Issue";
+import InterfaceConfig from "components/Interfaces/Config";
 
 try {
 
-    require('styles/main.less');
-    require('bootstrap/dist/css/bootstrap.css');
-    require('font-awesome/css/font-awesome.css');
-    require('octicons/octicons/octicons.css');
-    require('../browser/nwjs');
+    require("styles/main.less");
+    require("bootstrap/dist/css/bootstrap.css");
+    require("font-awesome/css/font-awesome.css");
+    require("octicons/octicons/octicons.css");
+    require("../browser/nwjs");
 
     const flux = new AppFlux();
 
@@ -33,7 +33,7 @@ try {
     );
 
     Router.run(Interfaces, function (Handler) {
-        React.render(<Handler flux={flux} />, document.getElementById('app'));
+        React.render(<Handler flux={flux} />, document.getElementById("app"));
     });
 } catch(e) {
     React.render(
