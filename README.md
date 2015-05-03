@@ -1,33 +1,7 @@
 # close-your-issues
 [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image] [![Coverage Status][coveralls-image]][coveralls-url]
 
-The best module ever.
-
-
-## Install
-
-```bash
-npm install
-npm start
-```
-
-
-## Usage
-
-```javascript
-var closeYourIssues = require('close-your-issues');
-closeYourIssues(); // "awesome"
-```
-
-## API
-
-_(Coming soon)_
-
-
-## Contributing
-
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [gulp](http://gulpjs.com/).
-
+Handle too much issues.
 
 ## License
 
