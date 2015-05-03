@@ -226,6 +226,11 @@
           "resolved": "https://registry.npmjs.org/qs/-/qs-2.4.1.tgz"
         }
       }
+    },
+    "uri-templates": {
+      "version": "0.1.7",
+      "from": "uri-templates@*",
+      "resolved": "https://registry.npmjs.org/uri-templates/-/uri-templates-0.1.7.tgz"
     }
   }
 }
