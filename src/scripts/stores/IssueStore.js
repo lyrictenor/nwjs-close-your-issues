@@ -1,13 +1,13 @@
 "use strict";
 
 import { Store } from "flummox";
-import { Map, Record } from "immutable";
+import { Map as map, Record as record } from "immutable";
 import githubSlug from "myUtils/githubSlug";
 import trimWidth from "myUtils/trimWidth";
 import cx from "classnames";
 
 /* eslint-disable camelcase */
-const IssueRecord = Record({
+const issueRecord = record({
   id: null,
   url: null,
   html_url: null,
@@ -24,7 +24,7 @@ const IssueRecord = Record({
   closed_at: null,
   body_text: "",
   body_text_short: "",
-  user: Record({
+  user: record({
     id: null,
     login: null,
     avatar_url: null
@@ -37,7 +37,7 @@ const IssueRecord = Record({
   button_close_issue: false,
   button_reopen_issue: false,
   button_merge_pull_request: false,
-  pull_request: Record({
+  pull_request: record({
     url: null,
     html_url: null
   })
@@ -89,7 +89,7 @@ export class IssueStore extends Store {
   constructor(flux) {
     super();
 
-    this.state = { issues: Map() };
+    this.state = { issues: map() };
 
     /*
      Registering action handlers
@@ -106,13 +106,13 @@ export class IssueStore extends Store {
     this.register(issueActionIds.deleteBranch, this.updateSingleIssue);
   }
   createIssue(data) {
-    const newMap = this.state.issues.set(data.id, new IssueRecord(issueDecorator(data)));
+    const newMap = this.state.issues.set(data.id, issueRecord(issueDecorator(data)));
     this.setState({ issues: newMap });
   }
   updateMultipleIssues(issues) {
-    let issuesMap = Map();
+    let issuesMap = map();
     for(let issue of issues) {
-      issuesMap = issuesMap.set(issue.id, new IssueRecord(issueDecorator(issue)));
+      issuesMap = issuesMap.set(issue.id, issueRecord(issueDecorator(issue)));
     }
 
     this.setState({ issues: this.state.issues.merge(issuesMap) });
