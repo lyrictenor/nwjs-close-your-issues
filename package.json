@@ -71,9 +71,10 @@
     "build": "npm run db && grunt build",
     "db": "lovefield-spac --schema src/schema/close_your_issues.yml --namespace closeyourissues.db --outputdir src/assets/js",
     "jsonlint": "find . \\( -path ./node_modules -o -path ./dist \\) -prune -o -name '*.json' -print0 | xargs -0 -n 1 jsonlint",
-    "lint": "eslint --ext .js,.jsx src/scripts test",
+    "eslint": "eslint --ext .js,.jsx src/scripts test",
+    "lint": "npm run jsonlint && npm run eslint",
     "start": "npm run db && grunt serve",
-    "test": "npm run db && mocha --compilers js:babel/register --require espower-babel/guess test/**/*{test,Test}.js",
+    "test": "npm run db && mocha --compilers js:babel/register --require espower-babel/guess -- test/**/*.js",
     "verify": "npm run lint && npm run build && npm test"
   },
   "src": "src",
