@@ -1,7 +1,6 @@
 "use strict";
 
 import { Actions } from "flummox";
-import uuid from "myUtils/uuid";
 import axios from "axios";
 import uriTemplates from "uri-templates";
 
@@ -34,14 +33,6 @@ let serverFetchIssues = async function(settings) {
     url = `${settings.get("apiendpoint")}/repos/${settings.get("slug")}/issues`;
   }
   return await serverListIssues(url, config);
-};
-
-let serverCreateIssue = function(settings, issueContent) {
-
-  const newIssue = { id: uuid(), title: issueContent };
-  //axios.post(apiendpoint + '/todos', newIssue);
-
-  return newIssue; // passed to the store without awaiting REST response for optimistic add
 };
 
 let serverDeleteIssue = function(settings, issue) {
@@ -200,11 +191,6 @@ export class IssueActions extends Actions {
   clearIssues() {
     //const settings = this.fetchSettings();
     return true;
-  }
-
-  createIssue(issueContent) {
-    const settings = this.fetchSettings();
-    return serverCreateIssue(settings, issueContent);
   }
 
   deleteIssue(issue) {
