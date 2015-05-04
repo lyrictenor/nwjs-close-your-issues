@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-var package = require("../package.json");
 var fs = require("fs");
 var changelog = require("conventional-changelog");
 
