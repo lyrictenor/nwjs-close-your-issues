@@ -4,6 +4,23 @@ import { Actions } from "flummox";
 import axios from "axios";
 import uriTemplates from "uri-templates";
 
+const defaultConfig = (token) => {
+  if (token) {
+    return {
+      headers: {
+        Accept: "application/vnd.github.v3.text+json",
+        Authorization: `token ${token}`
+      }
+    };
+  } else {
+    return {
+      headers: {
+        Accept: "application/vnd.github.v3.text+json"
+      }
+    };
+  }
+};
+
 // https://developer.github.com/v3/issues/#list-issues
 // GET /issues
 const serverListIssues = async (url, config) => {
