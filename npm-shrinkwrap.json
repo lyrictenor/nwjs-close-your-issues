@@ -157,6 +157,11 @@
         }
       }
     },
+    "moment": {
+      "version": "2.10.2",
+      "from": "moment@*",
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.10.2.tgz"
+    },
     "octicons": {
       "version": "2.2.0",
       "from": "octicons@>=2.2.0 <3.0.0",
