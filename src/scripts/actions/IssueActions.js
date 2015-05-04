@@ -37,20 +37,6 @@ const toggledIssueState = (state) => {
   return (state === "open") ? "closed" : "open";
 };
 
-const serverToggleIssueState = async (settings, issue) => {
-  if (!settings.get("token")) {
-    return issue.toJS();
-  }
-
-  let config = defaultConfig(settings.get("token"));
-  let data = {
-    state: toggledIssueState(issue.get("state"))
-  };
-
-  let url = issue.get("url");
-  return await serverEditIssue(url, data, config);
-};
-
 // GET /repos/:owner/:repo/issues/:number
 const serverGetSingleIssue = async (settings, issue) => {
   let config = defaultConfig(settings.get("token"));
@@ -166,7 +152,17 @@ export class IssueActions extends Actions {
 
   async toggleIssueState(issue) {
     const settings = this.fetchSettings();
-    const response = await serverToggleIssueState(settings, issue);
+    if (!settings.get("token")) {
+      return issue.toJS();
+    }
+
+    let config = defaultConfig(settings.get("token"));
+    let data = {
+      state: toggledIssueState(issue.get("state"))
+    };
+
+    let url = issue.get("url");
+    const response = await serverEditIssue(url, data, config);
     return response.data;
   }
 
