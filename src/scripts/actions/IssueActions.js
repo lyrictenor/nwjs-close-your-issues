@@ -35,11 +35,17 @@ let serverFetchIssues = async function(settings) {
   return await serverListIssues(url, config);
 };
 
+// https://developer.github.com/v3/issues/#edit-an-issue
+// PATCH /repos/:owner/:repo/issues/:number
+const serverEditIssue = async (url, data, config) => {
+  return await axios.patch(url, data, config);
+};
+
 const toggledIssueState = (state) => {
   return (state === "open") ? "closed" : "open";
 };
 
-let serverToggleIssueState = async (settings, issue) => {
+const serverToggleIssueState = async (settings, issue) => {
   // PATCH /repos/:owner/:repo/issues/:number
   let headers = { Accept: "application/vnd.github.v3.text+json" };
   let data = {
@@ -57,9 +63,8 @@ let serverToggleIssueState = async (settings, issue) => {
     // TODO: Handle error
     return issue.toJS();
   }
-  // TODO: Handle error
-  const updatedIssue = await axios.patch(url, data, config);
-  return updatedIssue.data;
+
+  return await serverEditIssue(url, data, config);
 };
 
 let serverGetSingleIssue = async (settings, issue) => {
@@ -194,7 +199,8 @@ export class IssueActions extends Actions {
 
   async toggleIssueState(issue) {
     const settings = this.fetchSettings();
-    return await serverToggleIssueState(settings, issue);
+    const response = await serverToggleIssueState(settings, issue);
+    return response.data;
   }
 
   async mergePullRequest(issue) {
