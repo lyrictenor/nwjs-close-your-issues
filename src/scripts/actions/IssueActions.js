@@ -1,181 +1,66 @@
 "use strict";
 
 import { Actions } from "flummox";
-import uuid from "myUtils/uuid";
 import axios from "axios";
 import uriTemplates from "uri-templates";
 
-let serverFetchIssues = async function(settings) {
-  let headers = { Accept: "application/vnd.github.v3.text+json" };
-  /* eslint-disable camelcase */
-  let config = {
-    headers: headers,
-    params: {
-      state: "all",
-      page: 1,
-      per_page: 100,
-      sort: "updated"
-    }
-  };
-  /* eslint-enable camelcase */
-
-  let url;
-  if (settings.get("token")) {
-    headers.Authorization = `token ${settings.get("token")}`;
-    config.params.filter = "all";
-    url = `${settings.get("apiendpoint")}/issues`;
+const defaultConfig = (token) => {
+  if (token) {
+    return {
+      headers: {
+        Accept: "application/vnd.github.v3.text+json",
+        Authorization: `token ${token}`
+      }
+    };
   } else {
-    url = `${settings.get("apiendpoint")}/repos/${settings.get("slug")}/issues`;
+    return {
+      headers: {
+        Accept: "application/vnd.github.v3.text+json"
+      }
+    };
   }
-  const issues = await axios.get(url, config);
-  return issues.data;
-  //let issues = await require('../../issues.json');
-  //return issues;
 };
 
-let serverCreateIssue = function(settings, issueContent) {
-
-  const newIssue = { id: uuid(), title: issueContent };
-  //axios.post(apiendpoint + '/todos', newIssue);
-
-  return newIssue; // passed to the store without awaiting REST response for optimistic add
+// https://developer.github.com/v3/issues/#list-issues
+// GET /issues
+const serverListIssues = async (url, config) => {
+  return await axios.get(url, config);
 };
 
-let serverDeleteIssue = function(settings, issue) {
-  //axios.delete(apiendpoint + '/todos/' + issue.get('id'));
-  return issue; // passed to the store without awaiting REST response for optimistic delete
+// https://developer.github.com/v3/issues/#edit-an-issue
+// PATCH /repos/:owner/:repo/issues/:number
+const serverEditIssue = async (issueUrl, data, config) => {
+  return await axios.patch(issueUrl, data, config);
 };
 
 const toggledIssueState = (state) => {
   return (state === "open") ? "closed" : "open";
 };
 
-let serverToggleIssueState = async (settings, issue) => {
-  // PATCH /repos/:owner/:repo/issues/:number
-  let headers = { Accept: "application/vnd.github.v3.text+json" };
-  let data = {
-    state: toggledIssueState(issue.get("state"))
-  };
-  let config = {
-    headers: headers
-  };
-
-  let url;
-  if (settings.get("token")) {
-    headers.Authorization = `token ${settings.get("token")}`;
-    url = issue.get("url");
-  } else {
-    // TODO: Handle error
-    return issue.toJS();
-  }
-  // TODO: Handle error
-  const updatedIssue = await axios.patch(url, data, config);
-  return updatedIssue.data;
+// https://developer.github.com/v3/issues/#get-a-single-issue
+// GET /repos/:owner/:repo/issues/:number
+const serverGetSingleIssue = async (issueUrl, config) => {
+  return await axios.get(issueUrl, config);
 };
 
-let serverGetSingleIssue = async (settings, issue) => {
-  // GET /repos/:owner/:repo/issues/:number
-  let headers = { Accept: "application/vnd.github.v3.text+json" };
-  /* eslint-disable camelcase */
-  let config = {
-    headers: headers
-  };
-  /* eslint-enable camelcase */
-
-  let url;
-  if (settings.get("token")) {
-    headers.Authorization = `token ${settings.get("token")}`;
-  }
-  url = issue.url;
-  // TODO: Handle Error
-  const updatedIssue = await axios.get(url, config);
-  return updatedIssue.data;
+// https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-button
+// PUT /repos/:owner/:repo/pulls/:number/merge
+const serverMergePullRequest = async (pullRequestUrl, data, config) => {
+  const apiUrl = `${pullRequestUrl}/merge`;
+  return await axios.put(apiUrl, data, config);
 };
 
-let serverGetSinglePullRequest = async (settings, issue) => {
-  // GET /repos/:owner/:repo/issues/:number
-  let headers = { Accept: "application/vnd.github.v3.text+json" };
-  /* eslint-disable camelcase */
-  let config = {
-    headers: headers
-  };
-  /* eslint-enable camelcase */
-
-  if (settings.get("token")) {
-    headers.Authorization = `token ${settings.get("token")}`;
-  }
-  if (!issue.pull_request.url) {
-    // TODO: Handle Error
-    return null;
-  }
-  let url = issue.pull_request.url;
-  // TODO: Handle Error
-  const updatedPullRequest = await axios.get(url, config);
-  return updatedPullRequest.data;
+// https://developer.github.com/v3/pulls/#get-a-single-pull-request
+// GET /repos/:owner/:repo/pulls/:number
+const serverGetSinglePullRequest = async (pullRequestUrl, config) => {
+  return await axios.get(pullRequestUrl, config);
 };
-
-
-let serverMergePullRequest = async (settings, issue) => {
-  // PUT /repos/:owner/:repo/pulls/:number/merge
-  let headers = { Accept: "application/vnd.github.v3.text+json" };
-  let data = {
-  };
-  let config = {
-    headers: headers
-  };
-  let url;
-  if (settings.get("token")) {
-    headers.Authorization = `token ${settings.get("token")}`;
-    url = `${issue.pull_request.url}/merge`;
-  } else {
-    // TODO: Handle Error
-    return issue.toJS();
-  }
-  // TODO: Handle Error
-  const response = await axios.put(url, data, config);
-  if (response.data.merged !== true) {
-    // TODO: Handle Error
-    console.log(response.data.message);
-    return issue.toJS();
-  }
-  // TODO: Handle Error
-  return await serverGetSingleIssue(settings, issue);
+// https://developer.github.com/v3/git/refs/#delete-a-reference
+// DELETE /repos/:owner/:repo/git/refs/:ref
+// DELETE /repos/octocat/Hello-World/git/refs/heads/feature-a
+const serverDeleteRefs = async (refsUrl, config) => {
+  return await axios.delete(refsUrl, config);
 };
-
-let serverDeleteBranch = async (settings, issue) => {
-  // TODO: Handle Error
-  const pullRequest = await serverGetSinglePullRequest(settings, issue);
-  if (pullRequest === null) {
-    return issue.toJS();
-  }
-
-  const headRef = pullRequest.head.ref;
-  const refTemplate = pullRequest.head.repo.git_refs_url;
-  if (!headRef || !refTemplate) {
-    return issue.toJS();
-  }
-
-  // DELETE /repos/:owner/:repo/git/refs/:ref
-  // DELETE /repos/octocat/Hello-World/git/refs/heads/feature-a
-  let headers = { Accept: "application/vnd.github.v3.text+json" };
-  let config = {
-    headers: headers
-  };
-  const template = uriTemplates(refTemplate);
-  let url;
-  if (settings.get("token")) {
-    headers.Authorization = `token ${settings.get("token")}`;
-    url = template.fill({ sha: `heads/${headRef}`});
-  } else {
-    // TODO: Handle Error
-    return issue.toJS();
-  }
-  // TODO: Handle Error
-  const response = await axios.delete(url, config);
-  // TODO: Handle Error
-  return await serverGetSingleIssue(settings, issue);
-};
-
 
 export class IssueActions extends Actions {
 
@@ -190,36 +75,104 @@ export class IssueActions extends Actions {
 
   async fetchIssues() {
     const settings = this.fetchSettings();
-    return await serverFetchIssues(settings);
+    let config = defaultConfig(settings.get("token"));
+    /* eslint-disable camelcase */
+    config.params = {
+      state: "all",
+      page: 1,
+      per_page: 100,
+      sort: "updated"
+    };
+    /* eslint-enable camelcase */
+
+    // TODO: Use apiendpoint reposepnse
+    let url;
+    if (settings.get("token")) {
+      config.params.filter = "all";
+      url = `${settings.get("apiendpoint")}/issues`;
+    } else {
+      url = `${settings.get("apiendpoint")}/repos/${settings.get("slug")}/issues`;
+    }
+    const response = await serverListIssues(url, config);
+    return response.data;
   }
 
   clearIssues() {
-    const settings = this.fetchSettings();
+    //const settings = this.fetchSettings();
     return true;
   }
 
-  createIssue(issueContent) {
-    const settings = this.fetchSettings();
-    return serverCreateIssue(settings, issueContent);
-  }
-
   deleteIssue(issue) {
-    const settings = this.fetchSettings();
-    return serverDeleteIssue(settings, issue);
+    return issue;
   }
 
   async toggleIssueState(issue) {
     const settings = this.fetchSettings();
-    return await serverToggleIssueState(settings, issue);
+    if (!settings.get("token")) {
+      return issue.toJS();
+    }
+
+    let config = defaultConfig(settings.get("token"));
+    let data = {
+      state: toggledIssueState(issue.get("state"))
+    };
+
+    let url = issue.get("url");
+    const response = await serverEditIssue(url, data, config);
+    return response.data;
   }
 
   async mergePullRequest(issue) {
     const settings = this.fetchSettings();
-    return await serverMergePullRequest(settings, issue);
+    if(!settings.get("token") || !issue.pull_request.url || !issue.url) {
+      return issue.toJS();
+    }
+
+    let config = defaultConfig(settings.get("token"));
+    let data = {};
+    const issueUrl = issue.url;
+    const pullRequestUrl = issue.pull_request.url;
+
+    const mergeResponse = await serverMergePullRequest(pullRequestUrl, data, config);
+    if (mergeResponse.data.merged !== true) {
+      // TODO: Handle Error
+      console.log(mergeResponse.data.message);
+      return issue.toJS();
+    }
+
+    const response = await serverGetSingleIssue(issueUrl, config);
+    return response.data;
   }
 
-  async deleteBranch(issue) {
+  async deleteIssueBranch(issue) {
     const settings = this.fetchSettings();
-    return await serverDeleteBranch(settings, issue);
+    if(!settings.get("token") || !issue.pull_request.url || !issue.url) {
+      return issue.toJS();
+    }
+
+    let config = defaultConfig(settings.get("token"));
+    const pullRequestUrl = issue.pull_request.url;
+    const issueUrl = issue.url;
+
+    const response = await serverGetSinglePullRequest(pullRequestUrl, config);
+
+    const pullRequest = response.data;
+    const headRef = pullRequest.head.ref;
+    const refTemplate = pullRequest.head.repo.git_refs_url;
+    if (!headRef || !refTemplate) {
+      return issue.toJS();
+    }
+
+    // DELETE /repos/:owner/:repo/git/refs/:ref
+    // DELETE /repos/octocat/Hello-World/git/refs/heads/feature-a
+    const template = uriTemplates(refTemplate);
+    const refsUrl = template.fill({ sha: `heads/${headRef}` });
+
+    // Delete branch
+    // TODO: Handle Error
+    await serverDeleteRefs(refsUrl, config);
+
+    const response2 = await serverGetSingleIssue(issueUrl, config);
+    return response2.data;
   }
 }

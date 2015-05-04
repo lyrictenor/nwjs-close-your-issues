@@ -15,7 +15,7 @@ export default class IssueCard extends React.Component {
     this.props.flux.getActions("issues").mergePullRequest(issue);
   }
   onDeleteBranch(issue) {
-    this.props.flux.getActions("issues").deleteBranch(issue);
+    this.props.flux.getActions("issues").deleteIssueBranch(issue);
   }
   render() {
     const { issue } = this.props;
