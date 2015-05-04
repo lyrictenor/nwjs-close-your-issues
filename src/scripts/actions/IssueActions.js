@@ -55,6 +55,12 @@ const serverMergePullRequest = async (pullRequestUrl, data, config) => {
 const serverGetSinglePullRequest = async (pullRequestUrl, config) => {
   return await axios.get(pullRequestUrl, config);
 };
+// https://developer.github.com/v3/git/refs/#delete-a-reference
+// DELETE /repos/:owner/:repo/git/refs/:ref
+// DELETE /repos/octocat/Hello-World/git/refs/heads/feature-a
+const serverDeleteRefs = async (refsUrl, config) => {
+  return await axios.delete(refsUrl, config);
+};
 
 export class IssueActions extends Actions {
 
@@ -140,20 +146,17 @@ export class IssueActions extends Actions {
 
   async deleteIssueBranch(issue) {
     const settings = this.fetchSettings();
-    if(!settings.get("token")) {
+    if(!settings.get("token") || !issue.pull_request.url || !issue.url) {
       return issue.toJS();
     }
 
-    // TODO: Handle Error
     let config = defaultConfig(settings.get("token"));
-    if (!issue.pull_request.url) {
-      return issue.toJS();
-    }
-    let pullRequestUrl = issue.pull_request.url;
+    const pullRequestUrl = issue.pull_request.url;
+    const issueUrl = issue.url;
+
     const response = await serverGetSinglePullRequest(pullRequestUrl, config);
 
     const pullRequest = response.data;
-
     const headRef = pullRequest.head.ref;
     const refTemplate = pullRequest.head.repo.git_refs_url;
     if (!headRef || !refTemplate) {
@@ -163,13 +166,12 @@ export class IssueActions extends Actions {
     // DELETE /repos/:owner/:repo/git/refs/:ref
     // DELETE /repos/octocat/Hello-World/git/refs/heads/feature-a
     const template = uriTemplates(refTemplate);
-    let url = template.fill({ sha: `heads/${headRef}` });
+    const refsUrl = template.fill({ sha: `heads/${headRef}` });
 
     // Delete branch
     // TODO: Handle Error
-    await axios.delete(url, config);
+    await serverDeleteRefs(refsUrl, config);
 
-    const issueUrl = issue.url;
     const response2 = await serverGetSingleIssue(issueUrl, config);
     return response2.data;
   }
