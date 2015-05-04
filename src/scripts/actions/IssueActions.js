@@ -35,11 +35,6 @@ let serverFetchIssues = async function(settings) {
   return await serverListIssues(url, config);
 };
 
-let serverDeleteIssue = function(settings, issue) {
-  //axios.delete(apiendpoint + '/todos/' + issue.get('id'));
-  return issue; // passed to the store without awaiting REST response for optimistic delete
-};
-
 const toggledIssueState = (state) => {
   return (state === "open") ? "closed" : "open";
 };
@@ -194,8 +189,7 @@ export class IssueActions extends Actions {
   }
 
   deleteIssue(issue) {
-    const settings = this.fetchSettings();
-    return serverDeleteIssue(settings, issue);
+    return issue;
   }
 
   async toggleIssueState(issue) {
