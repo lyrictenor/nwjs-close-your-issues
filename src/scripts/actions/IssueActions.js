@@ -27,27 +27,6 @@ const serverListIssues = async (url, config) => {
   return await axios.get(url, config);
 };
 
-const serverFetchIssues = async function(settings) {
-  let config = defaultConfig(settings.get("token"));
-  /* eslint-disable camelcase */
-  config.params = {
-    state: "all",
-    page: 1,
-    per_page: 100,
-    sort: "updated"
-  };
-  /* eslint-enable camelcase */
-
-  let url;
-  if (settings.get("token")) {
-    config.params.filter = "all";
-    url = `${settings.get("apiendpoint")}/issues`;
-  } else {
-    url = `${settings.get("apiendpoint")}/repos/${settings.get("slug")}/issues`;
-  }
-  return await serverListIssues(url, config);
-};
-
 // https://developer.github.com/v3/issues/#edit-an-issue
 // PATCH /repos/:owner/:repo/issues/:number
 const serverEditIssue = async (url, data, config) => {
@@ -154,7 +133,25 @@ export class IssueActions extends Actions {
 
   async fetchIssues() {
     const settings = this.fetchSettings();
-    const response = await serverFetchIssues(settings);
+    let config = defaultConfig(settings.get("token"));
+    /* eslint-disable camelcase */
+    config.params = {
+      state: "all",
+      page: 1,
+      per_page: 100,
+      sort: "updated"
+    };
+    /* eslint-enable camelcase */
+
+    // TODO: Use apiendpoint reposepnse
+    let url;
+    if (settings.get("token")) {
+      config.params.filter = "all";
+      url = `${settings.get("apiendpoint")}/issues`;
+    } else {
+      url = `${settings.get("apiendpoint")}/repos/${settings.get("slug")}/issues`;
+    }
+    const response = await serverListIssues(url, config);
     return response.data;
   }
 
