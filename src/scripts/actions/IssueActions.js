@@ -38,14 +38,6 @@ const toggledIssueState = (state) => {
 };
 
 // GET /repos/:owner/:repo/issues/:number
-const serverGetSingleIssue = async (settings, issue) => {
-  let config = defaultConfig(settings.get("token"));
-  const url = issue.url;
-  // TODO: Handle Error
-  return await axios.get(url, config);
-};
-
-// GET /repos/:owner/:repo/issues/:number
 let serverGetSinglePullRequest = async (settings, issue) => {
   let config = defaultConfig(settings.get("token"));
   if (!issue.pull_request.url) {
@@ -64,15 +56,21 @@ let serverMergePullRequest = async (settings, issue) => {
 
   let config = defaultConfig(settings.get("token"));
   let data = {};
-  let url = `${issue.pull_request.url}/merge`;
+
+  // Merge action
+  const mergeUrl = `${issue.pull_request.url}/merge`;
   // TODO: Handle Error
-  const response = await axios.put(url, data, config);
+  const response = await axios.put(mergeUrl, data, config);
   if (response.data.merged !== true) {
     // TODO: Handle Error
     console.log(response.data.message);
     return issue.toJS();
   }
-  return await serverGetSingleIssue(settings, issue);
+
+  const issueUrl = issue.url;
+  // TODO: Handle Error
+  return await axios.get(issueUrl, config);
+
 };
 
 let serverDeleteBranch = async (settings, issue) => {
@@ -102,7 +100,10 @@ let serverDeleteBranch = async (settings, issue) => {
   // Delete branch
   // TODO: Handle Error
   await axios.delete(url, config);
-  return await serverGetSingleIssue(settings, issue);
+
+  const issueUrl = issue.url;
+  // TODO: Handle Error
+  return await axios.get(issueUrl, config);
 };
 
 
