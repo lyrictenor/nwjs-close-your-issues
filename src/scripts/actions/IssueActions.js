@@ -37,17 +37,6 @@ const toggledIssueState = (state) => {
   return (state === "open") ? "closed" : "open";
 };
 
-// GET /repos/:owner/:repo/issues/:number
-let serverGetSinglePullRequest = async (settings, issue) => {
-  let config = defaultConfig(settings.get("token"));
-  if (!issue.pull_request.url) {
-    // TODO: Handle Error
-    return null;
-  }
-  let url = issue.pull_request.url;
-  return await axios.get(url, config);
-};
-
 // PUT /repos/:owner/:repo/pulls/:number/merge
 let serverMergePullRequest = async (settings, issue) => {
   if(!settings.get("token")) {
@@ -79,10 +68,13 @@ let serverDeleteBranch = async (settings, issue) => {
   }
 
   // TODO: Handle Error
-  const response = await serverGetSinglePullRequest(settings, issue);
-  if (response === null) {
+  let config = defaultConfig(settings.get("token"));
+  if (!issue.pull_request.url) {
     return issue.toJS();
   }
+  let pullRequestUrl = issue.pull_request.url;
+  const response = await axios.get(pullRequestUrl, config);
+
   const pullRequest = response.data;
 
   const headRef = pullRequest.head.ref;
@@ -93,7 +85,6 @@ let serverDeleteBranch = async (settings, issue) => {
 
   // DELETE /repos/:owner/:repo/git/refs/:ref
   // DELETE /repos/octocat/Hello-World/git/refs/heads/feature-a
-  let config = defaultConfig(settings.get("token"));
   const template = uriTemplates(refTemplate);
   let url = template.fill({ sha: `heads/${headRef}` });
 
