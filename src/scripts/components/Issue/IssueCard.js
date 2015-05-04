@@ -48,28 +48,28 @@ export default class IssueCard extends React.Component {
         </div>
         <div>
           <button
-            className="btn btn-default btn-sm"
+            className="btn btn-default"
             {...enableButton(issue.button_close_issue)}
             onClick={this.onToggleIssueState.bind(this, issue)}
             >
             Close Issue
           </button>
           <button
-            className="btn btn-default btn-sm"
+            className="btn btn-default"
             {...enableButton(issue.button_reopen_issue)}
             onClick={this.onToggleIssueState.bind(this, issue)}
             >
             ReOpen Issue
           </button>
           <button
-            className="btn btn-default btn-sm"
+            className="btn btn-default"
             {...enableButton(issue.button_merge_pull_request)}
             onClick={this.onMergePullRequest.bind(this, issue)}
             >
             Merge Pull Request
           </button>
           <button
-            className="btn btn-default btn-sm"
+            className="btn btn-default"
             {...enableButton(issue.button_delete_branch)}
             onClick={this.onDeleteBranch.bind(this, issue)}
             >
@@ -77,14 +77,14 @@ export default class IssueCard extends React.Component {
           </button>
           <a
             href={issue.html_url}
-            className="btn btn-default btn-sm"
+            className="btn btn-default"
             {...enableButton(issue.button_restore_branch)}
             onClick={onOpenExternals.bind(this)}
             >
             Restore Branch
           </a>
           <button
-            className="btn btn-default btn-sm"
+            className="btn btn-default"
             {...enableButton(issue.button_snooze)}
             onClick={this.onDelete.bind(this, issue)}
             >
