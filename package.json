@@ -1,6 +1,6 @@
 {
   "name": "close-your-issues",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": {
     "name": "sanemat",
     "email": "ogataken@gmail.com",
@@ -30,6 +30,7 @@
     "babel-core": "^5.1.11",
     "babel-eslint": "^3.0.1",
     "babel-loader": "^5.0.0",
+    "conventional-changelog": "0.0.17",
     "css-loader": "^0.12.0",
     "eslint": "^0.20.0",
     "eslint-loader": "^0.11.1",
@@ -69,6 +70,7 @@
   },
   "scripts": {
     "build": "npm run db && grunt build",
+    "changelog": "bin/changelog.js",
     "db": "lovefield-spac --schema src/schema/close_your_issues.yml --namespace closeyourissues.db --outputdir src/assets/js",
     "eslint": "eslint --ext .js,.jsx src/scripts test",
     "jsonlint": "find . \\( -path ./node_modules -o -path ./dist \\) -prune -o -name '*.json' -print0 | xargs -0 -n 1 jsonlint",
