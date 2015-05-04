@@ -69,6 +69,7 @@
   "scripts": {
     "build": "npm run db && grunt build",
     "db": "lovefield-spac --schema src/schema/close_your_issues.yml --namespace closeyourissues.db --outputdir src/assets/js",
+    "lint": "eslint --ext .js,.jsx src/scripts test",
     "start": "npm run db && grunt serve",
     "test": "npm run db && mocha --compilers js:babel/register --require espower-babel/guess test/**/*{test,Test}.js",
     "verify": "npm run build && npm test"
