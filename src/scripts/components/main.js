@@ -14,7 +14,6 @@ import InterfaceConfig from "components/Interfaces/Config";
 try {
 
     require("styles/main.less");
-    require("font-awesome/css/font-awesome.css");
     require("octicons/octicons/octicons.css");
     require("../browser/nwjs");
 
