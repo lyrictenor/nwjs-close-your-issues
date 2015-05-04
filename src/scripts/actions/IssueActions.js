@@ -43,6 +43,13 @@ const serverGetSingleIssue = async (issueUrl, config) => {
   return await axios.get(issueUrl, config);
 };
 
+// https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-button
+// PUT /repos/:owner/:repo/pulls/:number/merge
+const serverMergePullRequest = async (pullRequestUrl, data, config) => {
+  const apiUrl = `${pullRequestUrl}/merge`;
+  return await axios.put(apiUrl, data, config);
+};
+
 export class IssueActions extends Actions {
 
   constructor(flux) {
@@ -105,26 +112,23 @@ export class IssueActions extends Actions {
 
   async mergePullRequest(issue) {
     const settings = this.fetchSettings();
-    if(!settings.get("token")) {
+    if(!settings.get("token") || !issue.pull_request.url || !issue.url) {
       return issue.toJS();
     }
 
     let config = defaultConfig(settings.get("token"));
     let data = {};
 
-    // Merge action
-    const mergeUrl = `${issue.pull_request.url}/merge`;
-    // TODO: Handle Error
-    const response = await axios.put(mergeUrl, data, config);
-    if (response.data.merged !== true) {
+    const mergeResponse = serverMergePullRequest(issue.pull_request.url, data, config);
+    if (mergeResponse.data.merged !== true) {
       // TODO: Handle Error
-      console.log(response.data.message);
+      console.log(mergeResponse.data.message);
       return issue.toJS();
     }
 
     const issueUrl = issue.url;
-    const response2 = await serverGetSingleIssue(issueUrl, config);
-    return response2.data;
+    const response = await serverGetSingleIssue(issueUrl, config);
+    return response.data;
   }
 
   async deleteBranch(issue) {
