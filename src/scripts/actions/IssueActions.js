@@ -37,6 +37,12 @@ const toggledIssueState = (state) => {
   return (state === "open") ? "closed" : "open";
 };
 
+// https://developer.github.com/v3/issues/#get-a-single-issue
+// GET /repos/:owner/:repo/issues/:number
+const serverGetSingleIssue = async (url, config) => {
+  return await axios.get(url, config);
+};
+
 // PUT /repos/:owner/:repo/pulls/:number/merge
 let serverMergePullRequest = async (settings, issue) => {
   if(!settings.get("token")) {
@@ -57,9 +63,7 @@ let serverMergePullRequest = async (settings, issue) => {
   }
 
   const issueUrl = issue.url;
-  // TODO: Handle Error
-  return await axios.get(issueUrl, config);
-
+  return await serverGetSingleIssue(issueUrl, config);
 };
 
 let serverDeleteBranch = async (settings, issue) => {
@@ -93,8 +97,7 @@ let serverDeleteBranch = async (settings, issue) => {
   await axios.delete(url, config);
 
   const issueUrl = issue.url;
-  // TODO: Handle Error
-  return await axios.get(issueUrl, config);
+  return await serverGetSingleIssue(issueUrl, config);
 };
 
 
