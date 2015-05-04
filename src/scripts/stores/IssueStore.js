@@ -102,7 +102,7 @@ export class IssueStore extends Store {
     this.register(issueActionIds.deleteIssue, this.deleteIssue);
     this.register(issueActionIds.toggleIssueState, this.updateSingleIssue);
     this.register(issueActionIds.mergePullRequest, this.updateSingleIssue);
-    this.register(issueActionIds.deleteBranch, this.updateSingleIssue);
+    this.register(issueActionIds.deleteIssueBranch, this.updateSingleIssue);
   }
   updateMultipleIssues(issues) {
     let issuesMap = map();

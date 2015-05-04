@@ -131,7 +131,7 @@ export class IssueActions extends Actions {
     return response.data;
   }
 
-  async deleteBranch(issue) {
+  async deleteIssueBranch(issue) {
     const settings = this.fetchSettings();
     if(!settings.get("token")) {
       return issue.toJS();
