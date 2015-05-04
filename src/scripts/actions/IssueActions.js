@@ -29,8 +29,8 @@ const serverListIssues = async (url, config) => {
 
 // https://developer.github.com/v3/issues/#edit-an-issue
 // PATCH /repos/:owner/:repo/issues/:number
-const serverEditIssue = async (url, data, config) => {
-  return await axios.patch(url, data, config);
+const serverEditIssue = async (issueUrl, data, config) => {
+  return await axios.patch(issueUrl, data, config);
 };
 
 const toggledIssueState = (state) => {
@@ -39,8 +39,8 @@ const toggledIssueState = (state) => {
 
 // https://developer.github.com/v3/issues/#get-a-single-issue
 // GET /repos/:owner/:repo/issues/:number
-const serverGetSingleIssue = async (url, config) => {
-  return await axios.get(url, config);
+const serverGetSingleIssue = async (issueUrl, config) => {
+  return await axios.get(issueUrl, config);
 };
 
 export class IssueActions extends Actions {
