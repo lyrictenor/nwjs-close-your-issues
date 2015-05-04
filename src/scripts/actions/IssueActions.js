@@ -43,29 +43,6 @@ const serverGetSingleIssue = async (url, config) => {
   return await axios.get(url, config);
 };
 
-// PUT /repos/:owner/:repo/pulls/:number/merge
-let serverMergePullRequest = async (settings, issue) => {
-  if(!settings.get("token")) {
-    return issue.toJS();
-  }
-
-  let config = defaultConfig(settings.get("token"));
-  let data = {};
-
-  // Merge action
-  const mergeUrl = `${issue.pull_request.url}/merge`;
-  // TODO: Handle Error
-  const response = await axios.put(mergeUrl, data, config);
-  if (response.data.merged !== true) {
-    // TODO: Handle Error
-    console.log(response.data.message);
-    return issue.toJS();
-  }
-
-  const issueUrl = issue.url;
-  return await serverGetSingleIssue(issueUrl, config);
-};
-
 let serverDeleteBranch = async (settings, issue) => {
   if(!settings.get("token")) {
     return issue.toJS();
@@ -163,8 +140,26 @@ export class IssueActions extends Actions {
 
   async mergePullRequest(issue) {
     const settings = this.fetchSettings();
-    const response = await serverMergePullRequest(settings, issue);
-    return response.data;
+    if(!settings.get("token")) {
+      return issue.toJS();
+    }
+
+    let config = defaultConfig(settings.get("token"));
+    let data = {};
+
+    // Merge action
+    const mergeUrl = `${issue.pull_request.url}/merge`;
+    // TODO: Handle Error
+    const response = await axios.put(mergeUrl, data, config);
+    if (response.data.merged !== true) {
+      // TODO: Handle Error
+      console.log(response.data.message);
+      return issue.toJS();
+    }
+
+    const issueUrl = issue.url;
+    const response2 = await serverGetSingleIssue(issueUrl, config);
+    return response2.data;
   }
 
   async deleteBranch(issue) {
