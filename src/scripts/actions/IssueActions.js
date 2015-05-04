@@ -10,7 +10,7 @@ const serverListIssues = async (url, config) => {
   return await axios.get(url, config);
 };
 
-let serverFetchIssues = async function(settings) {
+const serverFetchIssues = async function(settings) {
   let headers = { Accept: "application/vnd.github.v3.text+json" };
   /* eslint-disable camelcase */
   let config = {
