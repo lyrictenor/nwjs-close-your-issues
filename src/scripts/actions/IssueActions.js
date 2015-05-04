@@ -59,24 +59,16 @@ const toggledIssueState = (state) => {
 };
 
 const serverToggleIssueState = async (settings, issue) => {
-  // PATCH /repos/:owner/:repo/issues/:number
-  let headers = { Accept: "application/vnd.github.v3.text+json" };
+  let config = defaultConfig(settings.get("token"));
   let data = {
     state: toggledIssueState(issue.get("state"))
   };
-  let config = {
-    headers: headers
-  };
 
-  let url;
-  if (settings.get("token")) {
-    headers.Authorization = `token ${settings.get("token")}`;
-    url = issue.get("url");
-  } else {
+  if (!settings.get("token")) {
     // TODO: Handle error
     return issue.toJS();
   }
-
+  let url = issue.get("url");
   return await serverEditIssue(url, data, config);
 };
 
