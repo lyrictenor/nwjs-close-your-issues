@@ -15,9 +15,9 @@
       }
     },
     "babel-runtime": {
-      "version": "5.2.5",
+      "version": "5.2.9",
       "from": "babel-runtime@>=5.1.11 <6.0.0",
-      "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.2.5.tgz"
+      "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.2.9.tgz"
     },
     "bootstrap": {
       "version": "3.3.4",
@@ -25,14 +25,14 @@
       "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.4.tgz"
     },
     "classnames": {
-      "version": "1.2.2",
-      "from": "classnames@>=1.2.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/classnames/-/classnames-1.2.2.tgz"
+      "version": "2.0.0",
+      "from": "classnames@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/classnames/-/classnames-2.0.0.tgz"
     },
     "core-js": {
-      "version": "0.9.5",
+      "version": "0.9.6",
       "from": "core-js@>=0.9.3 <0.10.0",
-      "resolved": "https://registry.npmjs.org/core-js/-/core-js-0.9.5.tgz"
+      "resolved": "https://registry.npmjs.org/core-js/-/core-js-0.9.6.tgz"
     },
     "file-loader": {
       "version": "0.8.1",
@@ -229,7 +229,7 @@
     },
     "uri-templates": {
       "version": "0.1.7",
-      "from": "uri-templates@*",
+      "from": "uri-templates@>=0.1.7 <0.2.0",
       "resolved": "https://registry.npmjs.org/uri-templates/-/uri-templates-0.1.7.tgz"
     }
   }
