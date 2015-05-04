@@ -14,7 +14,6 @@ import InterfaceConfig from "components/Interfaces/Config";
 try {
 
     require("styles/main.less");
-    require("octicons/octicons/octicons.css");
     require("../browser/nwjs");
 
     const flux = new AppFlux();
