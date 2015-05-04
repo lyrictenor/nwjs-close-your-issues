@@ -28,22 +28,18 @@ const serverListIssues = async (url, config) => {
 };
 
 const serverFetchIssues = async function(settings) {
-  let headers = { Accept: "application/vnd.github.v3.text+json" };
+  let config = defaultConfig(settings.get("token"));
   /* eslint-disable camelcase */
-  let config = {
-    headers: headers,
-    params: {
-      state: "all",
-      page: 1,
-      per_page: 100,
-      sort: "updated"
-    }
+  config.params = {
+    state: "all",
+    page: 1,
+    per_page: 100,
+    sort: "updated"
   };
   /* eslint-enable camelcase */
 
   let url;
   if (settings.get("token")) {
-    headers.Authorization = `token ${settings.get("token")}`;
     config.params.filter = "all";
     url = `${settings.get("apiendpoint")}/issues`;
   } else {
