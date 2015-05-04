@@ -124,15 +124,16 @@ export class IssueActions extends Actions {
 
     let config = defaultConfig(settings.get("token"));
     let data = {};
+    const issueUrl = issue.url;
+    const pullRequestUrl = issue.pull_request.url;
 
-    const mergeResponse = await serverMergePullRequest(issue.pull_request.url, data, config);
+    const mergeResponse = await serverMergePullRequest(pullRequestUrl, data, config);
     if (mergeResponse.data.merged !== true) {
       // TODO: Handle Error
       console.log(mergeResponse.data.message);
       return issue.toJS();
     }
 
-    const issueUrl = issue.url;
     const response = await serverGetSingleIssue(issueUrl, config);
     return response.data;
   }
