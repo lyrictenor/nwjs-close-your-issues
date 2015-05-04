@@ -127,8 +127,7 @@ let serverMergePullRequest = async (settings, issue) => {
     return issue.toJS();
   }
   // TODO: Handle Error
-  const responseIssue = await serverGetSingleIssue(settings, issue);
-  return responseIssue.data;
+  return await serverGetSingleIssue(settings, issue);
 };
 
 let serverDeleteBranch = async (settings, issue) => {
@@ -160,10 +159,8 @@ let serverDeleteBranch = async (settings, issue) => {
     return issue.toJS();
   }
   // TODO: Handle Error
-  const response = await axios.delete(url, config);
-  // TODO: Handle Error
-  const responseIssue = await serverGetSingleIssue(settings, issue);
-  return responseIssue.data;
+  await axios.delete(url, config);
+  return await serverGetSingleIssue(settings, issue);
 };
 
 
@@ -201,11 +198,13 @@ export class IssueActions extends Actions {
 
   async mergePullRequest(issue) {
     const settings = this.fetchSettings();
-    return await serverMergePullRequest(settings, issue);
+    const response = await serverMergePullRequest(settings, issue);
+    return response.data;
   }
 
   async deleteBranch(issue) {
     const settings = this.fetchSettings();
-    return await serverDeleteBranch(settings, issue);
+    const response = await serverDeleteBranch(settings, issue);
+    return response.data;
   }
 }
