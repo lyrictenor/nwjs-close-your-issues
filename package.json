@@ -72,7 +72,7 @@
     "lint": "eslint --ext .js,.jsx src/scripts test",
     "start": "npm run db && grunt serve",
     "test": "npm run db && mocha --compilers js:babel/register --require espower-babel/guess test/**/*{test,Test}.js",
-    "verify": "npm run build && npm test"
+    "verify": "npm run lint && npm run build && npm test"
   },
   "src": "src",
   "test": "test"
