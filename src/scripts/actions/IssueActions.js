@@ -50,6 +50,12 @@ const serverMergePullRequest = async (pullRequestUrl, data, config) => {
   return await axios.put(apiUrl, data, config);
 };
 
+// https://developer.github.com/v3/pulls/#get-a-single-pull-request
+// GET /repos/:owner/:repo/pulls/:number
+const serverGetSinglePullRequest = async (pullRequestUrl, config) => {
+  return await axios.get(pullRequestUrl, config);
+};
+
 export class IssueActions extends Actions {
 
   constructor(flux) {
@@ -119,7 +125,7 @@ export class IssueActions extends Actions {
     let config = defaultConfig(settings.get("token"));
     let data = {};
 
-    const mergeResponse = serverMergePullRequest(issue.pull_request.url, data, config);
+    const mergeResponse = await serverMergePullRequest(issue.pull_request.url, data, config);
     if (mergeResponse.data.merged !== true) {
       // TODO: Handle Error
       console.log(mergeResponse.data.message);
@@ -143,7 +149,7 @@ export class IssueActions extends Actions {
       return issue.toJS();
     }
     let pullRequestUrl = issue.pull_request.url;
-    const response = await axios.get(pullRequestUrl, config);
+    const response = await serverGetSinglePullRequest(pullRequestUrl, config);
 
     const pullRequest = response.data;
 
