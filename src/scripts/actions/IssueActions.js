@@ -5,6 +5,12 @@ import uuid from "myUtils/uuid";
 import axios from "axios";
 import uriTemplates from "uri-templates";
 
+// https://developer.github.com/v3/issues/#list-issues
+// GET /issues
+const serverListIssues = async (url, config) => {
+  return await axios.get(url, config);
+};
+
 let serverFetchIssues = async function(settings) {
   let headers = { Accept: "application/vnd.github.v3.text+json" };
   /* eslint-disable camelcase */
@@ -27,10 +33,7 @@ let serverFetchIssues = async function(settings) {
   } else {
     url = `${settings.get("apiendpoint")}/repos/${settings.get("slug")}/issues`;
   }
-  const issues = await axios.get(url, config);
-  return issues.data;
-  //let issues = await require('../../issues.json');
-  //return issues;
+  return await serverListIssues(url, config);
 };
 
 let serverCreateIssue = function(settings, issueContent) {
@@ -190,11 +193,12 @@ export class IssueActions extends Actions {
 
   async fetchIssues() {
     const settings = this.fetchSettings();
-    return await serverFetchIssues(settings);
+    const response = await serverFetchIssues(settings);
+    return response.data;
   }
 
   clearIssues() {
-    const settings = this.fetchSettings();
+    //const settings = this.fetchSettings();
     return true;
   }
 
