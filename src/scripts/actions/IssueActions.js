@@ -43,41 +43,6 @@ const serverGetSingleIssue = async (url, config) => {
   return await axios.get(url, config);
 };
 
-let serverDeleteBranch = async (settings, issue) => {
-  if(!settings.get("token")) {
-    return issue.toJS();
-  }
-
-  // TODO: Handle Error
-  let config = defaultConfig(settings.get("token"));
-  if (!issue.pull_request.url) {
-    return issue.toJS();
-  }
-  let pullRequestUrl = issue.pull_request.url;
-  const response = await axios.get(pullRequestUrl, config);
-
-  const pullRequest = response.data;
-
-  const headRef = pullRequest.head.ref;
-  const refTemplate = pullRequest.head.repo.git_refs_url;
-  if (!headRef || !refTemplate) {
-    return issue.toJS();
-  }
-
-  // DELETE /repos/:owner/:repo/git/refs/:ref
-  // DELETE /repos/octocat/Hello-World/git/refs/heads/feature-a
-  const template = uriTemplates(refTemplate);
-  let url = template.fill({ sha: `heads/${headRef}` });
-
-  // Delete branch
-  // TODO: Handle Error
-  await axios.delete(url, config);
-
-  const issueUrl = issue.url;
-  return await serverGetSingleIssue(issueUrl, config);
-};
-
-
 export class IssueActions extends Actions {
 
   constructor(flux) {
@@ -164,7 +129,37 @@ export class IssueActions extends Actions {
 
   async deleteBranch(issue) {
     const settings = this.fetchSettings();
-    const response = await serverDeleteBranch(settings, issue);
-    return response.data;
+    if(!settings.get("token")) {
+      return issue.toJS();
+    }
+
+    // TODO: Handle Error
+    let config = defaultConfig(settings.get("token"));
+    if (!issue.pull_request.url) {
+      return issue.toJS();
+    }
+    let pullRequestUrl = issue.pull_request.url;
+    const response = await axios.get(pullRequestUrl, config);
+
+    const pullRequest = response.data;
+
+    const headRef = pullRequest.head.ref;
+    const refTemplate = pullRequest.head.repo.git_refs_url;
+    if (!headRef || !refTemplate) {
+      return issue.toJS();
+    }
+
+    // DELETE /repos/:owner/:repo/git/refs/:ref
+    // DELETE /repos/octocat/Hello-World/git/refs/heads/feature-a
+    const template = uriTemplates(refTemplate);
+    let url = template.fill({ sha: `heads/${headRef}` });
+
+    // Delete branch
+    // TODO: Handle Error
+    await axios.delete(url, config);
+
+    const issueUrl = issue.url;
+    const response2 = await serverGetSingleIssue(issueUrl, config);
+    return response2.data;
   }
 }
