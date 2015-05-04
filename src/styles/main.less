@@ -1,3 +1,11 @@
+@import "~bootstrap/less/bootstrap";
+@import "~font-awesome/less/font-awesome";
+@import "~octicons/octicons/octicons.less";
+@octicons-font-path: "~octicons/octicons";
+@border-radius-base: 0;
+@border-radius-large: 0;
+@border-radius-small: 0;
+
 .pageheader i.mega-octicon {
     color: #f1c40f;
 }
@@ -24,14 +32,13 @@
   }
   li {
     .btn {
-      margin: 10px;
-      padding: 5px 20px;
+      margin: 10px 0;
     }
-    .btn:first-child {
-      margin: 10px 10px 10px 0;
-    }
-    .btn:last-child {
-      margin: 10px 0 10px 10px;
-    }
+  }
+}
+
+.issue-header {
+  .btn {
+    margin: 10px 0;
   }
 }

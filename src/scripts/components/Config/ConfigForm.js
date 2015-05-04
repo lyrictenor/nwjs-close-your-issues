@@ -39,7 +39,9 @@ class ConfigForm extends React.Component {
       <Formsy.Form
         onValidSubmit={this.submit.bind(this)}
         onValid={this.enableButton.bind(this)}
-        onInvalid={this.disableButton.bind(this)}>
+        onInvalid={this.disableButton.bind(this)}
+        className="config-form"
+        >
         <FormInput
           name="apiEndpoint"
           placeholder={defaultValues.apiendpoint}
