@@ -1,12 +1,11 @@
 'use strict';
 
-import closeYourIssues from '../src/scripts/example/close-your-issues';
+import githubSlug from '../../src/scripts/utils/githubSlug';
 import assert from 'power-assert';
 
-describe('closeYourIssues', () => {
-
-  it('should be awesome', () => {
-    assert.equal(closeYourIssues(), 'awesome');
+describe('githubSlug', () => {
+  it('detects slug', () => {
+    const repoUrl = 'https://github.com/lyrictenor/nwjs-close-your-issues';
+    assert.equal(githubSlug(repoUrl), 'lyrictenor/nwjs-close-your-issues');
   });
-
 });
