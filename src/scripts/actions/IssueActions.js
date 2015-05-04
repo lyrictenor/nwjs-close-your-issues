@@ -72,23 +72,12 @@ const serverToggleIssueState = async (settings, issue) => {
   return await serverEditIssue(url, data, config);
 };
 
-let serverGetSingleIssue = async (settings, issue) => {
-  // GET /repos/:owner/:repo/issues/:number
-  let headers = { Accept: "application/vnd.github.v3.text+json" };
-  /* eslint-disable camelcase */
-  let config = {
-    headers: headers
-  };
-  /* eslint-enable camelcase */
-
-  let url;
-  if (settings.get("token")) {
-    headers.Authorization = `token ${settings.get("token")}`;
-  }
-  url = issue.url;
+// GET /repos/:owner/:repo/issues/:number
+const serverGetSingleIssue = async (settings, issue) => {
+  let config = defaultConfig(settings.get("token"));
+  const url = issue.url;
   // TODO: Handle Error
-  const updatedIssue = await axios.get(url, config);
-  return updatedIssue.data;
+  return await axios.get(url, config);
 };
 
 let serverGetSinglePullRequest = async (settings, issue) => {
@@ -138,7 +127,8 @@ let serverMergePullRequest = async (settings, issue) => {
     return issue.toJS();
   }
   // TODO: Handle Error
-  return await serverGetSingleIssue(settings, issue);
+  const responseIssue = await serverGetSingleIssue(settings, issue);
+  return responseIssue.data;
 };
 
 let serverDeleteBranch = async (settings, issue) => {
@@ -172,7 +162,8 @@ let serverDeleteBranch = async (settings, issue) => {
   // TODO: Handle Error
   const response = await axios.delete(url, config);
   // TODO: Handle Error
-  return await serverGetSingleIssue(settings, issue);
+  const responseIssue = await serverGetSingleIssue(settings, issue);
+  return responseIssue.data;
 };
 
 
