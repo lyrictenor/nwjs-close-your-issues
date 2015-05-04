@@ -1,10 +1,11 @@
 "use strict";
 
 import { Store } from "flummox";
-import { Map as map, Record as record } from "immutable";
+import { Map as map, Record as record, OrderedMap as orderedMap } from "immutable";
 import githubSlug from "myUtils/githubSlug";
 import trimWidth from "myUtils/trimWidth";
 import cx from "classnames";
+import moment from "moment";
 
 /* eslint-disable camelcase */
 const issueRecord = record({
@@ -84,12 +85,16 @@ const issueDecorator = (issue) => {
   return copied;
 };
 
+const compareTimeUpdatedAtDesc = (issue1, issue2) => {
+  return (moment.utc(issue1.updated_at).isBefore(moment.utc(issue2.updated_at))) ? 1 : -1;
+};
+
 export class IssueStore extends Store {
 
   constructor(flux) {
     super();
 
-    this.state = { issues: map() };
+    this.state = { issues: orderedMap() };
 
     /*
      Registering action handlers
@@ -105,12 +110,12 @@ export class IssueStore extends Store {
     this.register(issueActionIds.deleteIssueBranch, this.updateSingleIssue);
   }
   updateMultipleIssues(issues) {
-    let issuesMap = map();
+    let issuesMap = orderedMap();
     for(let issue of issues) {
       issuesMap = issuesMap.set(issue.id, issueRecord(issueDecorator(issue)));
     }
 
-    this.setState({ issues: this.state.issues.merge(issuesMap) });
+    this.setState({ issues: this.state.issues.merge(issuesMap).sort(compareTimeUpdatedAtDesc) });
   }
   clearIssues() {
     this.setState({ issues: this.state.issues.clear() });
