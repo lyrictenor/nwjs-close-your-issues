@@ -45,7 +45,7 @@ module.exports = function() {
     return new Promise(function(done) {
       return getDbNames().then(function(names) {
         return removeAllIndexedDb(names).then(function() {
-          console.info("all items removed!");
+          console.log("all items removed!");
           return done();
         });
       });
