@@ -114,9 +114,9 @@ export default class IssueStore extends Store {
     this.register(issueActionIds.fetchIssues, this.updateMultipleIssues);
     this.register(issueActionIds.clearIssues, this.clearIssues);
     this.register(issueActionIds.deleteIssue, this.deleteIssue);
-    this.register(issueActionIds.toggleIssueState, this.updateSingleIssue);
-    this.register(issueActionIds.mergePullRequest, this.updateSingleIssue);
-    this.register(issueActionIds.deleteIssueBranch, this.updateSingleIssue);
+    this.register(issueActionIds.toggleIssueState, this.updateSingleIssueWithoutSort);
+    this.register(issueActionIds.mergePullRequest, this.updateSingleIssueWithoutSort);
+    this.register(issueActionIds.deleteIssueBranch, this.updateSingleIssueWithoutSort);
   }
   updateMultipleIssues(issues) {
     let issuesMap = orderedMap();
@@ -137,6 +137,11 @@ export default class IssueStore extends Store {
   }
   updateSingleIssue(data) {
     this.updateMultipleIssues([data]);
+  }
+  updateSingleIssueWithoutSort(data) {
+    let issuesMap = orderedMap();
+    issuesMap = issuesMap.set(data.id, issueRecord(issueDecorator(data)));
+    this.setState({ issues: this.state.issues.merge(issuesMap) });
   }
 
   getIssues() {
