@@ -46,30 +46,38 @@ module.exports = {
   },
 
   module: {
-    preLoaders: [{
-      test: /\.js$/,
-      exclude: [
-        /node_modules/
-      ],
-      loader: 'eslint-loader'
-    }],
+    preLoaders: [
+      {
+        test: /\.js$/,
+        exclude: [
+          /node_modules/
+        ],
+        loader: 'eslint-loader'
+      }
+    ],
 
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'react-hot!babel-loader?stage=1&optional=runtime'
-    }, {
-      test: /\.json$/,
-      loader: 'json'
-    }, {
-      test: /\.css$/,
-      loader: 'style-loader!css-loader'
-    }, {
-      test: /\.less$/,
-      loader: 'style!css!less'
-    }, {
-      test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?(\?v=[0-9a-f]{40})?$/,
-      loader: 'url-loader?limit=8192'
-    }]
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'react-hot!babel-loader?stage=1&optional=runtime'
+      },
+      {
+        test: /\.json$/,
+        loader: 'json'
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.less$/,
+        loader: 'style!css!less'
+      },
+      {
+        test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?(\?v=[0-9a-f]{40})?$/,
+        loader: 'url-loader?limit=8192'
+      }
+    ]
   }
 };
