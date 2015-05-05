@@ -8,18 +8,24 @@ import FluxComponent from "flummox/component";
 
 class InterfaceIssue extends React.Component {
   render() {
+    const { ...props } = this.props;
     return (
       <div>
         <UIPageHeader icon="gear" text="Issues" />
-        <IssueHeader {...this.props} />
-        <FluxComponent {...this.props} connectToStores={{
-          issues: store => ({
-            issues: store.getIssues()
-          }),
-          config: store => ({
-            loggedIn: store.loggedIn()
-          })
-        }}>
+        <IssueHeader
+          {...props}
+          />
+        <FluxComponent
+          {...props}
+          connectToStores={{
+            issues: store => ({
+              issues: store.getIssues()
+            }),
+            config: store => ({
+              loggedIn: store.loggedIn()
+            })
+          }}
+          >
           <IssueList />
         </FluxComponent>
       </div>
