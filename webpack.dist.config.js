@@ -52,7 +52,7 @@ module.exports = {
         exclude: [
           /node_modules/
         ],
-        loader: 'eslint-loader'
+        loader: 'eslint'
       }
     ],
 
@@ -60,7 +60,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'react-hot!babel-loader?stage=1&optional=runtime'
+        loader: 'react-hot!babel?stage=1&optional=runtime'
       },
       {
         test: /\.json$/,
@@ -68,7 +68,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        loader: 'style!css'
       },
       {
         test: /\.less$/,
@@ -76,7 +76,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?(\?v=[0-9a-f]{40})?$/,
-        loader: 'url-loader?limit=8192'
+        loader: 'url?limit=8192'
       }
     ]
   }
