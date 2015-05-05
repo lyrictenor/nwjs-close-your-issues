@@ -1,3 +1,12 @@
+<a name"0.1.2"></a>
+### 0.1.2 (2015-05-06)
+
+
+#### Features
+
+* **issue:** check logged in for enabling button ([2595172b](https://github.com/lyrictenor/nwjs-close-your-issues/commit/2595172b))
+
+
 <a name"0.1.1"></a>
 ### 0.1.1 (2015-05-05)
 
