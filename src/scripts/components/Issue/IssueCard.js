@@ -3,7 +3,6 @@
 import React from "react/addons";
 import onOpenExternals from "myUtils/openExternals";
 import enableButton from "myUtils/enableButton";
-import cx from "classnames";
 
 export default class IssueCard extends React.Component {
   onDelete(issue) {
@@ -20,7 +19,6 @@ export default class IssueCard extends React.Component {
   }
   render() {
     const { issue, loggedIn } = this.props;
-    const commentIconClass = "octicon octicon-comment";
 
     return (
       <li>
@@ -32,7 +30,7 @@ export default class IssueCard extends React.Component {
           <span className="number">#{issue.number}</span>
           <span className="state">{issue.state}</span>
           <span className={issue.comment_class}>
-            <span className={commentIconClass} />
+            <span className="octicon octicon-comment" />
             {issue.comments}
           </span>
         </div>
