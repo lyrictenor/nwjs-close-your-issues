@@ -3,6 +3,7 @@
 import React from "react/addons";
 import onOpenExternals from "myUtils/openExternals";
 import enableButton from "myUtils/enableButton";
+import cx from "classnames";
 
 export default class IssueCard extends React.Component {
   onDelete(issue) {
@@ -19,14 +20,25 @@ export default class IssueCard extends React.Component {
   }
   render() {
     const { issue, loggedIn } = this.props;
+    const commentIconClass = "octicon octicon-comment";
+    const commentClass = cx(
+      "comments",
+      { "issue-comments-no-comment": issue.comments === 0 },
+    );
 
     return (
       <li>
         <div>
-          <span className={issue.card_icon_class}></span>
+          <span className="card-icon">
+            <span className={issue.card_icon_class} />
+          </span>
           <span className="slug">{issue.slug}</span>
           <span className="number">#{issue.number}</span>
           <span className="state">{issue.state}</span>
+          <span className={commentClass}>
+            <span className={commentIconClass} />
+            {issue.comments}
+          </span>
         </div>
         <div className="title">
           <a href={issue.html_url} onClick={onOpenExternals.bind(this)}>
