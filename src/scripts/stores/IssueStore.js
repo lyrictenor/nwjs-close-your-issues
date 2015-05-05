@@ -89,7 +89,7 @@ const compareTimeUpdatedAtDesc = (issue1, issue2) => {
   return (moment.utc(issue1.updated_at).isBefore(moment.utc(issue2.updated_at))) ? 1 : -1;
 };
 
-export class IssueStore extends Store {
+export default class IssueStore extends Store {
 
   constructor(flux) {
     super();

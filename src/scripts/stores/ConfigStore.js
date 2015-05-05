@@ -47,7 +47,7 @@ let persistParams = async (params) => {
   return await db.insertOrReplace().into(configTables).values(rows).exec();
 };
 
-export class ConfigStore extends Store {
+export default class ConfigStore extends Store {
   constructor(flux) {
     super();
 

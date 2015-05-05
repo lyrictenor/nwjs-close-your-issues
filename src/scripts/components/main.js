@@ -4,7 +4,7 @@ import React from "react";
 import Router from "react-router";
 import Immutable from "immutable";
 
-import { AppFlux } from "../flux/AppFlux";
+import AppFlux from "../flux/AppFlux";
 
 import App from "components/App";
 import InterfaceAbout from "components/Interfaces/About";

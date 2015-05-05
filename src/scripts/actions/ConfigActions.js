@@ -2,7 +2,7 @@
 
 import { Actions } from "flummox";
 
-export class ConfigActions extends Actions {
+export default class ConfigActions extends Actions {
 
   constructor(flux) {
     super();
