@@ -79,7 +79,7 @@ export class ConfigStore extends Store {
 
   clearAllData() {
     this.setState({ settings: Immutable.fromJS(configDecorator(this.getDefaultValues())) });
-    resetStorages();
+    resetStorages()();
   }
 
   async saveSettings(settings) {
