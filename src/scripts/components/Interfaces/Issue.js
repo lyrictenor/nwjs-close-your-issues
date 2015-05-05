@@ -12,7 +12,11 @@ class InterfaceIssue extends React.Component {
       <div>
         <UIPageHeader icon="gear" text="Issues" />
         <IssueHeader {...this.props} />
-        <FluxComponent {...this.props} connectToStores={["issues"]}>
+        <FluxComponent {...this.props} connectToStores={{
+          issues: store => ({
+            issues: store.getIssues()
+          })
+        }}>
           <IssueList />
         </FluxComponent>
       </div>
