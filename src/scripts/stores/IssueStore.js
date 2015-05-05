@@ -32,6 +32,7 @@ const issueRecord = record({
   }),
   slug: "",
   card_icon_class: "",
+  comment_class: "",
   button_snooze: false,
   button_delete_branch: false,
   button_restore_branch: false,
@@ -69,12 +70,20 @@ const switchCardIconClass = (issue) => {
   );
 };
 
+const switchCommentClass = (issue) => {
+  return cx(
+    "comments",
+    { "issue-comments-no-comment": issue.comments === 0 },
+  );
+};
+
 const issueDecorator = (issue) => {
   let copied = Object.assign({}, issue);
   /* eslint-disable camelcase */
   copied.slug = githubSlug(copied.html_url);
   copied.body_text_short = trimWidth(copied.body_text, 100);
   copied.card_icon_class = switchCardIconClass(copied);
+  copied.comment_class = switchCommentClass(copied);
   copied.button_snooze = true;
   copied.button_close_issue = !isClosed(copied);
   copied.button_reopen_issue = isClosed(copied);

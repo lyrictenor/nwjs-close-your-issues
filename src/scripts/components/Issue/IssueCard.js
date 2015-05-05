@@ -23,10 +23,16 @@ export default class IssueCard extends React.Component {
     return (
       <li>
         <div>
-          <span className={issue.card_icon_class}></span>
+          <span className="card-icon">
+            <span className={issue.card_icon_class} />
+          </span>
           <span className="slug">{issue.slug}</span>
           <span className="number">#{issue.number}</span>
           <span className="state">{issue.state}</span>
+          <span className={issue.comment_class}>
+            <span className="octicon octicon-comment" />
+            {issue.comments}
+          </span>
         </div>
         <div className="title">
           <a href={issue.html_url} onClick={onOpenExternals.bind(this)}>
