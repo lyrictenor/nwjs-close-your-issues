@@ -1,15 +1,26 @@
-# close-your-issues
+# Close Your Issues
+
 [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image] [![Coverage Status][coveralls-image]][coveralls-url]
 
-Handle too much issues.
+Handle too much Issues and Pull Requests.
 
+## Strong Point
 
+### Close Issues on CloseYourIssues
 
-## Download
+![close-your-issues](https://cloud.githubusercontent.com/assets/75448/7467643/0734413a-f338-11e4-8d00-0063ab8d9d83.gif)
 
-[Releases](https://github.com/lyrictenor/nwjs-close-your-issues/releases)
+### Close Issues on GitHub Web
 
-## Structures
+![close-on-github-web](https://cloud.githubusercontent.com/assets/75448/7467644/0f063206-f338-11e4-8e2a-4722a218dec8.gif)
+
+## Installation
+
+[Download Latest Release](https://github.com/lyrictenor/nwjs-close-your-issues/releases/latest)
+
+OS X, Windows, Linux support.
+
+## Features
 
 Currently, it uses :
 
