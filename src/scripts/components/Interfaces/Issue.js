@@ -15,6 +15,9 @@ class InterfaceIssue extends React.Component {
         <FluxComponent {...this.props} connectToStores={{
           issues: store => ({
             issues: store.getIssues()
+          }),
+          config: store => ({
+            loggedIn: store.loggedIn()
           })
         }}>
           <IssueList />
