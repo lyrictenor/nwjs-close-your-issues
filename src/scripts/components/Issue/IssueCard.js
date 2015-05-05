@@ -21,10 +21,6 @@ export default class IssueCard extends React.Component {
   render() {
     const { issue, loggedIn } = this.props;
     const commentIconClass = "octicon octicon-comment";
-    const commentClass = cx(
-      "comments",
-      { "issue-comments-no-comment": issue.comments === 0 },
-    );
 
     return (
       <li>
@@ -35,7 +31,7 @@ export default class IssueCard extends React.Component {
           <span className="slug">{issue.slug}</span>
           <span className="number">#{issue.number}</span>
           <span className="state">{issue.state}</span>
-          <span className={commentClass}>
+          <span className={issue.comment_class}>
             <span className={commentIconClass} />
             {issue.comments}
           </span>
