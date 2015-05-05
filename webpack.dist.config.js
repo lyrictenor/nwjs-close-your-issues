@@ -63,6 +63,10 @@ module.exports = {
         loader: 'react-hot!babel?stage=1&optional=runtime'
       },
       {
+        test: /\.jsx?$/,
+        loader: "strip?strip[]=debug,strip[]=console.log"
+      },
+      {
         test: /\.json$/,
         loader: 'json'
       },
