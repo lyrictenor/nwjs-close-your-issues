@@ -47,6 +47,7 @@ export class IssueActions extends Actions {
       url = `${settings.get("apiendpoint")}/repos/${settings.get("slug")}/issues`;
     }
     const response = await serverListIssues(url, config);
+    console.log(response);
     return response.data;
   }
 
@@ -72,6 +73,7 @@ export class IssueActions extends Actions {
 
     let url = issue.get("url");
     const response = await serverEditIssue(url, data, config);
+    console.log(response);
     return response.data;
   }
 
@@ -87,6 +89,7 @@ export class IssueActions extends Actions {
     const pullRequestUrl = issue.pull_request.url;
 
     const mergeResponse = await serverMergePullRequest(pullRequestUrl, data, config);
+    console.log(mergeResponse);
     if (mergeResponse.data.merged !== true) {
       // TODO: Handle Error
       console.log(mergeResponse.data.message);
@@ -94,6 +97,7 @@ export class IssueActions extends Actions {
     }
 
     const response = await serverGetSingleIssue(issueUrl, config);
+    console.log(response);
     return response.data;
   }
 
@@ -108,6 +112,7 @@ export class IssueActions extends Actions {
     const issueUrl = issue.url;
 
     const response = await serverGetSinglePullRequest(pullRequestUrl, config);
+    console.log(response);
 
     const pullRequest = response.data;
     const headRef = pullRequest.head.ref;
@@ -126,6 +131,7 @@ export class IssueActions extends Actions {
     await serverDeleteRefs(refsUrl, config);
 
     const response2 = await serverGetSingleIssue(issueUrl, config);
+    console.log(response2);
     return response2.data;
   }
 }
