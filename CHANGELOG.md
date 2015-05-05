@@ -1,3 +1,12 @@
+<a name"0.1.1"></a>
+### 0.1.1 (2015-05-05)
+
+
+#### Bug Fixes
+
+* **storage:** clear storage ([bf08fbee](https://github.com/lyrictenor/nwjs-close-your-issues/commit/bf08fbee))
+
+
 <a name"0.1.0"></a>
 ## 0.1.0 (2015-05-05)
 
