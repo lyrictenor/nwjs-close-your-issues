@@ -2,12 +2,12 @@
 
 import { Flux } from "flummox";
 
-import { IssueActions } from "../actions/IssueActions";
-import { ConfigActions } from "../actions/ConfigActions";
-import { IssueStore } from "../stores/IssueStore";
-import { ConfigStore } from "../stores/ConfigStore";
+import IssueActions from "../actions/IssueActions";
+import ConfigActions from "../actions/ConfigActions";
+import IssueStore from "../stores/IssueStore";
+import ConfigStore from "../stores/ConfigStore";
 
-export class AppFlux extends Flux {
+export default class AppFlux extends Flux {
 
   constructor() {
     super();

@@ -15,7 +15,7 @@ const toggledIssueState = (state) => {
   return (state === "open") ? "closed" : "open";
 };
 
-export class IssueActions extends Actions {
+export default class IssueActions extends Actions {
 
   constructor(flux) {
     super();
