@@ -1,6 +1,6 @@
 {
   "name": "close-your-issues",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "dependencies": {
     "axios": {
       "version": "0.5.4",
@@ -156,6 +156,11 @@
           }
         }
       }
+    },
+    "make-error": {
+      "version": "1.0.2",
+      "from": "make-error@*",
+      "resolved": "https://registry.npmjs.org/make-error/-/make-error-1.0.2.tgz"
     },
     "moment": {
       "version": "2.10.2",
