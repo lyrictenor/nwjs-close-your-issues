@@ -10,6 +10,7 @@ import serverGetSingleIssue from "myUtils/githubGetSingleIssue";
 import serverMergePullRequest from "myUtils/githubMergePullRequest";
 import serverGetSinglePullRequest from "myUtils/githubGetSinglePullRequest";
 import serverDeleteRefs from "myUtils/githubDeleteRefs";
+import AppError from "myUtils/AppError";
 
 const toggledIssueState = (state) => {
   return (state === "open") ? "closed" : "open";
