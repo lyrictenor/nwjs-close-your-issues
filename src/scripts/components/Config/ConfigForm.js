@@ -43,19 +43,19 @@ class ConfigForm extends React.Component {
         className="config-form"
         >
         <FormInput
-          name="apiEndpoint"
+          name="apiendpoint"
           placeholder={defaultValues.apiendpoint}
           validationError="Api Endpoint is required"
           value={settings.get("apiendpoint")}
           required />
         <FormInput
-          name="webEndpoint"
+          name="webendpoint"
           placeholder={defaultValues.webendpoint}
           validationError="Web Endpoint is required"
           value={settings.get("webendpoint")}
           required />
         <FormInput
-          name="accessToken"
+          name="token"
           type="password"
           validations="equalLengthOrEmpty:40"
           value={settings.get("token")}

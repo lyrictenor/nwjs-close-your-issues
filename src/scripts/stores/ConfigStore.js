@@ -2,20 +2,8 @@
 
 import { Store } from "flummox";
 import Immutable from "immutable";
-import removeTrailingSlash from "myUtils/removeTrailingSlash";
-import resetStorages from "myUtils/resetStorages";
-
-const defaultValues = require("../../config_settings.json");
-
-const convertSettings = (settings) => {
-  const copied = Object.assign({}, settings);
-  return {
-    apiendpoint: removeTrailingSlash(copied.apiEndpoint),
-    webendpoint: removeTrailingSlash(copied.webEndpoint),
-    token: copied.accessToken,
-    slug: removeTrailingSlash(copied.slug)
-  };
-};
+const immutableMap = Immutable.Map;
+import { defaultValues } from "myUtils/persistence";
 
 const configDecorator = (jsObject) => {
   let copied = Object.assign({}, jsObject);
@@ -23,35 +11,11 @@ const configDecorator = (jsObject) => {
   return copied;
 };
 
-let getPersistedData = async () => {
-  let db = await window.closeyourissues.db.connect();
-  let configTables = await db.getSchema().table("Configs");
-  let results = await db.select().from(configTables).exec();
-  return results;
-};
-
-let persistParams = async (params) => {
-  let db = await window.closeyourissues.db.connect();
-  let configTables = await db.getSchema().table("Configs");
-  await db.delete().from(configTables).exec();
-
-  let rows = Object.keys(params).reduce((previous, current) => {
-    previous.push(
-      configTables.createRow({
-        key: current,
-        value: params[current]
-      })
-    );
-    return previous;
-  }, []);
-  return await db.insertOrReplace().into(configTables).values(rows).exec();
-};
-
 export default class ConfigStore extends Store {
   constructor(flux) {
     super();
 
-    this.state = { settings: Immutable.fromJS(configDecorator(this.getDefaultValues()))};
+    this.state = { settings: immutableMap() };
 
     /*
      Registering action handlers
@@ -60,32 +24,12 @@ export default class ConfigStore extends Store {
     const configActionIds = flux.getActionIds("config");
 
     this.register(configActionIds.saveSettings, this.saveSettings);
-    this.register(configActionIds.clearAllData, this.clearAllData);
-
-    this.overrideByPersistedData();
+    this.register(configActionIds.clearAllData, this.saveSettings);
+    this.register(configActionIds.adjustSettings, this.saveSettings);
   }
 
-  async overrideByPersistedData() {
-    let result = await getPersistedData();
-    const savedConfig = result.reduce((previous, current) => {
-      previous[current.key] = current.value;
-      return previous;
-    }, {});
-    if (savedConfig.slug && savedConfig.apiendpoint && savedConfig.webendpoint) {
-      this.setState({ settings: Immutable.fromJS(configDecorator(savedConfig)) });
-    }
-  }
-
-
-  clearAllData() {
-    this.setState({ settings: Immutable.fromJS(configDecorator(this.getDefaultValues())) });
-    resetStorages()();
-  }
-
-  async saveSettings(settings) {
-    let params = convertSettings(settings);
-    this.setState({ settings: Immutable.fromJS(configDecorator(params)) });
-    await persistParams(params);
+  saveSettings(settings) {
+    this.setState({ settings: Immutable.fromJS(configDecorator(settings)) });
   }
 
   getSettings() {
@@ -97,6 +41,6 @@ export default class ConfigStore extends Store {
   }
 
   getDefaultValues() {
-    return Object.assign({}, defaultValues);
+    return defaultValues;
   }
 }
