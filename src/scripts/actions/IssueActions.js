@@ -24,7 +24,7 @@ export default class IssueActions extends Actions {
   }
 
   fetchSettings() {
-    return this.flux.getStore("config").getSettings();
+    return this.flux.getConfig();
   }
 
   async fetchIssues() {
