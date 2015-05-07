@@ -3,7 +3,7 @@
 import removeTrailingSlash from "myUtils/removeTrailingSlash";
 
 export const initConfig = async () => {
-  const savedParams = dataToParams(await getPersistedData());
+  const savedParams = dataToParams(await getPersistedConfigData());
 
   // mapping
   let params = {};
@@ -12,7 +12,7 @@ export const initConfig = async () => {
   params.token = savedParams.token || "";
   params.slug = removeTrailingSlash(savedParams.slug || defaultValues.slug);
 
-  await persistParams(params);
+  await persistConfigParams(params);
   return params;
 };
 
@@ -24,13 +24,13 @@ export const saveConfig = async (settings) => {
   params.token = settings.token;
   params.slug = removeTrailingSlash(settings.slug);
 
-  await persistParams(params);
+  await persistConfigParams(params);
   return params;
 };
 
 export const defaultValues = require("../../config_settings.json");
 
-const persistParams = async (params) => {
+const persistConfigParams = async (params) => {
   let db = await window.closeyourissues.db.connect();
   let configTables = await db.getSchema().table("Configs");
   await db.delete().from(configTables).exec();
@@ -47,7 +47,7 @@ const persistParams = async (params) => {
   return await db.insertOrReplace().into(configTables).values(rows).exec();
 };
 
-const getPersistedData = async () => {
+const getPersistedConfigData = async () => {
   let db = await window.closeyourissues.db.connect();
   let configTables = await db.getSchema().table("Configs");
   let results = await db.select().from(configTables).exec();
