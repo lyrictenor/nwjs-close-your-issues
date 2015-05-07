@@ -36,10 +36,6 @@ export default class ConfigStore extends Store {
     return this.state.settings;
   }
 
-  loggedIn() {
-    return Boolean(this.state.settings.get("token"));
-  }
-
   getDefaultValues() {
     return defaultValues;
   }
