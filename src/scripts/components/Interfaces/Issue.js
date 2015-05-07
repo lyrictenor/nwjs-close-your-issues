@@ -20,9 +20,6 @@ class InterfaceIssue extends React.Component {
           connectToStores={{
             issues: store => ({
               issues: store.getIssues()
-            }),
-            config: store => ({
-              loggedIn: store.loggedIn()
             })
           }}
           >

@@ -18,7 +18,7 @@ export default class IssueCard extends React.Component {
     this.props.flux.getActions("issues").deleteIssueBranch(issue);
   }
   render() {
-    const { issue, loggedIn } = this.props;
+    const { issue } = this.props;
 
     return (
       <li>
@@ -55,28 +55,28 @@ export default class IssueCard extends React.Component {
         <div>
           <button
             className="btn btn-default"
-            {...enableButton(loggedIn && issue.button_close_issue)}
+            {...enableButton(issue.button_close_issue)}
             onClick={this.onToggleIssueState.bind(this, issue)}
             >
             Close Issue
           </button>
           <button
             className="btn btn-default"
-            {...enableButton(loggedIn && issue.button_reopen_issue)}
+            {...enableButton(issue.button_reopen_issue)}
             onClick={this.onToggleIssueState.bind(this, issue)}
             >
             ReOpen Issue
           </button>
           <button
             className="btn btn-default"
-            {...enableButton(loggedIn && issue.button_merge_pull_request)}
+            {...enableButton(issue.button_merge_pull_request)}
             onClick={this.onMergePullRequest.bind(this, issue)}
             >
             Merge Pull Request
           </button>
           <button
             className="btn btn-default"
-            {...enableButton(loggedIn && issue.button_delete_branch)}
+            {...enableButton(issue.button_delete_branch)}
             onClick={this.onDeleteBranch.bind(this, issue)}
             >
             Delete Branch
@@ -84,7 +84,7 @@ export default class IssueCard extends React.Component {
           <a
             href={issue.html_url}
             className="btn btn-default"
-            {...enableButton(loggedIn && issue.button_restore_branch)}
+            {...enableButton(issue.button_restore_branch)}
             onClick={onOpenExternals.bind(this)}
             >
             Restore Branch
