@@ -42,4 +42,7 @@ export default class AppFlux extends Flux {
   setUser(user) {
     this._user = user;
   }
+  loggedIn() {
+    return Boolean(this.getConfig().get("token"));
+  }
 }

@@ -77,7 +77,7 @@ const switchCommentClass = (issue) => {
   );
 };
 
-const issueDecorator = (issue) => {
+const issueDecorator = (issue, loggedIn = true) => {
   let copied = Object.assign({}, issue);
   /* eslint-disable camelcase */
   copied.slug = githubSlug(copied.html_url);
@@ -85,11 +85,11 @@ const issueDecorator = (issue) => {
   copied.card_icon_class = switchCardIconClass(copied);
   copied.comment_class = switchCommentClass(copied);
   copied.button_snooze = true;
-  copied.button_close_issue = !isClosed(copied);
-  copied.button_reopen_issue = isClosed(copied);
-  copied.button_delete_branch = isPullRequest(copied) && isClosed(copied);
-  copied.button_restore_branch = isPullRequest(copied) && isClosed(copied);
-  copied.button_merge_pull_request = isPullRequest(copied) && !isClosed(copied);
+  copied.button_close_issue = loggedIn && !isClosed(copied);
+  copied.button_reopen_issue = loggedIn && isClosed(copied);
+  copied.button_delete_branch = loggedIn && isPullRequest(copied) && isClosed(copied);
+  copied.button_restore_branch = loggedIn && isPullRequest(copied) && isClosed(copied);
+  copied.button_merge_pull_request = loggedIn && isPullRequest(copied) && !isClosed(copied);
   /* eslint-enable camelcase */
   return copied;
 };
@@ -103,6 +103,7 @@ export default class IssueStore extends Store {
   constructor(flux) {
     super();
 
+    this.flux = flux;
     this.state = { issues: orderedMap() };
 
     /*
@@ -121,7 +122,7 @@ export default class IssueStore extends Store {
   updateMultipleIssues(issues) {
     let issuesMap = orderedMap();
     for(let issue of issues) {
-      issuesMap = issuesMap.set(issue.id, issueRecord(issueDecorator(issue)));
+      issuesMap = issuesMap.set(issue.id, issueRecord(issueDecorator(issue, this.flux.loggedIn())));
     }
 
     this.setState({ issues: this.state.issues.merge(issuesMap).sort(compareTimeUpdatedAtDesc) });
@@ -140,7 +141,7 @@ export default class IssueStore extends Store {
   }
   updateSingleIssueWithoutSort(data) {
     let issuesMap = orderedMap();
-    issuesMap = issuesMap.set(data.id, issueRecord(issueDecorator(data)));
+    issuesMap = issuesMap.set(data.id, issueRecord(issueDecorator(data, this.flux.loggedIn())));
     this.setState({ issues: this.state.issues.merge(issuesMap) });
   }
 
