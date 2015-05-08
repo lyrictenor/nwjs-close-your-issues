@@ -3,9 +3,12 @@
 import { Actions } from "flummox";
 import axios from "axios";
 import uriTemplates from "uri-templates";
+import parseLinkHeader from "parse-link-header";
+import range from "lodash/utility/range";
 import defaultConfig from "myUtils/githubDefaultConfig";
 import serverListIssues from "myUtils/githubListIssues";
 import serverListIssuesForRepository from "myUtils/githubListIssuesForRepository";
+import serverListYourRepositories from "myUtils/githubListYourRepositories";
 import serverEditIssue from "myUtils/githubEditIssue";
 import serverGetSingleIssue from "myUtils/githubGetSingleIssue";
 import serverMergePullRequest from "myUtils/githubMergePullRequest";
@@ -26,6 +29,7 @@ export default class IssueActions extends Actions {
     this.flux = flux;
   }
 
+  // TODO: remove settings
   async fetchSlugRepositoryIssues(owner, repo) {
     const settings = this.flux.getConfig();
     let config = defaultConfig(settings.get("token"));
@@ -63,6 +67,54 @@ export default class IssueActions extends Actions {
 
     // endpoint
     const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
+
+    // repositories
+    const repositoriesTemplate = uriTemplates(endpointResponse.data.current_user_repositories_url);
+    const repositoriesUrl = repositoriesTemplate.fill({});
+    /* eslint-disable camelcase */
+    let repositoriesConfig = defaultConfig(settings.get("token"));
+    repositoriesConfig.params = {
+      page: 1,
+      per_page: 100
+    };
+    /* eslint-enable camelcase */
+    const repositoriesResponse = await serverListYourRepositories(repositoriesUrl, repositoriesConfig);
+    const parsedLink = parseLinkHeader(repositoriesResponse.headers.link);
+    console.log(repositoriesResponse);
+    console.log(parsedLink);
+    const lastPage = Number(parsedLink.last.page);
+
+    // lastPage: 4; => [2, 3, 4]
+    // lastPage: 1; => []
+    const pageRange = range(2, lastPage + 1);
+    const somethingPromiseForPage1 = new Promise((resolve) => {
+      resolve("saved page 1");
+    });
+    const serverListYourRepositoriesWithPage = (url, page) => {
+      const settings = this.flux.getConfig();
+      /* eslint-disable camelcase */
+      let repositoriesConfig = defaultConfig(settings.get("token"));
+      repositoriesConfig.params = {
+        page: page,
+        per_page: 100
+      };
+      /* eslint-enable camelcase */
+      return serverListYourRepositories(url, repositoriesConfig);
+    };
+    const promises = pageRange.map((page) => {
+      return Promise
+        .resolve({page: page, url: repositoriesUrl})
+        .then((value) => {
+          return serverListYourRepositoriesWithPage(value.url, value.page);
+        })
+        .then((response) => {
+          console.log(response);
+          return `saved page ${page}`;
+        });
+    });
+
+    const results = await Promise.all([somethingPromiseForPage1, ...promises]);
+    console.log(results);
 
     // issues
     const issuesUrl = endpointResponse.data.issues_url;
