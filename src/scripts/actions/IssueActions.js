@@ -34,8 +34,7 @@ export default class IssueActions extends Actions {
     const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
 
     // repository
-    const repositorySignature = endpointResponse.data.repository_url;
-    const repositoryTemplate = uriTemplates(repositorySignature);
+    const repositoryTemplate = uriTemplates(endpointResponse.data.repository_url);
     const repositoryUrl = repositoryTemplate.fill({
       owner: owner,
       repo: repo
@@ -43,8 +42,7 @@ export default class IssueActions extends Actions {
     const repositoryResponse = await serverGetSingleRepository(repositoryUrl, config);
 
     // issues
-    const issuesSignature = repositoryResponse.data.issues_url;
-    const issuesTemplate = uriTemplates(issuesSignature);
+    const issuesTemplate = uriTemplates(repositoryResponse.data.issues_url);
     const issuesUrl = issuesTemplate.fill({});
 
     /* eslint-disable camelcase */
