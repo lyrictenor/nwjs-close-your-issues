@@ -58,7 +58,7 @@ export default class IssueActions extends Actions {
     return await serverListIssuesForRepository(issuesUrl, config);
   }
 
-  async fetchUserIssues() {
+  async fetchAllIssues() {
     const settings = this.flux.getConfig();
     let config = defaultConfig(settings.get("token"));
 
@@ -89,7 +89,7 @@ export default class IssueActions extends Actions {
       return repositoryIssues.data;
     }
 
-    const userRepositoryIssues = await this.fetchUserIssues();
+    const userRepositoryIssues = await this.fetchAllIssues();
     console.log(userRepositoryIssues);
     return userRepositoryIssues.data;
   }
