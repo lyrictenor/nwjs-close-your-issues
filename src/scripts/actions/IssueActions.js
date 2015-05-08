@@ -23,12 +23,8 @@ export default class IssueActions extends Actions {
     this.flux = flux;
   }
 
-  fetchSettings() {
-    return this.flux.getConfig();
-  }
-
   async fetchIssues() {
-    const settings = this.fetchSettings();
+    const settings = this.flux.getConfig();
     let config = defaultConfig(settings.get("token"));
     /* eslint-disable camelcase */
     config.params = {
@@ -62,7 +58,7 @@ export default class IssueActions extends Actions {
   }
 
   async toggleIssueState(issue) {
-    const settings = this.fetchSettings();
+    const settings = this.flux.getConfig();
     if (!settings.get("token")) {
       return issue.toJS();
     }
@@ -79,7 +75,7 @@ export default class IssueActions extends Actions {
   }
 
   async mergePullRequest(issue) {
-    const settings = this.fetchSettings();
+    const settings = this.flux.getConfig();
     if(!settings.get("token") || !issue.pull_request.url || !issue.url) {
       return issue.toJS();
     }
@@ -103,7 +99,7 @@ export default class IssueActions extends Actions {
   }
 
   async deleteIssueBranch(issue) {
-    const settings = this.fetchSettings();
+    const settings = this.flux.getConfig();
     if(!settings.get("token") || !issue.pull_request.url || !issue.url) {
       return issue.toJS();
     }
