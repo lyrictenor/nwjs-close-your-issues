@@ -5,11 +5,14 @@ import axios from "axios";
 import uriTemplates from "uri-templates";
 import defaultConfig from "myUtils/githubDefaultConfig";
 import serverListIssues from "myUtils/githubListIssues";
+import serverListIssuesForRepository from "myUtils/githubListIssuesForRepository";
 import serverEditIssue from "myUtils/githubEditIssue";
 import serverGetSingleIssue from "myUtils/githubGetSingleIssue";
 import serverMergePullRequest from "myUtils/githubMergePullRequest";
 import serverGetSinglePullRequest from "myUtils/githubGetSinglePullRequest";
+import serverGetSingleRepository from "myUtils/githubGetSingleRepository";
 import serverDeleteRefs from "myUtils/githubDeleteRefs";
+import serverRootEndpoint from "myUtils/githubRootEndpoint";
 import AppError from "myUtils/AppError";
 
 const toggledIssueState = (state) => {
@@ -23,9 +26,27 @@ export default class IssueActions extends Actions {
     this.flux = flux;
   }
 
-  async fetchIssues() {
+  async fetchSlugRepositoryIssues(owner, repo) {
     const settings = this.flux.getConfig();
     let config = defaultConfig(settings.get("token"));
+
+    // endpoint
+    const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
+
+    // repository
+    const repositorySignature = endpointResponse.data.repository_url;
+    const repositoryTemplate = uriTemplates(repositorySignature);
+    const repositoryUrl = repositoryTemplate.fill({
+      owner: owner,
+      repo: repo
+    });
+    const repositoryResponse = await serverGetSingleRepository(repositoryUrl, config);
+
+    // issues
+    const issuesSignature = repositoryResponse.data.issues_url;
+    const issuesTemplate = uriTemplates(issuesSignature);
+    const issuesUrl = issuesTemplate.fill({});
+
     /* eslint-disable camelcase */
     config.params = {
       state: "all",
@@ -34,18 +55,43 @@ export default class IssueActions extends Actions {
       sort: "updated"
     };
     /* eslint-enable camelcase */
+    return await serverListIssuesForRepository(issuesUrl, config);
+  }
 
-    // TODO: Use apiendpoint reposepnse
-    let url;
-    if (settings.get("token")) {
-      config.params.filter = "all";
-      url = `${settings.get("apiendpoint")}/issues`;
-    } else {
-      url = `${settings.get("apiendpoint")}/repos/${settings.get("slug")}/issues`;
+  async fetchUserIssues() {
+    const settings = this.flux.getConfig();
+    let config = defaultConfig(settings.get("token"));
+
+    // endpoint
+    const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
+
+    // issues
+    const issuesUrl = endpointResponse.data.issues_url;
+
+    /* eslint-disable camelcase */
+    config.params = {
+      filter: "all",
+      state: "all",
+      page: 1,
+      per_page: 100,
+      sort: "updated"
+    };
+    /* eslint-enable camelcase */
+
+    return await serverListIssues(issuesUrl, config);
+  }
+
+  async fetchIssues() {
+    const settings = this.flux.getConfig();
+    if (!this.flux.loggedIn()) {
+      const repositoryIssues = await this.fetchSlugRepositoryIssues(...settings.get("slug").split("/"));
+      console.log(repositoryIssues);
+      return repositoryIssues.data;
     }
-    const response = await serverListIssues(url, config);
-    console.log(response);
-    return response.data;
+
+    const userRepositoryIssues = await this.fetchUserIssues();
+    console.log(userRepositoryIssues);
+    return userRepositoryIssues.data;
   }
 
   clearIssues() {
