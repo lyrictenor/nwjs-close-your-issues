@@ -45,15 +45,16 @@ export default class IssueActions extends Actions {
     const issuesTemplate = uriTemplates(repositoryResponse.data.issues_url);
     const issuesUrl = issuesTemplate.fill({});
 
+    let issuesConfig = defaultConfig(settings.get("token"));
     /* eslint-disable camelcase */
-    config.params = {
+    issuesConfig.params = {
       state: "all",
       page: 1,
       per_page: 100,
       sort: "updated"
     };
     /* eslint-enable camelcase */
-    return await serverListIssuesForRepository(issuesUrl, config);
+    return await serverListIssuesForRepository(issuesUrl, issuesConfig);
   }
 
   async fetchAllIssues() {
@@ -67,7 +68,8 @@ export default class IssueActions extends Actions {
     const issuesUrl = endpointResponse.data.issues_url;
 
     /* eslint-disable camelcase */
-    config.params = {
+    let issuesConfig = defaultConfig(settings.get("token"));
+    issuesConfig.params = {
       filter: "all",
       state: "all",
       page: 1,
@@ -76,7 +78,7 @@ export default class IssueActions extends Actions {
     };
     /* eslint-enable camelcase */
 
-    return await serverListIssues(issuesUrl, config);
+    return await serverListIssues(issuesUrl, issuesConfig);
   }
 
   async fetchIssues() {
