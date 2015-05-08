@@ -4,6 +4,6 @@ import axios from "axios";
 
 // https://developer.github.com/v3/repos/#get
 // GET /repos/:owner/:repo
-module.exports = async (repoUrl, config) => {
-  return await axios.get(repoUrl, config);
+module.exports = async (repositoryUrl, config) => {
+  return await axios.get(repositoryUrl, config);
 };
