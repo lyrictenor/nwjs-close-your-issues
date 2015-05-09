@@ -16,6 +16,7 @@ import serverGetSinglePullRequest from "myUtils/githubGetSinglePullRequest";
 import serverGetSingleRepository from "myUtils/githubGetSingleRepository";
 import serverDeleteRefs from "myUtils/githubDeleteRefs";
 import serverRootEndpoint from "myUtils/githubRootEndpoint";
+import { saveRepositories } from "myUtils/persistence";
 import AppError from "myUtils/AppError";
 
 const toggledIssueState = (state) => {
@@ -88,7 +89,7 @@ export default class IssueActions extends Actions {
     // lastPage: 1; => []
     const pageRange = range(2, lastPage + 1);
     const somethingPromiseForPage1 = new Promise((resolve) => {
-      resolve("saved page 1");
+      resolve(saveRepositories(repositoriesResponse.data));
     });
     const serverListYourRepositoriesWithPage = (url, page) => {
       const settings = this.flux.getConfig();
@@ -108,8 +109,7 @@ export default class IssueActions extends Actions {
           return serverListYourRepositoriesWithPage(value.url, value.page);
         })
         .then((response) => {
-          console.log(response);
-          return `saved page ${page}`;
+          return saveRepositories(response.data);
         });
     });
 

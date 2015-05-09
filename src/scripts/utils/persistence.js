@@ -30,6 +30,18 @@ export const saveConfig = async (settings) => {
 
 export const defaultValues = require("../../config_settings.json");
 
+export const saveRepositories = async (repositories) => {
+  console.log(repositories);
+  let db = await window.closeyourissues.db.connect();
+  let usersTable = await db.getSchema().table("Users");
+  // insert_or_replace users
+  // select users
+
+  let repositoriesTable = await db.getSchema().table("Repositories");
+  // insert_or_replace repositories
+  return true;
+};
+
 const persistConfigParams = async (params) => {
   let db = await window.closeyourissues.db.connect();
   let configTables = await db.getSchema().table("Configs");
