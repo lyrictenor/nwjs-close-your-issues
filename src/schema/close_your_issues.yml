@@ -88,11 +88,11 @@ table:
     constraint:
       nullable: [ language, pushed_at, homepage, mirror_url ]
       primaryKey: [ id ]
-      foreignKey:
-        fk_ownerId:
-          localColumn: owner
-          reference: Users
-          remoteColumn: id
+#      foreignKey:
+#        fk_ownerId:
+#          localColumn: owner
+#          reference: Users
+#          remoteColumn: id
 #        #organization(number) does not allow null, so organization = 0 exists.
 #        fk_organizationId:
 #          localColumn: organization
