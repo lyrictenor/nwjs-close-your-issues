@@ -34,8 +34,23 @@ export const saveRepositories = async (repositories) => {
   console.log(repositories);
   let db = await window.closeyourissues.db.connect();
   let usersTable = await db.getSchema().table("Users");
+  let userRows = repositories.reduce((previous, current) => {
+    /* eslint-disable camelcase */
+    let userParams = Object.assign({}, current.owner);
+    userParams.created_at = null;
+    userParams.updated_at = null;
+    /* eslint-eable camelcase */
+
+    previous.push(
+      usersTable.createRow(userParams)
+    );
+    return previous;
+  }, []);
   // insert_or_replace users
+  await db.insertOrReplace().into(usersTable).values(userRows).exec();
   // select users
+  let users = await db.select().from(usersTable).exec();
+  console.log(users);
 
   let repositoriesTable = await db.getSchema().table("Repositories");
   // insert_or_replace repositories
