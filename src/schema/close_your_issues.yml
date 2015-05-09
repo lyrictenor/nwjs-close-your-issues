@@ -86,7 +86,7 @@ table:
       network_cont: integer
       subscribers_cont: integer
     constraint:
-      nullable: [ language, pushed_at, homepage, mirror_url ]
+      nullable: [ language, pushed_at, homepage, mirror_url, description ]
       primaryKey: [ id ]
 #      foreignKey:
 #        fk_ownerId:
