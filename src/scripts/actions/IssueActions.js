@@ -83,7 +83,9 @@ export default class IssueActions extends Actions {
     const parsedLink = parseLinkHeader(repositoriesResponse.headers.link);
     console.log(repositoriesResponse);
     console.log(parsedLink);
-    const lastPage = Number(parsedLink.last.page);
+    let lastPage = Number(parsedLink.last.page);
+    // FIXME: page count cap
+    lastPage = (lastPage > 5) ? 5 : lastPage;
 
     // lastPage: 4; => [2, 3, 4]
     // lastPage: 1; => []
