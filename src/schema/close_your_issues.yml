@@ -101,7 +101,7 @@ table:
   Users:
     column:
       login: string
-      id: integer
+      id: number
       avatar_url: string
       gravatar_id: string
       url: string
