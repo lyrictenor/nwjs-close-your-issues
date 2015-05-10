@@ -30,6 +30,56 @@ export const saveConfig = async (settings) => {
 
 export const defaultValues = require("../../config_settings.json");
 
+export const saveUsersAndRepositories = async (repositories) => {
+  let db = await window.closeyourissues.db.connect();
+
+  // set up users
+  let usersTable = await db.getSchema().table("Users");
+  let userRows = repositories.reduce((previous, current) => {
+    /* eslint-disable camelcase */
+    let userParams = Object.assign({}, current.owner);
+    userParams.created_at = null;
+    userParams.updated_at = null;
+    /* eslint-eable camelcase */
+
+    previous.push(
+      usersTable.createRow(userParams)
+    );
+    return previous;
+  }, []);
+
+  // insert_or_replace users
+  await db.insertOrReplace().into(usersTable).values(userRows).exec();
+
+  // set up repositories
+  let repositoriesTable = await db.getSchema().table("Repositories");
+  let repositoryRows = repositories.reduce((previous, current) => {
+    /* eslint-disable camelcase */
+    let repositoryParams = Object.assign({}, current);
+    let permissions = Object.assign({}, current.permissions);
+    let owner = Object.assign({}, current.owner);
+    delete repositoryParams.owner;
+    delete repositoryParams.permissions;
+    repositoryParams.organization = 0;
+    repositoryParams.owner = owner.id;
+    repositoryParams.permissions_admin = permissions.admin;
+    repositoryParams.permissions_push = permissions.push;
+    repositoryParams.permissions_pull = permissions.pull;
+    repositoryParams.created_at = new Date(current.created_at);
+    repositoryParams.updated_at = new Date(current.updated_at);
+    repositoryParams.pushed_at = new Date(current.pushed_at);
+    /* eslint-eable camelcase */
+
+    previous.push(
+      repositoriesTable.createRow(repositoryParams)
+    );
+    return previous;
+  }, []);
+
+  // insert_or_replace repositories
+  return await db.insertOrReplace().into(repositoriesTable).values(repositoryRows).exec();
+};
+
 const persistConfigParams = async (params) => {
   let db = await window.closeyourissues.db.connect();
   let configTables = await db.getSchema().table("Configs");
