@@ -220,7 +220,7 @@ export default class IssueActions extends Actions {
     try {
       const settings = this.flux.getConfig();
       if (!settings.get("token")) {
-        return issue.toJS();
+        throw new AppError("toggle issue requires access token");
       }
 
       let config = defaultConfig(settings.get("token"));
@@ -240,9 +240,16 @@ export default class IssueActions extends Actions {
   async mergePullRequest(issue) {
     try {
       const settings = this.flux.getConfig();
-      if(!settings.get("token") || !issue.pull_request.url || !issue.url) {
-        return issue.toJS();
+      if (!settings.get("token")) {
+        throw new AppError("toggle issue requires access token");
       }
+      if (!issue.pull_request.url) {
+        throw new AppError("require pull request url");
+      }
+      if (!issue.url) {
+        throw new AppError("require issue url");
+      }
+
       let config = defaultConfig(settings.get("token"));
       let data = {};
       const issueUrl = issue.url;
@@ -251,9 +258,8 @@ export default class IssueActions extends Actions {
       const mergeResponse = await serverMergePullRequest(pullRequestUrl, data, config);
       console.log(mergeResponse);
       if (mergeResponse.data.merged !== true) {
-        // TODO: Handle Error
         console.log(mergeResponse.data.message);
-        return issue.toJS();
+        throw new AppError("merge does not complete");
       }
 
       const response = await serverGetSingleIssue(issueUrl, config);
@@ -268,8 +274,14 @@ export default class IssueActions extends Actions {
   async deleteIssueBranch(issue) {
     try {
       const settings = this.flux.getConfig();
-      if(!settings.get("token") || !issue.pull_request.url || !issue.url) {
-        return issue.toJS();
+      if (!settings.get("token")) {
+        throw new AppError("toggle issue requires access token");
+      }
+      if (!issue.pull_request.url) {
+        throw new AppError("require pull request url");
+      }
+      if (!issue.url) {
+        throw new AppError("require issue url");
       }
 
       let config = defaultConfig(settings.get("token"));
@@ -282,8 +294,11 @@ export default class IssueActions extends Actions {
       const pullRequest = response.data;
       const headRef = pullRequest.head.ref;
       const refTemplate = pullRequest.head.repo.git_refs_url;
-      if (!headRef || !refTemplate) {
-        return issue.toJS();
+      if (!headRef) {
+        throw new AppError("branch ref does not exist");
+      }
+      if (!refTemplate) {
+        throw new AppError("git ref template does not exist");
       }
 
       // DELETE /repos/:owner/:repo/git/refs/:ref
