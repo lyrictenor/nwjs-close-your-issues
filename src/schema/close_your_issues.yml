@@ -140,6 +140,7 @@ table:
       #labels:
       locked: boolean
       assignee: number
+      #milestone: number
       comments: integer
       pull_request_url: string
       pull_request_html_url: string
