@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 name: close_your_issues
-version: 3
+version: 4
 table:
   Configs:
     column:
@@ -149,8 +149,9 @@ table:
       closed_at: datetime
       created_at: datetime
       updated_at: datetime
+      closed_by: number
     constraint:
-      nullable: [ closed_at, pull_request_url, pull_request_html_url, pull_request_diff_url, pull_request_patch_url, body_text ]
+      nullable: [ closed_at, pull_request_url, pull_request_html_url, pull_request_diff_url, pull_request_patch_url, body_text, closed_by ]
       primaryKey: [ id ]
 #      foreignKey:
 #        fk_UserId:
