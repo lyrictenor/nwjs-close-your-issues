@@ -219,7 +219,7 @@ export default class IssueActions extends Actions {
   async toggleIssueState(issue) {
     try {
       const settings = this.flux.getConfig();
-      if (!settings.get("token")) {
+      if (!this.flux.loggedIn()) {
         throw new AppError("toggle issue requires access token");
       }
 
@@ -240,7 +240,7 @@ export default class IssueActions extends Actions {
   async mergePullRequest(issue) {
     try {
       const settings = this.flux.getConfig();
-      if (!settings.get("token")) {
+      if (!this.flux.loggedIn()) {
         throw new AppError("toggle issue requires access token");
       }
       if (!issue.pull_request.url) {
@@ -274,7 +274,7 @@ export default class IssueActions extends Actions {
   async deleteIssueBranch(issue) {
     try {
       const settings = this.flux.getConfig();
-      if (!settings.get("token")) {
+      if (!this.flux.loggedIn()) {
         throw new AppError("toggle issue requires access token");
       }
       if (!issue.pull_request.url) {
