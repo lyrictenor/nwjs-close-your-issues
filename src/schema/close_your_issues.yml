@@ -126,20 +126,23 @@ table:
   Issues:
     column:
       id: number
-      owner: string
-      repository: string
+      repository: number
       url: string
+      labels_url: string
+      comments_url: string
+      events_url: string
       html_url: string
       number: integer
       state: string
       title: string
-      body: string
-      user: integer
+      body_text: string
+      user: number
       #labels:
-      assignee: integer
-      milestone: integer
+      locked: boolean
+      assignee: number
+      milestone: number
       comments: integer
-      pull_request: integer
+      pull_request: number
       closed_at: datetime
       created_at: datetime
       updated_at: datetime
