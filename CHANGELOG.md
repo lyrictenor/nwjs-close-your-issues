@@ -1,3 +1,12 @@
+<a name"0.1.4"></a>
+### 0.1.4 (2015-05-12)
+
+
+#### Bug Fixes
+
+* **indexeddb:** db connect only once ([13811bf0](https://github.com/lyrictenor/nwjs-close-your-issues/commit/13811bf0))
+
+
 <a name"0.1.3"></a>
 ### 0.1.3 (2015-05-07)
 
