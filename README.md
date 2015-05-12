@@ -33,6 +33,7 @@ Currently, it uses :
 * [Lovefield](https://github.com/google/lovefield) A cross-browser, SQL-like, relational query engine for Web in pure JavaScript;
 * [NW.js](http://nwjs.io/);
 * [Power-Assert](https://github.com/twada/power-assert);
+* [Tachikoma.io](http://tachikoma.io/) for interval dependency update with [David](https://github.com/alanshaw/david);
 
 ## License
 
