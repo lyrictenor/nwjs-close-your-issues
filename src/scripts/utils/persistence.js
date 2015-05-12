@@ -67,7 +67,7 @@ export const saveUsersAndRepositories = async (repositories) => {
     repositoryParams.permissions_pull = permissions.pull;
     repositoryParams.created_at = new Date(current.created_at);
     repositoryParams.updated_at = new Date(current.updated_at);
-    repositoryParams.pushed_at = new Date(current.pushed_at);
+    repositoryParams.pushed_at = (current.pushed_at) ? new Date(current.pushed_at) : null;
     /* eslint-eable camelcase */
 
     previous.push(
