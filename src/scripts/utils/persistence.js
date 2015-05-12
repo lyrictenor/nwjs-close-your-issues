@@ -31,7 +31,7 @@ export const saveConfig = async (settings) => {
 export const defaultValues = require("../../config_settings.json");
 
 export const saveUsersAndRepositories = async (repositories) => {
-  let db = await window.closeyourissues.db.connect();
+  let db = await dbConnection();
 
   // set up users
   let usersTable = await db.getSchema().table("Users");
@@ -81,7 +81,7 @@ export const saveUsersAndRepositories = async (repositories) => {
 };
 
 const persistConfigParams = async (params) => {
-  let db = await window.closeyourissues.db.connect();
+  let db = await dbConnection();
   let configTables = await db.getSchema().table("Configs");
   await db.delete().from(configTables).exec();
 
@@ -98,11 +98,19 @@ const persistConfigParams = async (params) => {
 };
 
 const getPersistedConfigData = async () => {
-  let db = await window.closeyourissues.db.connect();
+  let db = await dbConnection();
   let configTables = await db.getSchema().table("Configs");
   let results = await db.select().from(configTables).exec();
   console.log(results);
   return results;
+};
+
+const dbConnection = async () => {
+  if(window.dbConnection) {
+    return window.dbConnection;
+  }
+  window.dbConnection = await window.closeyourissues.db.connect();
+  return window.dbConnection;
 };
 
 const dataToParams = (data) => {
