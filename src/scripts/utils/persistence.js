@@ -80,6 +80,11 @@ export const saveUsersAndRepositories = async (repositories) => {
   return await db.insertOrReplace().into(repositoriesTable).values(repositoryRows).exec();
 };
 
+export const saveIssues = async (issues) => {
+  let db = await dbConnection();
+  return true;
+};
+
 const persistConfigParams = async (params) => {
   let db = await dbConnection();
   let configTables = await db.getSchema().table("Configs");
