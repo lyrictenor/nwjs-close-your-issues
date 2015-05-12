@@ -24,6 +24,7 @@ class InterfaceAbout extends React.Component {
           <li><a href="https://github.com/google/lovefield" onClick={onOpenExternals.bind(this)}>Lovefield</a> A cross-browser, SQL-like, relational query engine for Web in pure JavaScript;</li>
           <li><a href="http://nwjs.io/" onClick={onOpenExternals.bind(this)}>NW.js</a>;</li>
           <li><a href="https://github.com/twada/power-assert" onClick={onOpenExternals.bind(this)}>Power-Assert</a>;</li>
+          <li><a href="http://tachikoma.io/" onClick={onOpenExternals.bind(this)}>Tachikoma.io</a> for interval dependency update with <a href="https://github.com/alanshaw/david" onClick={onOpenExternals.bind(this)}>David</a>;</li>
         </ul>
       </div>
     );
