@@ -140,7 +140,6 @@ table:
       #labels:
       locked: boolean
       assignee: number
-      milestone: number
       comments: integer
       pull_request_url: string
       pull_request_html_url: string
@@ -150,7 +149,7 @@ table:
       created_at: datetime
       updated_at: datetime
     constraint:
-      nullable: [ closed_at ]
+      nullable: [ closed_at, pull_request_url, pull_request_html_url, pull_request_diff_url, pull_request_patch_url, body_text ]
       primaryKey: [ id ]
 #      foreignKey:
 #        fk_UserId:
