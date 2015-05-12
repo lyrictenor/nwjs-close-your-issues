@@ -67,7 +67,7 @@ export const saveUsersAndRepositories = async (repositories) => {
     repositoryParams.permissions_pull = permissions.pull;
     repositoryParams.created_at = new Date(current.created_at);
     repositoryParams.updated_at = new Date(current.updated_at);
-    repositoryParams.pushed_at = new Date(current.pushed_at);
+    repositoryParams.pushed_at = (current.pushed_at) ? new Date(current.pushed_at) : null;
     /* eslint-eable camelcase */
 
     previous.push(
@@ -78,6 +78,48 @@ export const saveUsersAndRepositories = async (repositories) => {
 
   // insert_or_replace repositories
   return await db.insertOrReplace().into(repositoriesTable).values(repositoryRows).exec();
+};
+
+export const saveIssues = async (issues) => {
+  let db = await dbConnection();
+
+  // set up issues
+  let issuesTable = await db.getSchema().table("Issues");
+  let issueRows = issues.reduce((previous, current) => {
+    /* eslint-disable camelcase */
+    // TODO: if (!repository || !user || !assignee) { create record; }
+    let issueParams = Object.assign({}, current);
+    const pullRequest = Object.assign({}, current.pull_request);
+    const user = Object.assign({}, current.user);
+    const assignee = Object.assign({}, current.assignee);
+    const milestone = Object.assign({}, current.milestone);
+    const repository = Object.assign({}, current.repository);
+    delete issueParams.pull_request;
+    delete issueParams.assignee;
+    delete issueParams.labels;
+    delete issueParams.user;
+    delete issueParams.milestone;
+    delete issueParams.repository;
+    issueParams.user = user.id;
+    issueParams.assignee = assignee.id;
+    issueParams.repository = repository.id;
+    issueParams.pull_request_url = pullRequest.url;
+    issueParams.pull_request_html_url = pullRequest.html_url;
+    issueParams.pull_request_diff_url = pullRequest.diff_url;
+    issueParams.pull_request_patch_url = pullRequest.patch_url;
+    issueParams.created_at = new Date(current.created_at);
+    issueParams.updated_at = new Date(current.updated_at);
+    issueParams.closed_at = (current.closed_at) ? new Date(current.closed_at) : null;
+    /* eslint-eable camelcase */
+
+    previous.push(
+      issuesTable.createRow(issueParams)
+    );
+    return previous;
+  }, []);
+
+  // insert_or_replace issues
+  return await db.insertOrReplace().into(issuesTable).values(issueRows).exec();
 };
 
 const persistConfigParams = async (params) => {

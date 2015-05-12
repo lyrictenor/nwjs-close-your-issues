@@ -16,7 +16,7 @@ import serverGetSinglePullRequest from "myUtils/githubGetSinglePullRequest";
 import serverGetSingleRepository from "myUtils/githubGetSingleRepository";
 import serverDeleteRefs from "myUtils/githubDeleteRefs";
 import serverRootEndpoint from "myUtils/githubRootEndpoint";
-import { saveUsersAndRepositories } from "myUtils/persistence";
+import { saveUsersAndRepositories, saveIssues } from "myUtils/persistence";
 import AppError from "myUtils/AppError";
 
 const toggledIssueState = (state) => {
@@ -112,6 +112,7 @@ export default class IssueActions extends Actions {
             return serverListYourRepositoriesWithPage(value.url, value.page);
           })
           .then((response) => {
+            console.log(response);
             return saveUsersAndRepositories(response.data);
           })
           .catch((error) => {
@@ -127,20 +128,70 @@ export default class IssueActions extends Actions {
     }
 
     // issues
-    const issuesUrl = endpointResponse.data.issues_url;
+    try {
+      const issuesUrl = endpointResponse.data.issues_url;
 
-    /* eslint-disable camelcase */
-    let issuesConfig = defaultConfig(settings.get("token"));
-    issuesConfig.params = {
-      filter: "all",
-      state: "all",
-      page: 1,
-      per_page: 100,
-      sort: "updated"
-    };
-    /* eslint-enable camelcase */
+      /* eslint-disable camelcase */
+      let issuesConfig = defaultConfig(settings.get("token"));
+      issuesConfig.params = {
+        filter: "all",
+        state: "all",
+        page: 1,
+        per_page: 100,
+        sort: "updated"
+      };
+      /* eslint-enable camelcase */
 
-    return await serverListIssues(issuesUrl, issuesConfig);
+      const issuesResponse = await serverListIssues(issuesUrl, issuesConfig);
+      const parsedLink2 = parseLinkHeader(issuesResponse.headers.link);
+      console.log(issuesResponse);
+      console.log(parsedLink2);
+      let lastPage = Number(parsedLink2.last.page);
+      // FIXME: page count cap
+      lastPage = (lastPage > 5) ? 5 : lastPage;
+
+      // lastPage: 4; => [2, 3, 4]
+      // lastPage: 1; => []
+      const pageRange2 = range(2, lastPage + 1);
+      const somethingPromiseForPage12 = new Promise((resolve) => {
+        resolve(saveIssues(issuesResponse.data));
+      });
+      const serverListIssuesWithPage = (url, page) => {
+        const settings = this.flux.getConfig();
+        /* eslint-disable camelcase */
+        let issuesConfig = defaultConfig(settings.get("token"));
+        issuesConfig.params = {
+          filter: "all",
+          state: "all",
+          page: page,
+          per_page: 100,
+          sort: "updated"
+        };
+        /* eslint-enable camelcase */
+        return serverListIssues(url, issuesConfig);
+      };
+      const promises2 = pageRange2.map((page) => {
+        return Promise
+          .resolve({page: page, url: issuesUrl})
+          .then((value) => {
+            return serverListIssuesWithPage(value.url, value.page);
+          })
+          .then((response) => {
+            console.log(response);
+            return saveIssues(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+
+      const results2 = await Promise.all([somethingPromiseForPage12, ...promises2]);
+      console.log(results2);
+      return issuesResponse;
+    } catch(e) {
+      console.log(e);
+      throw e;
+    }
   }
 
   async fetchIssues() {
