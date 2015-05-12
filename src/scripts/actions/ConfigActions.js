@@ -13,15 +13,25 @@ export default class ConfigActions extends Actions {
   }
 
   async saveSettings(settings) {
-    const config = await saveConfig(settings);
-    this.flux.setConfig(Immutable.fromJS(config));
-    return config;
+    try {
+      const config = await saveConfig(settings);
+      this.flux.setConfig(Immutable.fromJS(config));
+      return config;
+    } catch(e) {
+      console.log(e);
+      throw e;
+    }
   }
   async clearAllData() {
-    await resetStorages()();
-    const config = await initConfig();
-    this.flux.setConfig(Immutable.fromJS(config));
-    return config;
+    try {
+      await resetStorages()();
+      const config = await initConfig();
+      this.flux.setConfig(Immutable.fromJS(config));
+      return config;
+    } catch(e) {
+      console.log(e);
+      throw e;
+    }
   }
   adjustSettings(settings) {
     return settings;
