@@ -32,45 +32,50 @@ export default class IssueActions extends Actions {
 
   // TODO: remove settings
   async fetchSlugRepositoryIssues(owner, repo) {
-    const settings = this.flux.getConfig();
-    let config = defaultConfig(settings.get("token"));
+    try {
+      const settings = this.flux.getConfig();
+      let config = defaultConfig(settings.get("token"));
 
-    // endpoint
-    const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
+      // endpoint
+      const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
 
-    // repository
-    const repositoryTemplate = uriTemplates(endpointResponse.data.repository_url);
-    const repositoryUrl = repositoryTemplate.fill({
-      owner: owner,
-      repo: repo
-    });
-    const repositoryResponse = await serverGetSingleRepository(repositoryUrl, config);
+      // repository
+      const repositoryTemplate = uriTemplates(endpointResponse.data.repository_url);
+      const repositoryUrl = repositoryTemplate.fill({
+        owner: owner,
+        repo: repo
+      });
+      const repositoryResponse = await serverGetSingleRepository(repositoryUrl, config);
 
-    // issues
-    const issuesTemplate = uriTemplates(repositoryResponse.data.issues_url);
-    const issuesUrl = issuesTemplate.fill({});
+      // issues
+      const issuesTemplate = uriTemplates(repositoryResponse.data.issues_url);
+      const issuesUrl = issuesTemplate.fill({});
 
-    let issuesConfig = defaultConfig(settings.get("token"));
-    /* eslint-disable camelcase */
-    issuesConfig.params = {
-      state: "all",
-      page: 1,
-      per_page: 100,
-      sort: "updated"
-    };
-    /* eslint-enable camelcase */
-    return await serverListIssuesForRepository(issuesUrl, issuesConfig);
+      let issuesConfig = defaultConfig(settings.get("token"));
+      /* eslint-disable camelcase */
+      issuesConfig.params = {
+        state: "all",
+        page: 1,
+        per_page: 100,
+        sort: "updated"
+      };
+      /* eslint-enable camelcase */
+      return await serverListIssuesForRepository(issuesUrl, issuesConfig);
+    } catch(e) {
+      console.log(e);
+      throw e;
+    }
   }
 
   async fetchAllIssues() {
-    const settings = this.flux.getConfig();
-    let config = defaultConfig(settings.get("token"));
-
-    // endpoint
-    const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
-
-    // repositories
     try {
+      const settings = this.flux.getConfig();
+      let config = defaultConfig(settings.get("token"));
+
+      // endpoint
+      const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
+
+      // repositories
       const repositoriesTemplate = uriTemplates(endpointResponse.data.current_user_repositories_url);
       const repositoriesUrl = repositoriesTemplate.fill({});
       /* eslint-disable camelcase */
@@ -122,13 +127,8 @@ export default class IssueActions extends Actions {
 
       const results = await Promise.all([somethingPromiseForPage1, ...promises]);
       console.log(results);
-    } catch(e) {
-      console.log(e);
-      throw e;
-    }
 
-    // issues
-    try {
+      // issues
       const issuesUrl = endpointResponse.data.issues_url;
 
       /* eslint-disable camelcase */
@@ -146,13 +146,13 @@ export default class IssueActions extends Actions {
       const parsedLink2 = parseLinkHeader(issuesResponse.headers.link);
       console.log(issuesResponse);
       console.log(parsedLink2);
-      let lastPage = Number(parsedLink2.last.page);
+      let lastPage2 = Number(parsedLink2.last.page);
       // FIXME: page count cap
-      lastPage = (lastPage > 5) ? 5 : lastPage;
+      lastPage2 = (lastPage2 > 5) ? 5 : lastPage2;
 
       // lastPage: 4; => [2, 3, 4]
       // lastPage: 1; => []
-      const pageRange2 = range(2, lastPage + 1);
+      const pageRange2 = range(2, lastPage2 + 1);
       const somethingPromiseForPage12 = new Promise((resolve) => {
         resolve(saveIssues(issuesResponse.data));
       });
@@ -217,77 +217,90 @@ export default class IssueActions extends Actions {
   }
 
   async toggleIssueState(issue) {
-    const settings = this.flux.getConfig();
-    if (!settings.get("token")) {
-      return issue.toJS();
+    try {
+      const settings = this.flux.getConfig();
+      if (!settings.get("token")) {
+        return issue.toJS();
+      }
+
+      let config = defaultConfig(settings.get("token"));
+      let data = {
+        state: toggledIssueState(issue.get("state"))
+      };
+      let url = issue.get("url");
+      const response = await serverEditIssue(url, data, config);
+      console.log(response);
+      return response.data;
+    } catch(e) {
+      console.log(e);
+      throw e;
     }
-
-    let config = defaultConfig(settings.get("token"));
-    let data = {
-      state: toggledIssueState(issue.get("state"))
-    };
-
-    let url = issue.get("url");
-    const response = await serverEditIssue(url, data, config);
-    console.log(response);
-    return response.data;
   }
 
   async mergePullRequest(issue) {
-    const settings = this.flux.getConfig();
-    if(!settings.get("token") || !issue.pull_request.url || !issue.url) {
-      return issue.toJS();
+    try {
+      const settings = this.flux.getConfig();
+      if(!settings.get("token") || !issue.pull_request.url || !issue.url) {
+        return issue.toJS();
+      }
+      let config = defaultConfig(settings.get("token"));
+      let data = {};
+      const issueUrl = issue.url;
+      const pullRequestUrl = issue.pull_request.url;
+
+      const mergeResponse = await serverMergePullRequest(pullRequestUrl, data, config);
+      console.log(mergeResponse);
+      if (mergeResponse.data.merged !== true) {
+        // TODO: Handle Error
+        console.log(mergeResponse.data.message);
+        return issue.toJS();
+      }
+
+      const response = await serverGetSingleIssue(issueUrl, config);
+      console.log(response);
+      return response.data;
+    } catch(e) {
+      console.log(e);
+      throw e;
     }
-
-    let config = defaultConfig(settings.get("token"));
-    let data = {};
-    const issueUrl = issue.url;
-    const pullRequestUrl = issue.pull_request.url;
-
-    const mergeResponse = await serverMergePullRequest(pullRequestUrl, data, config);
-    console.log(mergeResponse);
-    if (mergeResponse.data.merged !== true) {
-      // TODO: Handle Error
-      console.log(mergeResponse.data.message);
-      return issue.toJS();
-    }
-
-    const response = await serverGetSingleIssue(issueUrl, config);
-    console.log(response);
-    return response.data;
   }
 
   async deleteIssueBranch(issue) {
-    const settings = this.flux.getConfig();
-    if(!settings.get("token") || !issue.pull_request.url || !issue.url) {
-      return issue.toJS();
+    try {
+      const settings = this.flux.getConfig();
+      if(!settings.get("token") || !issue.pull_request.url || !issue.url) {
+        return issue.toJS();
+      }
+
+      let config = defaultConfig(settings.get("token"));
+      const pullRequestUrl = issue.pull_request.url;
+      const issueUrl = issue.url;
+
+      const response = await serverGetSinglePullRequest(pullRequestUrl, config);
+      console.log(response);
+
+      const pullRequest = response.data;
+      const headRef = pullRequest.head.ref;
+      const refTemplate = pullRequest.head.repo.git_refs_url;
+      if (!headRef || !refTemplate) {
+        return issue.toJS();
+      }
+
+      // DELETE /repos/:owner/:repo/git/refs/:ref
+      // DELETE /repos/octocat/Hello-World/git/refs/heads/feature-a
+      const template = uriTemplates(refTemplate);
+      const refsUrl = template.fill({ sha: `heads/${headRef}` });
+
+      // Delete branch
+      // TODO: Handle Error
+      await serverDeleteRefs(refsUrl, config);
+
+      const response2 = await serverGetSingleIssue(issueUrl, config);
+      console.log(response2);
+      return response2.data;
+    } catch(e) {
+      console.log(e);
+      throw e;
     }
-
-    let config = defaultConfig(settings.get("token"));
-    const pullRequestUrl = issue.pull_request.url;
-    const issueUrl = issue.url;
-
-    const response = await serverGetSinglePullRequest(pullRequestUrl, config);
-    console.log(response);
-
-    const pullRequest = response.data;
-    const headRef = pullRequest.head.ref;
-    const refTemplate = pullRequest.head.repo.git_refs_url;
-    if (!headRef || !refTemplate) {
-      return issue.toJS();
-    }
-
-    // DELETE /repos/:owner/:repo/git/refs/:ref
-    // DELETE /repos/octocat/Hello-World/git/refs/heads/feature-a
-    const template = uriTemplates(refTemplate);
-    const refsUrl = template.fill({ sha: `heads/${headRef}` });
-
-    // Delete branch
-    // TODO: Handle Error
-    await serverDeleteRefs(refsUrl, config);
-
-    const response2 = await serverGetSingleIssue(issueUrl, config);
-    console.log(response2);
-    return response2.data;
   }
 }
