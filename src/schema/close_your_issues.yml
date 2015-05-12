@@ -142,7 +142,10 @@ table:
       assignee: number
       milestone: number
       comments: integer
-      pull_request: number
+      pull_request_url: string
+      pull_request_html_url: string
+      pull_request_diff_url: string
+      pull_request_patch_url: string
       closed_at: datetime
       created_at: datetime
       updated_at: datetime
