@@ -31,16 +31,13 @@ export default class IssueActions extends Actions {
   }
 
   // TODO: remove settings
-  async fetchSlugRepositoryIssues(owner, repo) {
+  async fetchSlugRepositoryIssues(endpointData, owner, repo) {
     try {
       const settings = this.flux.getConfig();
       let config = defaultConfig(settings.get("token"));
 
-      // endpoint
-      const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
-
       // repository
-      const repositoryTemplate = uriTemplates(endpointResponse.data.repository_url);
+      const repositoryTemplate = uriTemplates(endpointData.repository_url);
       const repositoryUrl = repositoryTemplate.fill({
         owner: owner,
         repo: repo
@@ -129,16 +126,11 @@ export default class IssueActions extends Actions {
   }
 }
 
-  async fetchAllIssues() {
+  async fetchAllIssues(endpointData) {
     try {
       const settings = this.flux.getConfig();
-      let config = defaultConfig(settings.get("token"));
-
-      // endpoint
-      const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
-
       // issues
-      const issuesUrl = endpointResponse.data.issues_url;
+      const issuesUrl = endpointData.issues_url;
 
       /* eslint-disable camelcase */
       let issuesConfig = defaultConfig(settings.get("token"));
@@ -197,7 +189,7 @@ export default class IssueActions extends Actions {
       const results2 = await Promise.all([somethingPromiseForPage12, ...promises2]);
 
       // repositories
-      this.fetchRepositories(endpointResponse.data);
+      this.fetchRepositories(endpointData);
 
       console.log(results2);
       return issuesResponse;
@@ -208,16 +200,26 @@ export default class IssueActions extends Actions {
   }
 
   async fetchIssues() {
-    const settings = this.flux.getConfig();
-    if (!this.flux.loggedIn()) {
-      const repositoryIssues = await this.fetchSlugRepositoryIssues(...settings.get("slug").split("/"));
-      console.log(repositoryIssues);
-      return repositoryIssues.data;
-    }
+    try {
+      const settings = this.flux.getConfig();
+      let config = defaultConfig(settings.get("token"));
 
-    const userRepositoryIssues = await this.fetchAllIssues();
-    console.log(userRepositoryIssues);
-    return userRepositoryIssues.data;
+      // endpoint
+      const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
+
+      if (!this.flux.loggedIn()) {
+        const repositoryIssues = await this.fetchSlugRepositoryIssues(endpointResponse.data, ...settings.get("slug").split("/"));
+        console.log(repositoryIssues);
+        return repositoryIssues.data;
+      }
+
+      const userRepositoryIssues = await this.fetchAllIssues(endpointResponse.data);
+      console.log(userRepositoryIssues);
+      return userRepositoryIssues.data;
+    } catch(e) {
+      console.log(e);
+      throw e;
+    }
   }
 
   clearIssues() {
