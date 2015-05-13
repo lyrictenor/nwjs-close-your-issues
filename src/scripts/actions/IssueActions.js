@@ -30,11 +30,9 @@ export default class IssueActions extends Actions {
     this.flux = flux;
   }
 
-  // TODO: remove settings
   async fetchSlugRepositoryIssues(endpointData, owner, repo) {
     try {
-      const settings = this.flux.getConfig();
-      let config = defaultConfig(settings.get("token"));
+      let config = defaultConfig(false);
 
       // repository
       const repositoryTemplate = uriTemplates(endpointData.repository_url);
@@ -48,7 +46,7 @@ export default class IssueActions extends Actions {
       const issuesTemplate = uriTemplates(repositoryResponse.data.issues_url);
       const issuesUrl = issuesTemplate.fill({});
 
-      let issuesConfig = defaultConfig(settings.get("token"));
+      let issuesConfig = defaultConfig(false);
       /* eslint-disable camelcase */
       issuesConfig.params = {
         state: "all",
