@@ -5,7 +5,6 @@ import { Map as map, Record as record, OrderedMap as orderedMap } from "immutabl
 import githubSlug from "myUtils/githubSlug";
 import trimWidth from "myUtils/trimWidth";
 import cx from "classnames";
-import moment from "moment";
 
 /* eslint-disable camelcase */
 const issueRecord = record({
@@ -95,10 +94,6 @@ const issueDecorator = (issue, loggedIn = true) => {
   copied.button_merge_pull_request = loggedIn && isPullRequest(copied) && !isClosed(copied);
   /* eslint-enable camelcase */
   return copied;
-};
-
-const compareTimeUpdatedAtDesc = (issue1, issue2) => {
-  return (moment.utc(issue1.updated_at).isBefore(moment.utc(issue2.updated_at))) ? 1 : -1;
 };
 
 export default class IssueStore extends Store {
