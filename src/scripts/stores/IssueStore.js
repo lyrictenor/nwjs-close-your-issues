@@ -85,6 +85,9 @@ const issueDecorator = (issue, loggedIn = true) => {
   copied.card_icon_class = switchCardIconClass(copied);
   copied.comment_class = switchCommentClass(copied);
   copied.button_snooze = true;
+  copied.created_at = (issue.created_at instanceof Date) ? issue.created_at.toUTCString() : issue.created_at;
+  copied.updated_at = (issue.updated_at instanceof Date) ? issue.updated_at.toUTCString() : issue.updated_at;
+  copied.closed_at = (issue.closed_at instanceof Date) ? issue.closed_at.toUTCString() : issue.closed_at;
   copied.button_close_issue = loggedIn && !isClosed(copied);
   copied.button_reopen_issue = loggedIn && isClosed(copied);
   copied.button_delete_branch = loggedIn && isPullRequest(copied) && isClosed(copied);
