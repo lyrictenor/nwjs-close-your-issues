@@ -67,16 +67,11 @@ export default class IssueActions extends Actions {
     }
   }
 
-  async fetchAllIssues() {
+  async fetchRepositories(endpointData) {
     try {
       const settings = this.flux.getConfig();
-      let config = defaultConfig(settings.get("token"));
-
-      // endpoint
-      const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
-
       // repositories
-      const repositoriesTemplate = uriTemplates(endpointResponse.data.current_user_repositories_url);
+      const repositoriesTemplate = uriTemplates(endpointData.current_user_repositories_url);
       const repositoriesUrl = repositoriesTemplate.fill({});
       /* eslint-disable camelcase */
       let repositoriesConfig = defaultConfig(settings.get("token"));
@@ -127,6 +122,20 @@ export default class IssueActions extends Actions {
 
       const results = await Promise.all([somethingPromiseForPage1, ...promises]);
       console.log(results);
+      return results;
+    } catch(e) {
+    console.log(e);
+    throw e;
+  }
+}
+
+  async fetchAllIssues() {
+    try {
+      const settings = this.flux.getConfig();
+      let config = defaultConfig(settings.get("token"));
+
+      // endpoint
+      const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
 
       // issues
       const issuesUrl = endpointResponse.data.issues_url;
@@ -186,6 +195,10 @@ export default class IssueActions extends Actions {
       });
 
       const results2 = await Promise.all([somethingPromiseForPage12, ...promises2]);
+
+      // repositories
+      this.fetchRepositories(endpointResponse.data);
+
       console.log(results2);
       return issuesResponse;
     } catch(e) {
