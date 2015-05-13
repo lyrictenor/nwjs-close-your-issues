@@ -125,7 +125,7 @@ export default class IssueStore extends Store {
       issuesMap = issuesMap.set(issue.id, issueRecord(issueDecorator(issue, this.flux.loggedIn())));
     }
 
-    this.setState({ issues: this.state.issues.merge(issuesMap).sort(compareTimeUpdatedAtDesc) });
+    this.setState({ issues: this.state.issues.merge(issuesMap) });
   }
   clearIssues() {
     this.setState({ issues: this.state.issues.clear() });

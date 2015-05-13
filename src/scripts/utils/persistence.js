@@ -127,8 +127,13 @@ export const saveIssues = async (issues) => {
 
 export const getIssues = async (params = {}) => {
   let db = await dbConnection();
+  let lf = window.lf;
   let issuesTable = await db.getSchema().table("Issues");
-  let results = await db.select().from(issuesTable).exec();
+  let results = await db
+    .select()
+    .from(issuesTable)
+    .orderBy(issuesTable.updated_at, lf.Order.DESC)
+    .exec();
   return results;
 };
 
