@@ -125,6 +125,13 @@ export const saveIssues = async (issues) => {
   return await db.insertOrReplace().into(issuesTable).values(issueRows).exec();
 };
 
+export const getIssues = async (params = {}) => {
+  let db = await dbConnection();
+  let issuesTable = await db.getSchema().table("Issues");
+  let results = await db.select().from(issuesTable).exec();
+  return results;
+};
+
 const persistConfigParams = async (params) => {
   let db = await dbConnection();
   let configTables = await db.getSchema().table("Configs");
