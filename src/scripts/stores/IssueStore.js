@@ -49,10 +49,10 @@ const issueRecord = record({
 /* eslint-enable camelcase */
 
 const isPullRequest = (issue) => {
-  if (typeof issue.pull_request === "undefined" || issue.pull_request === null) {
+  if (typeof issue.pull_request === "undefined" || issue.pull_request === null || Object.keys(issue.pull_request).length === 0) {
     return false;
   }
-  return Object.keys(issue.pull_request).length !== 0;
+  return issue.pull_request.url && issue.pull_request.html_url;
 };
 const isClosed = (issue) => {
   return issue.state === "closed";
