@@ -246,12 +246,10 @@ export const getIssues = async (params = {}) => {
 };
 
 const currentRepository = (data, htmlUrl) => {
-  console.log(data);
   const slug = githubSlug(htmlUrl);
   const repository = Array.find(data, (element) => {
     return element.full_name === slug;
   });
-  console.log(repository);
   return repository;
 };
 
@@ -276,7 +274,6 @@ const getPersistedConfigData = async () => {
   let db = await dbConnection();
   let configTables = await db.getSchema().table("Configs");
   let results = await db.select().from(configTables).exec();
-  console.log(results);
   return results;
 };
 
