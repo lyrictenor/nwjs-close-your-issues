@@ -38,8 +38,8 @@ export const saveUsersAndRepositories = async (repositories) => {
   let userRows = repositories.reduce((previous, current) => {
     /* eslint-disable camelcase */
     let userParams = Object.assign({}, current.owner);
-    userParams.created_at = null;
-    userParams.updated_at = null;
+    userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
+    userParams.updated_at = (userParams.updated_at) ? new Date(userParams.updated_at) : null;
     /* eslint-eable camelcase */
 
     previous.push(
