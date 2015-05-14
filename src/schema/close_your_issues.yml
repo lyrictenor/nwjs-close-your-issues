@@ -79,14 +79,12 @@ table:
       open_issues: integer
       watchers: integer
       default_branch: string
-      permissions_admin: boolean
-      permissions_push: boolean
-      permissions_pull: boolean
-      organization: number
+      permissions: object
+      organization: object
       network_cont: integer
       subscribers_cont: integer
     constraint:
-      nullable: [ language, pushed_at, homepage, mirror_url, description ]
+      nullable: [ language, pushed_at, homepage, mirror_url, description, organization ]
       primaryKey: [ id ]
 #      foreignKey:
 #        fk_ownerId:

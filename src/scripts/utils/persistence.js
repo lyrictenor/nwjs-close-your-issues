@@ -56,15 +56,9 @@ export const saveUsersAndRepositories = async (repositories) => {
   let repositoryRows = repositories.reduce((previous, current) => {
     /* eslint-disable camelcase */
     let repositoryParams = Object.assign({}, current);
-    let permissions = Object.assign({}, current.permissions);
     let owner = Object.assign({}, current.owner);
     delete repositoryParams.owner;
-    delete repositoryParams.permissions;
-    repositoryParams.organization = 0;
     repositoryParams.owner = owner.id;
-    repositoryParams.permissions_admin = permissions.admin;
-    repositoryParams.permissions_push = permissions.push;
-    repositoryParams.permissions_pull = permissions.pull;
     repositoryParams.created_at = new Date(current.created_at);
     repositoryParams.updated_at = new Date(current.updated_at);
     repositoryParams.pushed_at = (current.pushed_at) ? new Date(current.pushed_at) : null;
