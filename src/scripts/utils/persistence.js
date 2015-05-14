@@ -215,11 +215,13 @@ export const getIssues = async (params = {}) => {
     .select()
     .from(issuesTable)
     .innerJoin(repositoriesTable, issuesTable.repository.eq(repositoriesTable.id))
+    .innerJoin(usersTable, issuesTable.user.eq(usersTable.id))
     .orderBy(issuesTable.updated_at, lf.Order.DESC)
     .exec();
   return results.map((result) => {
     let issue = Object.assign({}, result.Issues);
     issue.repository = result.Repositories;
+    issue.user = result.Users;
     return issue;
   });
 };
