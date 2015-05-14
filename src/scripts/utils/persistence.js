@@ -188,7 +188,7 @@ export const saveIssues = async (issues) => {
     issueParams.user = user.id;
     issueParams.assignee = assignee.id;
     // single issue response does not have repository
-    issueParams.repository = repository.id || (current_repository(repos, issueParams.html_url) || {}).id;
+    issueParams.repository = repository.id || (currentRepository(repos, issueParams.html_url) || {}).id;
     issueParams.closed_by = closedBy.id;
     issueParams.created_at = new Date(current.created_at);
     issueParams.updated_at = new Date(current.updated_at);
@@ -226,7 +226,7 @@ export const getIssues = async (params = {}) => {
   });
 };
 
-const current_repository = (data, htmlUrl) => {
+const currentRepository = (data, htmlUrl) => {
   console.log(data);
   const slug = githubSlug(htmlUrl);
   const repository = Array.find(data, (element) => {
