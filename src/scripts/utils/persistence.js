@@ -159,7 +159,7 @@ export const saveIssues = async (issues) => {
         repositoriesTable.createRow(repositoryParams)
       );
     } else {
-      // single issue does not have repository
+      // single issue response does not have repository
       // generate repository?
     }
     return previous;
@@ -187,6 +187,7 @@ export const saveIssues = async (issues) => {
     delete issueParams.closed_by;
     issueParams.user = user.id;
     issueParams.assignee = assignee.id;
+    // single issue response does not have repository
     issueParams.repository = repository.id || (current_repository(repos, issueParams.html_url) || {}).id;
     issueParams.closed_by = closedBy.id;
     issueParams.created_at = new Date(current.created_at);
