@@ -1,3 +1,18 @@
+<a name"0.1.6"></a>
+### 0.1.6 (2015-05-14)
+
+
+#### Bug Fixes
+
+* **delete:** save issue, not pull request ([caee0de7](https://github.com/lyrictenor/nwjs-close-your-issues/commit/caee0de7))
+* **pull-request:** fix checking pull request logic ([058be3eb](https://github.com/lyrictenor/nwjs-close-your-issues/commit/058be3eb))
+
+
+#### Features
+
+* **issue:** save issues return saved values ([41aceb18](https://github.com/lyrictenor/nwjs-close-your-issues/commit/41aceb18))
+
+
 <a name"0.1.5"></a>
 ### 0.1.5 (2015-05-12)
 
