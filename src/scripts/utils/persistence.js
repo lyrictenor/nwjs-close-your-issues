@@ -36,15 +36,17 @@ export const saveUsersAndRepositories = async (repositories) => {
   // set up users
   let usersTable = await db.getSchema().table("Users");
   let userRows = repositories.reduce((previous, current) => {
-    /* eslint-disable camelcase */
-    let userParams = Object.assign({}, current.owner);
-    userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
-    userParams.updated_at = (userParams.updated_at) ? new Date(userParams.updated_at) : null;
-    /* eslint-eable camelcase */
+    if(current.owner) {
+      /* eslint-disable camelcase */
+      let userParams = Object.assign({}, current.owner);
+      userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
+      userParams.updated_at = (userParams.updated_at) ? new Date(userParams.updated_at) : null;
+      /* eslint-eable camelcase */
 
-    previous.push(
-      usersTable.createRow(userParams)
-    );
+      previous.push(
+        usersTable.createRow(userParams)
+      );
+    }
     return previous;
   }, []);
 
@@ -80,27 +82,32 @@ export const saveIssues = async (issues) => {
   // set up users from issue's repository's owner, issue's user, issue's assignee, issue's closed_by
   let usersTable = await db.getSchema().table("Users");
   let userRows = issues.reduce((previous, current) => {
+    let userParams;
     // issue's repository's owner
-    /* eslint-disable camelcase */
-    let userParams = Object.assign({}, current.repository.owner);
-    userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
-    userParams.updated_at = (userParams.updated_at) ? new Date(userParams.updated_at) : null;
-    /* eslint-eable camelcase */
+    if (current.repository.owner) {
+      /* eslint-disable camelcase */
+      userParams = Object.assign({}, current.repository.owner);
+      userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
+      userParams.updated_at = (userParams.updated_at) ? new Date(userParams.updated_at) : null;
+      /* eslint-eable camelcase */
 
-    previous.push(
-      usersTable.createRow(userParams)
-    );
+      previous.push(
+        usersTable.createRow(userParams)
+      );
+    }
 
     // issue's user
-    /* eslint-disable camelcase */
-    userParams = Object.assign({}, current.user);
-    userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
-    userParams.updated_at = (userParams.updated_at) ? new Date(userParams.updated_at) : null;
-    /* eslint-eable camelcase */
+    if (current.user) {
+      /* eslint-disable camelcase */
+      userParams = Object.assign({}, current.user);
+      userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
+      userParams.updated_at = (userParams.updated_at) ? new Date(userParams.updated_at) : null;
+      /* eslint-eable camelcase */
 
-    previous.push(
-      usersTable.createRow(userParams)
-    );
+      previous.push(
+        usersTable.createRow(userParams)
+      );
+    }
 
     // issue's assignee
     if (current.assignee) {
@@ -136,19 +143,21 @@ export const saveIssues = async (issues) => {
   // set up repositories from issues
   let repositoriesTable = await db.getSchema().table("Repositories");
   let repositoryRows = issues.reduce((previous, current) => {
-    /* eslint-disable camelcase */
-    let repositoryParams = Object.assign({}, current.repository);
-    const owner = Object.assign({}, current.owner);
-    delete repositoryParams.owner;
-    repositoryParams.owner = owner.id;
-    repositoryParams.created_at = new Date(current.created_at);
-    repositoryParams.updated_at = new Date(current.updated_at);
-    repositoryParams.pushed_at = (current.pushed_at) ? new Date(current.pushed_at) : null;
-    /* eslint-eable camelcase */
+    if(current.repository) {
+      /* eslint-disable camelcase */
+      let repositoryParams = Object.assign({}, current.repository);
+      const owner = Object.assign({}, current.owner);
+      delete repositoryParams.owner;
+      repositoryParams.owner = owner.id;
+      repositoryParams.created_at = new Date(current.created_at);
+      repositoryParams.updated_at = new Date(current.updated_at);
+      repositoryParams.pushed_at = (current.pushed_at) ? new Date(current.pushed_at) : null;
+      /* eslint-eable camelcase */
 
-    previous.push(
-      repositoriesTable.createRow(repositoryParams)
-    );
+      previous.push(
+        repositoriesTable.createRow(repositoryParams)
+      );
+    }
     return previous;
   }, []);
 
