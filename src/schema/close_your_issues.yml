@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 name: close_your_issues
-version: 4
+version: 5
 table:
   Configs:
     column:
@@ -126,7 +126,7 @@ table:
   Issues:
     column:
       id: number
-      repository: number
+      repository: object
       url: string
       labels_url: string
       comments_url: string
@@ -136,22 +136,19 @@ table:
       state: string
       title: string
       body_text: string
-      user: number
-      #labels:
+      user: object
+      labels: object
       locked: boolean
-      assignee: number
-      #milestone: number
+      assignee: object
+      milestone: object
       comments: integer
-      pull_request_url: string
-      pull_request_html_url: string
-      pull_request_diff_url: string
-      pull_request_patch_url: string
+      pull_request: object
       closed_at: datetime
       created_at: datetime
       updated_at: datetime
-      closed_by: number
+      closed_by: object
     constraint:
-      nullable: [ closed_at, pull_request_url, pull_request_html_url, pull_request_diff_url, pull_request_patch_url, body_text, closed_by ]
+      nullable: [ closed_at, pull_request, body_text, closed_by, assignee, labels, closed_by, milestone ]
       primaryKey: [ id ]
 #      foreignKey:
 #        fk_UserId:

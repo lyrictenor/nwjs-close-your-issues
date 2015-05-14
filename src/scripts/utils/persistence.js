@@ -89,27 +89,6 @@ export const saveIssues = async (issues) => {
     /* eslint-disable camelcase */
     // TODO: if (!repository || !user || !assignee) { create record; }
     let issueParams = Object.assign({}, current);
-    const pullRequest = Object.assign({}, current.pull_request);
-    const user = Object.assign({}, current.user);
-    const assignee = Object.assign({}, current.assignee);
-    const milestone = Object.assign({}, current.milestone);
-    const repository = Object.assign({}, current.repository);
-    const closedBy = Object.assign({}, current.closed_by);
-    delete issueParams.pull_request;
-    delete issueParams.assignee;
-    delete issueParams.labels;
-    delete issueParams.user;
-    delete issueParams.milestone;
-    delete issueParams.repository;
-    delete issueParams.closed_by;
-    issueParams.user = user.id;
-    issueParams.assignee = assignee.id;
-    issueParams.repository = repository.id;
-    issueParams.pull_request_url = pullRequest.url;
-    issueParams.closed_by = closedBy.id;
-    issueParams.pull_request_html_url = pullRequest.html_url;
-    issueParams.pull_request_diff_url = pullRequest.diff_url;
-    issueParams.pull_request_patch_url = pullRequest.patch_url;
     issueParams.created_at = new Date(current.created_at);
     issueParams.updated_at = new Date(current.updated_at);
     issueParams.closed_at = (current.closed_at) ? new Date(current.closed_at) : null;
