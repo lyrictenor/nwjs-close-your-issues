@@ -41,6 +41,9 @@ const issueRecord = record({
   pull_request: record({
     url: null,
     html_url: null
+  }),
+  repository: record({
+    id: null
   })
 });
 /* eslint-enable camelcase */
