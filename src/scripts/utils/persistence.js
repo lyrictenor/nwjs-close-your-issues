@@ -160,16 +160,16 @@ export const saveIssues = async (issues) => {
   let issueRows = issues.reduce((previous, current) => {
     /* eslint-disable camelcase */
     let issueParams = Object.assign({}, current);
-    const assignee = Object.assign({}, current.assignee);
     const user = Object.assign({}, current.user);
-    const closedBy = Object.assign({}, current.closed_by);
+    const assignee = Object.assign({}, current.assignee);
     const repository = Object.assign({}, current.repository);
+    const closedBy = Object.assign({}, current.closed_by);
     delete issueParams.assignee;
     delete issueParams.user;
     delete issueParams.repository;
     delete issueParams.closed_by;
-    issueParams.assignee = assignee.id;
     issueParams.user = user.id;
+    issueParams.assignee = assignee.id;
     issueParams.repository = repository.id;
     issueParams.closed_by = closedBy.id;
     issueParams.created_at = new Date(current.created_at);
