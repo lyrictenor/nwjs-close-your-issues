@@ -284,8 +284,9 @@ export default class IssueActions extends Actions {
       if (!this.flux.loggedIn()) {
         return response.data;
       }
-      saveIssues([response.data]);
-      return response.data;
+      const saved = await saveIssues([response.data]);
+      console.log(saved);
+      return saved[0];
     } catch(e) {
       console.log(e);
       throw e;
@@ -336,8 +337,9 @@ export default class IssueActions extends Actions {
       if (!this.flux.loggedIn()) {
         return response2.data;
       }
-      saveIssues([response.data]);
-      return response2.data;
+      const saved = await saveIssues([response.data]);
+      console.log(saved);
+      return saved[0];
     } catch(e) {
       console.log(e);
       throw e;
