@@ -133,7 +133,7 @@ table:
       state: string
       title: string
       body_text: string
-      user: object
+      user: number
       labels: object
       locked: boolean
       assignee: number
@@ -143,7 +143,7 @@ table:
       closed_at: datetime
       created_at: datetime
       updated_at: datetime
-      closed_by: object
+      closed_by: number
     constraint:
       nullable: [ closed_at, pull_request, body_text, closed_by, assignee, labels, closed_by, milestone ]
       primaryKey: [ id ]
