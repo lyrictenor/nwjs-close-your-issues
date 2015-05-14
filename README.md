@@ -35,6 +35,20 @@ Currently, it uses :
 * [Power-Assert](https://github.com/twada/power-assert);
 * [Tachikoma.io](http://tachikoma.io/) for interval dependency update with [David](https://github.com/alanshaw/david);
 
+## Development
+
+### On NW.js (dist)
+
+```
+npm run build && YOUR_NWJS_CMD dist/
+```
+
+### On Browser (development)
+
+```
+npm start & open http://localhost:8000/
+```
+
 ## License
 
 Copyright (c) 2015 sanemat. Licensed under the MIT license.
