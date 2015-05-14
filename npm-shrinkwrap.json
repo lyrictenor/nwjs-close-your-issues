@@ -170,11 +170,6 @@
       "from": "make-error@^1.0.2",
       "resolved": "https://registry.npmjs.org/make-error/-/make-error-1.0.2.tgz"
     },
-    "moment": {
-      "version": "2.10.2",
-      "from": "moment@^2.10.2",
-      "resolved": "https://registry.npmjs.org/moment/-/moment-2.10.2.tgz"
-    },
     "octicons": {
       "version": "2.2.0",
       "from": "octicons@^2.2.0",

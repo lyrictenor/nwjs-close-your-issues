@@ -5,7 +5,6 @@ import { Map as map, Record as record, OrderedMap as orderedMap } from "immutabl
 import githubSlug from "myUtils/githubSlug";
 import trimWidth from "myUtils/trimWidth";
 import cx from "classnames";
-import moment from "moment";
 
 /* eslint-disable camelcase */
 const issueRecord = record({
@@ -42,6 +41,9 @@ const issueRecord = record({
   pull_request: record({
     url: null,
     html_url: null
+  }),
+  repository: record({
+    id: null
   })
 });
 /* eslint-enable camelcase */
@@ -85,6 +87,9 @@ const issueDecorator = (issue, loggedIn = true) => {
   copied.card_icon_class = switchCardIconClass(copied);
   copied.comment_class = switchCommentClass(copied);
   copied.button_snooze = true;
+  copied.created_at = (issue.created_at instanceof Date) ? issue.created_at.toUTCString() : issue.created_at;
+  copied.updated_at = (issue.updated_at instanceof Date) ? issue.updated_at.toUTCString() : issue.updated_at;
+  copied.closed_at = (issue.closed_at instanceof Date) ? issue.closed_at.toUTCString() : issue.closed_at;
   copied.button_close_issue = loggedIn && !isClosed(copied);
   copied.button_reopen_issue = loggedIn && isClosed(copied);
   copied.button_delete_branch = loggedIn && isPullRequest(copied) && isClosed(copied);
@@ -92,10 +97,6 @@ const issueDecorator = (issue, loggedIn = true) => {
   copied.button_merge_pull_request = loggedIn && isPullRequest(copied) && !isClosed(copied);
   /* eslint-enable camelcase */
   return copied;
-};
-
-const compareTimeUpdatedAtDesc = (issue1, issue2) => {
-  return (moment.utc(issue1.updated_at).isBefore(moment.utc(issue2.updated_at))) ? 1 : -1;
 };
 
 export default class IssueStore extends Store {
@@ -125,7 +126,7 @@ export default class IssueStore extends Store {
       issuesMap = issuesMap.set(issue.id, issueRecord(issueDecorator(issue, this.flux.loggedIn())));
     }
 
-    this.setState({ issues: this.state.issues.merge(issuesMap).sort(compareTimeUpdatedAtDesc) });
+    this.setState({ issues: this.state.issues.merge(issuesMap) });
   }
   clearIssues() {
     this.setState({ issues: this.state.issues.clear() });

@@ -21,7 +21,6 @@
     "lodash": "^3.8.0",
     "lovefield": "^2.0.49",
     "make-error": "^1.0.2",
-    "moment": "^2.10.2",
     "octicons": "^2.2.0",
     "parse-link-header": "^0.2.0",
     "react": "^0.13.2",
