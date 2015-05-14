@@ -79,7 +79,11 @@ export const saveUsersAndRepositories = async (repositories) => {
 
 export const saveIssues = async (issues) => {
   let db = await dbConnection();
+  let lf = window.lf;
 
+  const ids = issues.map((issue) => {
+    return issue.id;
+  });
   // set up users from issue's repository's owner, issue's user, issue's assignee, issue's closed_by
   let usersTable = await db.getSchema().table("Users");
   let userRows = issues.reduce((previous, current) => {
@@ -202,7 +206,22 @@ export const saveIssues = async (issues) => {
   }, []);
 
   // insert_or_replace issues
-  return await db.insertOrReplace().into(issuesTable).values(issueRows).exec();
+  await db.insertOrReplace().into(issuesTable).values(issueRows).exec();
+
+  let results = await db
+    .select()
+    .from(issuesTable)
+    .innerJoin(repositoriesTable, issuesTable.repository.eq(repositoriesTable.id))
+    .innerJoin(usersTable, issuesTable.user.eq(usersTable.id))
+    .where(issuesTable.id.in(ids))
+    .orderBy(issuesTable.updated_at, lf.Order.DESC)
+    .exec();
+  return results.map((result) => {
+    let issue = Object.assign({}, result.Issues);
+    issue.repository = result.Repositories;
+    issue.user = result.Users;
+    return issue;
+  });
 };
 
 export const getIssues = async (params = {}) => {
