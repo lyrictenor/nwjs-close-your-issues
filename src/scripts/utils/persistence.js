@@ -56,7 +56,7 @@ export const saveUsersAndRepositories = async (repositories) => {
   let repositoryRows = repositories.reduce((previous, current) => {
     /* eslint-disable camelcase */
     let repositoryParams = Object.assign({}, current);
-    let owner = Object.assign({}, current.owner);
+    const owner = Object.assign({}, current.owner);
     delete repositoryParams.owner;
     repositoryParams.owner = owner.id;
     repositoryParams.created_at = new Date(current.created_at);
@@ -138,7 +138,7 @@ export const saveIssues = async (issues) => {
   let repositoryRows = issues.reduce((previous, current) => {
     /* eslint-disable camelcase */
     let repositoryParams = Object.assign({}, current.repository);
-    let owner = Object.assign({}, current.owner);
+    const owner = Object.assign({}, current.owner);
     delete repositoryParams.owner;
     repositoryParams.owner = owner.id;
     repositoryParams.created_at = new Date(current.created_at);
@@ -160,10 +160,10 @@ export const saveIssues = async (issues) => {
   let issueRows = issues.reduce((previous, current) => {
     /* eslint-disable camelcase */
     let issueParams = Object.assign({}, current);
-    let assignee = Object.assign({}, current.assignee);
-    let user = Object.assign({}, current.user);
-    let closed_by = Object.assign({}, current.closed_by);
-    let repository = Object.assign({}, current.repository);
+    const assignee = Object.assign({}, current.assignee);
+    const user = Object.assign({}, current.user);
+    const closedBy = Object.assign({}, current.closed_by);
+    const repository = Object.assign({}, current.repository);
     delete issueParams.assignee;
     delete issueParams.user;
     delete issueParams.repository;
@@ -171,7 +171,7 @@ export const saveIssues = async (issues) => {
     issueParams.assignee = assignee.id;
     issueParams.user = user.id;
     issueParams.repository = repository.id;
-    issueParams.closed_by = closed_by.id;
+    issueParams.closed_by = closedBy.id;
     issueParams.created_at = new Date(current.created_at);
     issueParams.updated_at = new Date(current.updated_at);
     issueParams.closed_at = (current.closed_at) ? new Date(current.closed_at) : null;
