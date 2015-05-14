@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 name: close_your_issues
-version: 4
+version: 5
 table:
   Configs:
     column:
@@ -79,14 +79,12 @@ table:
       open_issues: integer
       watchers: integer
       default_branch: string
-      permissions_admin: boolean
-      permissions_push: boolean
-      permissions_pull: boolean
-      organization: number
+      permissions: object
+      organization: object
       network_cont: integer
       subscribers_cont: integer
     constraint:
-      nullable: [ language, pushed_at, homepage, mirror_url, description ]
+      nullable: [ language, pushed_at, homepage, mirror_url, description, organization ]
       primaryKey: [ id ]
 #      foreignKey:
 #        fk_ownerId:
@@ -117,7 +115,6 @@ table:
       received_events_url: string
       type: string
       site_admin: boolean
-      # nullable
       created_at: datetime
       updated_at: datetime
     constraint:
@@ -137,21 +134,18 @@ table:
       title: string
       body_text: string
       user: number
-      #labels:
+      labels: object
       locked: boolean
       assignee: number
-      #milestone: number
+      milestone: object
       comments: integer
-      pull_request_url: string
-      pull_request_html_url: string
-      pull_request_diff_url: string
-      pull_request_patch_url: string
+      pull_request: object
       closed_at: datetime
       created_at: datetime
       updated_at: datetime
       closed_by: number
     constraint:
-      nullable: [ closed_at, pull_request_url, pull_request_html_url, pull_request_diff_url, pull_request_patch_url, body_text, closed_by ]
+      nullable: [ closed_at, pull_request, body_text, closed_by, assignee, labels, closed_by, milestone ]
       primaryKey: [ id ]
 #      foreignKey:
 #        fk_UserId:
