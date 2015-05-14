@@ -242,10 +242,12 @@ export default class IssueActions extends Actions {
       let url = issue.get("url");
       const response = await serverEditIssue(url, data, config);
       console.log(response);
-      if (this.flux.loggedIn()) {
-        saveIssues([response.data]);
+      if (!this.flux.loggedIn()) {
+        return response.data;
       }
-      return response.data;
+      const saved = await saveIssues([response.data]);
+      console.log(saved);
+      return saved[0];
     } catch(e) {
       console.log(e);
       throw e;
@@ -279,10 +281,12 @@ export default class IssueActions extends Actions {
 
       const response = await serverGetSingleIssue(issueUrl, config);
       console.log(response);
-      if (this.flux.loggedIn()) {
-        saveIssues([response.data]);
+      if (!this.flux.loggedIn()) {
+        return response.data;
       }
-      return response.data;
+      const saved = await saveIssues([response.data]);
+      console.log(saved);
+      return saved[0];
     } catch(e) {
       console.log(e);
       throw e;
@@ -330,10 +334,12 @@ export default class IssueActions extends Actions {
 
       const response2 = await serverGetSingleIssue(issueUrl, config);
       console.log(response2);
-      if (this.flux.loggedIn()) {
-        saveIssues([response.data]);
+      if (!this.flux.loggedIn()) {
+        return response2.data;
       }
-      return response2.data;
+      const saved = await saveIssues([response.data]);
+      console.log(saved);
+      return saved[0];
     } catch(e) {
       console.log(e);
       throw e;
