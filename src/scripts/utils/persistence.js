@@ -1,6 +1,7 @@
 "use strict";
 
 import removeTrailingSlash from "myUtils/removeTrailingSlash";
+import githubSlug from "myUtils/githubSlug";
 
 export const initConfig = async () => {
   const savedParams = dataToParams(await getPersistedConfigData());
@@ -84,7 +85,7 @@ export const saveIssues = async (issues) => {
   let userRows = issues.reduce((previous, current) => {
     let userParams;
     // issue's repository's owner
-    if (current.repository.owner) {
+    if (current.repository && current.repository.owner) {
       /* eslint-disable camelcase */
       userParams = Object.assign({}, current.repository.owner);
       userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
@@ -157,12 +158,19 @@ export const saveIssues = async (issues) => {
       previous.push(
         repositoriesTable.createRow(repositoryParams)
       );
+    } else {
+      // single issue does not have repository
+      // generate repository?
     }
     return previous;
   }, []);
 
   // insert_or_replace repositories
   await db.insertOrReplace().into(repositoriesTable).values(repositoryRows).exec();
+  const repos = await db
+    .select(repositoriesTable.id, repositoriesTable.full_name)
+    .from(repositoriesTable)
+    .exec();
 
   // set up issues
   let issuesTable = await db.getSchema().table("Issues");
@@ -179,7 +187,7 @@ export const saveIssues = async (issues) => {
     delete issueParams.closed_by;
     issueParams.user = user.id;
     issueParams.assignee = assignee.id;
-    issueParams.repository = repository.id;
+    issueParams.repository = repository.id || (current_repository(repos, issueParams.html_url) || {}).id;
     issueParams.closed_by = closedBy.id;
     issueParams.created_at = new Date(current.created_at);
     issueParams.updated_at = new Date(current.updated_at);
@@ -194,6 +202,16 @@ export const saveIssues = async (issues) => {
 
   // insert_or_replace issues
   return await db.insertOrReplace().into(issuesTable).values(issueRows).exec();
+};
+
+const current_repository = (data, htmlUrl) => {
+  console.log(data);
+  const slug = githubSlug(htmlUrl);
+  const repository = Array.find(data, (element) => {
+    return element.full_name === slug;
+  });
+  console.log(repository);
+  return repository;
 };
 
 const persistConfigParams = async (params) => {
