@@ -123,7 +123,7 @@ table:
   Issues:
     column:
       id: number
-      repository: object
+      repository: number
       url: string
       labels_url: string
       comments_url: string
@@ -136,7 +136,7 @@ table:
       user: object
       labels: object
       locked: boolean
-      assignee: object
+      assignee: number
       milestone: object
       comments: integer
       pull_request: object
