@@ -225,24 +225,28 @@ export const saveIssues = async (issues) => {
 };
 
 export const getAllIssues = async (params = {}) => {
-  let db = await dbConnection();
-  let lf = window.lf;
-  let issuesTable = await db.getSchema().table("Issues");
-  let repositoriesTable = await db.getSchema().table("Repositories");
-  let usersTable = await db.getSchema().table("Users");
-  let results = await db
-    .select()
-    .from(issuesTable)
-    .innerJoin(repositoriesTable, issuesTable.repository.eq(repositoriesTable.id))
-    .innerJoin(usersTable, issuesTable.user.eq(usersTable.id))
-    .orderBy(issuesTable.updated_at, lf.Order.DESC)
-    .exec();
+  let results = await getPersistedAllIssues();
   return results.map((result) => {
     let issue = Object.assign({}, result.Issues);
     issue.repository = result.Repositories;
     issue.user = result.Users;
     return issue;
   });
+};
+
+const getPersistedAllIssues = async (params = {}) => {
+  let db = await dbConnection();
+  let lf = window.lf;
+  let issuesTable = await db.getSchema().table("Issues");
+  let repositoriesTable = await db.getSchema().table("Repositories");
+  let usersTable = await db.getSchema().table("Users");
+  return await db
+    .select()
+    .from(issuesTable)
+    .innerJoin(repositoriesTable, issuesTable.repository.eq(repositoriesTable.id))
+    .innerJoin(usersTable, issuesTable.user.eq(usersTable.id))
+    .orderBy(issuesTable.updated_at, lf.Order.DESC)
+    .exec();
 };
 
 const currentRepository = (data, htmlUrl) => {
