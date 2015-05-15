@@ -155,7 +155,7 @@ export const saveIssues = async (issues) => {
   // set up repositories from issues
   let repositoriesTable = await db.getSchema().table("Repositories");
   let repositoryRows = issues.reduce((previous, current) => {
-    if(current.repository) {
+    if(current.repository && !doesRowsIncludesId(previous, current.repository.id)) {
       /* eslint-disable camelcase */
       let repositoryParams = Object.assign({}, current.repository);
       const owner = Object.assign({}, current.owner);
