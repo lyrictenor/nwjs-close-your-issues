@@ -118,24 +118,27 @@ export default class IssueActions extends Actions {
   }
 }
 
+  async serverListIssuesWithPage(url, page) {
+    const settings = this.flux.getConfig();
+    /* eslint-disable camelcase */
+    let issuesConfig = defaultConfig(settings.get("token"));
+    issuesConfig.params = {
+      filter: "all",
+      state: "all",
+      page: page,
+      per_page: 100,
+      sort: "updated"
+    };
+    /* eslint-enable camelcase */
+    return await serverListIssues(url, issuesConfig);
+  }
+
   async fetchAllIssues(endpointData) {
     try {
       const settings = this.flux.getConfig();
       // issues
       const issuesUrl = endpointData.issues_url;
-
-      /* eslint-disable camelcase */
-      let issuesConfig = defaultConfig(settings.get("token"));
-      issuesConfig.params = {
-        filter: "all",
-        state: "all",
-        page: 1,
-        per_page: 100,
-        sort: "updated"
-      };
-      /* eslint-enable camelcase */
-
-      const issuesResponse = await serverListIssues(issuesUrl, issuesConfig);
+      const issuesResponse = await this.serverListIssuesWithPage(issuesUrl, 1);
       const parsedLink2 = parseLinkHeader(issuesResponse.headers.link);
       console.log(issuesResponse);
       console.log(parsedLink2);
@@ -149,25 +152,11 @@ export default class IssueActions extends Actions {
       const somethingPromiseForPage12 = new Promise((resolve) => {
         resolve(saveIssues(issuesResponse.data));
       });
-      const serverListIssuesWithPage = (url, page) => {
-        const settings = this.flux.getConfig();
-        /* eslint-disable camelcase */
-        let issuesConfig = defaultConfig(settings.get("token"));
-        issuesConfig.params = {
-          filter: "all",
-          state: "all",
-          page: page,
-          per_page: 100,
-          sort: "updated"
-        };
-        /* eslint-enable camelcase */
-        return serverListIssues(url, issuesConfig);
-      };
       const promises2 = pageRange2.map((page) => {
         return Promise
           .resolve({page: page, url: issuesUrl})
           .then((value) => {
-            return serverListIssuesWithPage(value.url, value.page);
+            return this.serverListIssuesWithPage(value.url, value.page);
           })
           .then((response) => {
             console.log(response);
