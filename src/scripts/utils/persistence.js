@@ -31,13 +31,20 @@ export const saveConfig = async (settings) => {
 
 export const defaultValues = require("../../config_settings.json");
 
+const doesRowsIncludesId = (rows, id) => {
+  const ids = rows.map((row) => {
+    return row.payload_.id;
+  });
+  return ids.indexOf(id) !== -1;
+};
+
 export const saveUsersAndRepositories = async (repositories) => {
   let db = await dbConnection();
 
   // set up users
   let usersTable = await db.getSchema().table("Users");
   let userRows = repositories.reduce((previous, current) => {
-    if(current.owner) {
+    if(current.owner && !doesRowsIncludesId(previous, current.owner.id)) {
       /* eslint-disable camelcase */
       let userParams = Object.assign({}, current.owner);
       userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
