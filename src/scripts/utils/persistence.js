@@ -224,7 +224,7 @@ export const saveIssues = async (issues) => {
   });
 };
 
-export const getIssues = async (params = {}) => {
+export const getAllIssues = async (params = {}) => {
   let db = await dbConnection();
   let lf = window.lf;
   let issuesTable = await db.getSchema().table("Issues");
