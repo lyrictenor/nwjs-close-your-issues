@@ -50,6 +50,7 @@
     "less-loader": "^2.2.0",
     "load-grunt-tasks": "^3.1.0",
     "mocha": "^2.2.4",
+    "node-libs-browser": "^0.5.0",
     "node-webkit-builder": "^1.0.11",
     "power-assert": "^0.11.0",
     "react-hot-loader": "^1.0.7",
