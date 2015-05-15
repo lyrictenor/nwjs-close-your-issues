@@ -16,7 +16,7 @@ import serverGetSinglePullRequest from "myUtils/githubGetSinglePullRequest";
 import serverGetSingleRepository from "myUtils/githubGetSingleRepository";
 import serverDeleteRefs from "myUtils/githubDeleteRefs";
 import serverRootEndpoint from "myUtils/githubRootEndpoint";
-import { saveUsersAndRepositories, saveIssues, getIssues } from "myUtils/persistence";
+import { saveUsersAndRepositories, saveIssues, getAllIssues } from "myUtils/persistence";
 import AppError from "myUtils/AppError";
 
 const toggledIssueState = (state) => {
@@ -62,20 +62,25 @@ export default class IssueActions extends Actions {
     }
   }
 
+  async serverListYourRepositoriesWithPage(url, page) {
+    const settings = this.flux.getConfig();
+    /* eslint-disable camelcase */
+    let repositoriesConfig = defaultConfig(settings.get("token"));
+    repositoriesConfig.params = {
+      page: page,
+      per_page: 100
+    };
+    /* eslint-enable camelcase */
+    return await serverListYourRepositories(url, repositoriesConfig);
+  };
+
   async fetchRepositories(endpointData) {
     try {
       const settings = this.flux.getConfig();
       // repositories
       const repositoriesTemplate = uriTemplates(endpointData.current_user_repositories_url);
       const repositoriesUrl = repositoriesTemplate.fill({});
-      /* eslint-disable camelcase */
-      let repositoriesConfig = defaultConfig(settings.get("token"));
-      repositoriesConfig.params = {
-        page: 1,
-        per_page: 100
-      };
-      /* eslint-enable camelcase */
-      const repositoriesResponse = await serverListYourRepositories(repositoriesUrl, repositoriesConfig);
+      const repositoriesResponse = await this.serverListYourRepositoriesWithPage(repositoriesUrl, 1);
       const parsedLink = parseLinkHeader(repositoriesResponse.headers.link);
       console.log(repositoriesResponse);
       console.log(parsedLink);
@@ -89,22 +94,11 @@ export default class IssueActions extends Actions {
       const somethingPromiseForPage1 = new Promise((resolve) => {
         resolve(saveUsersAndRepositories(repositoriesResponse.data));
       });
-      const serverListYourRepositoriesWithPage = (url, page) => {
-        const settings = this.flux.getConfig();
-        /* eslint-disable camelcase */
-        let repositoriesConfig = defaultConfig(settings.get("token"));
-        repositoriesConfig.params = {
-          page: page,
-          per_page: 100
-        };
-        /* eslint-enable camelcase */
-        return serverListYourRepositories(url, repositoriesConfig);
-      };
       const promises = pageRange.map((page) => {
         return Promise
           .resolve({page: page, url: repositoriesUrl})
           .then((value) => {
-            return serverListYourRepositoriesWithPage(value.url, value.page);
+            return this.serverListYourRepositoriesWithPage(value.url, value.page);
           })
           .then((response) => {
             console.log(response);
@@ -124,24 +118,27 @@ export default class IssueActions extends Actions {
   }
 }
 
+  async serverListIssuesWithPage(url, page) {
+    const settings = this.flux.getConfig();
+    /* eslint-disable camelcase */
+    let issuesConfig = defaultConfig(settings.get("token"));
+    issuesConfig.params = {
+      filter: "all",
+      state: "all",
+      page: page,
+      per_page: 100,
+      sort: "updated"
+    };
+    /* eslint-enable camelcase */
+    return await serverListIssues(url, issuesConfig);
+  }
+
   async fetchAllIssues(endpointData) {
     try {
       const settings = this.flux.getConfig();
       // issues
       const issuesUrl = endpointData.issues_url;
-
-      /* eslint-disable camelcase */
-      let issuesConfig = defaultConfig(settings.get("token"));
-      issuesConfig.params = {
-        filter: "all",
-        state: "all",
-        page: 1,
-        per_page: 100,
-        sort: "updated"
-      };
-      /* eslint-enable camelcase */
-
-      const issuesResponse = await serverListIssues(issuesUrl, issuesConfig);
+      const issuesResponse = await this.serverListIssuesWithPage(issuesUrl, 1);
       const parsedLink2 = parseLinkHeader(issuesResponse.headers.link);
       console.log(issuesResponse);
       console.log(parsedLink2);
@@ -155,25 +152,11 @@ export default class IssueActions extends Actions {
       const somethingPromiseForPage12 = new Promise((resolve) => {
         resolve(saveIssues(issuesResponse.data));
       });
-      const serverListIssuesWithPage = (url, page) => {
-        const settings = this.flux.getConfig();
-        /* eslint-disable camelcase */
-        let issuesConfig = defaultConfig(settings.get("token"));
-        issuesConfig.params = {
-          filter: "all",
-          state: "all",
-          page: page,
-          per_page: 100,
-          sort: "updated"
-        };
-        /* eslint-enable camelcase */
-        return serverListIssues(url, issuesConfig);
-      };
       const promises2 = pageRange2.map((page) => {
         return Promise
           .resolve({page: page, url: issuesUrl})
           .then((value) => {
-            return serverListIssuesWithPage(value.url, value.page);
+            return this.serverListIssuesWithPage(value.url, value.page);
           })
           .then((response) => {
             console.log(response);
@@ -210,7 +193,7 @@ export default class IssueActions extends Actions {
       }
 
       await this.fetchAllIssues(endpointResponse.data);
-      const issues = await getIssues();
+      const issues = await getAllIssues();
       console.log(issues);
       return issues;
     } catch(e) {

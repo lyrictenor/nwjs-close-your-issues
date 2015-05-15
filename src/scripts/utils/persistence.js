@@ -31,13 +31,20 @@ export const saveConfig = async (settings) => {
 
 export const defaultValues = require("../../config_settings.json");
 
+const doesRowsIncludesId = (rows, id) => {
+  const ids = rows.map((row) => {
+    return row.payload_.id;
+  });
+  return ids.indexOf(id) !== -1;
+};
+
 export const saveUsersAndRepositories = async (repositories) => {
   let db = await dbConnection();
 
   // set up users
   let usersTable = await db.getSchema().table("Users");
   let userRows = repositories.reduce((previous, current) => {
-    if(current.owner) {
+    if(current.owner && !doesRowsIncludesId(previous, current.owner.id)) {
       /* eslint-disable camelcase */
       let userParams = Object.assign({}, current.owner);
       userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
@@ -89,7 +96,7 @@ export const saveIssues = async (issues) => {
   let userRows = issues.reduce((previous, current) => {
     let userParams;
     // issue's repository's owner
-    if (current.repository && current.repository.owner) {
+    if (current.repository && current.repository.owner && !doesRowsIncludesId(previous, current.repository.owner.id)) {
       /* eslint-disable camelcase */
       userParams = Object.assign({}, current.repository.owner);
       userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
@@ -102,7 +109,7 @@ export const saveIssues = async (issues) => {
     }
 
     // issue's user
-    if (current.user) {
+    if (current.user && !doesRowsIncludesId(previous, current.user.id)) {
       /* eslint-disable camelcase */
       userParams = Object.assign({}, current.user);
       userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
@@ -115,7 +122,7 @@ export const saveIssues = async (issues) => {
     }
 
     // issue's assignee
-    if (current.assignee) {
+    if (current.assignee && !doesRowsIncludesId(previous, current.assignee.id)) {
       /* eslint-disable camelcase */
       userParams = Object.assign({}, current.assignee);
       userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
@@ -127,7 +134,7 @@ export const saveIssues = async (issues) => {
       );
     }
     // issue's closed_by
-    if (current.closed_by) {
+    if (current.closed_by && !doesRowsIncludesId(previous, current.closed_by.id)) {
       /* eslint-disable camelcase */
       userParams = Object.assign({}, current.closed_by);
       userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
@@ -148,7 +155,7 @@ export const saveIssues = async (issues) => {
   // set up repositories from issues
   let repositoriesTable = await db.getSchema().table("Repositories");
   let repositoryRows = issues.reduce((previous, current) => {
-    if(current.repository) {
+    if(current.repository && !doesRowsIncludesId(previous, current.repository.id)) {
       /* eslint-disable camelcase */
       let repositoryParams = Object.assign({}, current.repository);
       const owner = Object.assign({}, current.owner);
@@ -224,25 +231,29 @@ export const saveIssues = async (issues) => {
   });
 };
 
-export const getIssues = async (params = {}) => {
-  let db = await dbConnection();
-  let lf = window.lf;
-  let issuesTable = await db.getSchema().table("Issues");
-  let repositoriesTable = await db.getSchema().table("Repositories");
-  let usersTable = await db.getSchema().table("Users");
-  let results = await db
-    .select()
-    .from(issuesTable)
-    .innerJoin(repositoriesTable, issuesTable.repository.eq(repositoriesTable.id))
-    .innerJoin(usersTable, issuesTable.user.eq(usersTable.id))
-    .orderBy(issuesTable.updated_at, lf.Order.DESC)
-    .exec();
+export const getAllIssues = async (params = {}) => {
+  let results = await getPersistedAllIssues();
   return results.map((result) => {
     let issue = Object.assign({}, result.Issues);
     issue.repository = result.Repositories;
     issue.user = result.Users;
     return issue;
   });
+};
+
+const getPersistedAllIssues = async (params = {}) => {
+  let db = await dbConnection();
+  let lf = window.lf;
+  let issuesTable = await db.getSchema().table("Issues");
+  let repositoriesTable = await db.getSchema().table("Repositories");
+  let usersTable = await db.getSchema().table("Users");
+  return await db
+    .select()
+    .from(issuesTable)
+    .innerJoin(repositoriesTable, issuesTable.repository.eq(repositoriesTable.id))
+    .innerJoin(usersTable, issuesTable.user.eq(usersTable.id))
+    .orderBy(issuesTable.updated_at, lf.Order.DESC)
+    .exec();
 };
 
 const currentRepository = (data, htmlUrl) => {
