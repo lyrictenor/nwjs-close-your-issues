@@ -20,6 +20,7 @@ class App extends React.Component {
   async componentDidMount() {
     await this.delayFunction(3000);
     this.props.flux.getActions("issues").fetchIssues();
+    this.props.flux.getActions("issues").fetchRepositories();
   }
 
   render() {

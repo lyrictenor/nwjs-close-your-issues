@@ -2,32 +2,28 @@
 
 import React from "react/addons";
 import UIPageHeader from "components/UI/PageHeader";
-import IssueList from "components/Issue/IssueList";
-import IssueHeader from "components/Issue/IssueHeader";
 import FluxComponent from "flummox/component";
+import RepositoryList from "components/Repository/RepositoryList";
 
-class InterfaceIssue extends React.Component {
+class InterfaceRepository extends React.Component {
   render() {
     const { ...props } = this.props;
     return (
       <div>
-        <UIPageHeader icon="gear" text="Issues" />
-        <IssueHeader
-          {...props}
-          />
+        <UIPageHeader icon="gear" text="Repositories" />
         <FluxComponent
           {...props}
           connectToStores={{
-            issues: store => ({
-              issues: store.getData()
+            repositories: store => ({
+              repositories: store.getData()
             })
           }}
           >
-          <IssueList />
+          <RepositoryList />
         </FluxComponent>
       </div>
     );
   }
 }
 
-export default InterfaceIssue;
+export default InterfaceRepository;

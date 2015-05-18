@@ -16,7 +16,7 @@ import serverGetSinglePullRequest from "myUtils/githubGetSinglePullRequest";
 import serverGetSingleRepository from "myUtils/githubGetSingleRepository";
 import serverDeleteRefs from "myUtils/githubDeleteRefs";
 import serverRootEndpoint from "myUtils/githubRootEndpoint";
-import { saveUsersAndRepositories, saveIssues, getAllIssues } from "myUtils/persistence";
+import { saveUsersAndRepositories, saveIssues, getAllIssues, getAllRepositories } from "myUtils/persistence";
 import AppError from "myUtils/AppError";
 
 const toggledIssueState = (state) => {
@@ -74,7 +74,7 @@ export default class IssueActions extends Actions {
     return await serverListYourRepositories(url, repositoriesConfig);
   };
 
-  async fetchRepositories(endpointData) {
+  async fetchServerRepositories(endpointData) {
     try {
       const settings = this.flux.getConfig();
       // repositories
@@ -168,10 +168,37 @@ export default class IssueActions extends Actions {
       });
 
       const results2 = await Promise.all([somethingPromiseForPage12, ...promises2]);
-
-      // repositories
-      this.fetchRepositories(endpointData);
       return results2;
+    } catch(e) {
+      console.log(e);
+      throw e;
+    }
+  }
+  async fetchRepositories() {
+    try {
+      const settings = this.flux.getConfig();
+      let config = defaultConfig(settings.get("token"));
+
+      // endpoint
+      const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
+
+      if (!this.flux.loggedIn()) {
+        // repository
+        const repositoryTemplate = uriTemplates(endpointResponse.data.repository_url);
+        const [owner, repo] = settings.get("slug").split("/");
+        const repositoryUrl = repositoryTemplate.fill({
+          owner: owner,
+          repo: repo
+        });
+        const repositoryResponse = await serverGetSingleRepository(repositoryUrl, config);
+        console.log(repositoryResponse);
+        return [repositoryResponse.data];
+      }
+
+      await this.fetchServerRepositories(endpointResponse.data);
+      const repositories = await getAllRepositories();
+      console.log(repositories);
+      return repositories;
     } catch(e) {
       console.log(e);
       throw e;

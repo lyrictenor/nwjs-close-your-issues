@@ -9,6 +9,7 @@ import AppFlux from "../flux/AppFlux";
 import App from "components/App";
 import InterfaceAbout from "components/Interfaces/About";
 import InterfaceIssue from "components/Interfaces/Issue";
+import InterfaceRepository from "components/Interfaces/Repository";
 import InterfaceConfig from "components/Interfaces/Config";
 
 try {
@@ -26,6 +27,7 @@ try {
         <DefaultRoute handler={InterfaceIssue} />
         <Route name="config" path="/config" handler={InterfaceConfig} />
         <Route name="about" path="/about" handler={InterfaceAbout} />
+        <Route name="repository" path="/repository" handler={InterfaceRepository} />
       </Route>
     );
 
