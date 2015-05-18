@@ -192,7 +192,7 @@ export default class IssueActions extends Actions {
         });
         const repositoryResponse = await serverGetSingleRepository(repositoryUrl, config);
         console.log(repositoryResponse);
-        return repositoryResponse.data;
+        return [repositoryResponse.data];
       }
 
       await this.fetchServerRepositories(endpointResponse.data);
