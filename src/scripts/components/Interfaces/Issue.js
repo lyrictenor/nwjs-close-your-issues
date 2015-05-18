@@ -19,7 +19,7 @@ class InterfaceIssue extends React.Component {
           {...props}
           connectToStores={{
             issues: store => ({
-              issues: store.getIssues()
+              issues: store.getData()
             })
           }}
           >

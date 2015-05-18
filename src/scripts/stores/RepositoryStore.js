@@ -95,33 +95,33 @@ export default class RepositoryStore extends Store {
      Registering action handlers
      */
   }
-  updateMultipleRepositories(repositories) {
-    let repositoriesMap = orderedMap();
-    for(let repository of repositories) {
-      repositoriesMap = repositoriesMap.set(repository.id, repositoryRecord(repository));
+  updateMultipleData(data) {
+    let dataMap = orderedMap();
+    for(let datum of data) {
+      dataMap = dataMap.set(datum.id, repositoryRecord(datum));
     }
 
-    this.setState({ repositories: this.state.repositories.merge(repositoriesMap) });
+    this.setState({ repositories: this.state.repositories.merge(dataMap) });
   }
-  clearRepositories() {
+  clearData() {
     this.setState({ repositories: this.state.repositories.clear() });
   }
-  deleteRepository(repository) {
-    let repositories = this.state.repositories.delete(repository.get("id"));
-    if(repositories !== this.state.repositories) {
-      this.setState({ repositories: repositories });
+  deleteDatum(datum) {
+    let data = this.state.repositories.delete(datum.get("id"));
+    if(data !== this.state.repositories) {
+      this.setState({ repositories: data });
     }
   }
-  updateSingleRepository(data) {
-    this.updateMultipleRepositories([data]);
+  updateSingleDatum(datum) {
+    this.updateMultipleData([datum]);
   }
-  updateSingleRepositoryWithoutSort(data) {
-    let repositoriesMap = orderedMap();
-    repositoriesMap = repositoriesMap.set(data.id, repositoryRecord(data));
-    this.setState({ repositories: this.state.repositories.merge(repositoriesMap) });
+  updateSingleDatumWithoutSort(datum) {
+    let dataMap = orderedMap();
+    dataMap = dataMap.set(datum.id, repositoryRecord(datum));
+    this.setState({ repositories: this.state.repositories.merge(dataMap) });
   }
 
-  getRepositories() {
+  getData() {
     return this.state.repositories;
   }
 }

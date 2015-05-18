@@ -113,40 +113,39 @@ export default class IssueStore extends Store {
 
     const issueActionIds = flux.getActionIds("issues");
 
-    this.register(issueActionIds.fetchIssues, this.updateMultipleIssues);
-    this.register(issueActionIds.clearIssues, this.clearIssues);
-    this.register(issueActionIds.deleteIssue, this.deleteIssue);
-    this.register(issueActionIds.toggleIssueState, this.updateSingleIssueWithoutSort);
-    this.register(issueActionIds.mergePullRequest, this.updateSingleIssueWithoutSort);
-    this.register(issueActionIds.deleteIssueBranch, this.updateSingleIssueWithoutSort);
+    this.register(issueActionIds.fetchIssues, this.updateMultipleData);
+    this.register(issueActionIds.clearIssues, this.clearData);
+    this.register(issueActionIds.deleteIssue, this.deleteDatum);
+    this.register(issueActionIds.toggleIssueState, this.updateSingleDatumWithoutSort);
+    this.register(issueActionIds.mergePullRequest, this.updateSingleDatumWithoutSort);
+    this.register(issueActionIds.deleteIssueBranch, this.updateSingleDatumWithoutSort);
   }
-  updateMultipleIssues(issues) {
-    let issuesMap = orderedMap();
-    for(let issue of issues) {
-      issuesMap = issuesMap.set(issue.id, issueRecord(issueDecorator(issue, this.flux.loggedIn())));
+  updateMultipleData(data) {
+    let dataMap = orderedMap();
+    for(let datum of data) {
+      dataMap = dataMap.set(datum.id, issueRecord(issueDecorator(datum, this.flux.loggedIn())));
     }
 
-    this.setState({ issues: this.state.issues.merge(issuesMap) });
+    this.setState({ issues: this.state.issues.merge(dataMap) });
   }
-  clearIssues() {
+  clearData() {
     this.setState({ issues: this.state.issues.clear() });
   }
-  deleteIssue(issue) {
-    let issues = this.state.issues.delete(issue.get("id"));
-    if(issues !== this.state.issues) {
-      this.setState({ issues: issues });
+  deleteDatum(datum) {
+    let data = this.state.issues.delete(datum.get("id"));
+    if(data !== this.state.issues) {
+      this.setState({ issues: data });
     }
   }
-  updateSingleIssue(data) {
-    this.updateMultipleIssues([data]);
+  updateSingleDatum(datum) {
+    this.updateMultipleData([datum]);
   }
-  updateSingleIssueWithoutSort(data) {
-    let issuesMap = orderedMap();
-    issuesMap = issuesMap.set(data.id, issueRecord(issueDecorator(data, this.flux.loggedIn())));
-    this.setState({ issues: this.state.issues.merge(issuesMap) });
+  updateSingleDatumWithoutSort(datum) {
+    let dataMap = orderedMap();
+    dataMap = dataMap.set(datum.id, issueRecord(issueDecorator(datum, this.flux.loggedIn())));
+    this.setState({ issues: this.state.issues.merge(dataMap) });
   }
-
-  getIssues() {
+  getData() {
     return this.state.issues;
   }
 }
