@@ -3,6 +3,7 @@
 import React from "react/addons";
 import UIPageHeader from "components/UI/PageHeader";
 import FluxComponent from "flummox/component";
+import RepositoryList from "components/Repository/RepositoryList";
 
 class InterfaceRepository extends React.Component {
   render() {
@@ -18,7 +19,7 @@ class InterfaceRepository extends React.Component {
             })
           }}
           >
-          <div></div>
+          <RepositoryList />
         </FluxComponent>
       </div>
     );

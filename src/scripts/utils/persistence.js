@@ -241,6 +241,28 @@ export const getAllIssues = async (params = {}) => {
   });
 };
 
+export const getAllRepositories = async (params = {}) => {
+  let results = await getPersistedAllRepositories();
+  return results.map((result) => {
+    let repo = Object.assign({}, result.Repositories);
+    repo.owner = result.Users;
+    return repo;
+  });
+};
+
+const getPersistedAllRepositories = async (params = {}) => {
+  let db = await dbConnection();
+  let lf = window.lf;
+  let repositoriesTable = await db.getSchema().table("Repositories");
+  let usersTable = await db.getSchema().table("Users");
+  return await db
+    .select()
+    .from(repositoriesTable)
+    .innerJoin(usersTable, repositoriesTable.owner.eq(usersTable.id))
+    .orderBy(repositoriesTable.updated_at, lf.Order.DESC)
+    .exec();
+};
+
 const getPersistedAllIssues = async (params = {}) => {
   let db = await dbConnection();
   let lf = window.lf;

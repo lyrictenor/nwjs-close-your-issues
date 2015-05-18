@@ -16,7 +16,7 @@ import serverGetSinglePullRequest from "myUtils/githubGetSinglePullRequest";
 import serverGetSingleRepository from "myUtils/githubGetSingleRepository";
 import serverDeleteRefs from "myUtils/githubDeleteRefs";
 import serverRootEndpoint from "myUtils/githubRootEndpoint";
-import { saveUsersAndRepositories, saveIssues, getAllIssues } from "myUtils/persistence";
+import { saveUsersAndRepositories, saveIssues, getAllIssues, getAllRepositories } from "myUtils/persistence";
 import AppError from "myUtils/AppError";
 
 const toggledIssueState = (state) => {
@@ -195,9 +195,10 @@ export default class IssueActions extends Actions {
         return repositoryResponse.data;
       }
 
-      const repositories = await this.fetchServerRepositories(endpointResponse.data);
+      await this.fetchServerRepositories(endpointResponse.data);
+      const repositories = await getAllRepositories();
       console.log(repositories);
-      return repositories.data;
+      return repositories;
     } catch(e) {
       console.log(e);
       throw e;
