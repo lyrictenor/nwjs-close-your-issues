@@ -266,7 +266,7 @@ const getPersistedAllRepositories = async (params = {}) => {
 export const getAllUsers = async (params = {}) => {
   let results = await getPersistedAllUsers();
   return results.map((result) => {
-    return Object.assign({}, result.Users);
+    return Object.assign({}, result);
   });
 };
 

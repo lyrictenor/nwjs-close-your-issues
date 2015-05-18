@@ -241,6 +241,7 @@ export default class IssueActions extends Actions {
 
       await this.fetchAllIssues(endpointResponse.data);
       const issues = await getAllIssues();
+      this.syncUsers();
       console.log(issues);
       return issues;
     } catch(e) {
