@@ -16,7 +16,7 @@ import serverGetSinglePullRequest from "myUtils/githubGetSinglePullRequest";
 import serverGetSingleRepository from "myUtils/githubGetSingleRepository";
 import serverDeleteRefs from "myUtils/githubDeleteRefs";
 import serverRootEndpoint from "myUtils/githubRootEndpoint";
-import { saveUsersAndRepositories, saveIssues, getAllIssues, getAllRepositories } from "myUtils/persistence";
+import { saveUsersAndRepositories, saveIssues, getAllIssues, getAllRepositories, getAllUsers } from "myUtils/persistence";
 import AppError from "myUtils/AppError";
 
 const toggledIssueState = (state) => {
@@ -205,6 +205,16 @@ export default class IssueActions extends Actions {
     }
   }
 
+  async syncUsers(users = []) {
+    console.log(users);
+    if (!this.flux.loggedIn()) {
+      return users;
+    }
+    const allUsers = await getAllUsers();
+    console.log(allUsers);
+    return allUsers;
+  }
+
   async fetchIssues() {
     try {
       const settings = this.flux.getConfig();
@@ -216,11 +226,22 @@ export default class IssueActions extends Actions {
       if (!this.flux.loggedIn()) {
         const repositoryIssues = await this.fetchSlugRepositoryIssues(endpointResponse.data, ...settings.get("slug").split("/"));
         console.log(repositoryIssues);
+        const users = repositoryIssues.data.reduce((previous, current) => {
+          const ids = previous.map((user) => {
+            return user.id;
+          });
+          if(current.user && ids.indexOf(current.user.id) === -1) {
+            previous.push(current.user);
+          }
+          return previous;
+        }, []);
+        this.syncUsers(users);
         return repositoryIssues.data;
       }
 
       await this.fetchAllIssues(endpointResponse.data);
       const issues = await getAllIssues();
+      this.syncUsers();
       console.log(issues);
       return issues;
     } catch(e) {

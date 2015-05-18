@@ -8,6 +8,7 @@ import IssueActions from "../actions/IssueActions";
 import ConfigActions from "../actions/ConfigActions";
 import IssueStore from "../stores/IssueStore";
 import RepositoryStore from "../stores/RepositoryStore";
+import UserStore from "../stores/UserStore";
 import ConfigStore from "../stores/ConfigStore";
 import { initConfig } from "myUtils/persistence";
 
@@ -29,6 +30,7 @@ export default class AppFlux extends Flux {
 
     this.createStore("issues", IssueStore, this);
     this.createStore("repositories", RepositoryStore, this);
+    this.createStore("users", UserStore, this);
     this.createStore("config", ConfigStore, this);
   }
 
