@@ -263,6 +263,24 @@ const getPersistedAllRepositories = async (params = {}) => {
     .exec();
 };
 
+export const getAllUsers = async (params = {}) => {
+  let results = await getPersistedAllUsers();
+  return results.map((result) => {
+    return Object.assign({}, result.Users);
+  });
+};
+
+const getPersistedAllUsers = async (params = {}) => {
+  let db = await dbConnection();
+  let lf = window.lf;
+  let usersTable = await db.getSchema().table("Users");
+  return await db
+    .select()
+    .from(usersTable)
+    .orderBy(usersTable.updated_at, lf.Order.DESC)
+    .exec();
+};
+
 const getPersistedAllIssues = async (params = {}) => {
   let db = await dbConnection();
   let lf = window.lf;
