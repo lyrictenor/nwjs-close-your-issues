@@ -94,6 +94,9 @@ export default class RepositoryStore extends Store {
     /*
      Registering action handlers
      */
+    const issueActionIds = flux.getActionIds("issues");
+
+    this.register(issueActionIds.fetchRepositories, this.updateMultipleData);
   }
   updateMultipleData(data) {
     let dataMap = orderedMap();
