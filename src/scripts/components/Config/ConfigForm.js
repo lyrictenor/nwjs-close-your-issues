@@ -33,7 +33,7 @@ class ConfigForm extends React.Component {
       "btn-block",
       {"btn-success": this.state.canSubmit},
     );
-    const { settings, defaultValues } = this.props;
+    const { settings, defaultValues, decryptedToken } = this.props;
 
     return (
       <Formsy.Form
@@ -58,7 +58,7 @@ class ConfigForm extends React.Component {
           name="token"
           type="password"
           validations="equalLengthOrEmpty:40"
-          value={settings.get("token")}
+          value={decryptedToken}
           helpBlock="Blank OR Just 40 characters" />
         <a href={settings.get("tokenurl")} onClick={onOpenExternals.bind(this)} >
           Get AccessToken

@@ -63,9 +63,9 @@ export default class IssueActions extends Actions {
   }
 
   async serverListYourRepositoriesWithPage(url, page) {
-    const settings = this.flux.getConfig();
+    const token = this.flux.getDecryptedToken();
     /* eslint-disable camelcase */
-    let repositoriesConfig = defaultConfig(settings.get("token"));
+    let repositoriesConfig = defaultConfig(token);
     repositoriesConfig.params = {
       page: page,
       per_page: 100
@@ -76,7 +76,6 @@ export default class IssueActions extends Actions {
 
   async fetchServerRepositories(endpointData) {
     try {
-      const settings = this.flux.getConfig();
       // repositories
       const repositoriesTemplate = uriTemplates(endpointData.current_user_repositories_url);
       const repositoriesUrl = repositoriesTemplate.fill({});
@@ -119,9 +118,9 @@ export default class IssueActions extends Actions {
 }
 
   async serverListIssuesWithPage(url, page) {
-    const settings = this.flux.getConfig();
+    const token = this.flux.getDecryptedToken();
     /* eslint-disable camelcase */
-    let issuesConfig = defaultConfig(settings.get("token"));
+    let issuesConfig = defaultConfig(token);
     issuesConfig.params = {
       filter: "all",
       state: "all",
@@ -135,7 +134,6 @@ export default class IssueActions extends Actions {
 
   async fetchAllIssues(endpointData) {
     try {
-      const settings = this.flux.getConfig();
       // issues
       const issuesUrl = endpointData.issues_url;
       const issuesResponse = await this.serverListIssuesWithPage(issuesUrl, 1);
@@ -177,7 +175,8 @@ export default class IssueActions extends Actions {
   async fetchRepositories() {
     try {
       const settings = this.flux.getConfig();
-      let config = defaultConfig(settings.get("token"));
+      const token = this.flux.getDecryptedToken();
+      let config = defaultConfig(token);
 
       // endpoint
       const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
@@ -217,8 +216,9 @@ export default class IssueActions extends Actions {
 
   async fetchIssues() {
     try {
+      const token = this.flux.getDecryptedToken();
       const settings = this.flux.getConfig();
-      let config = defaultConfig(settings.get("token"));
+      let config = defaultConfig(token);
 
       // endpoint
       const endpointResponse = await serverRootEndpoint(settings.get("apiendpoint"), config);
@@ -261,12 +261,12 @@ export default class IssueActions extends Actions {
 
   async toggleIssueState(issue) {
     try {
-      const settings = this.flux.getConfig();
+      const token = this.flux.getDecryptedToken();
       if (!this.flux.loggedIn()) {
         throw new AppError("toggle issue requires access token");
       }
 
-      let config = defaultConfig(settings.get("token"));
+      let config = defaultConfig(token);
       let data = {
         state: toggledIssueState(issue.get("state"))
       };
@@ -287,7 +287,7 @@ export default class IssueActions extends Actions {
 
   async mergePullRequest(issue) {
     try {
-      const settings = this.flux.getConfig();
+      const token = this.flux.getDecryptedToken();
       if (!this.flux.loggedIn()) {
         throw new AppError("toggle issue requires access token");
       }
@@ -298,7 +298,7 @@ export default class IssueActions extends Actions {
         throw new AppError("require issue url");
       }
 
-      let config = defaultConfig(settings.get("token"));
+      let config = defaultConfig(token);
       let data = {};
       const issueUrl = issue.url;
       const pullRequestUrl = issue.pull_request.url;
@@ -326,7 +326,7 @@ export default class IssueActions extends Actions {
 
   async deleteIssueBranch(issue) {
     try {
-      const settings = this.flux.getConfig();
+      const token = this.flux.getDecryptedToken();
       if (!this.flux.loggedIn()) {
         throw new AppError("toggle issue requires access token");
       }
@@ -337,7 +337,7 @@ export default class IssueActions extends Actions {
         throw new AppError("require issue url");
       }
 
-      let config = defaultConfig(settings.get("token"));
+      let config = defaultConfig(token);
       const pullRequestUrl = issue.pull_request.url;
       const issueUrl = issue.url;
 

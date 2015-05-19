@@ -16,6 +16,7 @@ export default class ConfigStore extends Store {
     super();
 
     this.state = { settings: immutableMap() };
+    this.flux = flux;
 
     /*
      Registering action handlers
@@ -38,5 +39,12 @@ export default class ConfigStore extends Store {
 
   getDefaultValues() {
     return defaultValues;
+  }
+  getDecryptedToken() {
+    const token = this.getSettings().get("token");
+    if (!token) {
+      return token;
+    }
+    return this.flux.decryptToken(token, this.flux.getPhrase());
   }
 }

@@ -3,6 +3,8 @@
 import { Flux } from "flummox";
 import Immutable from "immutable";
 const immutableMap = Immutable.Map;
+import AES from "crypto-js/aes";
+import cryptoJsEncUtf8 from "crypto-js/enc-utf8";
 
 import IssueActions from "../actions/IssueActions";
 import ConfigActions from "../actions/ConfigActions";
@@ -46,6 +48,20 @@ export default class AppFlux extends Flux {
   setUser(user) {
     this._user = user;
   }
+  getDecryptedToken() {
+    const token = this.getConfig().get("token");
+    if (!token) {
+      return token;
+    }
+    return this.decryptToken(token, this.getPhrase());
+  }
+  decryptToken(token, phrase) {
+    return AES.decrypt(token, phrase).toString(cryptoJsEncUtf8);
+  }
+  getPhrase() {
+    return "Thohh3quohgh0u";
+  }
+
   loggedIn() {
     return Boolean(this.getConfig().get("token"));
   }

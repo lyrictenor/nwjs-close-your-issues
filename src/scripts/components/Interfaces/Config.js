@@ -23,7 +23,8 @@ class InterfaceConfig extends React.Component {
               // Immutable.Map
               settings: store.getSettings(),
               // javascript object
-              defaultValues: store.getDefaultValues()
+              defaultValues: store.getDefaultValues(),
+              decryptedToken: store.getDecryptedToken()
             })
           }}
           >
