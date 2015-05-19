@@ -2,6 +2,7 @@
 
 import removeTrailingSlash from "myUtils/removeTrailingSlash";
 import githubSlug from "myUtils/githubSlug";
+import AES from "crypto-js/aes";
 
 export const initConfig = async () => {
   const savedParams = dataToParams(await getPersistedConfigData());
@@ -17,12 +18,21 @@ export const initConfig = async () => {
   return params;
 };
 
+const encryptToken = (token) => {
+  if (!token) {
+    return token;
+  }
+  const encrypted = AES.encrypt(token, "Thohh3quohgh0u");
+  console.log(encrypted);
+  return encrypted.toString();
+};
+
 export const saveConfig = async (settings) => {
   // mapping
   let params = {};
   params.apiendpoint = removeTrailingSlash(settings.apiendpoint);
   params.webendpoint = removeTrailingSlash(settings.webendpoint);
-  params.token = settings.token;
+  params.token = encryptToken(settings.token);
   params.slug = removeTrailingSlash(settings.slug);
 
   await persistConfigParams(params);
