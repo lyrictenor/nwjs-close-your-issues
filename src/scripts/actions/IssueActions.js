@@ -226,7 +226,7 @@ export default class IssueActions extends Actions {
       const pullsUrl = pullsTemplate.fill({
         number: null
       });
-      const pullsResponse = await serverListPullRequests(pullsUrl, 1);
+      const pullsResponse = await this.serverListPullRequestsWithPage(pullsUrl, 1);
       console.log(pullsResponse);
       const parsedLink = parseLinkHeader(pullsResponse.headers.link);
       console.log(parsedLink);
