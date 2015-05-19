@@ -13,10 +13,11 @@ import serverEditIssue from "myUtils/githubEditIssue";
 import serverGetSingleIssue from "myUtils/githubGetSingleIssue";
 import serverMergePullRequest from "myUtils/githubMergePullRequest";
 import serverGetSinglePullRequest from "myUtils/githubGetSinglePullRequest";
+import serverListPullRequests from "myUtils/githubListPullRequests";
 import serverGetSingleRepository from "myUtils/githubGetSingleRepository";
 import serverDeleteRefs from "myUtils/githubDeleteRefs";
 import serverRootEndpoint from "myUtils/githubRootEndpoint";
-import { saveUsersAndRepositories, saveIssues, getAllIssues, getAllRepositories, getAllUsers } from "myUtils/persistence";
+import { saveUsersAndRepositories, saveIssues, getAllIssues, getAllRepositories, getAllUsers, savePullRequests } from "myUtils/persistence";
 import AppError from "myUtils/AppError";
 
 const toggledIssueState = (state) => {
@@ -202,6 +203,72 @@ export default class IssueActions extends Actions {
       console.log(e);
       throw e;
     }
+  }
+
+  async serverListPullRequestsWithPage(url, page) {
+    const token = this.flux.getDecryptedToken();
+    /* eslint-disable camelcase */
+    let pullsConfig = defaultConfig(token);
+    pullsConfig.params = {
+      state: "all",
+      page: page,
+      per_page: 100,
+      sort: "updated"
+    };
+    /* eslint-enable camelcase */
+    return await serverListPullRequests(url, pullsConfig);
+  }
+
+  async fetchRepositoryPullRequests(repository) {
+    try {
+      // pull requests
+      const pullsTemplate = uriTemplates(repository.pulls_url);
+      const pullsUrl = pullsTemplate.fill({
+        number: null
+      });
+      const pullsResponse = await serverListPullRequests(pullsUrl, 1);
+      console.log(pullsResponse);
+      const parsedLink = parseLinkHeader(pullsResponse.headers.link);
+      console.log(parsedLink);
+      let lastPage = Number(parsedLink.last.page);
+      // FIXME: page count cap
+      lastPage = (lastPage > 5) ? 5 : lastPage;
+
+      // lastPage: 4; => [2, 3, 4]
+      // lastPage: 1; => []
+      const pageRange = range(2, lastPage + 1);
+      const somethingPromiseForPage1 = new Promise((resolve) => {
+        resolve(savePullRequests(pullsResponse.data));
+      });
+      const promises = pageRange.map((page) => {
+        return Promise
+          .resolve({page: page, url: pullsUrl})
+          .then((value) => {
+            return this.serverListPullRequestsWithPage(value.url, value.page);
+          })
+          .then((response) => {
+            console.log(response);
+            return savePullRequests(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+
+      const results = await Promise.all([somethingPromiseForPage1, ...promises]);
+      console.log(results);
+      return results;
+    } catch(e) {
+      console.log(e);
+      throw e;
+    }
+  }
+
+  async fetchPullRequests() {
+    const repositories = await this.fetchRepositories();
+    await repositories.map((repository) => {
+      this.fetchRepositoryPullRequests(repository);
+    });
   }
 
   async syncUsers(users = []) {

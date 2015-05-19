@@ -304,6 +304,12 @@ const currentRepository = (data, htmlUrl) => {
   return repository;
 };
 
+export const savePullRequests = async (pulls) => {
+  let db = await dbConnection();
+  let lf = window.lf;
+  return pulls;
+};
+
 const persistConfigParams = async (params) => {
   let db = await dbConnection();
   let configTables = await db.getSchema().table("Configs");
