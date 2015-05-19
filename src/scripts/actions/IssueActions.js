@@ -84,7 +84,12 @@ export default class IssueActions extends Actions {
       const parsedLink = parseLinkHeader(repositoriesResponse.headers.link);
       console.log(repositoriesResponse);
       console.log(parsedLink);
-      let lastPage = Number(parsedLink.last.page);
+      let lastPage;
+      if (!parsedLink) {
+        lastPage = 1;
+      } else {
+        lastPage = Number(parsedLink.last.page);
+      }
       // FIXME: page count cap
       lastPage = (lastPage > 5) ? 5 : lastPage;
 
@@ -138,20 +143,25 @@ export default class IssueActions extends Actions {
       // issues
       const issuesUrl = endpointData.issues_url;
       const issuesResponse = await this.serverListIssuesWithPage(issuesUrl, 1);
-      const parsedLink2 = parseLinkHeader(issuesResponse.headers.link);
+      const parsedLink = parseLinkHeader(issuesResponse.headers.link);
       console.log(issuesResponse);
-      console.log(parsedLink2);
-      let lastPage2 = Number(parsedLink2.last.page);
+      console.log(parsedLink);
+      let lastPage;
+      if (!parsedLink) {
+        lastPage = 1;
+      } else {
+        lastPage = Number(parsedLink.last.page);
+      }
       // FIXME: page count cap
-      lastPage2 = (lastPage2 > 5) ? 5 : lastPage2;
+      lastPage = (lastPage > 5) ? 5 : lastPage;
 
       // lastPage: 4; => [2, 3, 4]
       // lastPage: 1; => []
-      const pageRange2 = range(2, lastPage2 + 1);
-      const somethingPromiseForPage12 = new Promise((resolve) => {
+      const pageRange = range(2, lastPage + 1);
+      const somethingPromiseForPage1 = new Promise((resolve) => {
         resolve(saveIssues(issuesResponse.data));
       });
-      const promises2 = pageRange2.map((page) => {
+      const promises = pageRange.map((page) => {
         return Promise
           .resolve({page: page, url: issuesUrl})
           .then((value) => {
@@ -166,8 +176,8 @@ export default class IssueActions extends Actions {
           });
       });
 
-      const results2 = await Promise.all([somethingPromiseForPage12, ...promises2]);
-      return results2;
+      const results = await Promise.all([somethingPromiseForPage1, ...promises]);
+      return results;
     } catch(e) {
       console.log(e);
       throw e;
@@ -230,7 +240,12 @@ export default class IssueActions extends Actions {
       console.log(pullsResponse);
       const parsedLink = parseLinkHeader(pullsResponse.headers.link);
       console.log(parsedLink);
-      let lastPage = Number(parsedLink.last.page);
+      let lastPage;
+      if (!parsedLink) {
+        lastPage = 1;
+      } else {
+        lastPage = Number(parsedLink.last.page);
+      }
       // FIXME: page count cap
       lastPage = (lastPage > 5) ? 5 : lastPage;
 
