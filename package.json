@@ -13,6 +13,7 @@
     "bootstrap": "^3.3.4",
     "classnames": "^2.0.0",
     "core-js": "^0.9.3",
+    "crypto-js": "^3.1.4",
     "flummox": "^3.5.2",
     "font-awesome": "^4.3.0",
     "formsy-react": "^0.13.0",

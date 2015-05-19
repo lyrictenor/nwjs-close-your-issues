@@ -34,6 +34,11 @@
       "from": "core-js@^0.9.3",
       "resolved": "https://registry.npmjs.org/core-js/-/core-js-0.9.9.tgz"
     },
+    "crypto-js": {
+      "version": "3.1.4",
+      "from": "crypto-js@*",
+      "resolved": "https://registry.npmjs.org/crypto-js/-/crypto-js-3.1.4.tgz"
+    },
     "file-loader": {
       "version": "0.8.1",
       "from": "file-loader@*",

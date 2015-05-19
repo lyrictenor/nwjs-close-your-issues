@@ -11,6 +11,7 @@ import RepositoryStore from "../stores/RepositoryStore";
 import UserStore from "../stores/UserStore";
 import ConfigStore from "../stores/ConfigStore";
 import { initConfig } from "myUtils/persistence";
+import decryptValue from "myUtils/decryptValue";
 
 export default class AppFlux extends Flux {
   constructor() {
@@ -46,6 +47,13 @@ export default class AppFlux extends Flux {
   setUser(user) {
     this._user = user;
   }
+  getDecryptedToken() {
+    return decryptValue(this.getConfig().get("token"), this.getPhrase());
+  }
+  getPhrase() {
+    return "Thohh3quohgh0u";
+  }
+
   loggedIn() {
     return Boolean(this.getConfig().get("token"));
   }

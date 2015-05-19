@@ -4,6 +4,7 @@ import { Store } from "flummox";
 import Immutable from "immutable";
 const immutableMap = Immutable.Map;
 import { defaultValues } from "myUtils/persistence";
+import decryptValue from "myUtils/decryptValue";
 
 const configDecorator = (jsObject) => {
   let copied = Object.assign({}, jsObject);
@@ -16,6 +17,7 @@ export default class ConfigStore extends Store {
     super();
 
     this.state = { settings: immutableMap() };
+    this.flux = flux;
 
     /*
      Registering action handlers
@@ -38,5 +40,8 @@ export default class ConfigStore extends Store {
 
   getDefaultValues() {
     return defaultValues;
+  }
+  getDecryptedToken() {
+    return decryptValue(this.getSettings().get("token"), this.flux.getPhrase());
   }
 }
