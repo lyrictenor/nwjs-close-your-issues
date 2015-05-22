@@ -397,6 +397,50 @@ export const savePullRequests = async (pulls) => {
   // insert_or_replace users
   await db.insertOrReplace().into(usersTable).values(userRows).exec();
 
+  // set up repositories from pulls
+  // head's repo, base's repo
+  let repositoriesTable = await db.getSchema().table("Repositories");
+  let repositoryRows = pulls.reduce((previous, current) => {
+    let repositoryParams;
+    // head's repo
+    if(current.head && current.head.repo && !doesRowsIncludesId(previous, current.head.repo.id)) {
+      /* eslint-disable camelcase */
+      repositoryParams = Object.assign({}, current.head.repo);
+      const owner = Object.assign({}, current.head.repo.owner);
+      delete repositoryParams.owner;
+      repositoryParams.owner = owner.id;
+      repositoryParams.created_at = new Date(current.head.repo.created_at);
+      repositoryParams.updated_at = new Date(current.head.repo.updated_at);
+      repositoryParams.pushed_at = (current.head.repo.pushed_at) ? new Date(current.head.repo.pushed_at) : null;
+      /* eslint-eable camelcase */
+
+      previous.push(
+        repositoriesTable.createRow(repositoryParams)
+      );
+    }
+    // base's repo
+    if(current.base && current.base.repo && !doesRowsIncludesId(previous, current.base.repo.id)) {
+      /* eslint-disable camelcase */
+      repositoryParams = Object.assign({}, current.base.repo);
+      const owner2 = Object.assign({}, current.base.repo.owner);
+      delete repositoryParams.owner;
+      repositoryParams.owner = owner2.id;
+      repositoryParams.created_at = new Date(current.base.repo.created_at);
+      repositoryParams.updated_at = new Date(current.base.repo.updated_at);
+      repositoryParams.pushed_at = (current.base.repo.pushed_at) ? new Date(current.base.repo.pushed_at) : null;
+      /* eslint-eable camelcase */
+
+      previous.push(
+        repositoriesTable.createRow(repositoryParams)
+      );
+    }
+
+    return previous;
+  }, []);
+
+  // insert_or_replace repositories
+  await db.insertOrReplace().into(repositoriesTable).values(repositoryRows).exec();
+
   return pulls;
 };
 
