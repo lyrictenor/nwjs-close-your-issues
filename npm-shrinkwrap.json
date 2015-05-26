@@ -15,9 +15,9 @@
       }
     },
     "babel-runtime": {
-      "version": "5.4.2",
+      "version": "5.4.7",
       "from": "babel-runtime@^5.1.11",
-      "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.4.2.tgz"
+      "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.4.7.tgz"
     },
     "bootstrap": {
       "version": "3.3.4",
@@ -30,34 +30,34 @@
       "resolved": "https://registry.npmjs.org/classnames/-/classnames-2.1.1.tgz"
     },
     "core-js": {
-      "version": "0.9.9",
+      "version": "0.9.13",
       "from": "core-js@^0.9.3",
-      "resolved": "https://registry.npmjs.org/core-js/-/core-js-0.9.9.tgz"
+      "resolved": "https://registry.npmjs.org/core-js/-/core-js-0.9.13.tgz"
     },
     "crypto-js": {
       "version": "3.1.4",
-      "from": "crypto-js@*",
+      "from": "crypto-js@^3.1.4",
       "resolved": "https://registry.npmjs.org/crypto-js/-/crypto-js-3.1.4.tgz"
     },
     "file-loader": {
-      "version": "0.8.1",
+      "version": "0.8.4",
       "from": "file-loader@*",
-      "resolved": "https://registry.npmjs.org/file-loader/-/file-loader-0.8.1.tgz",
+      "resolved": "https://registry.npmjs.org/file-loader/-/file-loader-0.8.4.tgz",
       "dependencies": {
         "loader-utils": {
-          "version": "0.2.7",
+          "version": "0.2.9",
           "from": "loader-utils@~0.2.5",
-          "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-0.2.7.tgz",
+          "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-0.2.9.tgz",
           "dependencies": {
-            "json5": {
-              "version": "0.1.0",
-              "from": "json5@0.1.x",
-              "resolved": "https://registry.npmjs.org/json5/-/json5-0.1.0.tgz"
-            },
             "big.js": {
-              "version": "2.5.1",
-              "from": "big.js@~2.5.1",
-              "resolved": "https://registry.npmjs.org/big.js/-/big.js-2.5.1.tgz"
+              "version": "3.0.2",
+              "from": "big.js@^3.0.2",
+              "resolved": "https://registry.npmjs.org/big.js/-/big.js-3.0.2.tgz"
+            },
+            "json5": {
+              "version": "0.4.0",
+              "from": "json5@^0.4.0",
+              "resolved": "https://registry.npmjs.org/json5/-/json5-0.4.0.tgz"
             }
           }
         }
@@ -96,9 +96,9 @@
       "resolved": "https://registry.npmjs.org/font-awesome/-/font-awesome-4.3.0.tgz"
     },
     "formsy-react": {
-      "version": "0.13.1",
-      "from": "formsy-react@^0.13.0",
-      "resolved": "https://registry.npmjs.org/formsy-react/-/formsy-react-0.13.1.tgz"
+      "version": "0.14.1",
+      "from": "formsy-react@^0.14.1",
+      "resolved": "https://registry.npmjs.org/formsy-react/-/formsy-react-0.14.1.tgz"
     },
     "github-url-to-object": {
       "version": "1.5.2",
@@ -106,26 +106,26 @@
       "resolved": "https://registry.npmjs.org/github-url-to-object/-/github-url-to-object-1.5.2.tgz",
       "dependencies": {
         "is-url": {
-          "version": "1.2.0",
+          "version": "1.2.1",
           "from": "is-url@^1.1.0",
-          "resolved": "https://registry.npmjs.org/is-url/-/is-url-1.2.0.tgz"
+          "resolved": "https://registry.npmjs.org/is-url/-/is-url-1.2.1.tgz"
         }
       }
     },
     "immutable": {
-      "version": "3.7.2",
+      "version": "3.7.3",
       "from": "immutable@^3.6.4",
-      "resolved": "https://registry.npmjs.org/immutable/-/immutable-3.7.2.tgz"
+      "resolved": "https://registry.npmjs.org/immutable/-/immutable-3.7.3.tgz"
     },
     "lodash": {
-      "version": "3.8.0",
+      "version": "3.9.3",
       "from": "lodash@^3.8.0",
-      "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.8.0.tgz"
+      "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.9.3.tgz"
     },
     "lovefield": {
-      "version": "2.0.52",
+      "version": "2.0.54",
       "from": "lovefield@^2.0.49",
-      "resolved": "https://registry.npmjs.org/lovefield/-/lovefield-2.0.52.tgz",
+      "resolved": "https://registry.npmjs.org/lovefield/-/lovefield-2.0.54.tgz",
       "dependencies": {
         "js-yaml": {
           "version": "3.1.0",
@@ -162,9 +162,9 @@
           "resolved": "https://registry.npmjs.org/nopt/-/nopt-2.2.1.tgz",
           "dependencies": {
             "abbrev": {
-              "version": "1.0.5",
+              "version": "1.0.6",
               "from": "abbrev@1",
-              "resolved": "https://registry.npmjs.org/abbrev/-/abbrev-1.0.5.tgz"
+              "resolved": "https://registry.npmjs.org/abbrev/-/abbrev-1.0.6.tgz"
             }
           }
         }
@@ -187,14 +187,14 @@
       "dependencies": {
         "xtend": {
           "version": "4.0.0",
-          "from": "xtend@~4.0.0",
+          "from": "xtend@^4.0.0",
           "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.0.tgz"
         }
       }
     },
     "react": {
       "version": "0.13.3",
-      "from": "react@^0.13.2",
+      "from": "react@^0.13.3",
       "resolved": "https://registry.npmjs.org/react/-/react-0.13.3.tgz",
       "dependencies": {
         "envify": {
