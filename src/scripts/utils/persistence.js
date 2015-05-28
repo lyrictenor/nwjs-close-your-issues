@@ -485,6 +485,29 @@ export const savePullRequests = async (pulls) => {
   });
 };
 
+export const getAllPullRequests = async (params = {}) => {
+  let results = await getPersistedAllPullRequests();
+  return results.map((result) => {
+    let pull = Object.assign({}, result.PullRequests);
+    pull.user = result.Users;
+    return pull;
+  });
+};
+
+const getPersistedAllPullRequests = async (params = {}) => {
+  let db = await dbConnection();
+  let lf = window.lf;
+  let pullsTable = await db.getSchema().table("PullRequests");
+  let usersTable = await db.getSchema().table("Users");
+
+  return await db
+    .select()
+    .from(pullsTable)
+    .innerJoin(usersTable, pullsTable.user.eq(usersTable.id))
+    .orderBy(pullsTable.updated_at, lf.Order.DESC)
+    .exec();
+};
+
 const persistConfigParams = async (params) => {
   let db = await dbConnection();
   let configTables = await db.getSchema().table("Configs");
