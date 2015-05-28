@@ -441,7 +441,48 @@ export const savePullRequests = async (pulls) => {
   // insert_or_replace repositories
   await db.insertOrReplace().into(repositoriesTable).values(repositoryRows).exec();
 
-  return pulls;
+  // set up pulls
+  let pullsTable = await db.getSchema().table("PullRequests");
+  let pullRows = pulls.reduce((previous, current) => {
+    /* eslint-disable camelcase */
+    let pullParams = Object.assign({}, current);
+    const user = Object.assign({}, current.user);
+    const assignee = Object.assign({}, current.assignee);
+    delete pullParams.user;
+    delete pullParams.assignee;
+    pullParams.user = user.id;
+    pullParams.assignee = assignee.id;
+    pullParams.created_at = (current.created_at) ? new Date(current.created_at) : null;
+    pullParams.updated_at = (current.updated_at) ? new Date(current.updated_at) : null;
+    pullParams.closed_at = (current.closed_at) ? new Date(current.closed_at) : null;
+    pullParams.merged_at = (current.merged_at) ? new Date(current.merged_at) : null;
+    pullParams.base.repo = (current.base && current.base.repo) ? current.base.repo.id : null;
+    pullParams.base.user = (current.base && current.base.user) ? current.base.user.id : null;
+    pullParams.head.repo = (current.head && current.head.repo) ? current.head.repo.id : null;
+    pullParams.head.user = (current.head && current.head.user) ? current.head.user.id : null;
+    /* eslint-enable camelcase */
+
+    previous.push(
+      pullsTable.createRow(pullParams)
+    );
+
+    return previous;
+  }, []);
+  // insert_or_replace pulls
+  await db.insertOrReplace().into(pullsTable).values(pullRows).exec();
+
+  let results = await db
+    .select()
+    .from(pullsTable)
+    .innerJoin(usersTable, pullsTable.user.eq(usersTable.id))
+    .where(pullsTable.id.in(ids))
+    .orderBy(pullsTable.updated_at, lf.Order.DESC)
+    .exec();
+  return results.map((result) => {
+    let pull = Object.assign({}, result.PullRequests);
+    pull.user = result.Users;
+    return pull;
+  });
 };
 
 const persistConfigParams = async (params) => {
