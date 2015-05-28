@@ -33,7 +33,7 @@ export default class PullRequestStore extends Store {
       dataMap = dataMap.set(datum.id, pullRequestRecord(datum));
     }
 
-    this.setState({ pullRequests: this.state.repositories.merge(dataMap) });
+    this.setState({ pullRequests: this.state.pullRequests.merge(dataMap) });
   }
   clearData() {
     this.setState({ pullRequests: this.state.pullRequests.clear() });
