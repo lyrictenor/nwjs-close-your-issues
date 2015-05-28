@@ -82,8 +82,6 @@ export default class IssueActions extends Actions {
       const repositoriesUrl = repositoriesTemplate.fill({});
       const repositoriesResponse = await this.serverListYourRepositoriesWithPage(repositoriesUrl, 1);
       const parsedLink = parseLinkHeader(repositoriesResponse.headers.link);
-      console.log(repositoriesResponse);
-      console.log(parsedLink);
       let lastPage;
       if (!parsedLink) {
         lastPage = 1;
@@ -106,7 +104,6 @@ export default class IssueActions extends Actions {
             return this.serverListYourRepositoriesWithPage(value.url, value.page);
           })
           .then((response) => {
-            console.log(response);
             return saveUsersAndRepositories(response.data);
           })
           .catch((error) => {
@@ -114,9 +111,7 @@ export default class IssueActions extends Actions {
           });
       });
 
-      const results = await Promise.all([somethingPromiseForPage1, ...promises]);
-      console.log(results);
-      return results;
+      return await Promise.all([somethingPromiseForPage1, ...promises]);
     } catch(e) {
     console.log(e);
     throw e;
@@ -144,8 +139,6 @@ export default class IssueActions extends Actions {
       const issuesUrl = endpointData.issues_url;
       const issuesResponse = await this.serverListIssuesWithPage(issuesUrl, 1);
       const parsedLink = parseLinkHeader(issuesResponse.headers.link);
-      console.log(issuesResponse);
-      console.log(parsedLink);
       let lastPage;
       if (!parsedLink) {
         lastPage = 1;
@@ -168,7 +161,6 @@ export default class IssueActions extends Actions {
             return this.serverListIssuesWithPage(value.url, value.page);
           })
           .then((response) => {
-            console.log(response);
             return saveIssues(response.data);
           })
           .catch((error) => {
@@ -201,13 +193,11 @@ export default class IssueActions extends Actions {
           repo: repo
         });
         const repositoryResponse = await serverGetSingleRepository(repositoryUrl, config);
-        console.log(repositoryResponse);
         return [repositoryResponse.data];
       }
 
       await this.fetchServerRepositories(endpointResponse.data);
       const repositories = await getAllRepositories();
-      console.log(repositories);
       return repositories;
     } catch(e) {
       console.log(e);
@@ -237,9 +227,7 @@ export default class IssueActions extends Actions {
         number: null
       });
       const pullsResponse = await this.serverListPullRequestsWithPage(pullsUrl, 1);
-      console.log(pullsResponse);
       const parsedLink = parseLinkHeader(pullsResponse.headers.link);
-      console.log(parsedLink);
       let lastPage;
       if (!parsedLink) {
         lastPage = 1;
@@ -262,7 +250,6 @@ export default class IssueActions extends Actions {
             return this.serverListPullRequestsWithPage(value.url, value.page);
           })
           .then((response) => {
-            console.log(response);
             return savePullRequests(response.data);
           })
           .catch((error) => {
@@ -270,9 +257,7 @@ export default class IssueActions extends Actions {
           });
       });
 
-      const results = await Promise.all([somethingPromiseForPage1, ...promises]);
-      console.log(results);
-      return results;
+      return await Promise.all([somethingPromiseForPage1, ...promises]);
     } catch(e) {
       console.log(e);
       throw e;
@@ -284,18 +269,14 @@ export default class IssueActions extends Actions {
     await repositories.map((repository) => {
       this.fetchRepositoryPullRequests(repository);
     });
-    const pulls = await getAllPullRequests();
-    console.log(pulls);
-    return pulls;
+    return await getAllPullRequests();
   }
 
   async syncUsers(users = []) {
-    console.log(users);
     if (!this.flux.loggedIn()) {
       return users;
     }
     const allUsers = await getAllUsers();
-    console.log(allUsers);
     return allUsers;
   }
 
@@ -310,7 +291,6 @@ export default class IssueActions extends Actions {
 
       if (!this.flux.loggedIn()) {
         const repositoryIssues = await this.fetchSlugRepositoryIssues(endpointResponse.data, ...settings.get("slug").split("/"));
-        console.log(repositoryIssues);
         const users = repositoryIssues.data.reduce((previous, current) => {
           const ids = previous.map((user) => {
             return user.id;
@@ -327,7 +307,6 @@ export default class IssueActions extends Actions {
       await this.fetchAllIssues(endpointResponse.data);
       const issues = await getAllIssues();
       this.syncUsers();
-      console.log(issues);
       return issues;
     } catch(e) {
       console.log(e);
@@ -357,12 +336,10 @@ export default class IssueActions extends Actions {
       };
       let url = issue.get("url");
       const response = await serverEditIssue(url, data, config);
-      console.log(response);
       if (!this.flux.loggedIn()) {
         return response.data;
       }
       const saved = await saveIssues([response.data]);
-      console.log(saved);
       return saved[0];
     } catch(e) {
       console.log(e);
@@ -389,19 +366,15 @@ export default class IssueActions extends Actions {
       const pullRequestUrl = issue.pull_request.url;
 
       const mergeResponse = await serverMergePullRequest(pullRequestUrl, data, config);
-      console.log(mergeResponse);
       if (mergeResponse.data.merged !== true) {
-        console.log(mergeResponse.data.message);
         throw new AppError("merge does not complete");
       }
 
       const response = await serverGetSingleIssue(issueUrl, config);
-      console.log(response);
       if (!this.flux.loggedIn()) {
         return response.data;
       }
       const saved = await saveIssues([response.data]);
-      console.log(saved);
       return saved[0];
     } catch(e) {
       console.log(e);
@@ -427,7 +400,6 @@ export default class IssueActions extends Actions {
       const issueUrl = issue.url;
 
       const response = await serverGetSinglePullRequest(pullRequestUrl, config);
-      console.log(response);
 
       const pullRequest = response.data;
       const headRef = pullRequest.head.ref;
@@ -449,12 +421,10 @@ export default class IssueActions extends Actions {
       await serverDeleteRefs(refsUrl, config);
 
       const response2 = await serverGetSingleIssue(issueUrl, config);
-      console.log(response2);
       if (!this.flux.loggedIn()) {
         return response2.data;
       }
       const saved = await saveIssues([response2.data]);
-      console.log(saved);
       return saved[0];
     } catch(e) {
       console.log(e);
