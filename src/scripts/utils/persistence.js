@@ -316,7 +316,7 @@ export const savePullRequests = async (pulls) => {
   let userRows = pulls.reduce((previous, current) => {
     let userParams;
     // pull-head-repo's owner
-    if (current.head && current.haed.repo && current.head.repo.owner && !doesRowsIncludesId(previous, current.head.repo.owner.id)) {
+    if (current.head && current.head.repo && current.head.repo.owner && !doesRowsIncludesId(previous, current.head.repo.owner.id)) {
       /* eslint-disable camelcase */
       userParams = Object.assign({}, current.head.repo.owner);
       userParams.created_at = (userParams.created_at) ? new Date(userParams.created_at) : null;
