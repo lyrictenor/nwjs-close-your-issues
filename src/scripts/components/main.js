@@ -10,6 +10,7 @@ import App from "components/App";
 import InterfaceAbout from "components/Interfaces/About";
 import InterfaceIssue from "components/Interfaces/Issue";
 import InterfaceRepository from "components/Interfaces/Repository";
+import InterfacePullRequest from "components/Interfaces/PullRequest";
 import InterfaceUser from "components/Interfaces/User";
 import InterfaceConfig from "components/Interfaces/Config";
 
@@ -29,6 +30,7 @@ try {
         <Route name="config" path="/config" handler={InterfaceConfig} />
         <Route name="about" path="/about" handler={InterfaceAbout} />
         <Route name="repository" path="/repository" handler={InterfaceRepository} />
+        <Route name="pullRequest" path="/pullrequest" handler={InterfacePullRequest} />
         <Route name="user" path="/user" handler={InterfaceUser} />
       </Route>
     );

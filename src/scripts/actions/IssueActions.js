@@ -13,10 +13,11 @@ import serverEditIssue from "myUtils/githubEditIssue";
 import serverGetSingleIssue from "myUtils/githubGetSingleIssue";
 import serverMergePullRequest from "myUtils/githubMergePullRequest";
 import serverGetSinglePullRequest from "myUtils/githubGetSinglePullRequest";
+import serverListPullRequests from "myUtils/githubListPullRequests";
 import serverGetSingleRepository from "myUtils/githubGetSingleRepository";
 import serverDeleteRefs from "myUtils/githubDeleteRefs";
 import serverRootEndpoint from "myUtils/githubRootEndpoint";
-import { saveUsersAndRepositories, saveIssues, getAllIssues, getAllRepositories, getAllUsers } from "myUtils/persistence";
+import { saveUsersAndRepositories, saveIssues, getAllIssues, getAllRepositories, getAllUsers, savePullRequests, getAllPullRequests } from "myUtils/persistence";
 import AppError from "myUtils/AppError";
 
 const toggledIssueState = (state) => {
@@ -81,9 +82,12 @@ export default class IssueActions extends Actions {
       const repositoriesUrl = repositoriesTemplate.fill({});
       const repositoriesResponse = await this.serverListYourRepositoriesWithPage(repositoriesUrl, 1);
       const parsedLink = parseLinkHeader(repositoriesResponse.headers.link);
-      console.log(repositoriesResponse);
-      console.log(parsedLink);
-      let lastPage = Number(parsedLink.last.page);
+      let lastPage;
+      if (!parsedLink) {
+        lastPage = 1;
+      } else {
+        lastPage = Number(parsedLink.last.page);
+      }
       // FIXME: page count cap
       lastPage = (lastPage > 5) ? 5 : lastPage;
 
@@ -100,7 +104,6 @@ export default class IssueActions extends Actions {
             return this.serverListYourRepositoriesWithPage(value.url, value.page);
           })
           .then((response) => {
-            console.log(response);
             return saveUsersAndRepositories(response.data);
           })
           .catch((error) => {
@@ -108,9 +111,7 @@ export default class IssueActions extends Actions {
           });
       });
 
-      const results = await Promise.all([somethingPromiseForPage1, ...promises]);
-      console.log(results);
-      return results;
+      return await Promise.all([somethingPromiseForPage1, ...promises]);
     } catch(e) {
     console.log(e);
     throw e;
@@ -137,27 +138,29 @@ export default class IssueActions extends Actions {
       // issues
       const issuesUrl = endpointData.issues_url;
       const issuesResponse = await this.serverListIssuesWithPage(issuesUrl, 1);
-      const parsedLink2 = parseLinkHeader(issuesResponse.headers.link);
-      console.log(issuesResponse);
-      console.log(parsedLink2);
-      let lastPage2 = Number(parsedLink2.last.page);
+      const parsedLink = parseLinkHeader(issuesResponse.headers.link);
+      let lastPage;
+      if (!parsedLink) {
+        lastPage = 1;
+      } else {
+        lastPage = Number(parsedLink.last.page);
+      }
       // FIXME: page count cap
-      lastPage2 = (lastPage2 > 5) ? 5 : lastPage2;
+      lastPage = (lastPage > 5) ? 5 : lastPage;
 
       // lastPage: 4; => [2, 3, 4]
       // lastPage: 1; => []
-      const pageRange2 = range(2, lastPage2 + 1);
-      const somethingPromiseForPage12 = new Promise((resolve) => {
+      const pageRange = range(2, lastPage + 1);
+      const somethingPromiseForPage1 = new Promise((resolve) => {
         resolve(saveIssues(issuesResponse.data));
       });
-      const promises2 = pageRange2.map((page) => {
+      const promises = pageRange.map((page) => {
         return Promise
           .resolve({page: page, url: issuesUrl})
           .then((value) => {
             return this.serverListIssuesWithPage(value.url, value.page);
           })
           .then((response) => {
-            console.log(response);
             return saveIssues(response.data);
           })
           .catch((error) => {
@@ -165,8 +168,8 @@ export default class IssueActions extends Actions {
           });
       });
 
-      const results2 = await Promise.all([somethingPromiseForPage12, ...promises2]);
-      return results2;
+      const results = await Promise.all([somethingPromiseForPage1, ...promises]);
+      return results;
     } catch(e) {
       console.log(e);
       throw e;
@@ -190,13 +193,11 @@ export default class IssueActions extends Actions {
           repo: repo
         });
         const repositoryResponse = await serverGetSingleRepository(repositoryUrl, config);
-        console.log(repositoryResponse);
         return [repositoryResponse.data];
       }
 
       await this.fetchServerRepositories(endpointResponse.data);
       const repositories = await getAllRepositories();
-      console.log(repositories);
       return repositories;
     } catch(e) {
       console.log(e);
@@ -204,13 +205,78 @@ export default class IssueActions extends Actions {
     }
   }
 
+  async serverListPullRequestsWithPage(url, page) {
+    const token = this.flux.getDecryptedToken();
+    /* eslint-disable camelcase */
+    let pullsConfig = defaultConfig(token);
+    pullsConfig.params = {
+      state: "all",
+      page: page,
+      per_page: 100,
+      sort: "updated"
+    };
+    /* eslint-enable camelcase */
+    return await serverListPullRequests(url, pullsConfig);
+  }
+
+  async fetchRepositoryPullRequests(repository) {
+    try {
+      // pull requests
+      const pullsTemplate = uriTemplates(repository.pulls_url);
+      const pullsUrl = pullsTemplate.fill({
+        number: null
+      });
+      const pullsResponse = await this.serverListPullRequestsWithPage(pullsUrl, 1);
+      const parsedLink = parseLinkHeader(pullsResponse.headers.link);
+      let lastPage;
+      if (!parsedLink) {
+        lastPage = 1;
+      } else {
+        lastPage = Number(parsedLink.last.page);
+      }
+      // FIXME: page count cap
+      lastPage = (lastPage > 5) ? 5 : lastPage;
+
+      // lastPage: 4; => [2, 3, 4]
+      // lastPage: 1; => []
+      const pageRange = range(2, lastPage + 1);
+      const somethingPromiseForPage1 = new Promise((resolve) => {
+        resolve(savePullRequests(pullsResponse.data));
+      });
+      const promises = pageRange.map((page) => {
+        return Promise
+          .resolve({page: page, url: pullsUrl})
+          .then((value) => {
+            return this.serverListPullRequestsWithPage(value.url, value.page);
+          })
+          .then((response) => {
+            return savePullRequests(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+
+      return await Promise.all([somethingPromiseForPage1, ...promises]);
+    } catch(e) {
+      console.log(e);
+      throw e;
+    }
+  }
+
+  async fetchPullRequests() {
+    const repositories = await this.fetchRepositories();
+    await repositories.map((repository) => {
+      this.fetchRepositoryPullRequests(repository);
+    });
+    return await getAllPullRequests();
+  }
+
   async syncUsers(users = []) {
-    console.log(users);
     if (!this.flux.loggedIn()) {
       return users;
     }
     const allUsers = await getAllUsers();
-    console.log(allUsers);
     return allUsers;
   }
 
@@ -225,7 +291,6 @@ export default class IssueActions extends Actions {
 
       if (!this.flux.loggedIn()) {
         const repositoryIssues = await this.fetchSlugRepositoryIssues(endpointResponse.data, ...settings.get("slug").split("/"));
-        console.log(repositoryIssues);
         const users = repositoryIssues.data.reduce((previous, current) => {
           const ids = previous.map((user) => {
             return user.id;
@@ -242,7 +307,6 @@ export default class IssueActions extends Actions {
       await this.fetchAllIssues(endpointResponse.data);
       const issues = await getAllIssues();
       this.syncUsers();
-      console.log(issues);
       return issues;
     } catch(e) {
       console.log(e);
@@ -272,12 +336,10 @@ export default class IssueActions extends Actions {
       };
       let url = issue.get("url");
       const response = await serverEditIssue(url, data, config);
-      console.log(response);
       if (!this.flux.loggedIn()) {
         return response.data;
       }
       const saved = await saveIssues([response.data]);
-      console.log(saved);
       return saved[0];
     } catch(e) {
       console.log(e);
@@ -304,19 +366,15 @@ export default class IssueActions extends Actions {
       const pullRequestUrl = issue.pull_request.url;
 
       const mergeResponse = await serverMergePullRequest(pullRequestUrl, data, config);
-      console.log(mergeResponse);
       if (mergeResponse.data.merged !== true) {
-        console.log(mergeResponse.data.message);
         throw new AppError("merge does not complete");
       }
 
       const response = await serverGetSingleIssue(issueUrl, config);
-      console.log(response);
       if (!this.flux.loggedIn()) {
         return response.data;
       }
       const saved = await saveIssues([response.data]);
-      console.log(saved);
       return saved[0];
     } catch(e) {
       console.log(e);
@@ -342,7 +400,6 @@ export default class IssueActions extends Actions {
       const issueUrl = issue.url;
 
       const response = await serverGetSinglePullRequest(pullRequestUrl, config);
-      console.log(response);
 
       const pullRequest = response.data;
       const headRef = pullRequest.head.ref;
@@ -364,12 +421,10 @@ export default class IssueActions extends Actions {
       await serverDeleteRefs(refsUrl, config);
 
       const response2 = await serverGetSingleIssue(issueUrl, config);
-      console.log(response2);
       if (!this.flux.loggedIn()) {
         return response2.data;
       }
       const saved = await saveIssues([response2.data]);
-      console.log(saved);
       return saved[0];
     } catch(e) {
       console.log(e);

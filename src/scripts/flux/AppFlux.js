@@ -10,6 +10,7 @@ import IssueStore from "../stores/IssueStore";
 import RepositoryStore from "../stores/RepositoryStore";
 import UserStore from "../stores/UserStore";
 import ConfigStore from "../stores/ConfigStore";
+import PullRequestStore from "../stores/PullRequestStore";
 import { initConfig } from "myUtils/persistence";
 import decryptValue from "myUtils/decryptValue";
 
@@ -33,6 +34,7 @@ export default class AppFlux extends Flux {
     this.createStore("repositories", RepositoryStore, this);
     this.createStore("users", UserStore, this);
     this.createStore("config", ConfigStore, this);
+    this.createStore("pullRequests", PullRequestStore, this);
   }
 
   getConfig() {
