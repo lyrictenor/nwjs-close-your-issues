@@ -1,6 +1,6 @@
 {
   "name": "close-your-issues",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "dependencies": {
     "axios": {
       "version": "0.5.4",
