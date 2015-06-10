@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 name: close_your_issues
-version: 6
+version: 7
 table:
   Configs:
     column:
@@ -213,3 +213,15 @@ table:
 #          localColumn: user
 #          reference: Users
 #          remoteColumn: id
+  Statuses:
+    column:
+      identifier: string # repoId#sha
+      state: string
+      sha: string
+      total_count: integer
+      statuses: object
+      repository: number
+      commit_url: string
+      url: string
+    constraint:
+      primaryKey: [ identifier ]
