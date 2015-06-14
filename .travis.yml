@@ -4,8 +4,8 @@ env: CI=true
 node_js:
 - iojs
 script: "npm run verify"
-after_success:
-- bin/build.sh
+#after_success:
+#- bin/build.sh
 notifications:
   email:
   - ogataken@gmail.com
