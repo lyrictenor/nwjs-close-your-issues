@@ -1,5 +1,18 @@
 {
   "name": "close-your-issues",
   "version": "0.2.0",
-  "dependencies": {}
+  "dependencies": {
+    "github-url-to-object": {
+      "version": "1.5.2",
+      "from": "github-url-to-object@*",
+      "resolved": "https://registry.npmjs.org/github-url-to-object/-/github-url-to-object-1.5.2.tgz",
+      "dependencies": {
+        "is-url": {
+          "version": "1.2.1",
+          "from": "is-url@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/is-url/-/is-url-1.2.1.tgz"
+        }
+      }
+    }
+  }
 }
