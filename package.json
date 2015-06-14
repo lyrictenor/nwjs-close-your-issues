@@ -13,6 +13,7 @@
   "devDependencies": {
     "babel": "^5.5.8",
     "babel-core": "^5.5.8",
+    "babel-eslint": "^3.1.15",
     "eslint": "^0.22.1",
     "espower-babel": "^3.2.0",
     "glob-cli": "^1.0.0",
@@ -32,6 +33,7 @@
     "url": "https://github.com/lyrictenor/nwjs-close-your-issues"
   },
   "scripts": {
+    "eslint": "eslint --ext .js,.jsx src/scripts test",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess -- test/**/*.js"
   },
   "src": "src",
