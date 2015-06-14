@@ -36,7 +36,8 @@
     "eslint": "eslint --ext .js,.jsx src/scripts test",
     "jsonlint": "glob-cli **/*.json *.json | xargs -n 1 jsonlint",
     "lint": "npm run eslint && npm run jsonlint",
-    "test": "mocha --compilers js:babel/register --require espower-babel/guess -- test/**/*.js"
+    "test": "mocha --compilers js:babel/register --require espower-babel/guess -- test/**/*.js",
+    "verify": "npm run lint && npm run test"
   },
   "src": "src",
   "test": "test"
