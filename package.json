@@ -35,6 +35,7 @@
   "scripts": {
     "eslint": "eslint --ext .js,.jsx src/scripts test",
     "jsonlint": "glob-cli **/*.json *.json | xargs -n 1 jsonlint",
+    "lint": "npm run eslint && npm run jsonlint",
     "test": "mocha --compilers js:babel/register --require espower-babel/guess -- test/**/*.js"
   },
   "src": "src",
