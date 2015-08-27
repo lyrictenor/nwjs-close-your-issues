@@ -34,7 +34,7 @@
     "babel-eslint": "^3.0.1",
     "babel-loader": "^5.0.0",
     "conventional-changelog": "0.0.17",
-    "css-loader": "^0.12.0",
+    "css-loader": "^0.13.1",
     "eslint": "^0.21.0",
     "eslint-loader": "^0.11.1",
     "espower-babel": "^3.1.0",
